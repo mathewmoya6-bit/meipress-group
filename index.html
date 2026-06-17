@@ -57,7 +57,7 @@
             box-shadow: 0 10px 30px rgba(0,180,216,0.3);
         }
         
-        /* CTA Section - New */
+        /* CTA Section */
         .cta-section-index {
             background: linear-gradient(135deg, #1a1a2e, #0f3460);
             padding: 4rem 2rem;
@@ -134,8 +134,8 @@
             <div class="nav-links" id="navLinks">
                 <a href="index.html">Home</a>
                 <a href="client.html#services">Services</a>
-                <a href="client.html#apply">Apply</a>
-                <a href="login.html" class="btn-nav">Login</a>
+                <a href="client-request.html" class="btn-nav">Apply Now</a>
+                <a href="login.html">Login</a>
             </div>
         </div>
     </nav>
@@ -147,18 +147,17 @@
             <h1>Build Your Future With Us</h1>
             <p>Study Abroad • OSH Training • Driver Placement</p>
             <div class="hero-buttons">
-                <a href="client.html#apply" class="btn-hero">Apply Now</a>
+                <a href="client-request.html" class="btn-hero">Apply Now</a>
                 <a href="client.html#services" class="btn-hero-secondary">View Services</a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section - Now links to client.html -->
+    <!-- Services Section -->
     <section id="services" class="section">
         <div class="container">
             <h2 class="section-title">Our Services</h2>
             <div class="services-grid">
-                <!-- Service 1: Study Abroad - Links to client.html -->
                 <div class="service-card" onclick="location.href='client.html#service-study-abroad'">
                     <div class="service-icon">🎓</div>
                     <h3>Study Abroad</h3>
@@ -166,7 +165,6 @@
                     <span class="learn-more">Learn More →</span>
                 </div>
                 
-                <!-- Service 2: Road Safety Training - Links to client.html -->
                 <div class="service-card" onclick="location.href='client.html#service-road-safety'">
                     <div class="service-icon">🚸</div>
                     <h3>Road Safety Training</h3>
@@ -174,7 +172,6 @@
                     <span class="learn-more">Learn More →</span>
                 </div>
                 
-                <!-- Service 3: OSH Training - Links to client.html -->
                 <div class="service-card" onclick="location.href='client.html#service-osh'">
                     <div class="service-icon">🏭</div>
                     <h3>OSH Training</h3>
@@ -182,7 +179,6 @@
                     <span class="learn-more">Learn More →</span>
                 </div>
                 
-                <!-- Service 4: Driver Placement - Links to client.html -->
                 <div class="service-card" onclick="location.href='client.html#service-driver'">
                     <div class="service-icon">🚗</div>
                     <h3>Driver Placement</h3>
@@ -191,7 +187,6 @@
                 </div>
             </div>
             
-            <!-- View All Services Button -->
             <div style="text-align:center;margin-top:2rem;">
                 <a href="client.html#services" class="view-all-btn">
                     View All Services <i class="fas fa-arrow-right"></i>
@@ -224,13 +219,13 @@
         </div>
     </section>
 
-    <!-- CTA Section - Replaces the form -->
+    <!-- CTA Section -->
     <section class="section">
         <div class="container">
             <div class="cta-section-index">
                 <h2>Ready to Get Started?</h2>
                 <p>Contact us today and let us help you build your future.</p>
-                <a href="client.html#apply" class="btn-hero">Apply Now <i class="fas fa-arrow-right"></i></a>
+                <a href="client-request.html" class="btn-hero">Apply Now <i class="fas fa-arrow-right"></i></a>
             </div>
         </div>
     </section>
@@ -250,7 +245,7 @@
                     <h4>Quick Links</h4>
                     <p><a href="index.html">Home</a></p>
                     <p><a href="client.html#services">Services</a></p>
-                    <p><a href="client.html#apply">Apply Now</a></p>
+                    <p><a href="client-request.html">Apply Now</a></p>
                     <p><a href="login.html">Login</a></p>
                 </div>
                 <div class="footer-section">
@@ -279,33 +274,22 @@
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- ============================================ -->
-    <!-- SCRIPTS                                      -->
-    <!-- ============================================ -->
-    
-    <!-- 1. Supabase Library FIRST -->
+    <!-- Scripts -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- 2. Config -->
     <script src="js/config.js"></script>
-    
-    <!-- 3. Supabase Config -->
     <script src="js/supabase-config.js"></script>
-    
-    <!-- 4. Application Logic -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('🚀 Mei Press Group website loaded');
             
-            // Check if Supabase is ready
             if (typeof window.supabaseClient !== 'undefined') {
                 console.log('✅ Supabase client is ready');
             } else {
-                console.warn('⚠️ Supabase client not ready - check console for errors');
+                console.warn('⚠️ Supabase client not ready');
             }
         });
 
-        // Animate stats on scroll
+        // Animate stats
         const statsObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -328,7 +312,7 @@
         
         document.querySelectorAll('.stat-number').forEach(stat => statsObserver.observe(stat));
 
-        // Mobile menu toggle
+        // Mobile menu
         document.getElementById('mobileMenuBtn').addEventListener('click', function() {
             const navLinks = document.getElementById('navLinks');
             navLinks.classList.toggle('active');
@@ -360,8 +344,7 @@
         });
 
         console.log('✅ All scripts loaded successfully');
-        console.log('🔗 Services link to client.html#services');
-        console.log('🔗 Apply button links to client.html#apply');
+        console.log('🔗 Apply Now button links to client-request.html');
     </script>
 </body>
 </html>
