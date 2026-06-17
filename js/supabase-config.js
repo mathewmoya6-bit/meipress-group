@@ -1,39 +1,117 @@
-﻿// js/config.js
-// Application configuration
-
-const CONFIG = {
-    APP_NAME: 'Mei Press Group',
-    APP_VERSION: '1.0.0',
-    
-    SUPABASE: {
-        URL: 'https://ciodxticnskxyvearhvt.supabase.co',
-        ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpb2R4dGljbnNreHl2ZWFyaHZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMjU5NjksImV4cCI6MjA1OTYwMTk2OX0.OZESiw6Qcw4Zc-SgO4aeXVY6kngrN5yD7TgZkIrPWbE'
-    },
-    
-    CONTACT: {
-        PHONE: '+254703738707',
-        EMAIL: 'info@meipress.com',
-        ADDRESS: 'Nairobi, Kenya'
-    },
-    
-    MPESA: {
-        PAYBILL: '4095377'
-    },
-    
-    LINKS: {
-        FACEBOOK: '#',
-        TWITTER: '#',
-        INSTAGRAM: '#',
-        LINKEDIN: '#',
-        YOUTUBE: '#',
-        WHATSAPP: 'https://wa.me/254703738707'
+﻿// js/supabase-config.js
+(function initSupabase() {
+    if (typeof supabase === 'undefined') {
+        console.error('❌ Supabase library not loaded.');
+        return;
     }
-};
+    if (typeof CONFIG === 'undefined') {
+        console.error('❌ CONFIG not defined.');
+        return;
+    }
+    try {
+        const supabaseClient = supabase.createClient(
+            CONFIG.SUPABASE.URL,
+            CONFIG.SUPABASE.ANON_KEY,
+            {
+                auth: {
+                    autoRefreshToken: true,
+                    persistSession: true,
+                    detectSessionInUrl: true
+                }
+            }
+        );
+        window.supabaseClient = supabaseClient;
+        console.log('✅ Supabase client initialized');
 
-// Freeze to prevent modification
-Object.freeze(CONFIG);
-Object.freeze(CONFIG.CONTACT);
-Object.freeze(CONFIG.MPESA);
-Object.freeze(CONFIG.LINKS);
+        const Auth = {
+            getSession: async () => {
+                try {
+                    const { data, error } = await supabaseClient.auth.getSession();
+                    if (error) throw error;
+                    return data.session;
+                } catch (error) {
+                    console.error('Auth error:', error);
+                    return null;
+                }
+            },
+            signIn: async (email, password) => {
+                const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
+                if (error) throw error;
+                return data;
+            },
+            signUp: async (email, password, userData) => {
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email,
+                    password,
+                    options: { data: userData }
+                });
+                if (error) throw error;
+                return data;
+            },
+            signOut: async () => {
+                const { error } = await supabaseClient.auth.signOut();
+                if (error) throw error;
+            },
+            resetPassword: async (email) => {
+                const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+                    redirectTo: window.location.origin + '/pages/reset-password.html'
+                });
+                if (error) throw error;
+            }
+        };
+        window.Auth = Auth;
 
-console.log('✅ Config loaded');
+        const DB = {
+            createInquiry: async (data) => {
+                try {
+                    const { data: result, error } = await supabaseClient
+                        .from('inquiries')
+                        .insert([data])
+                        .select()
+                        .single();
+                    if (error) throw error;
+                    return result;
+                } catch (error) {
+                    console.error('DB error:', error);
+                    throw error;
+                }
+            },
+            getInquiries: async (filters = {}) => {
+                try {
+                    let query = supabaseClient
+                        .from('inquiries')
+                        .select('*')
+                        .order('created_at', { ascending: false });
+                    if (filters.status) {
+                        query = query.eq('status', filters.status);
+                    }
+                    const { data, error } = await query;
+                    if (error) throw error;
+                    return data;
+                } catch (error) {
+                    console.error('DB error:', error);
+                    return [];
+                }
+            },
+            updateInquiryStatus: async (id, status) => {
+                try {
+                    const { data, error } = await supabaseClient
+                        .from('inquiries')
+                        .update({ status, updated_at: new Date() })
+                        .eq('id', id)
+                        .select()
+                        .single();
+                    if (error) throw error;
+                    return data;
+                } catch (error) {
+                    console.error('DB error:', error);
+                    throw error;
+                }
+            }
+        };
+        window.DB = DB;
+        console.log('✅ Auth and DB helpers initialized');
+    } catch (error) {
+        console.error('❌ Failed to initialize Supabase:', error);
+    }
+})();
