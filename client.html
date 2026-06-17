@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Client Services - Mei Press Group</title>
+    <meta name="description" content="Mei Press Group - Expert guidance for studying abroad, road safety training, OSH training, and driver placement services.">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-icon-180x180.png">
+    
+    <!-- Fonts & Styles -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    
+    <style>
+        /* ============================================
+           Client Page Specific Styles
+           ============================================ */
+        
+        /* Services Hero */
+        .services-hero {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+            padding: 8rem 2rem 4rem;
+            text-align: center;
+            color: white;
+        }
+        .services-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+        .services-hero p {
+            font-size: 1.2rem;
+            color: #00b4d8;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        
+        /* Service Cards - Enhanced */
+        .service-detail-card {
+            background: white;
+            border-radius: 1.5rem;
+            padding: 2.5rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 5px 30px rgba(0,0,0,0.08);
+            border-left: 6px solid #00b4d8;
+            transition: all 0.3s ease;
+        }
+        .service-detail-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 50px rgba(0,180,216,0.15);
+        }
+        .service-detail-card .service-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .service-detail-card .service-icon {
+            font-size: 3.5rem;
+            width: 70px;
+            height: 70px;
+            background: #f0f7ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .service-detail-card h2 {
+            font-size: 1.8rem;
+            color: #1a1a2e;
+            margin: 0;
+        }
+        .service-detail-card .service-description {
+            color: #555;
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+        
+        /* Sub-service dropdown */
+        .sub-service-section {
+            background: #f8faff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+        }
+        .sub-service-section h4 {
+            color: #1a1a2e;
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .sub-service-section h4 i {
+            color: #00b4d8;
+        }
+        
+        .sub-service-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        .sub-service-item {
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 0.75rem;
+            border: 2px solid #e8ecf1;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            font-weight: 500;
+        }
+        .sub-service-item:hover {
+            border-color: #00b4d8;
+            background: #f0f7ff;
+            transform: translateY(-2px);
+        }
+        .sub-service-item.active {
+            border-color: #00b4d8;
+            background: #00b4d8;
+            color: white;
+        }
+        .sub-service-item .badge {
+            background: #00b4d8;
+            color: white;
+            font-size: 0.6rem;
+            padding: 0.2rem 0.6rem;
+            border-radius: 1rem;
+            font-weight: 600;
+        }
+        .sub-service-item.active .badge {
+            background: white;
+            color: #00b4d8;
+        }
+        
+        /* Service Details Panel */
+        .service-details-panel {
+            background: #f8faff;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            margin-top: 1rem;
+            display: none;
+            animation: slideDown 0.3s ease;
+        }
+        .service-details-panel.show {
+            display: block;
+        }
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .service-details-panel h5 {
+            color: #1a1a2e;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+        .service-details-panel p {
+            color: #555;
+            line-height: 1.6;
+        }
+        .service-details-panel ul {
+            list-style: none;
+            padding: 0;
+            margin-top: 0.5rem;
+        }
+        .service-details-panel ul li {
+            padding: 0.3rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+            color: #555;
+        }
+        .service-details-panel ul li:before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #00b4d8;
+            font-weight: bold;
+        }
+        
+        /* Apply Button */
+        .apply-now-btn {
+            display: inline-block;
+            background: #00b4d8;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            margin-top: 0.5rem;
+        }
+        .apply-now-btn:hover {
+            background: #0096c7;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,180,216,0.3);
+            color: white;
+        }
+        
+        /* CTA Section */
+        .cta-section {
+            background: linear-gradient(135deg, #1a1a2e, #0f3460);
+            padding: 4rem 2rem;
+            text-align: center;
+            color: white;
+            border-radius: 1.5rem;
+            margin-top: 3rem;
+        }
+        .cta-section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+        .cta-section p {
+            font-size: 1.1rem;
+            color: #ccc;
+            margin-bottom: 2rem;
+        }
+        .cta-section .btn-hero {
+            background: #00b4d8;
+            color: white;
+            padding: 1rem 3rem;
+            border: none;
+            border-radius: 3rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .cta-section .btn-hero:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px rgba(0,180,216,0.4);
+            background: #0096c7;
+        }
+        
+        /* OSH Module Badge Colors */
+        .module-legal { border-top-color: #1a73e8; }
+        .module-legal .module-icon { background: #e8f0fe; }
+        .module-workplace { border-top-color: #e37400; }
+        .module-workplace .module-icon { background: #fef3e0; }
+        .module-health { border-top-color: #0d9d58; }
+        .module-health .module-icon { background: #e6f4ea; }
+        .module-training { border-top-color: #9334e6; }
+        .module-training .module-icon { background: #f3e8ff; }
+        
+        /* Responsive */
+        @media (max-width: 768px) {
+            .services-hero h1 { font-size: 2.2rem; }
+            .service-detail-card .service-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            .service-detail-card h2 { font-size: 1.4rem; }
+            .sub-service-grid {
+                grid-template-columns: 1fr;
+            }
+            .cta-section h2 { font-size: 1.8rem; }
+        }
+        @media (max-width: 480px) {
+            .services-hero { padding: 6rem 1rem 3rem; }
+            .service-detail-card { padding: 1.5rem; }
+            .sub-service-item { font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="mainNav">
+        <div class="nav-container">
+            <div class="logo">
+                <a href="index.html">MEI PRESS GROUP<span>Build Your Future With Us</span></a>
+            </div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html">Home</a>
+                <a href="#services">Services</a>
+                <a href="index.html#apply">Apply</a>
+                <a href="login.html" class="btn-nav">Login</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Services Hero -->
+    <section class="services-hero">
+        <h1>Our Services</h1>
+        <p>Expert guidance and professional training to help you build your future</p>
+    </section>
+
+    <!-- Services List -->
+    <section id="services" class="section">
+        <div class="container">
+
+            <!-- ==========================================
+            SERVICE 1: Study Abroad
+            ========================================== -->
+            <div class="service-detail-card" id="service-study-abroad">
+                <div class="service-header">
+                    <div class="service-icon">🎓</div>
+                    <h2>Study Abroad</h2>
+                </div>
+                <div class="service-description">
+                    Expert guidance for studying in USA, Canada, UK, Australia, and more. We provide end-to-end support from university selection to visa processing.
+                </div>
+                
+                <!-- Sub-services dropdown -->
+                <div class="sub-service-section">
+                    <h4><i class="fas fa-chevron-down"></i> Select Your Study Destination</h4>
+                    <div class="sub-service-grid" id="studyDestinations">
+                        <div class="sub-service-item" data-service="study" data-detail="usa">
+                            🇺🇸 USA
+                            <span class="badge">Popular</span>
+                        </div>
+                        <div class="sub-service-item" data-service="study" data-detail="canada">
+                            🇨🇦 Canada
+                            <span class="badge">Popular</span>
+                        </div>
+                        <div class="sub-service-item" data-service="study" data-detail="uk">
+                            🇬🇧 UK
+                        </div>
+                        <div class="sub-service-item" data-service="study" data-detail="australia">
+                            🇦🇺 Australia
+                        </div>
+                        <div class="sub-service-item" data-service="study" data-detail="germany">
+                            🇩🇪 Germany
+                        </div>
+                    </div>
+                    
+                    <!-- Details Panel -->
+                    <div class="service-details-panel" id="studyDetails">
+                        <h5 id="studyDetailTitle">🇺🇸 USA</h5>
+                        <p id="studyDetailDesc">Top universities, diverse programs, and excellent career opportunities. We help with university selection, application, scholarships, and visa processing.</p>
+                        <ul id="studyDetailList">
+                            <li>University selection guidance</li>
+                            <li>Application assistance</li>
+                            <li>Scholarship guidance</li>
+                            <li>Visa processing support</li>
+                            <li>Pre-departure orientation</li>
+                        </ul>
+                        <a href="index.html#apply" class="apply-now-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+            SERVICE 2: Road Safety Training
+            ========================================== -->
+            <div class="service-detail-card" id="service-road-safety">
+                <div class="service-header">
+                    <div class="service-icon">🚸</div>
+                    <h2>Road Safety Training</h2>
+                </div>
+                <div class="service-description">
+                    Comprehensive road safety training programs designed for primary and secondary school pupils. Building a culture of road safety from a young age.
+                </div>
+                
+                <!-- Sub-services dropdown -->
+                <div class="sub-service-section">
+                    <h4><i class="fas fa-chevron-down"></i> Training Programs</h4>
+                    <div class="sub-service-grid">
+                        <div class="sub-service-item" data-service="road" data-detail="primary">
+                            🏫 Primary School
+                            <span class="badge">Ages 6-12</span>
+                        </div>
+                        <div class="sub-service-item" data-service="road" data-detail="secondary">
+                            🏫 Secondary School
+                            <span class="badge">Ages 13-18</span>
+                        </div>
+                        <div class="sub-service-item" data-service="road" data-detail="community">
+                            👨‍👩‍👧‍👦 Community Programs
+                        </div>
+                    </div>
+                    
+                    <!-- Details Panel -->
+                    <div class="service-details-panel" id="roadDetails">
+                        <h5 id="roadDetailTitle">🏫 Primary School Program</h5>
+                        <p id="roadDetailDesc">Age-appropriate road safety education for young learners. Interactive sessions that teach basic road safety rules and pedestrian skills.</p>
+                        <ul id="roadDetailList">
+                            <li>Basic road safety rules</li>
+                            <li>Pedestrian safety</li>
+                            <li>Crossing the road safely</li>
+                            <li>School bus safety</li>
+                            <li>Interactive workshops</li>
+                        </ul>
+                        <a href="index.html#apply" class="apply-now-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+            SERVICE 3: OSH Training - UPDATED
+            ========================================== -->
+            <div class="service-detail-card" id="service-osh">
+                <div class="service-header">
+                    <div class="service-icon">🏭</div>
+                    <h2>OSH Training</h2>
+                </div>
+                <div class="service-description">
+                    Comprehensive Occupational Safety and Health (OSH) training programs covering legal compliance, workplace safety, health services, and training documentation.
+                </div>
+                
+                <!-- Sub-services dropdown -->
+                <div class="sub-service-section">
+                    <h4><i class="fas fa-chevron-down"></i> Training Modules</h4>
+                    <div class="sub-service-grid">
+                        <div class="sub-service-item module-legal" data-service="osh" data-detail="legal">
+                            🔍 Legal Compliance
+                            <span class="badge">Regulatory</span>
+                        </div>
+                        <div class="sub-service-item module-workplace" data-service="osh" data-detail="workplace">
+                            ⚠️ Workplace Safety
+                            <span class="badge">Core</span>
+                        </div>
+                        <div class="sub-service-item module-health" data-service="osh" data-detail="health">
+                            📋 Health Services
+                            <span class="badge">Wellness</span>
+                        </div>
+                        <div class="sub-service-item module-training" data-service="osh" data-detail="training">
+                            📊 Training & Documentation
+                            <span class="badge">Compliance</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Details Panel -->
+                    <div class="service-details-panel" id="oshDetails">
+                        <h5 id="oshDetailTitle">🔍 Legal Compliance</h5>
+                        <p id="oshDetailDesc">Comprehensive training on occupational safety and health legal requirements, regulatory compliance, and workplace safety laws.</p>
+                        <ul id="oshDetailList">
+                            <li>Occupational safety and health laws</li>
+                            <li>Regulatory compliance requirements</li>
+                            <li>Workplace safety regulations</li>
+                            <li>Legal responsibilities of employers</li>
+                            <li>Employee rights and protections</li>
+                            <li>Compliance auditing and reporting</li>
+                        </ul>
+                        <a href="index.html#apply" class="apply-now-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==========================================
+            SERVICE 4: Driver Placement
+            ========================================== -->
+            <div class="service-detail-card" id="service-driver">
+                <div class="service-header">
+                    <div class="service-icon">🚗</div>
+                    <h2>Driver Placement</h2>
+                </div>
+                <div class="service-description">
+                    Professional driver and rider placement services, including driver recruitment both locally and internationally.
+                </div>
+                
+                <!-- Sub-services dropdown -->
+                <div class="sub-service-section">
+                    <h4><i class="fas fa-chevron-down"></i> Placement Options</h4>
+                    <div class="sub-service-grid">
+                        <div class="sub-service-item" data-service="driver" data-detail="driver">
+                            🚗 Driver / Rider
+                            <span class="badge">Local</span>
+                        </div>
+                        <div class="sub-service-item" data-service="driver" data-detail="recruiter">
+                            📋 Driver Recruiter
+                            <span class="badge">Local</span>
+                        </div>
+                        <div class="sub-service-item" data-service="driver" data-detail="international">
+                            🌍 International Placement
+                            <span class="badge">Global</span>
+                        </div>
+                    </div>
+                    
+                    <!-- Details Panel -->
+                    <div class="service-details-panel" id="driverDetails">
+                        <h5 id="driverDetailTitle">🚗 Driver / Rider</h5>
+                        <p id="driverDetailDesc">Professional driver and rider placement services for individuals seeking driving positions locally.</p>
+                        <ul id="driverDetailList">
+                            <li>Driver/rider placement services</li>
+                            <li>License verification</li>
+                            <li>Background checks</li>
+                            <li>Training and certification</li>
+                            <li>Ongoing support</li>
+                        </ul>
+                        <a href="index.html#apply" class="apply-now-btn">Apply Now <i class="fas fa-arrow-right"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- CTA Section -->
+            <div class="cta-section">
+                <h2>Ready to Get Started?</h2>
+                <p>Contact us today and let us help you build your future.</p>
+                <a href="index.html#apply" class="btn-hero">Apply Now</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Mei Press Group</h4>
+                    <p>Your gateway to global opportunities.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📞 <a href="tel:+254703738707" style="color:#00b4d8;">0703 738 707</a></p>
+                    <p>📧 <a href="mailto:info@meipress.com" style="color:#00b4d8;">info@meipress.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Mei Press Group. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- ============================================ -->
+    <!-- SCRIPTS                                      -->
+    <!-- ============================================ -->
+    
+    <!-- Supabase Library -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- Config -->
+    <script src="js/config.js"></script>
+    
+    <!-- Supabase Config -->
+    <script src="js/supabase-config.js"></script>
+    
+    <!-- Page Logic -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🚀 Client Services page loaded');
+            
+            // ==========================================
+            // Service Details Data
+            // ==========================================
+            const serviceDetails = {
+                // Study Abroad
+                study: {
+                    usa: {
+                        title: '🇺🇸 USA',
+                        desc: 'Top universities, diverse programs, and excellent career opportunities. We help with university selection, application, scholarships, and visa processing.',
+                        list: ['University selection guidance', 'Application assistance', 'Scholarship guidance', 'Visa processing support', 'Pre-departure orientation']
+                    },
+                    canada: {
+                        title: '🇨🇦 Canada',
+                        desc: 'Quality education, work opportunities, and a welcoming environment. We assist with university applications, study permits, and settlement support.',
+                        list: ['University selection guidance', 'Application assistance', 'Scholarship guidance', 'Study permit processing', 'Pre-departure orientation', 'Settlement support']
+                    },
+                    uk: {
+                        title: '🇬🇧 UK',
+                        desc: 'World-class institutions and rich academic heritage. We help with university selection, UCAS applications, and student visa processing.',
+                        list: ['University selection guidance', 'UCAS application support', 'Scholarship guidance', 'Student visa processing', 'Pre-departure orientation']
+                    },
+                    australia: {
+                        title: '🇦🇺 Australia',
+                        desc: 'Excellent lifestyle, high-quality education, and post-study work opportunities. We assist with university applications and student visa processing.',
+                        list: ['University selection guidance', 'Application assistance', 'Scholarship guidance', 'Student visa processing', 'Post-study work guidance']
+                    },
+                    germany: {
+                        title: '🇩🇪 Germany',
+                        desc: 'Free education, strong economy, and excellent career prospects. We help with university applications, visa processing, and settlement support.',
+                        list: ['University selection guidance', 'Application assistance', 'Scholarship guidance', 'Student visa processing', 'Settlement support']
+                    }
+                },
+                
+                // Road Safety
+                road: {
+                    primary: {
+                        title: '🏫 Primary School Program',
+                        desc: 'Age-appropriate road safety education for young learners. Interactive sessions that teach basic road safety rules and pedestrian skills.',
+                        list: ['Basic road safety rules', 'Pedestrian safety', 'Crossing the road safely', 'School bus safety', 'Interactive workshops']
+                    },
+                    secondary: {
+                        title: '🏫 Secondary School Program',
+                        desc: 'Comprehensive road safety education for teenagers. Focuses on pedestrian safety, cycling safety, and responsible behavior on the road.',
+                        list: ['Advanced road safety rules', 'Cycling safety', 'Peer education', 'Responsible road use', 'Driver awareness']
+                    },
+                    community: {
+                        title: '👨‍👩‍👧‍👦 Community Programs',
+                        desc: 'Road safety awareness programs for the community. We provide training and resources to promote road safety for everyone.',
+                        list: ['Community awareness campaigns', 'Road safety workshops', 'Parent education', 'Community partnerships', 'Resource sharing']
+                    }
+                },
+                
+                // OSH Training - UPDATED with new modules
+                osh: {
+                    legal: {
+                        title: '🔍 Legal Compliance',
+                        desc: 'Comprehensive training on occupational safety and health legal requirements, regulatory compliance, and workplace safety laws.',
+                        list: [
+                            'Occupational safety and health laws',
+                            'Regulatory compliance requirements',
+                            'Workplace safety regulations',
+                            'Legal responsibilities of employers',
+                            'Employee rights and protections',
+                            'Compliance auditing and reporting'
+                        ]
+                    },
+                    workplace: {
+                        title: '⚠️ Workplace Safety',
+                        desc: 'Practical training on identifying workplace hazards, implementing safety measures, and creating a culture of safety in the workplace.',
+                        list: [
+                            'Identifying workplace hazards',
+                            'Risk assessment techniques',
+                            'Safety control measures',
+                            'Emergency response planning',
+                            'Incident investigation',
+                            'Safety culture development'
+                        ]
+                    },
+                    health: {
+                        title: '📋 Health Services',
+                        desc: 'Training on workplace health services, employee wellness programs, occupational health management, and mental health support.',
+                        list: [
+                            'Occupational health services',
+                            'Employee wellness programs',
+                            'First aid and emergency response',
+                            'Mental health awareness',
+                            'Health surveillance',
+                            'Stress management'
+                        ]
+                    },
+                    training: {
+                        title: '📊 Training & Documentation',
+                        desc: 'Training on OSH documentation, record keeping, training program development, and maintaining compliance documentation.',
+                        list: [
+                            'OSH documentation requirements',
+                            'Training program development',
+                            'Record keeping and maintenance',
+                            'Compliance documentation',
+                            'Training delivery methods',
+                            'Evaluation and assessment'
+                        ]
+                    }
+                },
+                
+                // Driver Placement
+                driver: {
+                    driver: {
+                        title: '🚗 Driver / Rider',
+                        desc: 'Professional driver and rider placement services for individuals seeking driving positions locally.',
+                        list: ['Driver/rider placement services', 'License verification', 'Background checks', 'Training and certification', 'Ongoing support']
+                    },
+                    recruiter: {
+                        title: '📋 Driver Recruiter',
+                        desc: 'Driver recruitment services for organizations looking to hire qualified drivers and riders.',
+                        list: ['Driver recruitment services', 'Candidate screening', 'Interview coordination', 'License verification', 'Background checks']
+                    },
+                    international: {
+                        title: '🌍 International Placement',
+                        desc: 'International driver placement services connecting qualified drivers with opportunities abroad.',
+                        list: ['International placement services', 'Visa and work permit assistance', 'Pre-departure orientation', 'Cultural orientation', 'Ongoing support']
+                    }
+                }
+            };
+            
+            // ==========================================
+            // Dropdown Click Handlers
+            // ==========================================
+            
+            // Study Abroad destinations
+            document.querySelectorAll('#studyDestinations .sub-service-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('#studyDestinations .sub-service-item').forEach(el => el.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const detail = this.dataset.detail;
+                    const data = serviceDetails.study[detail];
+                    if (data) {
+                        document.getElementById('studyDetailTitle').textContent = data.title;
+                        document.getElementById('studyDetailDesc').textContent = data.desc;
+                        document.getElementById('studyDetailList').innerHTML = data.list.map(item => `<li>${item}</li>`).join('');
+                        document.getElementById('studyDetails').classList.add('show');
+                    }
+                });
+            });
+            
+            // Road Safety programs
+            document.querySelectorAll('#service-road-safety .sub-service-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('#service-road-safety .sub-service-item').forEach(el => el.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const detail = this.dataset.detail;
+                    const data = serviceDetails.road[detail];
+                    if (data) {
+                        document.getElementById('roadDetailTitle').textContent = data.title;
+                        document.getElementById('roadDetailDesc').textContent = data.desc;
+                        document.getElementById('roadDetailList').innerHTML = data.list.map(item => `<li>${item}</li>`).join('');
+                        document.getElementById('roadDetails').classList.add('show');
+                    }
+                });
+            });
+            
+            // OSH Training modules - UPDATED
+            document.querySelectorAll('#service-osh .sub-service-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('#service-osh .sub-service-item').forEach(el => el.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const detail = this.dataset.detail;
+                    const data = serviceDetails.osh[detail];
+                    if (data) {
+                        document.getElementById('oshDetailTitle').textContent = data.title;
+                        document.getElementById('oshDetailDesc').textContent = data.desc;
+                        document.getElementById('oshDetailList').innerHTML = data.list.map(item => `<li>${item}</li>`).join('');
+                        document.getElementById('oshDetails').classList.add('show');
+                    }
+                });
+            });
+            
+            // Driver Placement options
+            document.querySelectorAll('#service-driver .sub-service-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    document.querySelectorAll('#service-driver .sub-service-item').forEach(el => el.classList.remove('active'));
+                    this.classList.add('active');
+                    
+                    const detail = this.dataset.detail;
+                    const data = serviceDetails.driver[detail];
+                    if (data) {
+                        document.getElementById('driverDetailTitle').textContent = data.title;
+                        document.getElementById('driverDetailDesc').textContent = data.desc;
+                        document.getElementById('driverDetailList').innerHTML = data.list.map(item => `<li>${item}</li>`).join('');
+                        document.getElementById('driverDetails').classList.add('show');
+                    }
+                });
+            });
+            
+            // ==========================================
+            // Auto-select first option for each service
+            // ==========================================
+            // Study Abroad - Select USA by default
+            const firstStudy = document.querySelector('#studyDestinations .sub-service-item');
+            if (firstStudy) firstStudy.click();
+            
+            // Road Safety - Select Primary by default
+            const firstRoad = document.querySelector('#service-road-safety .sub-service-item');
+            if (firstRoad) firstRoad.click();
+            
+            // OSH - Select Legal Compliance by default
+            const firstOsh = document.querySelector('#service-osh .sub-service-item');
+            if (firstOsh) firstOsh.click();
+            
+            // Driver - Select Driver by default
+            const firstDriver = document.querySelector('#service-driver .sub-service-item');
+            if (firstDriver) firstDriver.click();
+            
+            // ==========================================
+            // Mobile Menu
+            // ==========================================
+            document.getElementById('mobileMenuBtn').addEventListener('click', function() {
+                const navLinks = document.getElementById('navLinks');
+                navLinks.classList.toggle('active');
+                this.innerHTML = navLinks.classList.contains('active') 
+                    ? '<i class="fas fa-times"></i>' 
+                    : '<i class="fas fa-bars"></i>';
+            });
+            
+            // ==========================================
+            // Navbar Scroll Effect
+            // ==========================================
+            window.addEventListener('scroll', function() {
+                const navbar = document.getElementById('mainNav');
+                if (window.scrollY > 100) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+            });
+            
+            console.log('✅ Client Services page initialized');
+        });
+    </script>
+</body>
+</html>
