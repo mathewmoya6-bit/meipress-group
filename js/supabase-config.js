@@ -1,67 +1,39 @@
-﻿// js/supabase-config.js
-const { createClient } = supabase;
+﻿// js/config.js
+// Application configuration
 
-const supabaseClient = createClient(
-    CONFIG.SUPABASE.URL,
-    CONFIG.SUPABASE.ANON_KEY,
-    {
-        auth: {
-            autoRefreshToken: true,
-            persistSession: true,
-            detectSessionInUrl: true
-        }
-    }
-);
-window.supabaseClient = supabaseClient;
-
-const Auth = {
-    getSession: async () => {
-        const { data, error } = await supabaseClient.auth.getSession();
-        if (error) throw error;
-        return data.session;
+const CONFIG = {
+    APP_NAME: 'Mei Press Group',
+    APP_VERSION: '1.0.0',
+    
+    SUPABASE: {
+        URL: 'https://ciodxticnskxyvearhvt.supabase.co',
+        ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpb2R4dGljbnNreHl2ZWFyaHZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDQwMjU5NjksImV4cCI6MjA1OTYwMTk2OX0.OZESiw6Qcw4Zc-SgO4aeXVY6kngrN5yD7TgZkIrPWbE'
     },
-    signIn: async (email, password) => {
-        const { data, error } = await supabaseClient.auth.signInWithPassword({ email, password });
-        if (error) throw error;
-        return data;
+    
+    CONTACT: {
+        PHONE: '+254703738707',
+        EMAIL: 'info@meipress.com',
+        ADDRESS: 'Nairobi, Kenya'
     },
-    signUp: async (email, password, userData) => {
-        const { data, error } = await supabaseClient.auth.signUp({
-            email,
-            password,
-            options: { data: userData }
-        });
-        if (error) throw error;
-        return data;
+    
+    MPESA: {
+        PAYBILL: '4095377'
     },
-    signOut: async () => {
-        const { error } = await supabaseClient.auth.signOut();
-        if (error) throw error;
+    
+    LINKS: {
+        FACEBOOK: '#',
+        TWITTER: '#',
+        INSTAGRAM: '#',
+        LINKEDIN: '#',
+        YOUTUBE: '#',
+        WHATSAPP: 'https://wa.me/254703738707'
     }
 };
-window.Auth = Auth;
 
-const DB = {
-    createInquiry: async (data) => {
-        const { data: result, error } = await supabaseClient
-            .from('inquiries')
-            .insert([data])
-            .select()
-            .single();
-        if (error) throw error;
-        return result;
-    },
-    getInquiries: async (filters = {}) => {
-        let query = supabaseClient
-            .from('inquiries')
-            .select('*')
-            .order('created_at', { ascending: false });
-        if (filters.status) {
-            query = query.eq('status', filters.status);
-        }
-        const { data, error } = await query;
-        if (error) throw error;
-        return data;
-    }
-};
-window.DB = DB;
+// Freeze to prevent modification
+Object.freeze(CONFIG);
+Object.freeze(CONFIG.CONTACT);
+Object.freeze(CONFIG.MPESA);
+Object.freeze(CONFIG.LINKS);
+
+console.log('✅ Config loaded');
