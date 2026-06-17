@@ -1,0 +1,4 @@
+﻿User-agent: *
+Allow: /
+Disallow: /dashboard/
+Sitemap: https://meipress-group.vercel.app/sitemap.xml

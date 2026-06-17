@@ -1,0 +1,104 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - Mei Press Group</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <style>
+        .dashboard-page { background:#f5f7fa; min-height:100vh; padding-top:80px; }
+        .dashboard-container { max-width:1400px; margin:0 auto; padding:2rem; }
+        .dashboard-header { display:flex; justify-content:space-between; align-items:center; margin-bottom:2rem; flex-wrap:wrap; }
+        .dashboard-header h1 { font-size:2rem; color:#1a1a2e; }
+        .stats-overview { display:grid; grid-template-columns:repeat(auto-fit,minmax(200px,1fr)); gap:1.5rem; margin-bottom:2rem; }
+        .stat-card { background:white; padding:1.5rem; border-radius:1rem; box-shadow:0 2px 10px rgba(0,0,0,0.05); border-left:4px solid #00b4d8; }
+        .stat-card .number { font-size:2rem; font-weight:800; }
+        .stat-card .label { color:#666; font-size:0.9rem; }
+        .table-container { background:white; border-radius:1rem; overflow:hidden; box-shadow:0 2px 10px rgba(0,0,0,0.05); }
+        .table-container table { width:100%; border-collapse:collapse; }
+        .table-container th { background:#f8f9fa; padding:1rem; text-align:left; font-weight:600; border-bottom:2px solid #e8ecf1; }
+        .table-container td { padding:1rem; border-bottom:1px solid #e8ecf1; color:#555; }
+        .status-badge { padding:0.3rem 0.8rem; border-radius:1rem; font-size:0.8rem; font-weight:500; }
+        .status-new { background:#e3f2fd; color:#1976d2; }
+        .status-processing { background:#fff3e0; color:#f57c00; }
+        .status-completed { background:#e8f5e9; color:#2e7d32; }
+        @media (max-width:768px) { .table-container { overflow-x:auto; } .table-container table { min-width:600px; } }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo"><a href="index.html" style="text-decoration:none;color:white;">MEI PRESS GROUP<span>Dashboard</span></a></div>
+            <div class="nav-links">
+                <a href="index.html"><i class="fas fa-home"></i> Home</a>
+                <span id="userDisplay"></span>
+                <button id="logoutBtn" class="btn-nav btn-logout">Logout</button>
+            </div>
+        </div>
+    </nav>
+    <div class="dashboard-page">
+        <div class="dashboard-container">
+            <div class="dashboard-header">
+                <h1><i class="fas fa-chart-line" style="color:#00b4d8;"></i> Dashboard</h1>
+                <div id="userName">Admin</div>
+            </div>
+            <div class="stats-overview">
+                <div class="stat-card"><div class="number" id="totalInquiries">0</div><div class="label">Total Applications</div></div>
+                <div class="stat-card" style="border-left-color:#f39c12;"><div class="number" id="pendingInquiries">0</div><div class="label">Pending Review</div></div>
+                <div class="stat-card" style="border-left-color:#2ecc71;"><div class="number" id="completedInquiries">0</div><div class="label">Completed</div></div>
+            </div>
+            <div class="table-container">
+                <table>
+                    <thead><tr><th>#</th><th>Name</th><th>Email</th><th>Service</th><th>Status</th><th>Date</th></tr></thead>
+                    <tbody id="inquiriesTable"><tr><td colspan="6" style="text-align:center;padding:2rem;color:#999;">Loading...</td></tr></tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+        let currentUser = null, inquiries = [];
+        async function initDashboard() {
+            try {
+                const session = await Auth.getSession();
+                if (!session) { window.location.href = 'login.html'; return; }
+                currentUser = session.user;
+                document.getElementById('userDisplay').textContent = `👤 ${currentUser.email}`;
+                document.getElementById('userName').textContent = currentUser.user_metadata?.full_name || currentUser.email;
+                await loadData();
+            } catch (error) { window.location.href = 'login.html'; }
+        }
+        async function loadData() {
+            try {
+                inquiries = await DB.getInquiries() || [];
+                renderTable(); updateStats();
+            } catch (error) { console.error('Error loading data:', error); }
+        }
+        function renderTable() {
+            const tbody = document.getElementById('inquiriesTable');
+            if (inquiries.length === 0) {
+                tbody.innerHTML = `<tr><td colspan="6" style="text-align:center;padding:2rem;color:#999;">No applications found</td></tr>`;
+                return;
+            }
+            tbody.innerHTML = inquiries.map((inquiry, index) => `
+                <tr><td>${index+1}</td><td><strong>${inquiry.full_name}</strong></td><td>${inquiry.email}</td>
+                <td>${inquiry.service}</td><td><span class="status-badge status-${inquiry.status||'new'}">${inquiry.status||'New'}</span></td>
+                <td>${new Date(inquiry.created_at).toLocaleDateString()}</td></tr>
+            `).join('');
+        }
+        function updateStats() {
+            document.getElementById('totalInquiries').textContent = inquiries.length;
+            document.getElementById('pendingInquiries').textContent = inquiries.filter(i => i.status === 'new' || i.status === 'processing').length;
+            document.getElementById('completedInquiries').textContent = inquiries.filter(i => i.status === 'completed').length;
+        }
+        document.getElementById('logoutBtn').addEventListener('click', async () => {
+            await Auth.signOut();
+            window.location.href = 'login.html';
+        });
+        document.addEventListener('DOMContentLoaded', initDashboard);
+    </script>
+</body>
+</html>

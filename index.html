@@ -1,746 +1,168 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
-    <title>Mei Press Group | Build Your Future With Us</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mei Press Group | Build Your Future</title>
+    <meta name="description" content="Mei Press Group - Premier recruitment and training organization in Nairobi, Kenya.">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #f5f7fa;
-            color: #1a1a2e;
-            overflow-x: hidden;
-        }
-
-        /* Navigation - Dark Navy */
-        .navbar {
-            background: #1a1a2e;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            padding: 1rem 2rem;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .nav-container {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 1rem;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 800;
-            color: white;
-        }
-
-        .logo span {
-            font-size: 0.8rem;
-            display: block;
-            color: #00b4d8;
-            font-weight: 400;
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #ffffff;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #00b4d8;
-        }
-
-        .btn-nav {
-            background: #00b4d8;
-            color: white !important;
-            padding: 0.5rem 1.5rem;
-            border-radius: 2rem;
-            transition: transform 0.3s, background 0.3s;
-        }
-
-        .btn-nav:hover {
-            background: #0096c7;
-            transform: translateY(-2px);
-            color: white !important;
-        }
-
-        /* Hero Section */
-        .hero {
-            min-height: 100vh;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: white;
-            padding: 6rem 2rem 4rem;
-            position: relative;
-        }
-
-        .hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="%2300b4d8" fill-opacity="0.1" d="M0,96L48,112C96,128,192,160,288,160C384,160,480,128,576,122.7C672,117,768,139,864,154.7C960,171,1056,181,1152,165.3C1248,149,1344,107,1392,85.3L1440,64L1440,320L1392,320C1344,320,1248,320,1152,320C1056,320,960,320,864,320C768,320,672,320,576,320C480,320,384,320,288,320C192,320,96,320,48,320L0,320Z"></path></svg>') no-repeat bottom;
-            background-size: cover;
-            opacity: 0.3;
-        }
-
-        .hero-content {
-            position: relative;
-            z-index: 1;
-        }
-
-        .hero-content h1 {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            animation: fadeInUp 0.8s ease;
-        }
-
-        .hero-content p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            color: #00b4d8;
-            animation: fadeInUp 1s ease;
-        }
-
-        .btn-hero {
-            background: #00b4d8;
-            color: white;
-            padding: 1rem 2.5rem;
-            border: none;
-            border-radius: 3rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: transform 0.3s, box-shadow 0.3s;
-            animation: fadeInUp 1.2s ease;
-        }
-
-        .btn-hero:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0, 180, 216, 0.4);
-            background: #0096c7;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        /* Sections */
-        .section {
-            padding: 5rem 2rem;
-            max-width: 1400px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #1a1a2e;
-        }
-
-        .section-title:after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: #00b4d8;
-            margin: 1rem auto 0;
-            border-radius: 2px;
-        }
-
-        /* Cards */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-
-        .service-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-bottom: 3px solid #00b4d8;
-        }
-
-        .service-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 35px rgba(0, 180, 216, 0.15);
-        }
-
-        .service-icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-        }
-
-        .service-card h3 {
-            margin-bottom: 1rem;
-            color: #1a1a2e;
-        }
-
-        .service-card p {
-            color: #666;
-            line-height: 1.6;
-        }
-
-        /* Stats Section - Dark Navy */
-        .stats {
-            background: #1a1a2e;
-            color: white;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            text-align: center;
-        }
-
-        .stat-number {
-            font-size: 2.5rem;
-            font-weight: 800;
-            color: #00b4d8;
-        }
-
-        /* Partners */
-        .partners-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            text-align: center;
-        }
-
-        .partner-item {
-            background: white;
-            padding: 1.5rem;
-            border-radius: 1rem;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-            transition: transform 0.3s;
-            border-left: 4px solid #00b4d8;
-        }
-
-        .partner-item:hover {
-            transform: translateY(-3px);
-        }
-
-        /* Application Form */
-        .apply-section {
-            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 100%);
-        }
-
-        .form-container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.75rem;
-            border: 1px solid #ddd;
-            border-radius: 0.5rem;
-            font-family: inherit;
-            transition: border-color 0.3s;
-        }
-
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #00b4d8;
-        }
-
-        .btn-submit {
-            background: #1a1a2e;
-            color: white;
-            padding: 1rem;
-            border: none;
-            border-radius: 0.5rem;
-            width: 100%;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .btn-submit:hover {
-            background: #00b4d8;
-            transform: translateY(-2px);
-        }
-
-        /* M-PESA Section */
-        .mpesa-section {
-            margin-top: 2rem;
-            padding: 1.5rem;
-            background: linear-gradient(135deg, #1a1a2e, #16213e);
-            border-radius: 1rem;
-            text-align: center;
-            color: white;
-        }
-
-        .mpesa-paybill {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #00b4d8;
-            margin: 0.5rem 0;
-        }
-
-        .btn-mpesa {
-            background: #00b4d8;
-            color: white;
-            padding: 0.75rem 1.5rem;
-            border: none;
-            border-radius: 2rem;
-            font-weight: 600;
-            cursor: pointer;
-            margin-top: 1rem;
-            transition: transform 0.3s;
-        }
-
-        .btn-mpesa:hover {
-            transform: scale(1.05);
-        }
-
-        /* Testimonials */
-        .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-        }
-
-        .testimonial-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
-            border-top: 4px solid #00b4d8;
-        }
-
-        .testimonial-card p {
-            font-style: italic;
-            line-height: 1.6;
-            color: #555;
-        }
-
-        .testimonial-author {
-            margin-top: 1rem;
-            font-weight: 600;
-            color: #1a1a2e;
-        }
-
-        /* Footer */
-        .footer {
-            background: #1a1a2e;
-            color: #ccc;
-            padding: 3rem 2rem 1rem;
-        }
-
-        .footer-content {
-            max-width: 1400px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-        }
-
-        .footer-section h4 {
-            margin-bottom: 1rem;
-            color: white;
-        }
-
-        .footer-section a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer-section a:hover {
-            color: #00b4d8;
-        }
-
-        .social-links a {
-            color: #ccc;
-            margin-right: 1rem;
-            font-size: 1.2rem;
-            transition: color 0.3s;
-        }
-
-        .social-links a:hover {
-            color: #00b4d8;
-        }
-
-        .footer-bottom {
-            text-align: center;
-            margin-top: 2rem;
-            padding-top: 1rem;
-            border-top: 1px solid #333;
-        }
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-            
-            .nav-links {
-                display: none;
-            }
-            
-            .section-title {
-                font-size: 1.8rem;
-            }
-        }
-    </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar">
+    <nav class="navbar" id="mainNav">
         <div class="nav-container">
-            <div class="logo">
-                MEI PRESS GROUP
-                <span>Build Your Future With Us</span>
-            </div>
-            <div class="nav-links">
+            <div class="logo"><a href="index.html">MEI PRESS GROUP<span>Build Your Future With Us</span></a></div>
+            <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
                 <a href="#home">Home</a>
-                <a href="#about">About</a>
                 <a href="#services">Services</a>
-                <a href="#partners">Partners</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#apply" class="btn-nav">Apply Now</a>
-                <a href="login.html" id="loginLink">Login</a>
-                <span id="userDisplay" style="display:none"></span>
-                <button id="logoutBtn" style="display:none" class="btn-nav">Logout</button>
+                <a href="#apply">Apply</a>
+                <a href="login.html" class="btn-nav">Login</a>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <section id="home" class="hero">
+        <div class="hero-overlay"></div>
         <div class="hero-content">
             <h1>Build Your Future With Us</h1>
             <p>Study Abroad • OSH Training • Driver Placement</p>
-            <button class="btn-hero" onclick="scrollToApply()">Apply Now</button>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section id="about" class="section">
-        <h2 class="section-title">About Us</h2>
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <p style="font-size: 1.1rem; line-height: 1.8; color: #555;">
-                Mei Press Group is a premier recruitment and training organization based in Nairobi, Kenya. 
-                We connect individuals to global opportunities through education, skills training, and employment placement.
-            </p>
-        </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="section" style="padding: 3rem 2rem;">
-            <div class="stats-grid">
-                <div>
-                    <div class="stat-number">500+</div>
-                    <div>Students Placed</div>
-                </div>
-                <div>
-                    <div class="stat-number">20+</div>
-                    <div>Partner Universities</div>
-                </div>
-                <div>
-                    <div class="stat-number">1000+</div>
-                    <div>Trained Professionals</div>
-                </div>
-                <div>
-                    <div class="stat-number">10+</div>
-                    <div>Countries</div>
-                </div>
+            <div class="hero-buttons">
+                <button class="btn-hero" onclick="document.getElementById('apply').scrollIntoView({behavior:'smooth'})">Apply Now</button>
+                <a href="#services" class="btn-hero-secondary">Learn More</a>
             </div>
         </div>
     </section>
 
-    <!-- Services Section -->
     <section id="services" class="section">
-        <h2 class="section-title">Our Services</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <div class="service-icon">🎓</div>
-                <h3>Study Abroad</h3>
-                <p>Expert guidance for studying in USA, Canada, UK, Australia, Germany, and more.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🚸</div>
-                <h3>Road Safety Training</h3>
-                <p>Comprehensive driver training and road safety certification.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🏭</div>
-                <h3>OSH Training</h3>
-                <p>Occupational Safety and Health certification programs.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">🚗</div>
-                <h3>Driver Placement</h3>
-                <p>Professional driver placement services locally and internationally.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">📝</div>
-                <h3>Visa Assistance</h3>
-                <p>End-to-end visa application and documentation support.</p>
-            </div>
-            <div class="service-card">
-                <div class="service-icon">💼</div>
-                <h3>Career Counseling</h3>
-                <p>Professional career guidance and job placement services.</p>
+        <div class="container">
+            <h2 class="section-title">Our Services</h2>
+            <div class="services-grid">
+                <div class="service-card"><div class="service-icon">🎓</div><h3>Study Abroad</h3><p>Expert guidance for studying in USA, Canada, UK, Australia, and more.</p></div>
+                <div class="service-card"><div class="service-icon">🚸</div><h3>Road Safety Training</h3><p>Comprehensive driver training and road safety certification.</p></div>
+                <div class="service-card"><div class="service-icon">🏭</div><h3>OSH Training</h3><p>Occupational Safety and Health certification programs.</p></div>
+                <div class="service-card"><div class="service-icon">🚗</div><h3>Driver Placement</h3><p>Professional driver placement services locally and internationally.</p></div>
             </div>
         </div>
     </section>
 
-    <!-- Destinations -->
-    <section class="section" style="background: #e8ecf1;">
-        <h2 class="section-title">Study Abroad Destinations</h2>
-        <div style="text-align: center; font-size: 1.5rem; margin-bottom: 1rem;">
-            🇺🇸 USA • 🇨🇦 Canada • 🇬🇧 UK • 🇦🇺 Australia • 🇩🇪 Germany
-        </div>
-        <p style="text-align: center; color: #555;">We assist students with applications, admissions, visa guidance, and pre-departure support.</p>
-    </section>
-
-    <!-- Partners Section -->
-    <section id="partners" class="section">
-        <h2 class="section-title">Our Global Partners</h2>
-        <div class="partners-grid">
-            <div class="partner-item">🎓 University of Toronto<br><small>Canada</small></div>
-            <div class="partner-item">🎓 University of British Columbia<br><small>Canada</small></div>
-            <div class="partner-item">🎓 Arizona State University<br><small>USA</small></div>
-            <div class="partner-item">🎓 Conestoga College<br><small>Canada</small></div>
-            <div class="partner-item">🎓 Wayne State University<br><small>USA</small></div>
-            <div class="partner-item">🎓 Saint Louis University<br><small>USA</small></div>
+    <section class="stats">
+        <div class="container" style="padding:3rem 0;">
+            <div class="stats-grid">
+                <div class="stat-item"><span class="stat-number" data-count="500">0</span><div>Students Placed</div></div>
+                <div class="stat-item"><span class="stat-number" data-count="20">0</span><div>Partner Universities</div></div>
+                <div class="stat-item"><span class="stat-number" data-count="1000">0</span><div>Trained Professionals</div></div>
+                <div class="stat-item"><span class="stat-number" data-count="10">0</span><div>Countries</div></div>
+            </div>
         </div>
     </section>
 
-    <!-- Application Form -->
     <section id="apply" class="apply-section">
-        <div class="section">
+        <div class="container">
             <h2 class="section-title">Apply Now</h2>
             <div class="form-container">
                 <form id="applicationForm">
-                    <div class="form-group">
-                        <label>Full Name *</label>
-                        <input type="text" id="fullName" required>
+                    <div class="form-row">
+                        <div class="form-group"><label>Full Name *</label><input type="text" id="fullName" required></div>
+                        <div class="form-group"><label>Email *</label><input type="email" id="email" required></div>
                     </div>
-                    <div class="form-group">
-                        <label>Email *</label>
-                        <input type="email" id="email" required>
+                    <div class="form-row">
+                        <div class="form-group"><label>Phone *</label><input type="tel" id="phone" required></div>
+                        <div class="form-group"><label>Service *</label>
+                            <select id="service" required>
+                                <option value="">Select a service</option>
+                                <option value="study_abroad">Study Abroad</option>
+                                <option value="road_safety">Road Safety Training</option>
+                                <option value="osh_training">OSH Training</option>
+                                <option value="driver_placement">Driver Placement</option>
+                            </select>
+                        </div>
                     </div>
-                    <div class="form-group">
-                        <label>Phone Number *</label>
-                        <input type="tel" id="phone" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Service Interested In *</label>
-                        <select id="service" required>
-                            <option value="">Select a service</option>
-                            <option value="study_abroad">Study Abroad</option>
-                            <option value="road_safety">Road Safety Training</option>
-                            <option value="osh_training">OSH Training</option>
-                            <option value="driver_placement">Driver Placement</option>
-                            <option value="visa_assistance">Visa Assistance</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Preferred Country</label>
-                        <select id="country">
-                            <option value="">Select country</option>
-                            <option value="USA">USA</option>
-                            <option value="Canada">Canada</option>
-                            <option value="UK">UK</option>
-                            <option value="Australia">Australia</option>
-                            <option value="Germany">Germany</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Message / Questions</label>
-                        <textarea id="message" rows="4"></textarea>
-                    </div>
+                    <div class="form-group"><label>Message</label><textarea id="message" rows="4"></textarea></div>
                     <button type="submit" class="btn-submit">Submit Application</button>
                 </form>
-
-                <!-- M-PESA Payment Section -->
                 <div class="mpesa-section">
                     <h3>💰 Make Payment</h3>
-                    <p>Pay application fee or training fees via M-Pesa</p>
-                    <div class="mpesa-paybill">
-                        Paybill: <strong>4095377</strong>
-                    </div>
-                    <p>Account Number: <strong>YOUR_NAME</strong></p>
-                    <button class="btn-mpesa" onclick="alert('M-Pesa payment initiated! Check your phone.')">
-                        Pay via M-Pesa
-                    </button>
+                    <p>Pay via M-Pesa</p>
+                    <div class="mpesa-paybill">Paybill: <strong>4095377</strong></div>
+                    <p>Account: <strong>YOUR_NAME</strong></p>
+                    <button class="btn-mpesa" onclick="alert('M-Pesa payment initiated! Check your phone.')">Pay via M-Pesa</button>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Testimonials -->
-    <section id="testimonials" class="section">
-        <h2 class="section-title">What Our Clients Say</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <p>"Got placed in Canada within a few months. Very professional and supportive team."</p>
-                <div class="testimonial-author">— Brian O.</div>
-            </div>
-            <div class="testimonial-card">
-                <p>"The training helped me secure overseas employment. Highly recommended!"</p>
-                <div class="testimonial-author">— Faith N.</div>
-            </div>
-            <div class="testimonial-card">
-                <p>"Smooth and transparent process from start to finish. Thank you Mei Press!"</p>
-                <div class="testimonial-author">— James K.</div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>Mei Press Group</h4>
-                <p>Your gateway to global opportunities in education and employment.</p>
-            </div>
-            <div class="footer-section">
-                <h4>Quick Links</h4>
-                <p><a href="#home">Home</a></p>
-                <p><a href="#about">About Us</a></p>
-                <p><a href="#services">Services</a></p>
-                <p><a href="#apply">Apply Now</a></p>
-            </div>
-            <div class="footer-section">
-                <h4>Contact</h4>
-                <p>📍 Nairobi, Kenya</p>
-                <p>📞 <a href="tel:0703738707">0703 738 707</a></p>
-                <p>📧 <a href="mailto:info@meipress.com">info@meipress.com</a></p>
-            </div>
-            <div class="footer-section">
-                <h4>Follow Us</h4>
-                <div class="social-links">
-                    <a href="#"><i class="fab fa-facebook"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
-                    <a href="#"><i class="fab fa-instagram"></i></a>
-                    <a href="#"><i class="fab fa-linkedin"></i></a>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section"><h4>Mei Press Group</h4><p>Your gateway to global opportunities.</p></div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>📞 <a href="tel:+254703738707" style="color:#00b4d8;">0703 738 707</a></p>
+                    <p>📧 <a href="mailto:info@meipress.com" style="color:#00b4d8;">info@meipress.com</a></p>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin"></i></a>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="footer-bottom">
-            <p>&copy; 2024 Mei Press Group. All rights reserved.</p>
+            <div class="footer-bottom"><p>&copy; 2024 Mei Press Group. All rights reserved.</p></div>
         </div>
     </footer>
 
+    <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+    <script src="js/config.js"></script>
+    <script src="js/supabase-config.js"></script>
     <script>
-        // Supabase Configuration
-        const SUPABASE_URL = 'https://ogigiczqshbdqrrwvpja.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9naWdpY3pxc2hiZHFycnd2cGphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3ODA1ODQsImV4cCI6MjA5MzM1NjU4NH0.aWTf7Rk9QXzGQgOIaGhqB2Sa0THrZOvL6Pybv0icvOs';
-        
-        let supabase = null;
-        let currentUser = null;
-
-        try {
-            supabase = window.supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-        } catch(e) { console.error('Supabase init error', e); }
-
-        // Form submission
         document.getElementById('applicationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
-            
             const formData = {
                 full_name: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
                 phone: document.getElementById('phone').value,
                 service: document.getElementById('service').value,
-                country: document.getElementById('country').value,
-                message: document.getElementById('message').value,
-                created_at: new Date()
+                message: document.getElementById('message').value || '',
+                created_at: new Date().toISOString()
             };
-
-            alert('Application submitted successfully! We will contact you soon.');
-            document.getElementById('applicationForm').reset();
+            try {
+                await DB.createInquiry(formData);
+                alert('✅ Application submitted successfully! We will contact you soon.');
+                document.getElementById('applicationForm').reset();
+            } catch (error) {
+                console.error('Error:', error);
+                alert('❌ Something went wrong. Please try again.');
+            }
         });
 
-        function scrollToApply() {
-            document.getElementById('apply').scrollIntoView({ behavior: 'smooth' });
-        }
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const target = entry.target;
+                    const count = parseInt(target.dataset.count);
+                    let current = 0;
+                    const increment = Math.ceil(count / 60);
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= count) { current = count; clearInterval(timer); }
+                        target.textContent = current + (count > 100 ? '+' : '');
+                    }, 30);
+                    observer.unobserve(target);
+                }
+            });
+        }, { threshold: 0.5 });
+        document.querySelectorAll('.stat-number').forEach(stat => observer.observe(stat));
 
-        // Check authentication
-        async function checkAuth() {
-            const { data } = await supabase.auth.getSession();
-            if (data.session) {
-                currentUser = data.session.user;
-                document.getElementById('loginLink').style.display = 'none';
-                document.getElementById('userDisplay').style.display = 'inline';
-                document.getElementById('userDisplay').innerHTML = `👤 ${currentUser.email}`;
-                document.getElementById('logoutBtn').style.display = 'inline-block';
-            }
-        }
-
-        async function logout() {
-            await supabase.auth.signOut();
-            window.location.reload();
-        }
-
-        document.getElementById('logoutBtn').addEventListener('click', logout);
-        checkAuth();
+        document.getElementById('mobileMenuBtn').addEventListener('click', () => {
+            document.getElementById('navLinks').classList.toggle('active');
+        });
     </script>
 </body>
 </html>
