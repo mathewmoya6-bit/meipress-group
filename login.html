@@ -59,27 +59,53 @@
             <div class="footer-text">Don't have an account? <a href="signup.html">Create Account</a></div>
         </div>
     </div>
+
+    <!-- ====== SCRIPTS - LOAD IN CORRECT ORDER ====== -->
+    <!-- 1. Supabase Library FIRST -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- 2. Config -->
     <script src="js/config.js"></script>
+    
+    <!-- 3. Supabase Config -->
     <script src="js/supabase-config.js"></script>
+    
+    <!-- 4. Application Logic -->
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            try {
-                const { data, error } = await Auth.signIn(email, password);
-                if (error) throw error;
-                window.location.href = 'dashboard.html';
-            } catch (error) {
-                document.getElementById('loginPasswordError').textContent = 'Invalid email or password. Please try again.';
-            }
-        });
         function togglePassword() {
             const input = document.getElementById('loginPassword');
             const icon = document.querySelector('.toggle-password i');
-            if (input.type === 'password') { input.type = 'text'; icon.className = 'fas fa-eye-slash'; }
-            else { input.type = 'password'; icon.className = 'fas fa-eye'; }
+            if (input.type === 'password') { 
+                input.type = 'text'; 
+                icon.className = 'fas fa-eye-slash'; 
+            } else { 
+                input.type = 'password'; 
+                icon.className = 'fas fa-eye'; 
+            }
         }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('loginEmail').value.trim();
+            const password = document.getElementById('loginPassword').value;
+            
+            try {
+                if (typeof Auth === 'undefined') {
+                    throw new Error('Auth module not loaded. Please refresh the page.');
+                }
+                
+                const { data, error } = await Auth.signIn(email, password);
+                if (error) throw error;
+                
+                alert('✅ Login successful!');
+                window.location.href = 'dashboard.html';
+            } catch (error) {
+                console.error('Login error:', error);
+                document.getElementById('loginPasswordError').textContent = 
+                    error.message || 'Invalid email or password. Please try again.';
+            }
+        });
     </script>
 </body>
 </html>
