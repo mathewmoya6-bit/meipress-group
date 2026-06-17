@@ -8,7 +8,6 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="css/style.css">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
     <nav class="navbar" id="mainNav">
@@ -119,11 +118,29 @@
 
     <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
 
+    <!-- ====== SCRIPTS - LOAD IN CORRECT ORDER ====== -->
+    <!-- 1. Supabase Library FIRST -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    
+    <!-- 2. Config -->
     <script src="js/config.js"></script>
+    
+    <!-- 3. Supabase Config -->
     <script src="js/supabase-config.js"></script>
+    
+    <!-- 4. Application Logic -->
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if Supabase is ready
+            if (typeof window.supabaseClient !== 'undefined') {
+                console.log('✅ Supabase is ready on index page');
+            }
+        });
+
+        // Form submission
         document.getElementById('applicationForm').addEventListener('submit', async (e) => {
             e.preventDefault();
+            
             const formData = {
                 full_name: document.getElementById('fullName').value,
                 email: document.getElementById('email').value,
@@ -132,7 +149,12 @@
                 message: document.getElementById('message').value || '',
                 created_at: new Date().toISOString()
             };
+
             try {
+                if (typeof DB === 'undefined') {
+                    throw new Error('Database module not loaded');
+                }
+                
                 await DB.createInquiry(formData);
                 alert('✅ Application submitted successfully! We will contact you soon.');
                 document.getElementById('applicationForm').reset();
@@ -142,6 +164,7 @@
             }
         });
 
+        // Animate stats on scroll
         const observer = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
@@ -160,6 +183,7 @@
         }, { threshold: 0.5 });
         document.querySelectorAll('.stat-number').forEach(stat => observer.observe(stat));
 
+        // Mobile menu
         document.getElementById('mobileMenuBtn').addEventListener('click', () => {
             document.getElementById('navLinks').classList.toggle('active');
         });
