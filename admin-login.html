@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Login - Mei Press Group</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
+    <style>
+        .auth-page { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); padding:2rem; }
+        .auth-container { background:white; padding:3rem; border-radius:1.5rem; max-width:450px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.3); border-top: 4px solid #e74c3c; }
+        .auth-container .logo { text-align:center; margin-bottom:2rem; font-size:1.8rem; color:#1a1a2e; }
+        .auth-container .logo span { font-size:0.8rem; color:#e74c3c; display:block; }
+        .auth-container h2 { text-align:center; color:#e74c3c; }
+        .auth-container .subtitle { text-align:center; color:#666; margin-bottom:2rem; }
+        .auth-form .form-group { margin-bottom:1.5rem; }
+        .auth-form label { display:block; margin-bottom:0.5rem; font-weight:600; }
+        .auth-form input { width:100%; padding:0.8rem; border:2px solid #ddd; border-radius:0.5rem; font-family:inherit; font-size:1rem; }
+        .auth-form input:focus { outline:none; border-color:#e74c3c; }
+        .auth-form .password-wrapper { position:relative; }
+        .auth-form .toggle-password { position:absolute; right:1rem; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#999; }
+        .auth-form .form-options { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; font-size:0.9rem; }
+        .auth-form .form-options a { color:#e74c3c; text-decoration:none; }
+        .btn-auth { width:100%; padding:1rem; background:#e74c3c; color:white; border:none; border-radius:0.5rem; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; }
+        .btn-auth:hover { background:#c0392b; transform:translateY(-2px); }
+        .auth-container .footer-text { text-align:center; margin-top:1.5rem; color:#666; }
+        .auth-container .footer-text a { color:#e74c3c; text-decoration:none; font-weight:600; }
+        .error-message { color:#e74c3c; font-size:0.85rem; margin-top:0.3rem; display:block; }
+        .loading-spinner { display:none; }
+        .btn-auth.loading .btn-text { display:none; }
+        .btn-auth.loading .loading-spinner { display:inline-block; }
+        .user-link { text-align:center; margin-top:1rem; font-size:0.9rem; }
+        .user-link a { color:#00b4d8; text-decoration:none; }
+        .user-link a:hover { text-decoration:underline; }
+        .admin-badge { background:#e74c3c; color:white; padding:0.2rem 1rem; border-radius:1rem; font-size:0.7rem; display:inline-block; margin-bottom:0.5rem; }
+        @media (max-width:480px) { .auth-container { padding:2rem 1.5rem; } }
+    </style>
+</head>
+<body>
+    <div class="auth-page">
+        <div class="auth-container">
+            <div class="logo">
+                MEI PRESS GROUP
+                <span>🔐 Admin Panel</span>
+            </div>
+            <div style="text-align:center;">
+                <span class="admin-badge"><i class="fas fa-shield-alt"></i> Admin Access Only</span>
+            </div>
+            <h2>Admin Login</h2>
+            <p class="subtitle">Sign in to manage the platform</p>
+            <form id="adminLoginForm" class="auth-form">
+                <div class="form-group">
+                    <label>Admin Email</label>
+                    <input type="email" id="adminEmail" placeholder="admin@yourdomain.com" required autocomplete="email">
+                    <span class="error-message" id="adminEmailError"></span>
+                </div>
+                <div class="form-group">
+                    <label>Password</label>
+                    <div class="password-wrapper">
+                        <input type="password" id="adminPassword" placeholder="Enter your password" required autocomplete="current-password">
+                        <button type="button" class="toggle-password" onclick="togglePassword()"><i class="fas fa-eye"></i></button>
+                    </div>
+                    <span class="error-message" id="adminPasswordError"></span>
+                </div>
+                <div class="form-options">
+                    <label><input type="checkbox" id="rememberMe"> Remember me</label>
+                    <a href="pages/reset-password.html">Forgot Password?</a>
+                </div>
+                <button type="submit" class="btn-auth" id="adminLoginBtn">
+                    <span class="btn-text"><i class="fas fa-shield-alt"></i> Admin Sign In</span>
+                    <span class="loading-spinner"><i class="fas fa-spinner fa-spin"></i> Signing in...</span>
+                </button>
+            </form>
+            <div class="footer-text">Return to <a href="login.html">User Login</a></div>
+            <div class="user-link">👤 <a href="login.html">Regular User Login</a></div>
+        </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="js/config.js"></script>
+    <script src="js/supabase-config.js"></script>
+    <script>
+        function togglePassword() {
+            const input = document.getElementById('adminPassword');
+            const icon = document.querySelector('.toggle-password i');
+            if (input.type === 'password') { 
+                input.type = 'text'; 
+                icon.className = 'fas fa-eye-slash'; 
+            } else { 
+                input.type = 'password'; 
+                icon.className = 'fas fa-eye'; 
+            }
+        }
+
+        document.getElementById('adminLoginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const email = document.getElementById('adminEmail').value.trim();
+            const password = document.getElementById('adminPassword').value;
+            const btn = document.getElementById('adminLoginBtn');
+            const errorEl = document.getElementById('adminPasswordError');
+            
+            btn.classList.add('loading');
+            btn.disabled = true;
+            errorEl.textContent = '';
+            
+            try {
+                if (typeof Auth === 'undefined') {
+                    throw new Error('Auth module not loaded. Please refresh the page.');
+                }
+                
+                const { data, error } = await Auth.signIn(email, password);
+                if (error) throw error;
+
+                // ✅ Admin redirect → admin dashboard
+                window.location.href = 'admin-dashboard.html';
+                
+            } catch (error) {
+                console.error('Admin login error:', error);
+                errorEl.textContent = error.message || 'Invalid credentials. Please try again.';
+            } finally {
+                btn.classList.remove('loading');
+                btn.disabled = false;
+            }
+        });
+
+        document.getElementById('adminPassword').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                document.getElementById('adminLoginForm').dispatchEvent(new Event('submit'));
+            }
+        });
+    </script>
+</body>
+</html>
