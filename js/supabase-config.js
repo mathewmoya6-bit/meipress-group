@@ -5,9 +5,10 @@
         return;
     }
     if (typeof CONFIG === 'undefined') {
-        console.error('❌ CONFIG not defined.');
+        console.error('❌ CONFIG not defined. Ensure config.js is loaded first.');
         return;
     }
+
     try {
         const supabaseClient = supabase.createClient(
             CONFIG.SUPABASE.URL,
@@ -78,13 +79,8 @@
             },
             getInquiries: async (filters = {}) => {
                 try {
-                    let query = supabaseClient
-                        .from('inquiries')
-                        .select('*')
-                        .order('created_at', { ascending: false });
-                    if (filters.status) {
-                        query = query.eq('status', filters.status);
-                    }
+                    let query = supabaseClient.from('inquiries').select('*').order('created_at', { ascending: false });
+                    if (filters.status) query = query.eq('status', filters.status);
                     const { data, error } = await query;
                     if (error) throw error;
                     return data;
@@ -112,6 +108,6 @@
         window.DB = DB;
         console.log('✅ Auth and DB helpers initialized');
     } catch (error) {
-        console.error('❌ Failed to initialize Supabase:', error);
+        console.error('❌ Supabase init error:', error);
     }
 })();

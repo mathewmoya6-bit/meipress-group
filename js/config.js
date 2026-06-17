@@ -3,8 +3,8 @@ const CONFIG = {
     APP_NAME: 'Mei Press Group',
     APP_VERSION: '1.0.0',
     SUPABASE: {
-        URL: 'https://ogigiczqshbdqrrwvpja.supabase.co',
-        ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9naWdpY3pxc2hiZHFycnd2cGphIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Nzc3ODA1ODQsImV4cCI6MjA5MzM1NjU4NH0.aWTf7Rk9QXzGQgOIaGhqB2Sa0THrZOvL6Pybv0icvOs'
+        URL: 'https://ciodxticnskxyvearhvt.supabase.co',
+        ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImNpb2R4dGljbnNreHl2ZWFyaHZ0Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODE2OTYzNjAsImV4cCI6MjA5NzI3MjM2MH0.LDlbu6mohpXAaStuAwUAcLw1eJjao8gJfpArtD3IU2g'
     },
     CONTACT: {
         PHONE: '+254703738707',
