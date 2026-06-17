@@ -3,109 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - Mei Press Group</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    <style>
-        .auth-page { min-height:100vh; display:flex; align-items:center; justify-content:center; background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); padding:2rem; }
-        .auth-container { background:white; padding:3rem; border-radius:1.5rem; max-width:450px; width:100%; box-shadow:0 20px 60px rgba(0,0,0,0.3); }
-        .auth-container .logo { text-align:center; margin-bottom:2rem; font-size:1.8rem; color:#1a1a2e; }
-        .auth-container .logo span { font-size:0.8rem; color:#00b4d8; display:block; }
-        .auth-container h2 { text-align:center; }
-        .auth-container .subtitle { text-align:center; color:#666; margin-bottom:2rem; }
-        .auth-form .form-group { margin-bottom:1.5rem; }
-        .auth-form label { display:block; margin-bottom:0.5rem; font-weight:600; }
-        .auth-form input { width:100%; padding:0.8rem; border:2px solid #ddd; border-radius:0.5rem; font-family:inherit; font-size:1rem; }
-        .auth-form input:focus { outline:none; border-color:#00b4d8; }
-        .auth-form .password-wrapper { position:relative; }
-        .auth-form .toggle-password { position:absolute; right:1rem; top:50%; transform:translateY(-50%); background:none; border:none; cursor:pointer; color:#999; }
-        .auth-form .form-options { display:flex; justify-content:space-between; align-items:center; margin-bottom:1.5rem; font-size:0.9rem; }
-        .auth-form .form-options a { color:#00b4d8; text-decoration:none; }
-        .btn-auth { width:100%; padding:1rem; background:#1a1a2e; color:white; border:none; border-radius:0.5rem; font-size:1rem; font-weight:600; cursor:pointer; transition:all 0.3s; }
-        .btn-auth:hover { background:#00b4d8; transform:translateY(-2px); }
-        .auth-container .footer-text { text-align:center; margin-top:1.5rem; color:#666; }
-        .auth-container .footer-text a { color:#00b4d8; text-decoration:none; font-weight:600; }
-        .error-message { color:#e74c3c; font-size:0.85rem; margin-top:0.3rem; display:block; }
-        @media (max-width:480px) { .auth-container { padding:2rem 1.5rem; } }
-    </style>
+    <title>Dashboard - Mei Press Group</title>
+    <meta http-equiv="refresh" content="0; url=dashboard/dashboard-inquiries.html">
+    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
 </head>
 <body>
-    <div class="auth-page">
-        <div class="auth-container">
-            <div class="logo">MEI PRESS GROUP<span>Build Your Future With Us</span></div>
-            <h2>Welcome Back</h2>
-            <p class="subtitle">Sign in to your account</p>
-            <form id="loginForm" class="auth-form">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <input type="email" id="loginEmail" placeholder="your@email.com" required>
-                    <span class="error-message" id="loginEmailError"></span>
-                </div>
-                <div class="form-group">
-                    <label>Password</label>
-                    <div class="password-wrapper">
-                        <input type="password" id="loginPassword" placeholder="Enter your password" required>
-                        <button type="button" class="toggle-password" onclick="togglePassword()"><i class="fas fa-eye"></i></button>
-                    </div>
-                    <span class="error-message" id="loginPasswordError"></span>
-                </div>
-                <div class="form-options">
-                    <label><input type="checkbox" id="rememberMe"> Remember me</label>
-                    <a href="reset-password.html">Forgot Password?</a>
-                </div>
-                <button type="submit" class="btn-auth" id="loginBtn">Sign In</button>
-            </form>
-            <div class="footer-text">Don't have an account? <a href="signup.html">Create Account</a></div>
-        </div>
-    </div>
-
-    <!-- ====== SCRIPTS - LOAD IN CORRECT ORDER ====== -->
-    <!-- 1. Supabase Library FIRST -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    
-    <!-- 2. Config -->
-    <script src="js/config.js"></script>
-    
-    <!-- 3. Supabase Config -->
-    <script src="js/supabase-config.js"></script>
-    
-    <!-- 4. Application Logic -->
+    <p>Redirecting to dashboard...</p>
+    <p><a href="dashboard/dashboard-inquiries.html">Click here if you are not redirected</a></p>
     <script>
-        function togglePassword() {
-            const input = document.getElementById('loginPassword');
-            const icon = document.querySelector('.toggle-password i');
-            if (input.type === 'password') { 
-                input.type = 'text'; 
-                icon.className = 'fas fa-eye-slash'; 
-            } else { 
-                input.type = 'password'; 
-                icon.className = 'fas fa-eye'; 
-            }
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            const email = document.getElementById('loginEmail').value.trim();
-            const password = document.getElementById('loginPassword').value;
-            
-            try {
-                if (typeof Auth === 'undefined') {
-                    throw new Error('Auth module not loaded. Please refresh the page.');
-                }
-                
-                const { data, error } = await Auth.signIn(email, password);
-                if (error) throw error;
-                
-                alert('✅ Login successful!');
-                window.location.href = 'dashboard.html';
-            } catch (error) {
-                console.error('Login error:', error);
-                document.getElementById('loginPasswordError').textContent = 
-                    error.message || 'Invalid email or password. Please try again.';
-            }
-        });
+        window.location.href = 'dashboard/dashboard-inquiries.html';
     </script>
 </body>
 </html>
