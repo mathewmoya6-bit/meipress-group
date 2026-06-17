@@ -39,6 +39,20 @@
             margin: 0 auto;
         }
         
+        /* Back to Home Button */
+        .back-home {
+            display: inline-block;
+            color: #00b4d8;
+            text-decoration: none;
+            margin-top: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        .back-home:hover {
+            color: white;
+            transform: translateX(-5px);
+        }
+        
         /* Service Cards - Enhanced */
         .service-detail-card {
             background: white;
@@ -183,7 +197,7 @@
             font-weight: bold;
         }
         
-        /* Apply Button */
+        /* Apply Button - Now links to index.html#apply */
         .apply-now-btn {
             display: inline-block;
             background: #00b4d8;
@@ -200,6 +214,31 @@
             transform: translateY(-2px);
             box-shadow: 0 10px 30px rgba(0,180,216,0.3);
             color: white;
+        }
+        
+        /* Service Navigation Links */
+        .service-nav {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin: 2rem 0;
+        }
+        .service-nav a {
+            background: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 2rem;
+            text-decoration: none;
+            color: #1a1a2e;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+        .service-nav a:hover {
+            background: #00b4d8;
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0,180,216,0.2);
         }
         
         /* CTA Section */
@@ -230,11 +269,14 @@
             font-weight: 600;
             cursor: pointer;
             transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
         }
         .cta-section .btn-hero:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(0,180,216,0.4);
             background: #0096c7;
+            color: white;
         }
         
         /* OSH Module Badge Colors */
@@ -259,6 +301,7 @@
                 grid-template-columns: 1fr;
             }
             .cta-section h2 { font-size: 1.8rem; }
+            .service-nav a { font-size: 0.9rem; padding: 0.6rem 1rem; }
         }
         @media (max-width: 480px) {
             .services-hero { padding: 6rem 1rem 3rem; }
@@ -279,7 +322,7 @@
             </button>
             <div class="nav-links" id="navLinks">
                 <a href="index.html">Home</a>
-                <a href="#services">Services</a>
+                <a href="#services" class="active">Services</a>
                 <a href="index.html#apply">Apply</a>
                 <a href="login.html" class="btn-nav">Login</a>
             </div>
@@ -290,7 +333,20 @@
     <section class="services-hero">
         <h1>Our Services</h1>
         <p>Expert guidance and professional training to help you build your future</p>
+        <a href="index.html" class="back-home">
+            <i class="fas fa-arrow-left"></i> Back to Home
+        </a>
     </section>
+
+    <!-- Service Navigation Quick Links -->
+    <div class="container">
+        <div class="service-nav">
+            <a href="#service-study-abroad">🎓 Study Abroad</a>
+            <a href="#service-road-safety">🚸 Road Safety</a>
+            <a href="#service-osh">🏭 OSH Training</a>
+            <a href="#service-driver">🚗 Driver Placement</a>
+        </div>
+    </div>
 
     <!-- Services List -->
     <section id="services" class="section">
@@ -393,7 +449,7 @@
             </div>
 
             <!-- ==========================================
-            SERVICE 3: OSH Training - UPDATED
+            SERVICE 3: OSH Training
             ========================================== -->
             <div class="service-detail-card" id="service-osh">
                 <div class="service-header">
@@ -489,11 +545,11 @@
                 </div>
             </div>
 
-            <!-- CTA Section -->
+            <!-- CTA Section - Links to index.html#apply -->
             <div class="cta-section">
                 <h2>Ready to Get Started?</h2>
                 <p>Contact us today and let us help you build your future.</p>
-                <a href="index.html#apply" class="btn-hero">Apply Now</a>
+                <a href="index.html#apply" class="btn-hero">Apply Now <i class="fas fa-arrow-right"></i></a>
             </div>
 
         </div>
@@ -506,6 +562,9 @@
                 <div class="footer-section">
                     <h4>Mei Press Group</h4>
                     <p>Your gateway to global opportunities.</p>
+                    <a href="index.html" style="color:#00b4d8;text-decoration:none;">
+                        <i class="fas fa-home"></i> Back to Home
+                    </a>
                 </div>
                 <div class="footer-section">
                     <h4>Contact</h4>
@@ -603,7 +662,7 @@
                     }
                 },
                 
-                // OSH Training - UPDATED with new modules
+                // OSH Training
                 osh: {
                     legal: {
                         title: '🔍 Legal Compliance',
@@ -713,7 +772,7 @@
                 });
             });
             
-            // OSH Training modules - UPDATED
+            // OSH Training modules
             document.querySelectorAll('#service-osh .sub-service-item').forEach(item => {
                 item.addEventListener('click', function() {
                     document.querySelectorAll('#service-osh .sub-service-item').forEach(el => el.classList.remove('active'));
@@ -750,19 +809,15 @@
             // ==========================================
             // Auto-select first option for each service
             // ==========================================
-            // Study Abroad - Select USA by default
             const firstStudy = document.querySelector('#studyDestinations .sub-service-item');
             if (firstStudy) firstStudy.click();
             
-            // Road Safety - Select Primary by default
             const firstRoad = document.querySelector('#service-road-safety .sub-service-item');
             if (firstRoad) firstRoad.click();
             
-            // OSH - Select Legal Compliance by default
             const firstOsh = document.querySelector('#service-osh .sub-service-item');
             if (firstOsh) firstOsh.click();
             
-            // Driver - Select Driver by default
             const firstDriver = document.querySelector('#service-driver .sub-service-item');
             if (firstDriver) firstDriver.click();
             
@@ -790,6 +845,7 @@
             });
             
             console.log('✅ Client Services page initialized');
+            console.log('🔗 All "Apply Now" buttons link to index.html#apply');
         });
     </script>
 </body>
