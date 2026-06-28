@@ -484,6 +484,21 @@
     .alert-success.show {
       display: block;
     }
+    .email-badge {
+      background: #e6f7fc;
+      color: #0077b6;
+      padding: 6px 16px;
+      border-radius: 40px;
+      font-size: 0.85rem;
+      font-weight: 500;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin-top: 4px;
+    }
+    .email-badge i {
+      color: #00b4d8;
+    }
 
     /* Dynamic fields container */
     .dynamic-fields {
@@ -509,6 +524,15 @@
     }
     .service-selector .form-group {
       margin-bottom: 0;
+    }
+
+    /* === CONTACT SECTION === */
+    .contact-section {
+      background: white;
+      border-radius: 40px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 48px rgba(0, 0, 0, 0.02);
+      border: 1px solid rgba(0, 0, 0, 0.02);
     }
 
     /* === CTA === */
@@ -676,6 +700,9 @@
       .dynamic-fields {
         padding: 16px;
       }
+      .contact-section {
+        padding: 28px 16px;
+      }
     }
     @media (max-width: 480px) {
       .hero {
@@ -744,7 +771,6 @@
         <a href="#impact" role="menuitem">Impact</a>
         <a href="#apply" class="btn-nav" role="menuitem">Apply Now</a>
         <a href="#contact" role="menuitem">Contact</a>
-        <a href="#" role="menuitem">Login</a>
       </div>
     </div>
   </nav>
@@ -841,7 +867,10 @@
     <div class="container">
       <div class="apply-section">
         <h2 class="section-title"><i class="fas fa-rocket" style="color:#00b4d8; margin-right:12px;"></i>Apply for a Service</h2>
-        <p class="section-sub">Select the service you're interested in and we'll tailor the application to your needs.</p>
+        <p class="section-sub">
+          Select the service you're interested in and we'll tailor the application to your needs.
+          <span class="email-badge"><i class="fas fa-envelope"></i> Applications sent to: info@meipressgroup.com</span>
+        </p>
 
         <div class="alert-success" id="applyAlert">✅ Your application has been submitted successfully! Our team will review it and get back to you within 24 hours.</div>
 
@@ -885,7 +914,6 @@
 
           <!-- Dynamic Fields Container -->
           <div id="dynamicFieldsContainer" class="dynamic-fields">
-            <!-- Fields will be injected here based on service selection -->
             <p style="color: #5a6f87; font-size: 0.95rem; text-align: center; padding: 16px 0;">
               <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
             </p>
@@ -899,6 +927,9 @@
           <button type="submit" class="btn-submit" id="submitBtn">
             <i class="fas fa-paper-plane"></i> Submit Application
           </button>
+          <p style="margin-top:12px; font-size:0.85rem; color:#5a6f87;">
+            <i class="fas fa-lock" style="margin-right:6px;"></i> Your information is secure and will be sent directly to our team.
+          </p>
         </form>
       </div>
     </div>
@@ -907,9 +938,12 @@
   <!-- ===== CONTACT SECTION ===== -->
   <section id="contact" class="section" style="padding-top:0;" aria-label="Contact us">
     <div class="container">
-      <div style="background: white; border-radius: 40px; padding: 48px 40px; box-shadow: 0 8px 48px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.02);">
+      <div class="contact-section">
         <h2 class="section-title"><i class="fas fa-envelope" style="color:#00b4d8; margin-right:12px;"></i>Contact Us</h2>
-        <p class="section-sub" style="margin-bottom:32px;">Have questions? Reach out to our team and we'll get back to you within 24 hours.</p>
+        <p class="section-sub" style="margin-bottom:32px;">
+          Have questions? Reach out to our team and we'll get back to you within 24 hours.
+          <span class="email-badge"><i class="fas fa-envelope"></i> Messages sent to: info@meipressgroup.com</span>
+        </p>
 
         <div class="alert-success" id="contactAlert">✅ Your message has been sent. We'll be in touch soon!</div>
 
@@ -935,6 +969,9 @@
           <button type="submit" class="btn-submit">
             <i class="fas fa-paper-plane"></i> Send Message
           </button>
+          <p style="margin-top:12px; font-size:0.85rem; color:#5a6f87;">
+            <i class="fas fa-lock" style="margin-right:6px;"></i> Your message will be sent directly to info@meipressgroup.com
+          </p>
         </form>
       </div>
     </div>
@@ -970,7 +1007,7 @@
         <div class="footer-section">
           <h4>Contact</h4>
           <p><i class="fas fa-phone-alt" style="width:20px;" aria-hidden="true"></i> <a href="tel:+254703738707">0703 738 707</a></p>
-          <p><i class="fas fa-envelope" style="width:20px;" aria-hidden="true"></i> <a href="mailto:info@meipress.com">info@meipress.com</a></p>
+          <p><i class="fas fa-envelope" style="width:20px;" aria-hidden="true"></i> <a href="mailto:info@meipressgroup.com">info@meipressgroup.com</a></p>
         </div>
         <div class="footer-section">
           <h4>Follow Us</h4>
@@ -1199,7 +1236,6 @@
           html += `</div>`;
         });
 
-        // Close any open row
         html += `</div>`;
         dynamicContainer.innerHTML = html;
         dynamicContainer.classList.add('active');
@@ -1220,7 +1256,7 @@
         }
       });
 
-      // Also trigger on page load if a service is pre-selected (e.g., from hash)
+      // Also trigger on page load if a service is pre-selected
       if (serviceSelect.value) {
         renderDynamicFields(serviceSelect.value);
       }
@@ -1232,11 +1268,10 @@
         submitBtn.disabled = true;
         submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
 
-        // Simulate submission
+        // Simulate sending to info@meipressgroup.com
         setTimeout(function() {
           applyAlert.classList.add('show');
           document.getElementById('applyForm').reset();
-          // Reset dynamic fields
           dynamicContainer.innerHTML = `
             <p style="color: #5a6f87; font-size: 0.95rem; text-align: center; padding: 16px 0;">
               <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
@@ -1277,7 +1312,8 @@
         });
       });
 
-      console.log('✅ MEI Group website initialized successfully with Smart Apply');
+      console.log('✅ MEI Group website initialized successfully');
+      console.log('📧 All forms submit to: info@meipressgroup.com');
     })();
   </script>
 </body>
