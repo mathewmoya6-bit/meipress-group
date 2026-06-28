@@ -3,152 +3,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MEI Admin Dashboard v2.0</title>
-    <meta name="theme-color" content="#0b1a2e">
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <title>MEI Admin Dashboard</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chart.js/4.4.0/chart.min.css">
     <style>
         /* ===== CSS VARIABLES ===== */
         :root {
-            --primary: #00b4d8;
-            --primary-dark: #0090b0;
-            --primary-light: #66d9ff;
-            --secondary: #1a1a2e;
-            --secondary-light: #2d2d44;
-            --bg: #f0f4f8;
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-bg: #eff6ff;
+            --secondary: #1e293b;
+            --bg: #f1f5f9;
             --bg-card: #ffffff;
-            --text: #1a1a2e;
-            --text-secondary: #5a6f87;
+            --text: #0f172a;
+            --text-secondary: #64748b;
+            --text-light: #94a3b8;
             --border: #e2e8f0;
-            --shadow: 0 4px 24px rgba(0,0,0,0.06);
-            --shadow-hover: 0 8px 40px rgba(0,0,0,0.1);
+            --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+            --shadow-hover: 0 10px 40px rgba(0,0,0,0.08);
             --radius: 16px;
             --radius-sm: 8px;
             --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            --sidebar-width: 280px;
+            --sidebar-width: 260px;
             --header-height: 70px;
-        }
-
-        /* Dark mode */
-        [data-theme="dark"] {
-            --bg: #0f0f1a;
-            --bg-card: #1a1a2e;
-            --text: #e8ecf1;
-            --text-secondary: #8a9bb5;
-            --border: #2d2d44;
-            --shadow: 0 4px 24px rgba(0,0,0,0.3);
-            --shadow-hover: 0 8px 40px rgba(0,0,0,0.4);
+            
+            --green: #10b981;
+            --yellow: #f59e0b;
+            --red: #ef4444;
+            --purple: #8b5cf6;
+            --pink: #ec4899;
+            --orange: #f97316;
         }
 
         /* ===== RESET & BASE ===== */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        html {
-            scroll-behavior: smooth;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: 'Inter', -apple-system, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.6;
-            transition: background 0.3s ease, color 0.3s ease;
+            line-height: 1.5;
         }
-        a { text-decoration: none; color: inherit; }
-        button { cursor: pointer; font-family: inherit; }
         ::-webkit-scrollbar { width: 6px; height: 6px; }
         ::-webkit-scrollbar-track { background: var(--bg); }
         ::-webkit-scrollbar-thumb { background: var(--primary); border-radius: 3px; }
-
-        /* ===== LOADING SPINNER ===== */
-        .loader {
-            display: inline-block;
-            width: 40px;
-            height: 40px;
-            border: 3px solid var(--border);
-            border-top-color: var(--primary);
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        @keyframes spin {
-            to { transform: rotate(360deg); }
-        }
-        .loader-container {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            min-height: 400px;
-        }
 
         /* ===== SIDEBAR ===== */
         .sidebar {
             position: fixed;
             left: 0;
             top: 0;
-            height: 100%;
+            height: 100vh;
             width: var(--sidebar-width);
             background: var(--secondary);
-            color: rgba(255,255,255,0.8);
+            color: #fff;
             padding: 0;
             overflow-y: auto;
             z-index: 1000;
-            transition: transform 0.3s ease, width 0.3s ease;
+            transition: transform 0.3s ease;
             display: flex;
             flex-direction: column;
         }
-        .sidebar.collapsed {
-            transform: translateX(-100%);
-        }
-        .sidebar .sidebar-header {
+        .sidebar .brand {
             padding: 24px 24px 20px;
             border-bottom: 1px solid rgba(255,255,255,0.06);
             flex-shrink: 0;
         }
-        .sidebar .sidebar-header .logo {
-            font-size: 1.4rem;
+        .sidebar .brand .logo {
+            font-size: 1.3rem;
             font-weight: 800;
-            color: white;
             display: flex;
             align-items: center;
             gap: 12px;
         }
-        .sidebar .sidebar-header .logo span {
-            color: var(--primary-light);
-        }
-        .sidebar .sidebar-header .logo .logo-icon {
+        .sidebar .brand .logo .icon {
             width: 40px;
             height: 40px;
-            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+            background: var(--primary);
             border-radius: 10px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 0.9rem;
-            font-weight: 800;
-            color: white;
+            font-size: 0.85rem;
+            font-weight: 700;
         }
-        .sidebar .sidebar-header .subtitle {
-            font-size: 0.7rem;
-            opacity: 0.4;
-            margin-top: 2px;
-            margin-left: 52px;
-            letter-spacing: 0.5px;
-        }
+        .sidebar .brand .logo span { color: var(--primary-light); }
+        .sidebar .brand .sub { font-size: 0.65rem; opacity: 0.4; margin-top: 2px; padding-left: 52px; letter-spacing: 0.5px; }
 
-        .sidebar .sidebar-nav {
-            flex: 1;
-            padding: 16px 12px;
-            overflow-y: auto;
-        }
+        .sidebar .nav-section { padding: 16px 16px 8px; }
         .sidebar .nav-section .label {
-            font-size: 0.65rem;
+            font-size: 0.6rem;
             text-transform: uppercase;
             color: rgba(255,255,255,0.25);
             letter-spacing: 1px;
-            padding: 12px 12px 6px;
+            padding: 0 8px 8px;
             font-weight: 600;
         }
         .sidebar .nav-item {
@@ -156,19 +104,16 @@
             align-items: center;
             gap: 12px;
             padding: 10px 14px;
-            border-radius: var(--radius-sm);
-            color: rgba(255,255,255,0.6);
+            border-radius: 8px;
+            color: rgba(255,255,255,0.55);
             transition: all 0.2s;
             cursor: pointer;
             margin-bottom: 2px;
             position: relative;
         }
-        .sidebar .nav-item:hover {
-            background: rgba(255,255,255,0.06);
-            color: white;
-        }
+        .sidebar .nav-item:hover { background: rgba(255,255,255,0.06); color: #fff; }
         .sidebar .nav-item.active {
-            background: rgba(0,180,216,0.15);
+            background: rgba(37,99,235,0.15);
             color: var(--primary-light);
         }
         .sidebar .nav-item.active::before {
@@ -181,36 +126,31 @@
             background: var(--primary);
             border-radius: 0 3px 3px 0;
         }
-        .sidebar .nav-item i {
-            width: 20px;
-            text-align: center;
-            font-size: 1rem;
-        }
+        .sidebar .nav-item i { width: 20px; text-align: center; font-size: 0.95rem; }
         .sidebar .nav-item .badge {
             margin-left: auto;
             background: var(--primary);
-            color: white;
+            color: #fff;
             font-size: 0.6rem;
-            padding: 2px 10px;
+            padding: 1px 10px;
             border-radius: 20px;
             font-weight: 600;
         }
-        .sidebar .nav-item .badge.warning {
-            background: #f39c12;
-        }
+        .sidebar .nav-item .badge.warning { background: var(--yellow); }
+        .sidebar .nav-item .badge.green { background: var(--green); }
 
         .sidebar .sidebar-footer {
+            margin-top: auto;
             padding: 16px 20px;
             border-top: 1px solid rgba(255,255,255,0.06);
             flex-shrink: 0;
         }
-        .sidebar .sidebar-footer .user-row {
+        .sidebar .sidebar-footer .user {
             display: flex;
             align-items: center;
             gap: 12px;
-            padding: 8px 0;
         }
-        .sidebar .sidebar-footer .user-row .avatar {
+        .sidebar .sidebar-footer .user .avatar {
             width: 36px;
             height: 36px;
             border-radius: 50%;
@@ -219,37 +159,28 @@
             align-items: center;
             justify-content: center;
             font-weight: 600;
-            color: white;
             font-size: 0.8rem;
         }
-        .sidebar .sidebar-footer .user-row .user-name {
-            color: white;
-            font-weight: 500;
-            font-size: 0.9rem;
-        }
-        .sidebar .sidebar-footer .user-row .user-role {
-            font-size: 0.7rem;
-            opacity: 0.4;
-        }
-        .sidebar .sidebar-footer .logout-btn {
+        .sidebar .sidebar-footer .user .name { font-weight: 500; font-size: 0.9rem; color: #fff; }
+        .sidebar .sidebar-footer .user .role { font-size: 0.7rem; opacity: 0.4; }
+        .sidebar .sidebar-footer .logout {
             width: 100%;
-            padding: 10px;
+            margin-top: 10px;
+            padding: 8px;
             border: none;
-            border-radius: var(--radius-sm);
-            background: rgba(231,76,60,0.15);
-            color: #e74c3c;
+            border-radius: 6px;
+            background: rgba(239,68,68,0.12);
+            color: #ef4444;
             font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
+            cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 8px;
-            margin-top: 8px;
         }
-        .sidebar .sidebar-footer .logout-btn:hover {
-            background: rgba(231,76,60,0.25);
-        }
+        .sidebar .sidebar-footer .logout:hover { background: rgba(239,68,68,0.2); }
 
         /* ===== MAIN CONTENT ===== */
         .main-content {
@@ -257,12 +188,9 @@
             min-height: 100vh;
             transition: margin 0.3s ease;
         }
-        .main-content.full {
-            margin-left: 0;
-        }
 
         /* ===== HEADER ===== */
-        .top-header {
+        .header {
             background: var(--bg-card);
             padding: 0 32px;
             height: var(--header-height);
@@ -275,117 +203,82 @@
             z-index: 100;
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
-            background: rgba(255,255,255,0.8);
+            background: rgba(255,255,255,0.85);
         }
-        [data-theme="dark"] .top-header {
-            background: rgba(26,26,46,0.9);
-        }
-        .top-header .header-left {
-            display: flex;
-            align-items: center;
-            gap: 16px;
-        }
-        .top-header .header-left .menu-toggle {
+        .header .left { display: flex; align-items: center; gap: 16px; }
+        .header .left .menu-toggle {
+            display: none;
             background: none;
             border: none;
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: var(--text);
             padding: 4px;
-            display: none;
+            cursor: pointer;
         }
-        .top-header .header-left h1 {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        .top-header .header-left h1 small {
-            font-weight: 400;
-            font-size: 0.8rem;
-            color: var(--text-secondary);
-        }
+        .header .left h1 { font-size: 1.2rem; font-weight: 700; }
+        .header .left h1 small { font-weight: 400; font-size: 0.8rem; color: var(--text-secondary); margin-left: 8px; }
 
-        .top-header .header-right {
+        .header .right { display: flex; align-items: center; gap: 12px; }
+        .header .right .btn-icon {
+            width: 38px;
+            height: 38px;
+            border-radius: 50%;
+            border: 1px solid var(--border);
+            background: transparent;
+            color: var(--text-secondary);
+            cursor: pointer;
+            transition: 0.2s;
             display: flex;
             align-items: center;
-            gap: 16px;
+            justify-content: center;
         }
-        .top-header .header-right .theme-toggle {
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            transition: 0.2s;
-            padding: 4px 8px;
-            border-radius: 8px;
-        }
-        .top-header .header-right .theme-toggle:hover {
-            background: var(--border);
-            color: var(--text);
-        }
-        .top-header .header-right .notification-btn {
-            position: relative;
-            background: none;
-            border: none;
-            font-size: 1.2rem;
-            color: var(--text-secondary);
-            padding: 4px 8px;
-            border-radius: 8px;
-            transition: 0.2s;
-        }
-        .top-header .header-right .notification-btn:hover {
-            background: var(--border);
-        }
-        .top-header .header-right .notification-btn .dot {
+        .header .right .btn-icon:hover { background: var(--bg); color: var(--text); }
+        .header .right .btn-icon .dot {
             position: absolute;
-            top: 2px;
-            right: 4px;
+            top: 6px;
+            right: 6px;
             width: 8px;
             height: 8px;
-            background: #e74c3c;
+            background: var(--red);
             border-radius: 50%;
             border: 2px solid var(--bg-card);
         }
-        .top-header .header-right .admin-profile {
+        .header .right .btn-icon { position: relative; }
+        .header .right .profile {
             display: flex;
             align-items: center;
             gap: 10px;
             padding: 4px 12px 4px 4px;
             border-radius: 40px;
-            background: var(--border);
+            border: 1px solid var(--border);
             cursor: pointer;
             transition: 0.2s;
         }
-        .top-header .header-right .admin-profile:hover {
-            background: var(--primary);
-            color: white;
-        }
-        .top-header .header-right .admin-profile .avatar-sm {
+        .header .right .profile:hover { border-color: var(--primary); }
+        .header .right .profile .avatar {
             width: 32px;
             height: 32px;
             border-radius: 50%;
             background: var(--primary);
-            color: white;
+            color: #fff;
             display: flex;
             align-items: center;
             justify-content: center;
             font-weight: 600;
             font-size: 0.75rem;
         }
-        .top-header .header-right .admin-profile .profile-name {
-            font-weight: 500;
-            font-size: 0.85rem;
-        }
+        .header .right .profile .name { font-weight: 500; font-size: 0.85rem; }
+        .header .right .profile .chevron { color: var(--text-light); font-size: 0.7rem; }
 
         /* ===== PAGE CONTENT ===== */
-        .page-content {
-            padding: 24px 32px;
-        }
+        .page-content { padding: 24px 32px; }
 
         /* ===== STATS ===== */
         .stats-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
-            margin-bottom: 32px;
+            margin-bottom: 28px;
         }
         .stat-card {
             background: var(--bg-card);
@@ -400,326 +293,240 @@
             transform: translateY(-4px);
             box-shadow: var(--shadow-hover);
         }
-        .stat-card .stat-icon {
-            float: right;
-            font-size: 2.2rem;
-            color: var(--primary);
-            opacity: 0.15;
+        .stat-card .top {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
         }
+        .stat-card .stat-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+        .stat-card .stat-icon.blue { background: #dbeafe; color: #2563eb; }
+        .stat-card .stat-icon.yellow { background: #fef3c7; color: #d97706; }
+        .stat-card .stat-icon.green { background: #d1fae5; color: #059669; }
+        .stat-card .stat-icon.purple { background: #ede9fe; color: #7c3aed; }
         .stat-card .stat-number {
-            font-size: 2.4rem;
+            font-size: 2.2rem;
             font-weight: 800;
-            color: var(--text);
             line-height: 1.2;
+            margin-top: 8px;
         }
         .stat-card .stat-number .trend {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             font-weight: 600;
             margin-left: 8px;
         }
-        .stat-card .stat-number .trend.up { color: #2ecc71; }
-        .stat-card .stat-number .trend.down { color: #e74c3c; }
-        .stat-card .stat-label {
-            color: var(--text-secondary);
-            font-size: 0.85rem;
-        }
-        .stat-card .stat-sub {
-            font-size: 0.7rem;
-            color: var(--text-secondary);
-            margin-top: 4px;
-            opacity: 0.7;
-        }
-        .stat-card.primary { border-left: 4px solid var(--primary); }
-        .stat-card.warning { border-left: 4px solid #f39c12; }
-        .stat-card.success { border-left: 4px solid #2ecc71; }
-        .stat-card.purple { border-left: 4px solid #9b59b6; }
-        .stat-card .stat-icon.primary { color: var(--primary); }
-        .stat-card .stat-icon.warning { color: #f39c12; }
-        .stat-card .stat-icon.success { color: #2ecc71; }
-        .stat-card .stat-icon.purple { color: #9b59b6; }
+        .stat-card .stat-number .trend.up { color: var(--green); }
+        .stat-card .stat-number .trend.down { color: var(--red); }
+        .stat-card .stat-label { color: var(--text-secondary); font-size: 0.85rem; margin-top: 2px; }
+        .stat-card .stat-sub { font-size: 0.7rem; color: var(--text-light); margin-top: 6px; }
 
-        /* ===== FILTERS BAR ===== */
-        .filters-bar {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 12px;
-            margin-bottom: 20px;
-            align-items: center;
+        /* ===== CHARTS ROW ===== */
+        .charts-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 20px;
+            margin-bottom: 28px;
+        }
+        .chart-box {
             background: var(--bg-card);
-            padding: 16px 20px;
             border-radius: var(--radius);
             border: 1px solid var(--border);
+            padding: 24px;
         }
-        .filters-bar .filter-group {
+        .chart-box .chart-header {
             display: flex;
+            justify-content: space-between;
             align-items: center;
+            margin-bottom: 16px;
+        }
+        .chart-box .chart-header h3 { font-size: 1rem; font-weight: 600; }
+        .chart-box .chart-header .period {
+            font-size: 0.75rem;
+            color: var(--text-secondary);
+            background: var(--bg);
+            padding: 4px 12px;
+            border-radius: 20px;
+        }
+        .chart-box .chart-container {
+            height: 220px;
+            display: flex;
+            align-items: flex-end;
             gap: 8px;
+            padding-top: 8px;
         }
-        .filters-bar .filter-group label {
-            font-size: 0.8rem;
-            font-weight: 600;
-            color: var(--text-secondary);
-        }
-        .filters-bar .filter-group select,
-        .filters-bar .filter-group input {
-            padding: 6px 12px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            background: var(--bg);
-            color: var(--text);
-            font-family: inherit;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .filters-bar .filter-group select:focus,
-        .filters-bar .filter-group input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
-        }
-        .filters-bar .search-box {
-            position: relative;
+        .chart-box .chart-container .bar {
             flex: 1;
-            min-width: 200px;
-        }
-        .filters-bar .search-box input {
-            width: 100%;
-            padding: 8px 16px 8px 40px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            background: var(--bg);
-            color: var(--text);
-            font-family: inherit;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .filters-bar .search-box input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 3px rgba(0,180,216,0.1);
-        }
-        .filters-bar .search-box i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-secondary);
-        }
-        .filters-bar .btn-filter {
-            padding: 8px 20px;
-            border: none;
-            border-radius: var(--radius-sm);
+            border-radius: 4px 4px 0 0;
             background: var(--primary);
-            color: white;
-            font-weight: 600;
-            font-size: 0.85rem;
+            min-height: 4px;
+            transition: all 0.6s ease;
+            position: relative;
+        }
+        .chart-box .chart-container .bar:hover { opacity: 0.8; transform: scaleY(1.02); transform-origin: bottom; }
+        .chart-box .chart-container .bar .tooltip {
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--secondary);
+            color: #fff;
+            font-size: 0.65rem;
+            padding: 2px 8px;
+            border-radius: 4px;
+            opacity: 0;
             transition: 0.2s;
+            white-space: nowrap;
+            pointer-events: none;
         }
-        .filters-bar .btn-filter:hover {
-            background: var(--primary-dark);
-            transform: translateY(-1px);
+        .chart-box .chart-container .bar:hover .tooltip { opacity: 1; }
+        .chart-box .chart-labels {
+            display: flex;
+            gap: 8px;
+            margin-top: 8px;
         }
-        .filters-bar .btn-clear {
-            padding: 8px 16px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            background: transparent;
+        .chart-box .chart-labels span {
+            flex: 1;
+            text-align: center;
+            font-size: 0.65rem;
             color: var(--text-secondary);
-            font-weight: 500;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .filters-bar .btn-clear:hover {
-            background: var(--border);
         }
 
-        /* ===== TABLE ===== */
+        /* ===== RECENT INQUIRIES ===== */
         .table-container {
             background: var(--bg-card);
             border-radius: var(--radius);
             border: 1px solid var(--border);
             overflow: hidden;
         }
-        .table-container .table-toolbar {
-            padding: 16px 20px;
+        .table-container .table-header {
+            padding: 18px 24px;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 1px solid var(--border);
             flex-wrap: wrap;
             gap: 12px;
-            border-bottom: 1px solid var(--border);
         }
-        .table-container .table-toolbar .table-title {
+        .table-container .table-header h3 {
+            font-size: 1rem;
+            font-weight: 600;
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
         }
-        .table-container .table-toolbar .table-title h3 {
-            font-size: 1.05rem;
-            font-weight: 700;
-        }
-        .table-container .table-toolbar .table-title .count-badge {
-            background: var(--primary);
-            color: white;
+        .table-container .table-header h3 .count {
+            background: var(--primary-bg);
+            color: var(--primary);
+            font-size: 0.7rem;
             padding: 0 12px;
             border-radius: 20px;
-            font-size: 0.7rem;
             font-weight: 600;
         }
-        .table-container .table-toolbar .table-actions {
+        .table-container .table-header .actions {
             display: flex;
             gap: 8px;
         }
-        .table-container .table-toolbar .table-actions button {
+        .table-container .table-header .actions button {
             padding: 6px 14px;
             border: 1px solid var(--border);
-            border-radius: var(--radius-sm);
-            background: var(--bg);
-            color: var(--text);
+            border-radius: 6px;
+            background: transparent;
             font-weight: 500;
             font-size: 0.8rem;
+            color: var(--text-secondary);
+            cursor: pointer;
             transition: 0.2s;
             display: flex;
             align-items: center;
             gap: 6px;
         }
-        .table-container .table-toolbar .table-actions button:hover {
-            background: var(--primary);
-            color: white;
+        .table-container .table-header .actions button:hover {
+            background: var(--bg);
             border-color: var(--primary);
-        }
-        .table-container .table-toolbar .table-actions button.danger:hover {
-            background: #e74c3c;
-            border-color: #e74c3c;
+            color: var(--primary);
         }
 
-        .table-wrapper {
-            overflow-x: auto;
-            padding: 0 4px 4px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            font-size: 0.9rem;
-        }
-        table thead {
-            background: var(--bg);
-        }
+        .table-wrapper { overflow-x: auto; padding: 0 4px 4px; }
+        table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+        table thead { background: var(--bg); }
         table th {
             text-align: left;
             padding: 12px 16px;
             font-weight: 600;
             color: var(--text-secondary);
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             text-transform: uppercase;
             letter-spacing: 0.5px;
             border-bottom: 2px solid var(--border);
-            white-space: nowrap;
-        }
-        table th .sort-btn {
-            background: none;
-            border: none;
-            color: var(--text-secondary);
-            font-size: 0.7rem;
-            margin-left: 4px;
-            cursor: pointer;
         }
         table td {
             padding: 12px 16px;
             border-bottom: 1px solid var(--border);
             vertical-align: middle;
-            color: var(--text);
         }
-        table tr:hover td {
-            background: var(--bg);
-        }
-        table td .checkbox {
-            width: 16px;
-            height: 16px;
-            accent-color: var(--primary);
-            cursor: pointer;
-        }
+        table tr:hover td { background: var(--bg); }
         .status-badge {
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             padding: 3px 12px;
             border-radius: 20px;
             font-size: 0.7rem;
             font-weight: 600;
         }
-        .status-badge .dot {
-            width: 6px;
-            height: 6px;
-            border-radius: 50%;
-            display: inline-block;
-        }
-        .status-badge.new { background: #e3f2fd; color: #1976d2; }
-        .status-badge.new .dot { background: #1976d2; }
-        .status-badge.processing { background: #fff3e0; color: #f57c00; }
-        .status-badge.processing .dot { background: #f57c00; }
-        .status-badge.completed { background: #e8f5e9; color: #2e7d32; }
-        .status-badge.completed .dot { background: #2e7d32; }
-        .status-badge.rejected { background: #fce4ec; color: #c62828; }
-        .status-badge.rejected .dot { background: #c62828; }
-        .status-badge.pending { background: #f3e5f5; color: #6a1b9a; }
-        .status-badge.pending .dot { background: #6a1b9a; }
+        .status-badge .dot { width: 6px; height: 6px; border-radius: 50%; display: inline-block; }
+        .status-badge.new { background: #dbeafe; color: #1d4ed8; }
+        .status-badge.new .dot { background: #1d4ed8; }
+        .status-badge.processing { background: #fef3c7; color: #d97706; }
+        .status-badge.processing .dot { background: #d97706; }
+        .status-badge.completed { background: #d1fae5; color: #059669; }
+        .status-badge.completed .dot { background: #059669; }
+        .status-badge.rejected { background: #fee2e2; color: #dc2626; }
+        .status-badge.rejected .dot { background: #dc2626; }
 
-        .action-btns {
-            display: flex;
-            gap: 4px;
-        }
+        .action-btns { display: flex; gap: 4px; }
         .action-btns button {
             padding: 4px 8px;
             border: none;
             border-radius: 4px;
             background: transparent;
             color: var(--text-secondary);
+            cursor: pointer;
             transition: 0.2s;
-            font-size: 0.85rem;
+            font-size: 0.8rem;
         }
-        .action-btns button:hover {
-            background: var(--border);
-            color: var(--text);
-        }
-        .action-btns button.view:hover { color: var(--primary); }
-        .action-btns button.edit:hover { color: #f39c12; }
-        .action-btns button.delete:hover { color: #e74c3c; }
+        .action-btns button:hover { background: var(--bg); }
+        .action-btns .view:hover { color: var(--primary); }
+        .action-btns .edit:hover { color: var(--yellow); }
+        .action-btns .delete:hover { color: var(--red); }
 
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: var(--text-secondary);
         }
-        .empty-state i {
-            font-size: 3rem;
-            color: var(--border);
-            margin-bottom: 12px;
-        }
-        .empty-state h4 {
-            font-size: 1.1rem;
-            color: var(--text);
-            margin-bottom: 4px;
-        }
+        .empty-state i { font-size: 3rem; color: var(--border); margin-bottom: 12px; }
+        .empty-state h4 { color: var(--text); margin-bottom: 4px; }
 
         /* ===== PAGINATION ===== */
         .pagination {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 16px 20px;
+            padding: 12px 24px;
             border-top: 1px solid var(--border);
             flex-wrap: wrap;
             gap: 12px;
         }
-        .pagination .info {
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-        }
-        .pagination .pages {
-            display: flex;
-            gap: 4px;
-        }
+        .pagination .info { font-size: 0.85rem; color: var(--text-secondary); }
+        .pagination .pages { display: flex; gap: 4px; }
         .pagination .pages button {
             padding: 6px 12px;
             border: 1px solid var(--border);
@@ -727,132 +534,43 @@
             background: transparent;
             color: var(--text);
             font-weight: 500;
+            font-size: 0.8rem;
+            cursor: pointer;
             transition: 0.2s;
-            font-size: 0.85rem;
         }
-        .pagination .pages button:hover {
-            background: var(--border);
-        }
-        .pagination .pages button.active {
-            background: var(--primary);
-            color: white;
-            border-color: var(--primary);
-        }
-        .pagination .pages button:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
+        .pagination .pages button:hover { background: var(--bg); }
+        .pagination .pages button.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .pagination .pages button:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        /* ===== MODAL ===== */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            backdrop-filter: blur(4px);
-            display: none;
-            align-items: center;
-            justify-content: center;
-            z-index: 2000;
-            padding: 20px;
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 1200px) {
+            .charts-row { grid-template-columns: 1fr; }
         }
-        .modal-overlay.active {
-            display: flex;
+        @media (max-width: 1024px) {
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        .modal-box {
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            max-width: 600px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 32px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            animation: modalSlide 0.3s ease;
+        @media (max-width: 768px) {
+            .sidebar { transform: translateX(-100%); }
+            .sidebar.open { transform: translateX(0); }
+            .main-content { margin-left: 0; }
+            .header .left .menu-toggle { display: block; }
+            .header { padding: 0 16px; }
+            .page-content { padding: 16px; }
+            .stats-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+            .stat-card { padding: 16px; }
+            .stat-card .stat-number { font-size: 1.6rem; }
+            .header .right .profile .name { display: none; }
+            .table-container .table-header { flex-direction: column; align-items: stretch; }
+            .table-container .table-header .actions { flex-wrap: wrap; }
+            .pagination { flex-direction: column; align-items: stretch; text-align: center; }
+            .pagination .pages { justify-content: center; }
         }
-        @keyframes modalSlide {
-            from { transform: translateY(20px) scale(0.96); opacity: 0; }
-            to { transform: translateY(0) scale(1); opacity: 1; }
-        }
-        .modal-box .modal-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 20px;
-        }
-        .modal-box .modal-header h3 {
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
-        .modal-box .modal-header .close-btn {
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--text-secondary);
-            transition: 0.2s;
-            padding: 4px;
-        }
-        .modal-box .modal-header .close-btn:hover {
-            color: var(--text);
-            transform: rotate(90deg);
-        }
-        .modal-box .detail-row {
-            display: flex;
-            padding: 8px 0;
-            border-bottom: 1px solid var(--border);
-        }
-        .modal-box .detail-row .label {
-            font-weight: 600;
-            width: 140px;
-            flex-shrink: 0;
-            color: var(--text-secondary);
-        }
-        .modal-box .detail-row .value {
-            color: var(--text);
-            word-break: break-word;
-        }
-        .modal-box .modal-actions {
-            display: flex;
-            gap: 8px;
-            margin-top: 20px;
-            flex-wrap: wrap;
-        }
-        .modal-box .modal-actions button {
-            padding: 8px 20px;
-            border: none;
-            border-radius: var(--radius-sm);
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: 0.2s;
-        }
-        .modal-box .modal-actions button:hover {
-            transform: translateY(-2px);
-        }
-        .modal-box .modal-actions .btn-primary {
-            background: var(--primary);
-            color: white;
-        }
-        .modal-box .modal-actions .btn-primary:hover {
-            background: var(--primary-dark);
-        }
-        .modal-box .modal-actions .btn-success {
-            background: #2ecc71;
-            color: white;
-        }
-        .modal-box .modal-actions .btn-warning {
-            background: #f39c12;
-            color: white;
-        }
-        .modal-box .modal-actions .btn-danger {
-            background: #e74c3c;
-            color: white;
-        }
-        .modal-box .modal-actions .btn-outline {
-            background: transparent;
-            border: 1px solid var(--border);
-            color: var(--text);
+        @media (max-width: 480px) {
+            .stats-grid { grid-template-columns: 1fr; }
+            .header .left h1 { font-size: 1rem; }
+            .header .left h1 small { display: none; }
+            .chart-box { padding: 16px; }
+            .chart-box .chart-container { height: 150px; }
         }
 
         /* ===== TOAST ===== */
@@ -866,166 +584,54 @@
             gap: 8px;
         }
         .toast {
-            padding: 14px 24px;
-            border-radius: var(--radius-sm);
-            color: white;
+            padding: 14px 20px;
+            border-radius: 8px;
+            color: #fff;
             font-weight: 500;
             font-size: 0.9rem;
-            box-shadow: 0 8px 30px rgba(0,0,0,0.2);
-            animation: toastSlide 0.3s ease;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+            animation: slideIn 0.3s ease;
             display: flex;
             align-items: center;
             gap: 10px;
             min-width: 280px;
             max-width: 420px;
         }
-        @keyframes toastSlide {
+        @keyframes slideIn {
             from { transform: translateX(100px); opacity: 0; }
             to { transform: translateX(0); opacity: 1; }
         }
-        .toast.success { background: #2ecc71; }
-        .toast.error { background: #e74c3c; }
-        .toast.warning { background: #f39c12; }
+        .toast.success { background: var(--green); }
+        .toast.error { background: var(--red); }
+        .toast.warning { background: var(--yellow); }
         .toast.info { background: var(--primary); }
-        .toast .toast-close {
+        .toast .close {
             background: none;
             border: none;
-            color: white;
+            color: #fff;
             font-size: 1.1rem;
             margin-left: auto;
             cursor: pointer;
             opacity: 0.7;
         }
-        .toast .toast-close:hover { opacity: 1; }
-
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .stats-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-        }
-        @media (max-width: 768px) {
-            .sidebar {
-                transform: translateX(-100%);
-            }
-            .sidebar.open {
-                transform: translateX(0);
-            }
-            .main-content {
-                margin-left: 0;
-            }
-            .top-header .header-left .menu-toggle {
-                display: block;
-            }
-            .top-header .header-left h1 {
-                font-size: 1rem;
-            }
-            .top-header .header-left h1 small {
-                display: none;
-            }
-            .page-content {
-                padding: 16px;
-            }
-            .stats-grid {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-            }
-            .stat-card .stat-number {
-                font-size: 1.8rem;
-            }
-            .filters-bar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .filters-bar .search-box {
-                min-width: unset;
-            }
-            .table-container .table-toolbar {
-                flex-direction: column;
-                align-items: stretch;
-            }
-            .table-container .table-toolbar .table-actions {
-                flex-wrap: wrap;
-            }
-            .pagination {
-                flex-direction: column;
-                align-items: stretch;
-                text-align: center;
-            }
-            .pagination .pages {
-                justify-content: center;
-            }
-            .top-header .header-right .admin-profile .profile-name {
-                display: none;
-            }
-            .modal-box {
-                padding: 20px;
-                margin: 12px;
-            }
-            .modal-box .detail-row {
-                flex-direction: column;
-                padding: 10px 0;
-            }
-            .modal-box .detail-row .label {
-                width: 100%;
-                margin-bottom: 2px;
-            }
-        }
-        @media (max-width: 480px) {
-            .stats-grid {
-                grid-template-columns: 1fr;
-            }
-            .top-header {
-                padding: 0 16px;
-            }
-            .top-header .header-right {
-                gap: 8px;
-            }
-            .toast {
-                min-width: unset;
-                max-width: calc(100vw - 32px);
-                font-size: 0.85rem;
-                padding: 12px 16px;
-            }
-        }
-
-        /* ===== PRINT STYLES ===== */
-        @media print {
-            .sidebar, .top-header, .filters-bar, .pagination, .table-toolbar .table-actions {
-                display: none !important;
-            }
-            .main-content {
-                margin-left: 0 !important;
-            }
-            .page-content {
-                padding: 0 !important;
-            }
-            .table-container {
-                border: 1px solid #ddd !important;
-                box-shadow: none !important;
-            }
-            .stat-card {
-                box-shadow: none !important;
-                border: 1px solid #ddd !important;
-            }
-        }
+        .toast .close:hover { opacity: 1; }
     </style>
 </head>
 <body>
 
     <!-- ===== SIDEBAR ===== -->
     <aside class="sidebar" id="sidebar">
-        <div class="sidebar-header">
+        <div class="brand">
             <div class="logo">
-                <div class="logo-icon">MEI</div>
+                <div class="icon">MEI</div>
                 <div>MEI <span>Admin</span></div>
             </div>
-            <div class="subtitle">Enterprise Management v2.0</div>
+            <div class="sub">Management Dashboard</div>
         </div>
 
-        <nav class="sidebar-nav">
+        <nav style="flex:1;overflow-y:auto;">
             <div class="nav-section">
-                <div class="label">Main</div>
+                <div class="label">MAIN</div>
                 <div class="nav-item active" data-tab="dashboard" onclick="switchTab('dashboard')">
                     <i class="fas fa-chart-pie"></i> Dashboard
                 </div>
@@ -1041,12 +647,8 @@
                     <i class="fas fa-chart-line"></i> Analytics
                 </div>
             </div>
-
             <div class="nav-section">
-                <div class="label">Management</div>
-                <div class="nav-item" data-tab="services" onclick="switchTab('services')">
-                    <i class="fas fa-cubes"></i> Services
-                </div>
+                <div class="label">SYSTEM</div>
                 <div class="nav-item" data-tab="settings" onclick="switchTab('settings')">
                     <i class="fas fa-cog"></i> Settings
                 </div>
@@ -1054,14 +656,14 @@
         </nav>
 
         <div class="sidebar-footer">
-            <div class="user-row">
+            <div class="user">
                 <div class="avatar" id="sidebarAvatar">A</div>
                 <div>
-                    <div class="user-name" id="sidebarName">Admin</div>
-                    <div class="user-role">Administrator</div>
+                    <div class="name" id="sidebarName">Administrator</div>
+                    <div class="role">Admin</div>
                 </div>
             </div>
-            <button class="logout-btn" onclick="handleLogout()">
+            <button class="logout" onclick="handleLogout()">
                 <i class="fas fa-sign-out-alt"></i> Logout
             </button>
         </div>
@@ -1070,25 +672,26 @@
     <!-- ===== MAIN CONTENT ===== -->
     <main class="main-content" id="mainContent">
 
-        <!-- ===== TOP HEADER ===== -->
-        <header class="top-header">
-            <div class="header-left">
+        <!-- ===== HEADER ===== -->
+        <header class="header">
+            <div class="left">
                 <button class="menu-toggle" onclick="toggleSidebar()">
                     <i class="fas fa-bars"></i>
                 </button>
                 <h1 id="pageTitle">Dashboard <small>Overview</small></h1>
             </div>
-            <div class="header-right">
-                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-                    <i class="fas fa-moon" id="themeIcon"></i>
-                </button>
-                <button class="notification-btn" onclick="showToast('No new notifications','info')" title="Notifications">
+            <div class="right">
+                <button class="btn-icon" onclick="showToast('No new notifications','info')" title="Notifications">
                     <i class="fas fa-bell"></i>
-                    <span class="dot" id="notificationDot"></span>
+                    <span class="dot" id="notifDot"></span>
                 </button>
-                <div class="admin-profile" onclick="switchTab('settings')">
-                    <div class="avatar-sm" id="headerAvatar">A</div>
-                    <span class="profile-name" id="headerName">Admin</span>
+                <button class="btn-icon" onclick="refreshData()" title="Refresh">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+                <div class="profile" onclick="switchTab('settings')">
+                    <div class="avatar" id="headerAvatar">A</div>
+                    <span class="name" id="headerName">Admin</span>
+                    <span class="chevron"><i class="fas fa-chevron-down"></i></span>
                 </div>
             </div>
         </header>
@@ -1101,41 +704,69 @@
 
                 <!-- Stats -->
                 <div class="stats-grid" id="statsGrid">
-                    <div class="stat-card primary">
-                        <span class="stat-icon primary"><i class="fas fa-file-alt"></i></span>
+                    <div class="stat-card">
+                        <div class="top">
+                            <div class="stat-icon blue"><i class="fas fa-file-alt"></i></div>
+                            <span style="font-size:0.75rem;color:var(--text-secondary);">+12%</span>
+                        </div>
                         <div class="stat-number" id="totalInquiries">0</div>
                         <div class="stat-label">Total Inquiries</div>
                         <div class="stat-sub">All time submissions</div>
                     </div>
-                    <div class="stat-card warning">
-                        <span class="stat-icon warning"><i class="fas fa-clock"></i></span>
+                    <div class="stat-card">
+                        <div class="top">
+                            <div class="stat-icon yellow"><i class="fas fa-clock"></i></div>
+                            <span style="font-size:0.75rem;color:var(--text-secondary);">+8%</span>
+                        </div>
                         <div class="stat-number" id="pendingInquiries">0</div>
                         <div class="stat-label">Pending</div>
                         <div class="stat-sub">Awaiting response</div>
                     </div>
-                    <div class="stat-card success">
-                        <span class="stat-icon success"><i class="fas fa-check-circle"></i></span>
+                    <div class="stat-card">
+                        <div class="top">
+                            <div class="stat-icon green"><i class="fas fa-check-circle"></i></div>
+                            <span style="font-size:0.75rem;color:var(--text-secondary);">+24%</span>
+                        </div>
                         <div class="stat-number" id="completedInquiries">0</div>
                         <div class="stat-label">Completed</div>
                         <div class="stat-sub">Resolved inquiries</div>
                     </div>
-                    <div class="stat-card purple">
-                        <span class="stat-icon purple"><i class="fas fa-users"></i></span>
+                    <div class="stat-card">
+                        <div class="top">
+                            <div class="stat-icon purple"><i class="fas fa-users"></i></div>
+                            <span style="font-size:0.75rem;color:var(--text-secondary);">+5%</span>
+                        </div>
                         <div class="stat-number" id="totalUsers">0</div>
                         <div class="stat-label">Total Users</div>
                         <div class="stat-sub">Registered accounts</div>
                     </div>
                 </div>
 
-                <!-- Recent Table -->
-                <div class="table-container">
-                    <div class="table-toolbar">
-                        <div class="table-title">
-                            <h3>Recent Inquiries</h3>
-                            <span class="count-badge" id="recentCount">0</span>
+                <!-- Charts -->
+                <div class="charts-row">
+                    <div class="chart-box">
+                        <div class="chart-header">
+                            <h3>Inquiries Overview</h3>
+                            <span class="period">Last 7 days</span>
                         </div>
-                        <div class="table-actions">
-                            <button onclick="exportData('csv')"><i class="fas fa-file-csv"></i> CSV</button>
+                        <div class="chart-container" id="barChart"></div>
+                        <div class="chart-labels" id="barLabels"></div>
+                    </div>
+                    <div class="chart-box">
+                        <div class="chart-header">
+                            <h3>Service Distribution</h3>
+                            <span class="period">All time</span>
+                        </div>
+                        <div style="padding:8px 0;" id="serviceDistribution"></div>
+                    </div>
+                </div>
+
+                <!-- Recent Inquiries -->
+                <div class="table-container">
+                    <div class="table-header">
+                        <h3>Recent Inquiries <span class="count" id="recentCount">0</span></h3>
+                        <div class="actions">
+                            <button onclick="exportData()"><i class="fas fa-download"></i> Export</button>
                             <button onclick="refreshData()"><i class="fas fa-sync-alt"></i> Refresh</button>
                         </div>
                     </div>
@@ -1143,7 +774,6 @@
                         <table>
                             <thead>
                                 <tr>
-                                    <th style="width:30px;"><input type="checkbox" onchange="toggleAllCheckboxes(this)"></th>
                                     <th>Name</th>
                                     <th>Email</th>
                                     <th>Service</th>
@@ -1153,7 +783,7 @@
                                 </tr>
                             </thead>
                             <tbody id="recentTableBody">
-                                <tr><td colspan="7"><div class="loader-container"><div class="loader"></div></div></td></tr>
+                                <tr><td colspan="6"><div class="empty-state"><i class="fas fa-inbox"></i><h4>No inquiries yet</h4><p>Inquiries will appear here once submitted.</p></div></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1167,66 +797,47 @@
             <!-- ===== INQUIRIES TAB ===== -->
             <div id="tab-inquiries" class="tab-content">
                 <div class="table-container">
-                    <div class="table-toolbar">
-                        <div class="table-title">
-                            <h3>All Inquiries</h3>
-                            <span class="count-badge" id="allInquiryCount">0</span>
-                        </div>
-                        <div class="table-actions">
-                            <button onclick="exportData('csv')"><i class="fas fa-file-csv"></i> CSV</button>
-                            <button onclick="exportData('excel')"><i class="fas fa-file-excel"></i> Excel</button>
-                            <button onclick="exportData('pdf')"><i class="fas fa-file-pdf"></i> PDF</button>
-                            <button class="danger" onclick="bulkDelete()"><i class="fas fa-trash"></i> Bulk Delete</button>
+                    <div class="table-header">
+                        <h3>All Inquiries <span class="count" id="allInquiryCount">0</span></h3>
+                        <div class="actions">
+                            <button onclick="exportData()"><i class="fas fa-download"></i> Export CSV</button>
+                            <button onclick="refreshData()"><i class="fas fa-sync-alt"></i> Refresh</button>
                         </div>
                     </div>
-
-                    <!-- Filters -->
-                    <div class="filters-bar">
-                        <div class="search-box">
-                            <i class="fas fa-search"></i>
-                            <input type="text" id="searchInput" placeholder="Search by name, email, service..." oninput="applyFilters()">
-                        </div>
-                        <div class="filter-group">
-                            <label>Status</label>
-                            <select id="statusFilter" onchange="applyFilters()">
-                                <option value="">All</option>
-                                <option value="new">New</option>
-                                <option value="processing">Processing</option>
-                                <option value="pending">Pending</option>
-                                <option value="completed">Completed</option>
-                                <option value="rejected">Rejected</option>
-                            </select>
-                        </div>
-                        <div class="filter-group">
-                            <label>Service</label>
-                            <select id="serviceFilter" onchange="applyFilters()">
-                                <option value="">All</option>
-                                <option value="education">Education</option>
-                                <option value="roadsafety">Road Safety</option>
-                                <option value="osh">OSH</option>
-                                <option value="driver">Driver</option>
-                                <option value="autov">AUTO-V</option>
-                            </select>
-                        </div>
-                        <button class="btn-filter" onclick="applyFilters()">Apply</button>
-                        <button class="btn-clear" onclick="clearFilters()">Clear</button>
+                    <div style="padding:12px 24px;display:flex;flex-wrap:wrap;gap:12px;border-bottom:1px solid var(--border);">
+                        <input type="text" id="searchInput" placeholder="Search by name, email..." style="flex:1;min-width:200px;padding:8px 14px;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:0.85rem;background:var(--bg);color:var(--text);">
+                        <select id="statusFilter" style="padding:8px 14px;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:0.85rem;background:var(--bg);color:var(--text);">
+                            <option value="">All Status</option>
+                            <option value="new">New</option>
+                            <option value="processing">Processing</option>
+                            <option value="completed">Completed</option>
+                            <option value="rejected">Rejected</option>
+                        </select>
+                        <select id="serviceFilter" style="padding:8px 14px;border:1px solid var(--border);border-radius:6px;font-family:inherit;font-size:0.85rem;background:var(--bg);color:var(--text);">
+                            <option value="">All Services</option>
+                            <option value="education">Education</option>
+                            <option value="roadsafety">Road Safety</option>
+                            <option value="osh">OSH</option>
+                            <option value="driver">Driver</option>
+                            <option value="autov">AUTO-V</option>
+                        </select>
+                        <button onclick="applyFilters()" style="padding:8px 20px;border:none;border-radius:6px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer;">Apply</button>
+                        <button onclick="clearFilters()" style="padding:8px 16px;border:1px solid var(--border);border-radius:6px;background:transparent;color:var(--text-secondary);cursor:pointer;">Clear</button>
                     </div>
-
                     <div class="table-wrapper">
                         <table>
                             <thead>
                                 <tr>
-                                    <th style="width:30px;"><input type="checkbox" onchange="toggleAllCheckboxes(this)"></th>
-                                    <th>Name <button class="sort-btn" onclick="sortTable('name')"><i class="fas fa-sort"></i></button></th>
+                                    <th>Name</th>
                                     <th>Email</th>
                                     <th>Service</th>
                                     <th>Status</th>
-                                    <th>Date <button class="sort-btn" onclick="sortTable('date')"><i class="fas fa-sort"></i></button></th>
+                                    <th>Date</th>
                                     <th style="width:100px;">Actions</th>
                                 </tr>
                             </thead>
                             <tbody id="allInquiriesBody">
-                                <tr><td colspan="7"><div class="loader-container"><div class="loader"></div></div></td></tr>
+                                <tr><td colspan="6"><div class="empty-state"><i class="fas fa-inbox"></i><h4>No inquiries found</h4></div></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1240,30 +851,20 @@
             <!-- ===== USERS TAB ===== -->
             <div id="tab-users" class="tab-content">
                 <div class="table-container">
-                    <div class="table-toolbar">
-                        <div class="table-title">
-                            <h3>Users</h3>
-                            <span class="count-badge" id="userCountBadge">0</span>
-                        </div>
-                        <div class="table-actions">
-                            <button onclick="exportData('csv')"><i class="fas fa-file-csv"></i> Export</button>
+                    <div class="table-header">
+                        <h3>Users <span class="count" id="userCountBadge">0</span></h3>
+                        <div class="actions">
+                            <button onclick="exportUsers()"><i class="fas fa-download"></i> Export</button>
                             <button onclick="refreshData()"><i class="fas fa-sync-alt"></i> Refresh</button>
                         </div>
                     </div>
                     <div class="table-wrapper">
                         <table>
                             <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Email</th>
-                                    <th>Role</th>
-                                    <th>Joined</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
-                                </tr>
+                                <tr><th>Name</th><th>Email</th><th>Role</th><th>Joined</th><th>Status</th><th style="width:80px;">Actions</th></tr>
                             </thead>
                             <tbody id="usersTableBody">
-                                <tr><td colspan="6"><div class="loader-container"><div class="loader"></div></div></td></tr>
+                                <tr><td colspan="6"><div class="empty-state"><i class="fas fa-users"></i><h4>No users found</h4></div></td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1273,106 +874,49 @@
             <!-- ===== ANALYTICS TAB ===== -->
             <div id="tab-analytics" class="tab-content">
                 <div class="stats-grid" style="margin-bottom:24px;">
-                    <div class="stat-card primary">
-                        <div class="stat-number" id="analyticsTotal">0</div>
-                        <div class="stat-label">Total Inquiries</div>
-                    </div>
-                    <div class="stat-card success">
-                        <div class="stat-number" id="analyticsGrowth">0%</div>
-                        <div class="stat-label">Growth Rate</div>
-                    </div>
-                    <div class="stat-card warning">
-                        <div class="stat-number" id="analyticsAvg">0</div>
-                        <div class="stat-label">Avg. Response Time</div>
-                    </div>
-                    <div class="stat-card purple">
-                        <div class="stat-number" id="analyticsServices">0</div>
-                        <div class="stat-label">Services Offered</div>
-                    </div>
+                    <div class="stat-card"><div class="stat-number" id="analyticsTotal">0</div><div class="stat-label">Total Inquiries</div></div>
+                    <div class="stat-card"><div class="stat-number" id="analyticsGrowth">0%</div><div class="stat-label">Growth Rate</div></div>
+                    <div class="stat-card"><div class="stat-number" id="analyticsAvg">0</div><div class="stat-label">Avg Response Time</div></div>
+                    <div class="stat-card"><div class="stat-number" id="analyticsServices">0</div><div class="stat-label">Services</div></div>
                 </div>
-                <div style="background:var(--bg-card);border-radius:var(--radius);padding:32px;border:1px solid var(--border);text-align:center;">
-                    <i class="fas fa-chart-bar" style="font-size:3rem;color:var(--primary);opacity:0.3;"></i>
+                <div style="background:var(--bg-card);border-radius:var(--radius);padding:40px;border:1px solid var(--border);text-align:center;">
+                    <i class="fas fa-chart-line" style="font-size:3rem;color:var(--primary);opacity:0.2;"></i>
                     <h4 style="margin-top:12px;">Analytics Dashboard</h4>
-                    <p style="color:var(--text-secondary);">Charts and detailed analytics will be displayed here.</p>
-                </div>
-            </div>
-
-            <!-- ===== SERVICES TAB ===== -->
-            <div id="tab-services" class="tab-content">
-                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:20px;">
-                    <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px;border:1px solid var(--border);text-align:center;">
-                        <div style="font-size:3rem;">🎓</div>
-                        <h4 style="margin:8px 0;">International Education</h4>
-                        <p style="color:var(--text-secondary);font-size:0.85rem;">Study abroad consultancy</p>
-                        <span class="status-badge new">Active</span>
-                    </div>
-                    <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px;border:1px solid var(--border);text-align:center;">
-                        <div style="font-size:3rem;">🚸</div>
-                        <h4 style="margin:8px 0;">Road Safety Training</h4>
-                        <p style="color:var(--text-secondary);font-size:0.85rem;">Driver safety programs</p>
-                        <span class="status-badge new">Active</span>
-                    </div>
-                    <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px;border:1px solid var(--border);text-align:center;">
-                        <div style="font-size:3rem;">🏭</div>
-                        <h4 style="margin:8px 0;">Occupational Safety & Health</h4>
-                        <p style="color:var(--text-secondary);font-size:0.85rem;">Workplace safety training</p>
-                        <span class="status-badge new">Active</span>
-                    </div>
-                    <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px;border:1px solid var(--border);text-align:center;">
-                        <div style="font-size:3rem;">🚗</div>
-                        <h4 style="margin:8px 0;">Driver Recruitment</h4>
-                        <p style="color:var(--text-secondary);font-size:0.85rem;">Placement services</p>
-                        <span class="status-badge new">Active</span>
-                    </div>
-                    <div style="background:var(--bg-card);border-radius:var(--radius);padding:24px;border:1px solid var(--border);text-align:center;grid-column:span 2;">
-                        <div style="font-size:3rem;">📊</div>
-                        <h4 style="margin:8px 0;">AUTO-V Vehicle Intelligence</h4>
-                        <p style="color:var(--text-secondary);font-size:0.85rem;">Smart vehicle platform</p>
-                        <span class="status-badge new">Active</span>
-                    </div>
+                    <p style="color:var(--text-secondary);">Detailed analytics coming soon.</p>
                 </div>
             </div>
 
             <!-- ===== SETTINGS TAB ===== -->
             <div id="tab-settings" class="tab-content">
-                <div style="background:var(--bg-card);border-radius:var(--radius);padding:32px;border:1px solid var(--border);max-width:600px;">
-                    <h3 style="margin-bottom:20px;">Admin Settings</h3>
-                    <div style="margin-bottom:16px;">
-                        <label style="display:block;font-weight:600;margin-bottom:4px;">Admin Name</label>
-                        <input type="text" id="adminNameSetting" value="Admin" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;">
+                <div style="max-width:600px;">
+                    <div style="background:var(--bg-card);border-radius:var(--radius);padding:32px;border:1px solid var(--border);">
+                        <h3 style="margin-bottom:20px;">Settings</h3>
+                        <div style="margin-bottom:16px;">
+                            <label style="display:block;font-weight:600;margin-bottom:4px;font-size:0.9rem;">Display Name</label>
+                            <input type="text" id="adminNameSetting" value="Administrator" style="width:100%;padding:10px 14px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-family:inherit;">
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <label style="display:block;font-weight:600;margin-bottom:4px;font-size:0.9rem;">Email Notifications</label>
+                            <label style="display:flex;align-items:center;gap:8px;font-weight:400;font-size:0.9rem;">
+                                <input type="checkbox" checked> Receive email notifications
+                            </label>
+                        </div>
+                        <div style="margin-bottom:16px;">
+                            <label style="display:block;font-weight:600;margin-bottom:4px;font-size:0.9rem;">Items Per Page</label>
+                            <select style="padding:8px 14px;border:1px solid var(--border);border-radius:6px;background:var(--bg);color:var(--text);font-family:inherit;width:100%;">
+                                <option>10</option>
+                                <option selected>25</option>
+                                <option>50</option>
+                                <option>100</option>
+                            </select>
+                        </div>
+                        <button onclick="showToast('Settings saved!','success')" style="padding:10px 28px;border:none;border-radius:6px;background:var(--primary);color:#fff;font-weight:600;cursor:pointer;">Save Settings</button>
                     </div>
-                    <div style="margin-bottom:16px;">
-                        <label style="display:block;font-weight:600;margin-bottom:4px;">Email Notifications</label>
-                        <label style="display:flex;align-items:center;gap:8px;font-weight:400;">
-                            <input type="checkbox" checked> Receive email notifications
-                        </label>
-                    </div>
-                    <div style="margin-bottom:16px;">
-                        <label style="display:block;font-weight:600;margin-bottom:4px;">Default Items Per Page</label>
-                        <select style="padding:8px 14px;border:1px solid var(--border);border-radius:8px;background:var(--bg);color:var(--text);font-family:inherit;">
-                            <option>10</option>
-                            <option selected>25</option>
-                            <option>50</option>
-                            <option>100</option>
-                        </select>
-                    </div>
-                    <button class="btn-filter" onclick="showToast('Settings saved!','success')">Save Settings</button>
                 </div>
             </div>
 
         </div>
     </main>
-
-    <!-- ===== MODAL ===== -->
-    <div class="modal-overlay" id="modalOverlay">
-        <div class="modal-box">
-            <div class="modal-header">
-                <h3 id="modalTitle">Details</h3>
-                <button class="close-btn" onclick="closeModal()">&times;</button>
-            </div>
-            <div id="modalBody"></div>
-        </div>
-    </div>
 
     <!-- ===== TOAST CONTAINER ===== -->
     <div class="toast-container" id="toastContainer"></div>
@@ -1386,49 +930,40 @@
             let inquiries = [];
             let users = [];
             let currentTab = 'dashboard';
-            let selectedItems = new Set();
             let currentPage = 1;
             let itemsPerPage = 10;
-            let sortField = 'date';
-            let sortDirection = 'desc';
 
-            // ===== DOM REFS =====
-            const sidebar = document.getElementById('sidebar');
-            const mainContent = document.getElementById('mainContent');
-
-            // ===== DATA LOADING =====
+            // ===== LOAD DATA =====
             function loadData() {
-                // Load from localStorage (simulating database)
                 inquiries = JSON.parse(localStorage.getItem('mei_applications') || '[]');
                 users = JSON.parse(localStorage.getItem('mei_users') || '[]');
 
-                // Add default users if empty
                 if (users.length === 0) {
                     users = [
-                        { id: 1, name: 'Admin User', email: 'admin@mei.com', role: 'admin', joined: new Date().toISOString(),
-                            status: 'active' },
-                        { id: 2, name: 'Support Staff', email: 'support@mei.com', role: 'staff', joined: new Date().toISOString(),
-                            status: 'active' }
+                        { id: 1, name: 'Admin User', email: 'admin@mei.com', role: 'admin', joined: new Date().toISOString(), status: 'active' },
+                        { id: 2, name: 'Support Staff', email: 'support@mei.com', role: 'staff', joined: new Date().toISOString(), status: 'active' }
                     ];
                     localStorage.setItem('mei_users', JSON.stringify(users));
                 }
 
                 renderAll();
+                renderCharts();
             }
 
+            // ===== RENDER ALL =====
             function renderAll() {
                 renderStats();
                 renderRecentInquiries();
                 renderAllInquiries();
                 renderUsers();
                 updateBadges();
+                renderServiceDistribution();
             }
 
             // ===== RENDER STATS =====
             function renderStats() {
                 const total = inquiries.length;
-                const pending = inquiries.filter(i => i.status === 'new' || i.status === 'processing' || i.status === 'pending')
-                    .length;
+                const pending = inquiries.filter(i => i.status === 'new' || i.status === 'processing' || i.status === 'pending').length;
                 const completed = inquiries.filter(i => i.status === 'completed').length;
 
                 document.getElementById('totalInquiries').textContent = total;
@@ -1436,11 +971,61 @@
                 document.getElementById('completedInquiries').textContent = completed;
                 document.getElementById('totalUsers').textContent = users.length;
 
-                // Analytics
                 document.getElementById('analyticsTotal').textContent = total;
                 document.getElementById('analyticsGrowth').textContent = total > 0 ? '+12%' : '0%';
                 document.getElementById('analyticsAvg').textContent = total > 0 ? '2.4h' : 'N/A';
                 document.getElementById('analyticsServices').textContent = '5';
+            }
+
+            // ===== RENDER CHARTS =====
+            function renderCharts() {
+                // Bar chart - last 7 days
+                const days = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun'];
+                const values = days.map(() => Math.floor(Math.random() * 8) + 2);
+                const max = Math.max(...values, 1);
+
+                const container = document.getElementById('barChart');
+                container.innerHTML = values.map(v => {
+                    const height = (v / max) * 100;
+                    return `<div class="bar" style="height:${Math.max(height, 8)}%;background:var(--primary);">
+                        <span class="tooltip">${v}</span>
+                    </div>`;
+                }).join('');
+
+                document.getElementById('barLabels').innerHTML = days.map(d => `<span>${d}</span>`).join('');
+            }
+
+            // ===== RENDER SERVICE DISTRIBUTION =====
+            function renderServiceDistribution() {
+                const container = document.getElementById('serviceDistribution');
+                const services = {
+                    education: { label: 'Education', icon: '🎓', count: 0 },
+                    roadsafety: { label: 'Road Safety', icon: '🚸', count: 0 },
+                    osh: { label: 'OSH', icon: '🏭', count: 0 },
+                    driver: { label: 'Driver', icon: '🚗', count: 0 },
+                    autov: { label: 'AUTO-V', icon: '📊', count: 0 }
+                };
+
+                inquiries.forEach(i => {
+                    if (services[i.service]) services[i.service].count++;
+                });
+
+                const total = inquiries.length || 1;
+                const colors = ['#2563eb', '#f59e0b', '#10b981', '#8b5cf6', '#ec4899'];
+
+                container.innerHTML = Object.values(services).map((s, i) => {
+                    const pct = Math.round((s.count / total) * 100);
+                    return `
+                        <div style="display:flex;align-items:center;gap:12px;margin-bottom:8px;">
+                            <span style="font-size:1.2rem;">${s.icon}</span>
+                            <span style="font-size:0.85rem;font-weight:500;width:90px;">${s.label}</span>
+                            <div style="flex:1;height:8px;background:var(--bg);border-radius:4px;overflow:hidden;">
+                                <div style="width:${pct}%;height:100%;background:${colors[i]};border-radius:4px;transition:width 0.6s ease;"></div>
+                            </div>
+                            <span style="font-size:0.8rem;font-weight:600;color:var(--text-secondary);min-width:40px;text-align:right;">${pct}%</span>
+                        </div>
+                    `;
+                }).join('');
             }
 
             // ===== RENDER RECENT INQUIRIES =====
@@ -1450,31 +1035,22 @@
                 document.getElementById('recentCount').textContent = recent.length;
 
                 if (recent.length === 0) {
-                    tbody.innerHTML = `
-                        <tr><td colspan="7">
-                            <div class="empty-state">
-                                <i class="fas fa-inbox"></i>
-                                <h4>No inquiries yet</h4>
-                                <p style="color:var(--text-secondary);font-size:0.9rem;">Inquiries will appear here once submitted.</p>
-                            </div>
-                        </td></tr>
-                    `;
+                    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-inbox"></i><h4>No inquiries yet</h4><p>Inquiries will appear here once submitted.</p></div></td></tr>`;
                     return;
                 }
 
-                tbody.innerHTML = recent.map((inquiry, index) => `
+                tbody.innerHTML = recent.map((i, idx) => `
                     <tr>
-                        <td><input type="checkbox" class="row-checkbox" data-id="${index}" onchange="toggleRow(this)"></td>
-                        <td><strong>${inquiry.fullName || 'N/A'}</strong></td>
-                        <td>${inquiry.email || 'N/A'}</td>
-                        <td>${getServiceLabel(inquiry.service)}</td>
-                        <td>${getStatusBadge(inquiry.status || 'new')}</td>
-                        <td>${formatDate(inquiry.date)}</td>
+                        <td><strong>${i.fullName || 'N/A'}</strong></td>
+                        <td>${i.email || 'N/A'}</td>
+                        <td>${getServiceLabel(i.service)}</td>
+                        <td>${getStatusBadge(i.status || 'new')}</td>
+                        <td>${formatDate(i.date)}</td>
                         <td>
                             <div class="action-btns">
-                                <button class="view" onclick="viewInquiry(${index})" title="View"><i class="fas fa-eye"></i></button>
-                                <button class="edit" onclick="editInquiry(${index})" title="Edit"><i class="fas fa-edit"></i></button>
-                                <button class="delete" onclick="deleteInquiry(${index})" title="Delete"><i class="fas fa-trash"></i></button>
+                                <button class="view" onclick="viewInquiry(${idx})" title="View"><i class="fas fa-eye"></i></button>
+                                <button class="edit" onclick="editInquiry(${idx})" title="Edit"><i class="fas fa-edit"></i></button>
+                                <button class="delete" onclick="deleteInquiry(${idx})" title="Delete"><i class="fas fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -1496,33 +1072,24 @@
                 document.getElementById('allInquiryCount').textContent = total;
 
                 if (pageItems.length === 0) {
-                    tbody.innerHTML = `
-                        <tr><td colspan="7">
-                            <div class="empty-state">
-                                <i class="fas fa-inbox"></i>
-                                <h4>No inquiries found</h4>
-                                <p style="color:var(--text-secondary);font-size:0.9rem;">Try adjusting your filters.</p>
-                            </div>
-                        </td></tr>
-                    `;
+                    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-inbox"></i><h4>No inquiries found</h4><p>Try adjusting your filters.</p></div></td></tr>`;
                     return;
                 }
 
-                tbody.innerHTML = pageItems.map((inquiry, idx) => {
-                    const globalIndex = inquiries.indexOf(inquiry);
+                tbody.innerHTML = pageItems.map((i) => {
+                    const idx = inquiries.indexOf(i);
                     return `
                         <tr>
-                            <td><input type="checkbox" class="row-checkbox" data-id="${globalIndex}" onchange="toggleRow(this)"></td>
-                            <td><strong>${inquiry.fullName || 'N/A'}</strong></td>
-                            <td>${inquiry.email || 'N/A'}</td>
-                            <td>${getServiceLabel(inquiry.service)}</td>
-                            <td>${getStatusBadge(inquiry.status || 'new')}</td>
-                            <td>${formatDate(inquiry.date)}</td>
+                            <td><strong>${i.fullName || 'N/A'}</strong></td>
+                            <td>${i.email || 'N/A'}</td>
+                            <td>${getServiceLabel(i.service)}</td>
+                            <td>${getStatusBadge(i.status || 'new')}</td>
+                            <td>${formatDate(i.date)}</td>
                             <td>
                                 <div class="action-btns">
-                                    <button class="view" onclick="viewInquiry(${globalIndex})" title="View"><i class="fas fa-eye"></i></button>
-                                    <button class="edit" onclick="editInquiry(${globalIndex})" title="Edit"><i class="fas fa-edit"></i></button>
-                                    <button class="delete" onclick="deleteInquiry(${globalIndex})" title="Delete"><i class="fas fa-trash"></i></button>
+                                    <button class="view" onclick="viewInquiry(${idx})" title="View"><i class="fas fa-eye"></i></button>
+                                    <button class="edit" onclick="editInquiry(${idx})" title="Edit"><i class="fas fa-edit"></i></button>
+                                    <button class="delete" onclick="deleteInquiry(${idx})" title="Delete"><i class="fas fa-trash"></i></button>
                                 </div>
                             </td>
                         </tr>
@@ -1538,28 +1105,21 @@
                 document.getElementById('userCountBadge').textContent = users.length;
 
                 if (users.length === 0) {
-                    tbody.innerHTML = `
-                        <tr><td colspan="6">
-                            <div class="empty-state">
-                                <i class="fas fa-users"></i>
-                                <h4>No users found</h4>
-                            </div>
-                        </td></tr>
-                    `;
+                    tbody.innerHTML = `<tr><td colspan="6"><div class="empty-state"><i class="fas fa-users"></i><h4>No users found</h4></div></td></tr>`;
                     return;
                 }
 
-                tbody.innerHTML = users.map((user, index) => `
+                tbody.innerHTML = users.map(u => `
                     <tr>
-                        <td><strong>${user.name}</strong></td>
-                        <td>${user.email}</td>
-                        <td><span class="status-badge ${user.role === 'admin' ? 'completed' : 'processing'}">${user.role || 'staff'}</span></td>
-                        <td>${formatDate(user.joined)}</td>
-                        <td>${getStatusBadge(user.status || 'active')}</td>
+                        <td><strong>${u.name}</strong></td>
+                        <td>${u.email}</td>
+                        <td><span class="status-badge ${u.role === 'admin' ? 'completed' : 'processing'}">${u.role || 'staff'}</span></td>
+                        <td>${formatDate(u.joined)}</td>
+                        <td>${getStatusBadge(u.status || 'active')}</td>
                         <td>
                             <div class="action-btns">
-                                <button class="edit" onclick="editUser(${index})"><i class="fas fa-edit"></i></button>
-                                <button class="delete" onclick="deleteUser(${index})"><i class="fas fa-trash"></i></button>
+                                <button class="edit" onclick="showToast('Edit user coming soon','info')"><i class="fas fa-edit"></i></button>
+                                <button class="delete" onclick="deleteUser(${users.indexOf(u)})"><i class="fas fa-trash"></i></button>
                             </div>
                         </td>
                     </tr>
@@ -1572,45 +1132,16 @@
                 const status = document.getElementById('statusFilter')?.value || '';
                 const service = document.getElementById('serviceFilter')?.value || '';
 
-                let filtered = [...inquiries];
-
-                if (search) {
-                    filtered = filtered.filter(i =>
-                        (i.fullName || '').toLowerCase().includes(search) ||
-                        (i.email || '').toLowerCase().includes(search) ||
-                        (i.service || '').toLowerCase().includes(search)
-                    );
-                }
-                if (status) {
-                    filtered = filtered.filter(i => (i.status || 'new') === status);
-                }
-                if (service) {
-                    filtered = filtered.filter(i => i.service === service);
-                }
-
-                // Sort
-                filtered.sort((a, b) => {
-                    let valA = a[sortField] || '';
-                    let valB = b[sortField] || '';
-                    if (sortField === 'date') {
-                        valA = new Date(valA).getTime() || 0;
-                        valB = new Date(valB).getTime() || 0;
-                    }
-                    if (typeof valA === 'string') valA = valA.toLowerCase();
-                    if (typeof valB === 'string') valB = valB.toLowerCase();
-                    if (valA < valB) return sortDirection === 'asc' ? -1 : 1;
-                    if (valA > valB) return sortDirection === 'asc' ? 1 : -1;
-                    return 0;
+                return inquiries.filter(i => {
+                    const matchSearch = (i.fullName || '').toLowerCase().includes(search) ||
+                                      (i.email || '').toLowerCase().includes(search);
+                    const matchStatus = !status || (i.status || 'new') === status;
+                    const matchService = !service || i.service === service;
+                    return matchSearch && matchStatus && matchService;
                 });
-
-                return filtered;
             }
 
-            window.applyFilters = function() {
-                currentPage = 1;
-                renderAllInquiries();
-            };
-
+            window.applyFilters = function() { currentPage = 1; renderAllInquiries(); };
             window.clearFilters = function() {
                 document.getElementById('searchInput').value = '';
                 document.getElementById('statusFilter').value = '';
@@ -1618,53 +1149,23 @@
                 applyFilters();
             };
 
-            window.sortTable = function(field) {
-                if (sortField === field) {
-                    sortDirection = sortDirection === 'asc' ? 'desc' : 'asc';
-                } else {
-                    sortField = field;
-                    sortDirection = 'desc';
-                }
-                applyFilters();
-            };
-
             // ===== PAGINATION =====
             function updatePagination(infoId, controlsId, total, current, totalPages) {
                 const info = document.getElementById(infoId);
                 const controls = document.getElementById(controlsId);
-
                 const start = (current - 1) * itemsPerPage + 1;
                 const end = Math.min(current * itemsPerPage, total);
                 info.textContent = `Showing ${total > 0 ? start : 0} - ${end} of ${total}`;
 
                 if (!totalPages) totalPages = Math.ceil(total / itemsPerPage);
-
                 let html = '';
                 html += `<button onclick="goToPage(${current - 1})" ${current <= 1 ? 'disabled' : ''}><i class="fas fa-chevron-left"></i></button>`;
-
-                const maxVisible = 5;
-                let startPage = Math.max(1, current - Math.floor(maxVisible / 2));
-                let endPage = Math.min(totalPages, startPage + maxVisible - 1);
-                if (endPage - startPage < maxVisible - 1) {
-                    startPage = Math.max(1, endPage - maxVisible + 1);
+                for (let i = 1; i <= Math.min(totalPages, 7); i++) {
+                    if (i === current) html += `<button class="active">${i}</button>`;
+                    else html += `<button onclick="goToPage(${i})">${i}</button>`;
                 }
-
-                if (startPage > 1) {
-                    html += `<button onclick="goToPage(1)">1</button>`;
-                    if (startPage > 2) html += `<button disabled>...</button>`;
-                }
-
-                for (let i = startPage; i <= endPage; i++) {
-                    html += `<button onclick="goToPage(${i})" class="${i === current ? 'active' : ''}">${i}</button>`;
-                }
-
-                if (endPage < totalPages) {
-                    if (endPage < totalPages - 1) html += `<button disabled>...</button>`;
-                    html += `<button onclick="goToPage(${totalPages})">${totalPages}</button>`;
-                }
-
+                if (totalPages > 7) html += `<button disabled>...</button><button onclick="goToPage(${totalPages})">${totalPages}</button>`;
                 html += `<button onclick="goToPage(${current + 1})" ${current >= totalPages ? 'disabled' : ''}><i class="fas fa-chevron-right"></i></button>`;
-
                 controls.innerHTML = html;
             }
 
@@ -1677,210 +1178,154 @@
             };
 
             // ===== HELPERS =====
-            function getServiceLabel(service) {
-                const labels = {
-                    education: '🎓 Education',
-                    roadsafety: '🚸 Road Safety',
-                    osh: '🏭 OSH',
-                    driver: '🚗 Driver',
-                    autov: '📊 AUTO-V'
-                };
-                return labels[service] || service || 'N/A';
+            function getServiceLabel(s) {
+                const labels = { education: '🎓 Education', roadsafety: '🚸 Road Safety', osh: '🏭 OSH', driver: '🚗 Driver', autov: '📊 AUTO-V' };
+                return labels[s] || s || 'N/A';
             }
 
-            function getStatusBadge(status) {
-                const map = {
-                    new: 'new',
-                    processing: 'processing',
-                    pending: 'pending',
-                    completed: 'completed',
-                    rejected: 'rejected',
-                    active: 'completed'
-                };
-                const label = status.charAt(0).toUpperCase() + status.slice(1);
-                return `<span class="status-badge ${map[status] || 'new'}"><span class="dot"></span> ${label}</span>`;
+            function getStatusBadge(s) {
+                const map = { new: 'new', processing: 'processing', completed: 'completed', rejected: 'rejected', active: 'completed' };
+                const label = s.charAt(0).toUpperCase() + s.slice(1);
+                return `<span class="status-badge ${map[s] || 'new'}"><span class="dot"></span> ${label}</span>`;
             }
 
-            function formatDate(dateStr) {
-                if (!dateStr) return 'N/A';
-                try {
-                    const d = new Date(dateStr);
-                    return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
-                } catch {
-                    return 'N/A';
-                }
+            function formatDate(d) {
+                if (!d) return 'N/A';
+                try { return new Date(d).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }); }
+                catch { return 'N/A'; }
             }
 
-            // ===== ROW SELECTION =====
-            window.toggleRow = function(checkbox) {
-                const id = checkbox.dataset.id;
-                if (checkbox.checked) {
-                    selectedItems.add(id);
-                } else {
-                    selectedItems.delete(id);
-                }
-            };
-
-            window.toggleAllCheckboxes = function(master) {
-                document.querySelectorAll('.row-checkbox').forEach(cb => {
-                    cb.checked = master.checked;
-                    if (master.checked) {
-                        selectedItems.add(cb.dataset.id);
-                    } else {
-                        selectedItems.delete(cb.dataset.id);
-                    }
-                });
-            };
-
-            window.bulkDelete = function() {
-                if (selectedItems.size === 0) {
-                    showToast('No items selected', 'warning');
-                    return;
-                }
-                if (!confirm(`Delete ${selectedItems.size} selected items?`)) return;
-
-                const ids = Array.from(selectedItems).map(Number).sort((a, b) => b - a);
-                ids.forEach(id => {
-                    inquiries.splice(id, 1);
-                });
-                localStorage.setItem('mei_applications', JSON.stringify(inquiries));
-                selectedItems.clear();
-                renderAll();
-                showToast(`${ids.length} items deleted`, 'success');
-            };
+            function updateBadges() {
+                const pending = inquiries.filter(i => i.status === 'new' || i.status === 'processing' || i.status === 'pending').length;
+                document.getElementById('inquiryBadge').textContent = pending;
+                document.getElementById('userBadge').textContent = users.length;
+                const notifCount = inquiries.filter(i => i.status === 'new').length;
+                document.getElementById('notifDot').style.display = notifCount > 0 ? 'block' : 'none';
+            }
 
             // ===== INQUIRY ACTIONS =====
-            window.viewInquiry = function(index) {
-                const inquiry = inquiries[index];
-                if (!inquiry) return;
-
-                const modal = document.getElementById('modalOverlay');
-                const body = document.getElementById('modalBody');
-
+            window.viewInquiry = function(idx) {
+                const i = inquiries[idx];
+                if (!i) return;
                 let details = `
-                    <div class="detail-row"><span class="label">Name</span><span class="value">${inquiry.fullName || 'N/A'}</span></div>
-                    <div class="detail-row"><span class="label">Email</span><span class="value">${inquiry.email || 'N/A'}</span></div>
-                    <div class="detail-row"><span class="label">Phone</span><span class="value">${inquiry.phone || 'N/A'}</span></div>
-                    <div class="detail-row"><span class="label">Location</span><span class="value">${inquiry.location || 'N/A'}</span></div>
-                    <div class="detail-row"><span class="label">Service</span><span class="value">${getServiceLabel(inquiry.service)}</span></div>
-                    <div class="detail-row"><span class="label">Status</span><span class="value">${getStatusBadge(inquiry.status || 'new')}</span></div>
-                    <div class="detail-row"><span class="label">Date</span><span class="value">${new Date(inquiry.date).toLocaleString()}</span></div>
-                    <div class="detail-row"><span class="label">Additional Info</span><span class="value">${inquiry.additionalInfo || 'N/A'}</span></div>
-                `;
-
-                // Add dynamic fields
-                const fieldLabels = {
-                    eduCountry: 'Destination',
-                    eduLevel: 'Level',
-                    eduIntake: 'Intake',
-                    eduBudget: 'Budget',
-                    eduFinance: 'Financial Support',
-                    rsOrganization: 'Organization',
-                    rsType: 'Training Type',
-                    rsParticipants: 'Participants',
-                    rsDate: 'Training Date',
-                    oshIndustry: 'Industry',
-                    oshType: 'OSH Service',
-                    oshEmployees: 'Employees',
-                    oshLocation: 'Location',
-                    drvType: 'I am a',
-                    drvLicense: 'License',
-                    drvExperience: 'Experience',
-                    drvRegion: 'Region',
-                    avService: 'AUTO-V Service',
-                    avFleetSize: 'Fleet Size',
-                    avIndustry: 'Industry',
-                    avTimeline: 'Timeline'
-                };
-
-                Object.keys(inquiry).forEach(key => {
-                    if (fieldLabels[key] && inquiry[key]) {
-                        details += `
-                            <div class="detail-row">
-                                <span class="label">${fieldLabels[key]}</span>
-                                <span class="value">${inquiry[key]}</span>
-                            </div>
-                        `;
-                    }
-                });
-
-                body.innerHTML = `
-                    ${details}
-                    <div class="modal-actions">
-                        <button class="btn-success" onclick="updateStatus(${index},'completed')">✅ Complete</button>
-                        <button class="btn-warning" onclick="updateStatus(${index},'processing')">⏳ Processing</button>
-                        <button class="btn-primary" onclick="updateStatus(${index},'pending')">📋 Pending</button>
-                        <button class="btn-danger" onclick="deleteInquiry(${index})">🗑️ Delete</button>
-                        <button class="btn-outline" onclick="closeModal()">Close</button>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:16px;">
+                        <div><strong>Name</strong><br>${i.fullName || 'N/A'}</div>
+                        <div><strong>Email</strong><br>${i.email || 'N/A'}</div>
+                        <div><strong>Phone</strong><br>${i.phone || 'N/A'}</div>
+                        <div><strong>Location</strong><br>${i.location || 'N/A'}</div>
+                        <div><strong>Service</strong><br>${getServiceLabel(i.service)}</div>
+                        <div><strong>Status</strong><br>${getStatusBadge(i.status || 'new')}</div>
+                        <div style="grid-column:span 2;"><strong>Date</strong><br>${new Date(i.date).toLocaleString()}</div>
+                        <div style="grid-column:span 2;"><strong>Additional Info</strong><br>${i.additionalInfo || 'N/A'}</div>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button onclick="updateStatus(${idx},'completed')" style="padding:8px 18px;border:none;border-radius:6px;background:#10b981;color:#fff;font-weight:600;cursor:pointer;">✅ Complete</button>
+                        <button onclick="updateStatus(${idx},'processing')" style="padding:8px 18px;border:none;border-radius:6px;background:#f59e0b;color:#fff;font-weight:600;cursor:pointer;">⏳ Processing</button>
+                        <button onclick="updateStatus(${idx},'rejected')" style="padding:8px 18px;border:none;border-radius:6px;background:#ef4444;color:#fff;font-weight:600;cursor:pointer;">❌ Reject</button>
+                        <button onclick="deleteInquiry(${idx})" style="padding:8px 18px;border:1px solid #ef4444;border-radius:6px;background:transparent;color:#ef4444;font-weight:600;cursor:pointer;">🗑️ Delete</button>
                     </div>
                 `;
-
-                document.getElementById('modalTitle').textContent = 'Inquiry Details';
-                modal.classList.add('active');
+                showModal('Inquiry Details', details);
             };
 
-            window.editInquiry = function(index) {
-                showToast('Edit feature coming soon', 'info');
-            };
+            window.editInquiry = function(idx) { showToast('Edit feature coming soon', 'info'); };
 
-            window.deleteInquiry = function(index) {
+            window.deleteInquiry = function(idx) {
                 if (!confirm('Delete this inquiry?')) return;
-                inquiries.splice(index, 1);
+                inquiries.splice(idx, 1);
                 localStorage.setItem('mei_applications', JSON.stringify(inquiries));
                 renderAll();
                 closeModal();
                 showToast('Inquiry deleted', 'success');
             };
 
-            window.updateStatus = function(index, status) {
-                if (inquiries[index]) {
-                    inquiries[index].status = status;
+            window.updateStatus = function(idx, status) {
+                if (inquiries[idx]) {
+                    inquiries[idx].status = status;
                     localStorage.setItem('mei_applications', JSON.stringify(inquiries));
                     renderAll();
+                    closeModal();
                     showToast(`Status updated to ${status}`, 'success');
                 }
             };
 
-            // ===== USER ACTIONS =====
-            window.editUser = function(index) {
-                showToast('Edit user coming soon', 'info');
-            };
-
-            window.deleteUser = function(index) {
+            window.deleteUser = function(idx) {
                 if (!confirm('Delete this user?')) return;
-                users.splice(index, 1);
+                users.splice(idx, 1);
                 localStorage.setItem('mei_users', JSON.stringify(users));
                 renderAll();
                 showToast('User deleted', 'success');
             };
 
+            // ===== MODAL =====
+            function showModal(title, content) {
+                const existing = document.querySelector('.modal-overlay');
+                if (existing) existing.remove();
+
+                const overlay = document.createElement('div');
+                overlay.className = 'modal-overlay';
+                overlay.style.cssText = `
+                    position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.4);
+                    backdrop-filter:blur(4px);display:flex;align-items:center;justify-content:center;
+                    z-index:9999;padding:20px;animation:fadeIn 0.3s ease;
+                `;
+                overlay.onclick = function(e) { if (e.target === this) closeModal(); };
+
+                const box = document.createElement('div');
+                box.style.cssText = `
+                    background:var(--bg-card);border-radius:16px;padding:32px;max-width:600px;width:100%;
+                    max-height:90vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,0.2);
+                    animation:slideUp 0.3s ease;
+                `;
+                box.innerHTML = `
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:20px;">
+                        <h3 style="font-size:1.2rem;font-weight:700;">${title}</h3>
+                        <button onclick="closeModal()" style="background:none;border:none;font-size:1.5rem;color:var(--text-secondary);cursor:pointer;">&times;</button>
+                    </div>
+                    ${content}
+                `;
+                overlay.appendChild(box);
+                document.body.appendChild(overlay);
+            }
+
+            window.closeModal = function() {
+                const modal = document.querySelector('.modal-overlay');
+                if (modal) modal.remove();
+            };
+
             // ===== EXPORT =====
-            window.exportData = function(format) {
-                if (inquiries.length === 0) {
-                    showToast('No data to export', 'warning');
-                    return;
-                }
-
-                let csv = 'Name,Email,Phone,Location,Service,Status,Date,Additional Info\n';
+            window.exportData = function() {
+                if (inquiries.length === 0) { showToast('No data to export', 'warning'); return; }
+                let csv = 'Name,Email,Phone,Service,Status,Date\n';
                 inquiries.forEach(i => {
-                    csv +=
-                        `"${i.fullName || ''}","${i.email || ''}","${i.phone || ''}","${i.location || ''}","${getServiceLabel(i.service)}","${i.status || 'new'}","${i.date || ''}","${(i.additionalInfo || '').replace(/"/g,'""')}"\n`;
+                    csv += `"${i.fullName || ''}","${i.email || ''}","${i.phone || ''}","${getServiceLabel(i.service)}","${i.status || 'new'}","${i.date || ''}"\n`;
                 });
-
                 const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
                 const link = document.createElement('a');
                 link.href = URL.createObjectURL(blob);
                 link.download = `mei_inquiries_${new Date().toISOString().slice(0,10)}.csv`;
                 link.click();
                 URL.revokeObjectURL(link.href);
-                showToast(`Exported ${inquiries.length} records as ${format.toUpperCase()}`, 'success');
+                showToast('Exported successfully', 'success');
+            };
+
+            window.exportUsers = function() {
+                if (users.length === 0) { showToast('No users to export', 'warning'); return; }
+                let csv = 'Name,Email,Role,Status,Joined\n';
+                users.forEach(u => {
+                    csv += `"${u.name || ''}","${u.email || ''}","${u.role || 'staff'}","${u.status || 'active'}","${u.joined || ''}"\n`;
+                });
+                const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+                const link = document.createElement('a');
+                link.href = URL.createObjectURL(blob);
+                link.download = `mei_users_${new Date().toISOString().slice(0,10)}.csv`;
+                link.click();
+                URL.revokeObjectURL(link.href);
+                showToast('Users exported', 'success');
             };
 
             // ===== REFRESH =====
-            window.refreshData = function() {
-                loadData();
-                showToast('Data refreshed', 'success');
-            };
+            window.refreshData = function() { loadData(); showToast('Data refreshed', 'success'); };
 
             // ===== TAB SWITCHING =====
             window.switchTab = function(tab) {
@@ -1894,76 +1339,30 @@
                 const navEl = document.querySelector(`.nav-item[data-tab="${tab}"]`);
                 if (navEl) navEl.classList.add('active');
 
-                const titles = {
-                    dashboard: 'Dashboard',
-                    inquiries: 'Inquiries',
-                    users: 'Users',
-                    analytics: 'Analytics',
-                    services: 'Services',
-                    settings: 'Settings'
-                };
+                const titles = { dashboard: 'Dashboard', inquiries: 'Inquiries', users: 'Users', analytics: 'Analytics', settings: 'Settings' };
                 document.getElementById('pageTitle').innerHTML = `${titles[tab] || 'Dashboard'} <small>${tab === 'dashboard' ? 'Overview' : 'Management'}</small>`;
 
-                // Close sidebar on mobile
-                if (window.innerWidth <= 768) {
-                    sidebar.classList.remove('open');
-                }
+                if (window.innerWidth <= 768) document.getElementById('sidebar').classList.remove('open');
             };
 
             // ===== SIDEBAR =====
             window.toggleSidebar = function() {
-                sidebar.classList.toggle('open');
+                document.getElementById('sidebar').classList.toggle('open');
             };
-
-            // ===== THEME =====
-            let isDark = localStorage.getItem('mei_theme') === 'dark';
-
-            window.toggleTheme = function() {
-                isDark = !isDark;
-                document.documentElement.setAttribute('data-theme', isDark ? 'dark' : 'light');
-                localStorage.setItem('mei_theme', isDark ? 'dark' : 'light');
-                document.getElementById('themeIcon').className = isDark ? 'fas fa-sun' : 'fas fa-moon';
-            };
-
-            // Initialize theme
-            if (isDark) {
-                document.documentElement.setAttribute('data-theme', 'dark');
-                document.getElementById('themeIcon').className = 'fas fa-sun';
-            }
-
-            // ===== MODAL =====
-            window.closeModal = function() {
-                document.getElementById('modalOverlay').classList.remove('active');
-            };
-
-            document.getElementById('modalOverlay').addEventListener('click', function(e) {
-                if (e.target === this) closeModal();
-            });
-
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape') closeModal();
-            });
 
             // ===== TOAST =====
             window.showToast = function(message, type = 'info') {
                 const container = document.getElementById('toastContainer');
                 const toast = document.createElement('div');
                 toast.className = `toast ${type}`;
-                const icons = {
-                    success: 'fa-check-circle',
-                    error: 'fa-exclamation-circle',
-                    warning: 'fa-exclamation-triangle',
-                    info: 'fa-info-circle'
-                };
+                const icons = { success: 'fa-check-circle', error: 'fa-exclamation-circle', warning: 'fa-exclamation-triangle', info: 'fa-info-circle' };
                 toast.innerHTML = `
                     <i class="fas ${icons[type] || 'fa-info-circle'}"></i>
                     ${message}
-                    <button class="toast-close" onclick="this.parentElement.remove()">&times;</button>
+                    <button class="close" onclick="this.parentElement.remove()">&times;</button>
                 `;
                 container.appendChild(toast);
-                setTimeout(() => {
-                    if (toast.parentElement) toast.remove();
-                }, 5000);
+                setTimeout(() => { if (toast.parentElement) toast.remove(); }, 5000);
             };
 
             // ===== LOGOUT =====
@@ -1971,58 +1370,48 @@
                 if (confirm('Are you sure you want to logout?')) {
                     localStorage.removeItem('mei_admin_session');
                     showToast('Logged out', 'info');
-                    setTimeout(() => {
-                        window.location.href = 'admin-login.html';
-                    }, 500);
+                    setTimeout(() => window.location.href = 'admin-login.html', 500);
                 }
             };
 
-            // ===== UPDATE BADGES =====
-            function updateBadges() {
-                const pending = inquiries.filter(i => i.status === 'new' || i.status === 'processing' || i.status === 'pending')
-                    .length;
-                document.getElementById('inquiryBadge').textContent = pending;
-                document.getElementById('userBadge').textContent = users.length;
-            }
+            // ===== ADD STYLES =====
+            const styleSheet = document.createElement('style');
+            styleSheet.textContent = `
+                .tab-content { display: none; }
+                .tab-content.active { display: block; animation: fadeIn 0.3s ease; }
+                @keyframes fadeIn { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+                @keyframes slideUp { from { opacity:0; transform:translateY(20px) scale(0.96); } to { opacity:1; transform:translateY(0) scale(1); } }
+                .modal-overlay { animation: fadeIn 0.3s ease; }
+            `;
+            document.head.appendChild(styleSheet);
 
             // ===== KEYBOARD SHORTCUTS =====
             document.addEventListener('keydown', function(e) {
-                if (e.ctrlKey && e.key === 'r') {
-                    e.preventDefault();
-                    refreshData();
-                }
-                if (e.key === 'F5') {
-                    e.preventDefault();
-                    refreshData();
-                }
+                if (e.ctrlKey && e.key === 'r') { e.preventDefault(); refreshData(); }
+                if (e.key === 'Escape') closeModal();
             });
 
             // ===== INIT =====
             document.addEventListener('DOMContentLoaded', function() {
-                // Check auth
                 const session = localStorage.getItem('mei_admin_session');
                 if (!session) {
                     window.location.href = 'admin-login.html';
                     return;
                 }
-
-                // Load user info from session
                 try {
                     const user = JSON.parse(session);
-                    document.getElementById('sidebarName').textContent = user.name || 'Admin';
+                    document.getElementById('sidebarName').textContent = user.name || 'Administrator';
                     document.getElementById('headerName').textContent = user.name || 'Admin';
                     const initial = (user.name || 'Admin').charAt(0).toUpperCase();
                     document.getElementById('sidebarAvatar').textContent = initial;
                     document.getElementById('headerAvatar').textContent = initial;
-                } catch {
-                    // Use defaults
-                }
+                } catch {}
 
                 loadData();
-                showToast('Welcome to MEI Admin Dashboard v2.0', 'success');
+                showToast('Welcome back!', 'success');
             });
 
-            console.log('✅ MEI Admin Dashboard v2.0 initialized');
+            console.log('✅ MEI Admin Dashboard v3.0');
             console.log(`📊 ${inquiries.length} inquiries, ${users.length} users`);
 
         })();
