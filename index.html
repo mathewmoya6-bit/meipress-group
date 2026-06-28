@@ -7,7 +7,6 @@
   <meta name="description" content="MEI Group – Education, training, workforce solutions &amp; vehicle intelligence. Empowering people, building careers, driving innovation." />
 
   <!-- ===== FAVICON ===== -->
-  <!-- Replace the href values with your own favicon files -->
   <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico" />
   <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-icon-180x180.png" />
@@ -41,7 +40,7 @@
       background: rgba(255, 255, 255, 0.92);
       backdrop-filter: blur(8px);
       box-shadow: 0 2px 20px rgba(0, 0, 0, 0.04);
-      padding: 12px 0;
+      padding: 10px 0;
       position: sticky;
       top: 0;
       z-index: 100;
@@ -55,25 +54,50 @@
       margin: 0 auto;
       padding: 0 24px;
     }
-    .logo a {
-      font-weight: 700;
-      font-size: 1.6rem;
-      letter-spacing: -0.5px;
-      color: #0b1a2e;
+
+    /* ===== LOGO ===== */
+    .logo {
       display: flex;
-      align-items: baseline;
-      gap: 6px;
-      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
     }
-    .logo a span {
+    .logo-icon {
+      width: 48px;
+      height: 48px;
+      background: linear-gradient(145deg, #00b4d8, #0077b6);
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-weight: 800;
+      font-size: 1.3rem;
+      letter-spacing: -0.5px;
+      box-shadow: 0 4px 12px rgba(0, 180, 216, 0.25);
+      flex-shrink: 0;
+      transition: transform 0.2s ease;
+    }
+    .logo-icon:hover { transform: scale(1.03); }
+    .logo-text {
+      display: flex;
+      flex-direction: column;
+      line-height: 1.1;
+    }
+    .logo-text .brand {
+      font-weight: 800;
+      font-size: 1.6rem;
+      letter-spacing: -0.8px;
+      color: #0b1a2e;
+    }
+    .logo-text .brand span { color: #00b4d8; }
+    .logo-text .sub {
       font-weight: 400;
-      font-size: 0.8rem;
-      color: #00b4d8;
-      background: rgba(0, 180, 216, 0.08);
-      padding: 2px 12px;
-      border-radius: 40px;
+      font-size: 0.65rem;
+      color: #3d5570;
       letter-spacing: 0.3px;
+      text-transform: uppercase;
     }
+
     .nav-links {
       display: flex;
       align-items: center;
@@ -351,12 +375,15 @@
       .footer-content { grid-template-columns: 1fr; }
       .cta-block { padding: 36px 20px; }
       .cta-block h2 { font-size: 1.8rem; }
+      .logo-text .brand { font-size: 1.3rem; }
+      .logo-icon { width: 40px; height: 40px; font-size: 1rem; }
     }
     @media (max-width: 480px) {
       .hero { padding: 60px 0 70px; }
       .hero-content h1 { font-size: 2rem; }
       .btn-hero,
       .btn-hero-outline { padding: 12px 24px; }
+      .logo-text .sub { font-size: 0.55rem; }
     }
   </style>
 </head>
@@ -365,9 +392,15 @@
   <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="mainNav">
     <div class="nav-container">
-      <div class="logo">
-        <a href="#">MEI GROUP <span>division of MEI Press Group Ltd.</span></a>
-      </div>
+      <!-- Logo -->
+      <a href="#" class="logo" style="text-decoration:none;">
+        <div class="logo-icon">MEI</div>
+        <div class="logo-text">
+          <span class="brand">MEI <span>Group</span></span>
+          <span class="sub">division of MEI Press Group Ltd.</span>
+        </div>
+      </a>
+
       <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
       <div class="nav-links" id="navLinks">
         <a href="#services">Services</a>
