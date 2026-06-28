@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Admin Account | MEI Group</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: #f0f4f8;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        .container {
+            max-width: 500px;
+            width: 100%;
+        }
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 8px 40px rgba(0,0,0,0.08);
+        }
+        .logo {
+            text-align: center;
+            margin-bottom: 32px;
+        }
+        .logo .icon {
+            width: 64px;
+            height: 64px;
+            background: linear-gradient(145deg, #2563eb, #1d4ed8);
+            border-radius: 16px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 800;
+            font-size: 1.6rem;
+            margin-bottom: 12px;
+        }
+        .logo h1 { font-size: 1.6rem; font-weight: 700; }
+        .logo h1 span { color: #2563eb; }
+        .logo p { color: #64748b; font-size: 0.9rem; margin-top: 4px; }
+        .form-group { margin-bottom: 18px; }
+        .form-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            margin-bottom: 4px;
+            color: #1e293b;
+        }
+        .form-group input {
+            width: 100%;
+            padding: 12px 16px;
+            border: 2px solid #e2e8f0;
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: 0.2s;
+        }
+        .form-group input:focus {
+            outline: none;
+            border-color: #2563eb;
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.1);
+        }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+        .btn {
+            width: 100%;
+            padding: 14px;
+            border: none;
+            border-radius: 10px;
+            background: #2563eb;
+            color: white;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .btn:hover { background: #1d4ed8; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.3); }
+        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .alert {
+            padding: 12px 16px;
+            border-radius: 10px;
+            margin-bottom: 16px;
+            display: none;
+        }
+        .alert.success { display: block; background: #d1fae5; color: #065f46; border-left: 4px solid #10b981; }
+        .alert.error { display: block; background: #fee2e2; color: #991b1b; border-left: 4px solid #ef4444; }
+        .alert.info { display: block; background: #dbeafe; color: #1e40af; border-left: 4px solid #2563eb; }
+        .divider {
+            text-align: center;
+            padding: 16px 0;
+            color: #94a3b8;
+            font-size: 0.85rem;
+            border-top: 1px solid #e2e8f0;
+            margin-top: 16px;
+        }
+        .divider a { color: #2563eb; font-weight: 600; text-decoration: none; }
+        .divider a:hover { text-decoration: underline; }
+        .password-hint {
+            font-size: 0.75rem;
+            color: #94a3b8;
+            margin-top: 4px;
+        }
+        .password-strength {
+            height: 4px;
+            background: #e2e8f0;
+            border-radius: 2px;
+            margin-top: 6px;
+            overflow: hidden;
+        }
+        .password-strength .bar {
+            height: 100%;
+            transition: 0.3s;
+            width: 0%;
+            border-radius: 2px;
+        }
+        @media (max-width: 480px) {
+            .card { padding: 24px; }
+            .form-row { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="card">
+            <div class="logo">
+                <div class="icon">MEI</div>
+                <h1>Create <span>Admin</span></h1>
+                <p>Set up a new administrator account</p>
+            </div>
+
+            <div id="alert" class="alert"></div>
+
+            <form id="registerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>First Name</label>
+                        <input type="text" id="firstName" placeholder="John" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Last Name</label>
+                        <input type="text" id="lastName" placeholder="Doe" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Email Address</label>
+                    <input type="email" id="email" placeholder="admin@mei.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label>Password</label>
+                    <input type="password" id="password" placeholder="Min 8 characters" required minlength="8">
+                    <div class="password-hint">Min 8 characters, at least 1 uppercase, 1 lowercase, 1 number</div>
+                    <div class="password-strength"><div class="bar" id="strengthBar"></div></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Confirm Password</label>
+                    <input type="password" id="confirmPassword" placeholder="Confirm your password" required>
+                </div>
+
+                <button type="submit" class="btn" id="registerBtn">
+                    <i class="fas fa-user-plus"></i> Create Admin Account
+                </button>
+            </form>
+
+            <div class="divider">
+                <a href="admin-login.html">← Back to Login</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('registerForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const alert = document.getElementById('alert');
+            const btn = document.getElementById('registerBtn');
+
+            const firstName = document.getElementById('firstName').value.trim();
+            const lastName = document.getElementById('lastName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const password = document.getElementById('password').value;
+            const confirm = document.getElementById('confirmPassword').value;
+
+            // Validate
+            if (!firstName || !lastName) {
+                showAlert('Please enter your full name.', 'error');
+                return;
+            }
+
+            if (!email || !email.includes('@')) {
+                showAlert('Please enter a valid email address.', 'error');
+                return;
+            }
+
+            if (password.length < 8) {
+                showAlert('Password must be at least 8 characters.', 'error');
+                return;
+            }
+
+            if (password !== confirm) {
+                showAlert('Passwords do not match.', 'error');
+                return;
+            }
+
+            // Check if admin already exists
+            const admins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
+            if (admins.some(a => a.email === email)) {
+                showAlert('An admin with this email already exists.', 'error');
+                return;
+            }
+
+            // Create admin user
+            const admin = {
+                id: Date.now(),
+                firstName,
+                lastName,
+                email,
+                password: btoa(password), // In production, use bcrypt
+                role: 'admin',
+                created: new Date().toISOString(),
+                status: 'active'
+            };
+
+            admins.push(admin);
+            localStorage.setItem('mei_admins', JSON.stringify(admins));
+
+            // Also add to users
+            const users = JSON.parse(localStorage.getItem('mei_users') || '[]');
+            users.push({
+                id: admin.id,
+                name: `${firstName} ${lastName}`,
+                email: email,
+                role: 'admin',
+                joined: admin.created,
+                status: 'active'
+            });
+            localStorage.setItem('mei_users', JSON.stringify(users));
+
+            showAlert('✅ Admin account created successfully! Redirecting to login...', 'success');
+            btn.disabled = true;
+
+            setTimeout(() => {
+                window.location.href = 'admin-login.html';
+            }, 2000);
+        });
+
+        // Password strength indicator
+        document.getElementById('password').addEventListener('input', function() {
+            const bar = document.getElementById('strengthBar');
+            const val = this.value;
+            let strength = 0;
+            if (val.length >= 8) strength += 25;
+            if (/[a-z]/.test(val)) strength += 25;
+            if (/[A-Z]/.test(val)) strength += 25;
+            if (/[0-9]/.test(val)) strength += 25;
+
+            bar.style.width = strength + '%';
+            bar.style.background = strength < 25 ? '#ef4444' : strength < 50 ? '#f59e0b' : strength < 75 ? '#3b82f6' : '#10b981';
+        });
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = 'alert ' + type;
+            setTimeout(() => {
+                if (type !== 'success') {
+                    setTimeout(() => {
+                        alert.className = 'alert';
+                    }, 5000);
+                }
+            }, 100);
+        }
+    </script>
+</body>
+</html>
