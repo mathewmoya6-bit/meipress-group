@@ -1,350 +1,543 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mei Press Group | Build Your Future</title>
-    <meta name="description" content="Mei Press Group - Premier recruitment and training organization in Nairobi, Kenya.">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="assets/images/favicon.ico">
-    <link rel="icon" type="image/png" sizes="32x32" href="assets/images/favicon-32x32.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="assets/images/apple-icon-180x180.png">
-    
-    <!-- Fonts & Styles -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link rel="stylesheet" href="css/style.css">
-    
-    <style>
-        /* Additional styles for index page */
-        .service-card {
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .service-card:hover {
-            transform: translateY(-8px);
-            box-shadow: 0 15px 40px rgba(0,180,216,0.2);
-        }
-        .service-card .learn-more {
-            display: inline-block;
-            color: #00b4d8;
-            font-weight: 500;
-            margin-top: 0.5rem;
-            transition: all 0.3s ease;
-        }
-        .service-card:hover .learn-more {
-            transform: translateX(5px);
-        }
-        
-        /* View All Services Button */
-        .view-all-btn {
-            display: inline-block;
-            background: transparent;
-            color: #00b4d8;
-            padding: 0.8rem 2rem;
-            border: 2px solid #00b4d8;
-            border-radius: 2rem;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            margin-top: 1rem;
-        }
-        .view-all-btn:hover {
-            background: #00b4d8;
-            color: white;
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0,180,216,0.3);
-        }
-        
-        /* CTA Section */
-        .cta-section-index {
-            background: linear-gradient(135deg, #1a1a2e, #0f3460);
-            padding: 4rem 2rem;
-            text-align: center;
-            color: white;
-            border-radius: 1.5rem;
-            margin-top: 2rem;
-        }
-        .cta-section-index h2 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
-        .cta-section-index p {
-            font-size: 1.1rem;
-            color: #ccc;
-            margin-bottom: 2rem;
-        }
-        .cta-section-index .btn-hero {
-            background: #00b4d8;
-            color: white;
-            padding: 1rem 3rem;
-            border: none;
-            border-radius: 3rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            display: inline-block;
-        }
-        .cta-section-index .btn-hero:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 10px 30px rgba(0,180,216,0.4);
-            background: #0096c7;
-            color: white;
-        }
-        
-        /* Services Grid */
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 2rem;
-        }
-        
-        /* Responsive */
-        @media (max-width: 768px) {
-            .services-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .cta-section-index h2 {
-                font-size: 1.8rem;
-            }
-        }
-        @media (max-width: 480px) {
-            .services-grid {
-                grid-template-columns: 1fr;
-            }
-            .cta-section-index {
-                padding: 2rem 1rem;
-            }
-        }
-    </style>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>MEI Group | Empowering People. Building Careers.</title>
+  <meta name="description" content="MEI Group – Education, training, workforce solutions &amp; vehicle intelligence. Empowering people, building careers, driving innovation." />
+  <link rel="icon" type="image/x-icon" href="#" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet" />
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      font-family: "Inter", sans-serif;
+      background: #fafcff;
+      color: #0b1a2e;
+      line-height: 1.5;
+    }
+    a { text-decoration: none; color: inherit; }
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    /* navbar */
+    .navbar {
+      background: rgba(255,255,255,0.92);
+      backdrop-filter: blur(8px);
+      box-shadow: 0 2px 20px rgba(0,0,0,0.04);
+      padding: 12px 0;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      border-bottom: 1px solid rgba(0,180,216,0.1);
+    }
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+    .logo a {
+      font-weight: 700;
+      font-size: 1.6rem;
+      letter-spacing: -0.5px;
+      color: #0b1a2e;
+      display: flex;
+      align-items: baseline;
+      gap: 6px;
+      flex-wrap: wrap;
+    }
+    .logo a span {
+      font-weight: 400;
+      font-size: 0.8rem;
+      color: #00b4d8;
+      background: rgba(0,180,216,0.08);
+      padding: 2px 12px;
+      border-radius: 40px;
+      letter-spacing: 0.3px;
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 28px;
+    }
+    .nav-links a {
+      font-weight: 500;
+      font-size: 0.95rem;
+      color: #1f2a3f;
+      transition: color 0.2s;
+      position: relative;
+    }
+    .nav-links a:hover { color: #00b4d8; }
+    .btn-nav {
+      background: #00b4d8;
+      color: white !important;
+      padding: 8px 22px;
+      border-radius: 40px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-nav:hover { background: #0090b0; color: white !important; }
+    .mobile-menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      font-size: 1.6rem;
+      color: #0b1a2e;
+      cursor: pointer;
+    }
+    /* hero */
+    .hero {
+      background: linear-gradient(145deg, #0b1a2e 0%, #1a3a4f 100%);
+      color: white;
+      padding: 80px 0 90px;
+      border-radius: 0 0 48px 48px;
+      margin-bottom: 20px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::after {
+      content: '';
+      position: absolute;
+      top: -30%;
+      right: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(0,180,216,0.08) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero-content {
+      max-width: 720px;
+      position: relative;
+      z-index: 2;
+    }
+    .hero-content h1 {
+      font-size: 3.4rem;
+      font-weight: 800;
+      letter-spacing: -1.5px;
+      line-height: 1.1;
+      margin-bottom: 18px;
+    }
+    .hero-content .highlight {
+      color: #66d9ff;
+    }
+    .hero-content p {
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.8);
+      max-width: 560px;
+      margin-bottom: 32px;
+      line-height: 1.6;
+    }
+    .hero-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .btn-hero {
+      background: #00b4d8;
+      color: #fff;
+      padding: 14px 38px;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: 0.2s;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+    .btn-hero:hover { background: #0090b0; transform: translateY(-2px); box-shadow: 0 12px 24px rgba(0,180,216,0.25); }
+    .btn-hero-outline {
+      background: transparent;
+      border: 1.5px solid rgba(255,255,255,0.3);
+      color: white;
+      padding: 14px 38px;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .btn-hero-outline:hover { border-color: #66d9ff; background: rgba(0,180,216,0.08); }
+    /* section */
+    .section { padding: 60px 0; }
+    .section-title {
+      font-size: 2.2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+    .section-sub {
+      color: #3d5570;
+      font-size: 1.1rem;
+      max-width: 600px;
+      margin-bottom: 40px;
+    }
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4,1fr);
+      gap: 24px;
+    }
+    .service-card {
+      background: white;
+      border-radius: 24px;
+      padding: 28px 20px 24px;
+      box-shadow: 0 4px 24px rgba(0,0,0,0.02);
+      border: 1px solid rgba(0,0,0,0.02);
+      transition: 0.25s ease;
+      cursor: default;
+    }
+    .service-card:hover { transform: translateY(-6px); box-shadow: 0 20px 40px rgba(0,180,216,0.08); border-color: rgba(0,180,216,0.15); }
+    .service-icon { font-size: 2.4rem; margin-bottom: 12px; }
+    .service-card h3 { font-size: 1.25rem; font-weight: 700; margin-bottom: 8px; }
+    .service-card p { color: #3d5570; font-size: 0.95rem; margin-bottom: 16px; }
+    .learn-more {
+      color: #00b4d8;
+      font-weight: 600;
+      font-size: 0.9rem;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: 0.2s;
+    }
+    .service-card:hover .learn-more { gap: 12px; }
+    .badge-tech {
+      background: #e6f7fc;
+      color: #007b9e;
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 2px 12px;
+      border-radius: 40px;
+      display: inline-block;
+      margin-top: 6px;
+      letter-spacing: 0.3px;
+    }
+    .view-all-wrap { text-align: center; margin-top: 32px; }
+    .view-all-btn {
+      background: transparent;
+      border: 2px solid #00b4d8;
+      color: #00b4d8;
+      padding: 10px 36px;
+      border-radius: 60px;
+      font-weight: 600;
+      transition: 0.2s;
+      display: inline-block;
+    }
+    .view-all-btn:hover { background: #00b4d8; color: white; box-shadow: 0 8px 24px rgba(0,180,216,0.2); }
+    /* stats */
+    .stats {
+      background: #0b1a2e;
+      color: white;
+      padding: 48px 0;
+      border-radius: 48px;
+      margin: 20px 0 10px;
+    }
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(5,1fr);
+      gap: 16px;
+      text-align: center;
+    }
+    .stat-item .stat-number {
+      font-size: 2.6rem;
+      font-weight: 700;
+      color: #66d9ff;
+      display: block;
+      line-height: 1.1;
+    }
+    .stat-item div { font-size: 0.9rem; opacity: 0.8; margin-top: 4px; }
+    /* cta */
+    .cta-block {
+      background: linear-gradient(145deg, #0b1a2e, #153545);
+      padding: 60px 40px;
+      border-radius: 48px;
+      color: white;
+      text-align: center;
+    }
+    .cta-block h2 { font-size: 2.4rem; font-weight: 700; }
+    .cta-block p { opacity: 0.8; max-width: 500px; margin: 12px auto 28px; font-size: 1.05rem; }
+    /* footer */
+    .footer {
+      background: #0b1a2e;
+      color: rgba(255,255,255,0.7);
+      padding: 40px 0 24px;
+      margin-top: 40px;
+      border-radius: 48px 48px 0 0;
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 32px;
+      padding-bottom: 32px;
+      border-bottom: 1px solid rgba(255,255,255,0.05);
+    }
+    .footer-section h4 { color: white; font-weight: 600; margin-bottom: 12px; font-size: 1rem; }
+    .footer-section p { margin: 6px 0; font-size: 0.9rem; }
+    .footer-section a { color: rgba(255,255,255,0.7); transition: 0.2s; }
+    .footer-section a:hover { color: #66d9ff; }
+    .social-links a {
+      display: inline-block;
+      margin-right: 12px;
+      font-size: 1.2rem;
+      color: rgba(255,255,255,0.5);
+      transition: 0.2s;
+    }
+    .social-links a:hover { color: #66d9ff; transform: translateY(-2px); }
+    .footer-bottom { text-align: center; padding-top: 24px; font-size: 0.85rem; opacity: 0.6; }
+    .whatsapp-float {
+      position: fixed;
+      bottom: 28px;
+      right: 28px;
+      background: #25d366;
+      color: white;
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 2.2rem;
+      box-shadow: 0 8px 30px rgba(37,211,102,0.3);
+      transition: 0.2s;
+      z-index: 999;
+    }
+    .whatsapp-float:hover { transform: scale(1.05); background: #1ebe5c; }
+    /* responsive */
+    @media (max-width: 1024px) {
+      .grid-4 { grid-template-columns: repeat(2,1fr); }
+      .stats-grid { grid-template-columns: repeat(3,1fr); }
+      .footer-content { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 768px) {
+      .nav-links { display: none; flex-direction: column; background: white; position: absolute; top: 70px; left: 0; right: 0; padding: 24px; box-shadow: 0 16px 40px rgba(0,0,0,0.04); border-radius: 0 0 24px 24px; gap: 16px; }
+      .nav-links.active { display: flex; }
+      .mobile-menu-btn { display: block; }
+      .hero-content h1 { font-size: 2.4rem; }
+      .grid-4 { grid-template-columns: 1fr; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .footer-content { grid-template-columns: 1fr; }
+      .cta-block { padding: 36px 20px; }
+      .cta-block h2 { font-size: 1.8rem; }
+    }
+    @media (max-width: 480px) {
+      .hero { padding: 60px 0 70px; }
+      .hero-content h1 { font-size: 2rem; }
+      .btn-hero, .btn-hero-outline { padding: 12px 24px; }
+    }
+  </style>
 </head>
 <body>
-    <!-- Navigation -->
-    <nav class="navbar" id="mainNav">
-        <div class="nav-container">
-            <div class="logo">
-                <a href="index.html">MEI PRESS GROUP<span>Build Your Future With Us</span></a>
-            </div>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-            <div class="nav-links" id="navLinks">
-                <a href="index.html">Home</a>
-                <a href="client.html#services">Services</a>
-                <a href="client-request.html" class="btn-nav">Apply Now</a>
-                <a href="login.html">Login</a>
-            </div>
+  <nav class="navbar" id="mainNav">
+    <div class="nav-container">
+      <div class="logo">
+        <a href="#">MEI GROUP <span>division of MEI Press Group Ltd.</span></a>
+      </div>
+      <button class="mobile-menu-btn" id="mobileMenuBtn"><i class="fas fa-bars"></i></button>
+      <div class="nav-links" id="navLinks">
+        <a href="#services">Services</a>
+        <a href="#impact">Impact</a>
+        <a href="#" class="btn-nav">Get Started</a>
+        <a href="#">Login</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>Empowering People.<br /><span class="highlight">Building Careers.</span> Driving Innovation.</h1>
+        <p>We provide world-class education, professional training, workforce solutions and intelligent technology that help individuals, businesses and institutions succeed.</p>
+        <div class="hero-buttons">
+          <a href="#services" class="btn-hero">Explore Services</a>
+          <a href="#" class="btn-hero-outline">Contact Us</a>
         </div>
-    </nav>
+      </div>
+    </div>
+  </section>
 
-    <!-- Hero Section -->
-    <section id="home" class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h1>Build Your Future With Us</h1>
-            <p>Study Abroad • OSH Training • Driver Placement</p>
-            <div class="hero-buttons">
-                <a href="client-request.html" class="btn-hero">Apply Now</a>
-                <a href="client.html#services" class="btn-hero-secondary">View Services</a>
-            </div>
+  <!-- What We Do -->
+  <section class="section">
+    <div class="container">
+      <h2 class="section-title">What We Do</h2>
+      <p class="section-sub">We deliver practical solutions that create opportunities, improve professional skills and support organisational growth.</p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section id="services" class="section" style="padding-top:0;">
+    <div class="container">
+      <div class="grid-4">
+        <div class="service-card">
+          <div class="service-icon">🎓</div>
+          <h3>International Education</h3>
+          <p>Expert study abroad consultancy, admissions support and visa guidance for students worldwide.</p>
+          <span class="learn-more">Learn More →</span>
         </div>
-    </section>
-
-    <!-- Services Section -->
-    <section id="services" class="section">
-        <div class="container">
-            <h2 class="section-title">Our Services</h2>
-            <div class="services-grid">
-                <div class="service-card" onclick="location.href='client.html#service-study-abroad'">
-                    <div class="service-icon">🎓</div>
-                    <h3>Study Abroad</h3>
-                    <p>Expert guidance for studying in USA, Canada, UK, Australia, and more.</p>
-                    <span class="learn-more">Learn More →</span>
-                </div>
-                
-                <div class="service-card" onclick="location.href='client.html#service-road-safety'">
-                    <div class="service-icon">🚸</div>
-                    <h3>Road Safety Training</h3>
-                    <p>Comprehensive driver training and road safety certification for schools.</p>
-                    <span class="learn-more">Learn More →</span>
-                </div>
-                
-                <div class="service-card" onclick="location.href='client.html#service-osh'">
-                    <div class="service-icon">🏭</div>
-                    <h3>OSH Training</h3>
-                    <p>Occupational Safety and Health certification programs for workplaces.</p>
-                    <span class="learn-more">Learn More →</span>
-                </div>
-                
-                <div class="service-card" onclick="location.href='client.html#service-driver'">
-                    <div class="service-icon">🚗</div>
-                    <h3>Driver Placement</h3>
-                    <p>Professional driver placement services locally and internationally.</p>
-                    <span class="learn-more">Learn More →</span>
-                </div>
-            </div>
-            
-            <div style="text-align:center;margin-top:2rem;">
-                <a href="client.html#services" class="view-all-btn">
-                    View All Services <i class="fas fa-arrow-right"></i>
-                </a>
-            </div>
+        <div class="service-card">
+          <div class="service-icon">🚸</div>
+          <h3>Road Safety Training</h3>
+          <p>Professional road safety education for schools, transport companies, and government institutions.</p>
+          <span class="learn-more">Learn More →</span>
         </div>
-    </section>
-
-    <!-- Stats Section -->
-    <section class="stats">
-        <div class="container" style="padding:3rem 0;">
-            <div class="stats-grid">
-                <div class="stat-item">
-                    <span class="stat-number" data-count="500">0</span>
-                    <div>Students Placed</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="20">0</span>
-                    <div>Partner Universities</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="1000">0</span>
-                    <div>Trained Professionals</div>
-                </div>
-                <div class="stat-item">
-                    <span class="stat-number" data-count="10">0</span>
-                    <div>Countries</div>
-                </div>
-            </div>
+        <div class="service-card">
+          <div class="service-icon">🏭</div>
+          <h3>Occupational Safety &amp; Health</h3>
+          <p>Workplace safety training that improves compliance, reduces risk and protects employees.</p>
+          <span class="learn-more">Learn More →</span>
         </div>
-    </section>
-
-    <!-- CTA Section -->
-    <section class="section">
-        <div class="container">
-            <div class="cta-section-index">
-                <h2>Ready to Get Started?</h2>
-                <p>Contact us today and let us help you build your future.</p>
-                <a href="client-request.html" class="btn-hero">Apply Now <i class="fas fa-arrow-right"></i></a>
-            </div>
+        <div class="service-card">
+          <div class="service-icon">🚗</div>
+          <h3>Driver Recruitment &amp; Placement</h3>
+          <p>Connecting qualified drivers with trusted employers in Kenya and international markets.</p>
+          <span class="learn-more">Learn More →</span>
         </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>Mei Press Group</h4>
-                    <p>Your gateway to global opportunities.</p>
-                    <a href="client.html#services" style="color:#00b4d8;text-decoration:none;">
-                        <i class="fas fa-arrow-right"></i> View All Services
-                    </a>
-                </div>
-                <div class="footer-section">
-                    <h4>Quick Links</h4>
-                    <p><a href="index.html">Home</a></p>
-                    <p><a href="client.html#services">Services</a></p>
-                    <p><a href="client-request.html">Apply Now</a></p>
-                    <p><a href="login.html">Login</a></p>
-                </div>
-                <div class="footer-section">
-                    <h4>Contact</h4>
-                    <p>📞 <a href="tel:+254703738707" style="color:#00b4d8;">0703 738 707</a></p>
-                    <p>📧 <a href="mailto:info@meipress.com" style="color:#00b4d8;">info@meipress.com</a></p>
-                </div>
-                <div class="footer-section">
-                    <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#"><i class="fab fa-facebook"></i></a>
-                        <a href="#"><i class="fab fa-twitter"></i></a>
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-linkedin"></i></a>
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Mei Press Group. All rights reserved.</p>
-            </div>
+        <div class="service-card" style="grid-column: span 2; background: #eef9fc;">
+          <div class="service-icon">📊</div>
+          <h3>AUTO-V Vehicle Intelligence <span class="badge-tech">Africa's smart platform</span></h3>
+          <p>Vehicle valuation, mileage calculator, fleet management, digital inspection reports — all in one.</p>
+          <span class="learn-more">Explore AUTO-V →</span>
         </div>
-    </footer>
+        <div class="service-card" style="grid-column: span 2; background: #f2f6fc;">
+          <div class="service-icon">🧰</div>
+          <h3>Workforce &amp; Professional Solutions</h3>
+          <p>Tailored training, recruitment, and consulting to build skilled, compliant, and productive teams.</p>
+          <span class="learn-more">Learn More →</span>
+        </div>
+      </div>
+      <div class="view-all-wrap">
+        <a href="#" class="view-all-btn">View All Services <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
 
-    <!-- WhatsApp Float Button -->
-    <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+  <!-- Why Choose -->
+  <section style="padding: 20px 0 40px;">
+    <div class="container">
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(160px,1fr)); gap: 16px; background: white; border-radius: 40px; padding: 32px 28px; box-shadow: 0 4px 30px rgba(0,0,0,0.02);">
+        <div><i class="fas fa-check-circle" style="color:#00b4d8; margin-right:6px;"></i> Professional Expertise</div>
+        <div><i class="fas fa-check-circle" style="color:#00b4d8; margin-right:6px;"></i> International Partnerships</div>
+        <div><i class="fas fa-check-circle" style="color:#00b4d8; margin-right:6px;"></i> Industry-Compliant Training</div>
+        <div><i class="fas fa-check-circle" style="color:#00b4d8; margin-right:6px;"></i> Technology-Driven Solutions</div>
+        <div><i class="fas fa-check-circle" style="color:#00b4d8; margin-right:6px;"></i> Trusted by Organisations</div>
+        <div><i class="fas fa-check-circle" style="color:#00b4d8; margin-right:6px;"></i> Customer-Focused Support</div>
+      </div>
+    </div>
+  </section>
 
-    <!-- Scripts -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/config.js"></script>
-    <script src="js/supabase-config.js"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            console.log('🚀 Mei Press Group website loaded');
-            
-            if (typeof window.supabaseClient !== 'undefined') {
-                console.log('✅ Supabase client is ready');
-            } else {
-                console.warn('⚠️ Supabase client not ready');
-            }
+  <!-- Stats -->
+  <section id="impact" class="stats">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item"><span class="stat-number" data-count="12">0</span><div>Years Experience</div></div>
+        <div class="stat-item"><span class="stat-number" data-count="5000">0</span><div>Professionals Supported</div></div>
+        <div class="stat-item"><span class="stat-number" data-count="20">0</span><div>Strategic Partners</div></div>
+        <div class="stat-item"><span class="stat-number" data-count="15">0</span><div>Countries Served</div></div>
+        <div class="stat-item"><span class="stat-number" data-count="98">0</span><div>Client Satisfaction %</div></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section style="padding: 50px 0;">
+    <div class="container">
+      <div class="cta-block">
+        <h2>Ready to Take the Next Step?</h2>
+        <p>Whether you're pursuing international education, improving workplace safety, recruiting skilled professionals or using intelligent vehicle solutions — MEI is ready to help.</p>
+        <a href="#" class="btn-hero" style="background:#66d9ff; color:#0b1a2e;">Get Started Today <i class="fas fa-arrow-right"></i></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <div class="footer-content">
+        <div class="footer-section">
+          <h4>MEI Group</h4>
+          <p style="max-width:280px;">Empowering people, building careers, driving innovation. A division of MEI Press Group Ltd.</p>
+          <a href="#" style="color:#66d9ff;"><i class="fas fa-arrow-right"></i> View All Services</a>
+        </div>
+        <div class="footer-section">
+          <h4>Quick Links</h4>
+          <p><a href="#">Home</a></p>
+          <p><a href="#services">Services</a></p>
+          <p><a href="#">Apply Now</a></p>
+          <p><a href="#">Login</a></p>
+        </div>
+        <div class="footer-section">
+          <h4>Contact</h4>
+          <p><i class="fas fa-phone-alt" style="width:20px;"></i> <a href="tel:+254703738707">0703 738 707</a></p>
+          <p><i class="fas fa-envelope" style="width:20px;"></i> <a href="mailto:info@meipress.com">info@meipress.com</a></p>
+        </div>
+        <div class="footer-section">
+          <h4>Follow Us</h4>
+          <div class="social-links">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+        </div>
+      </div>
+      <div class="footer-bottom">&copy; 2025 MEI Press Group Ltd. All rights reserved.</div>
+    </div>
+  </footer>
+
+  <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank"><i class="fab fa-whatsapp"></i></a>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      // mobile menu
+      const btn = document.getElementById('mobileMenuBtn');
+      const links = document.getElementById('navLinks');
+      btn.addEventListener('click', function(e) {
+        e.stopPropagation();
+        links.classList.toggle('active');
+        this.innerHTML = links.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+      });
+      document.addEventListener('click', function(e) {
+        if (links.classList.contains('active') && !e.target.closest('.navbar')) {
+          links.classList.remove('active');
+          btn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+      });
+
+      // stats animation
+      const stats = document.querySelectorAll('.stat-number');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const el = entry.target;
+            const target = parseInt(el.dataset.count);
+            let current = 0;
+            const step = Math.ceil(target / 50);
+            const timer = setInterval(() => {
+              current += step;
+              if (current >= target) { current = target; clearInterval(timer); }
+              el.textContent = current + (target > 100 ? '+' : (target === 98 ? '%' : ''));
+            }, 30);
+            observer.unobserve(el);
+          }
         });
+      }, { threshold: 0.3 });
+      stats.forEach(s => observer.observe(s));
 
-        // Animate stats
-        const statsObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const target = entry.target;
-                    const count = parseInt(target.dataset.count);
-                    let current = 0;
-                    const increment = Math.ceil(count / 60);
-                    const timer = setInterval(() => {
-                        current += increment;
-                        if (current >= count) {
-                            current = count;
-                            clearInterval(timer);
-                        }
-                        target.textContent = current + (count > 100 ? '+' : '');
-                    }, 30);
-                    statsObserver.unobserve(target);
-                }
-            });
-        }, { threshold: 0.5 });
-        
-        document.querySelectorAll('.stat-number').forEach(stat => statsObserver.observe(stat));
-
-        // Mobile menu
-        document.getElementById('mobileMenuBtn').addEventListener('click', function() {
-            const navLinks = document.getElementById('navLinks');
-            navLinks.classList.toggle('active');
-            this.innerHTML = navLinks.classList.contains('active') 
-                ? '<i class="fas fa-times"></i>' 
-                : '<i class="fas fa-bars"></i>';
-        });
-
-        // Close mobile menu when clicking outside
-        document.addEventListener('click', function(e) {
-            const nav = document.querySelector('.navbar');
-            const navLinks = document.getElementById('navLinks');
-            if (navLinks.classList.contains('active')) {
-                if (!nav.contains(e.target)) {
-                    navLinks.classList.remove('active');
-                    document.getElementById('mobileMenuBtn').innerHTML = '<i class="fas fa-bars"></i>';
-                }
-            }
-        });
-
-        // Navbar scroll effect
-        window.addEventListener('scroll', function() {
-            const navbar = document.getElementById('mainNav');
-            if (window.scrollY > 100) {
-                navbar.classList.add('scrolled');
-            } else {
-                navbar.classList.remove('scrolled');
-            }
-        });
-
-        console.log('✅ All scripts loaded successfully');
-        console.log('🔗 Apply Now button links to client-request.html');
-    </script>
+      // navbar scroll
+      window.addEventListener('scroll', function() {
+        const nav = document.getElementById('mainNav');
+        if (window.scrollY > 60) nav.style.boxShadow = '0 8px 30px rgba(0,0,0,0.06)';
+        else nav.style.boxShadow = '0 2px 20px rgba(0,0,0,0.02)';
+      });
+    });
+  </script>
 </body>
 </html>
