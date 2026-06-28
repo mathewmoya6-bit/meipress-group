@@ -333,26 +333,6 @@
       margin-top: 6px;
       letter-spacing: 0.3px;
     }
-    .view-all-wrap {
-      text-align: center;
-      margin-top: 32px;
-    }
-    .view-all-btn {
-      background: transparent;
-      border: 2px solid #00b4d8;
-      color: #00b4d8;
-      padding: 10px 36px;
-      border-radius: 60px;
-      font-weight: 600;
-      transition: 0.25s ease;
-      display: inline-block;
-    }
-    .view-all-btn:hover {
-      background: #00b4d8;
-      color: white;
-      box-shadow: 0 8px 24px rgba(0, 180, 216, 0.15);
-      transform: translateY(-2px);
-    }
 
     /* === WHY CHOOSE === */
     .why-choose-grid {
@@ -404,6 +384,131 @@
       font-size: 0.9rem;
       opacity: 0.8;
       margin-top: 4px;
+    }
+
+    /* === SMART APPLY FORM === */
+    .apply-section {
+      background: white;
+      border-radius: 40px;
+      padding: 48px 40px;
+      box-shadow: 0 8px 48px rgba(0, 0, 0, 0.03);
+      border: 1px solid rgba(0, 0, 0, 0.02);
+    }
+    .apply-section .section-title {
+      margin-bottom: 8px;
+    }
+    .apply-section .section-sub {
+      margin-bottom: 32px;
+    }
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+    }
+    .form-group {
+      margin-bottom: 18px;
+    }
+    .form-group label {
+      display: block;
+      font-weight: 600;
+      font-size: 0.9rem;
+      margin-bottom: 4px;
+      color: #1f2a3f;
+    }
+    .form-group label .required {
+      color: #e53e3e;
+      margin-left: 2px;
+    }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      width: 100%;
+      padding: 12px 16px;
+      border: 1.5px solid #e2e8f0;
+      border-radius: 12px;
+      font-family: inherit;
+      font-size: 1rem;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      background: white;
+      color: #0b1a2e;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      outline: none;
+      border-color: #00b4d8;
+      box-shadow: 0 0 0 4px rgba(0, 180, 216, 0.1);
+    }
+    .form-group textarea {
+      resize: vertical;
+      min-height: 80px;
+    }
+    .form-group .helper {
+      font-size: 0.8rem;
+      color: #5a6f87;
+      margin-top: 4px;
+    }
+    .btn-submit {
+      background: #00b4d8;
+      color: white;
+      padding: 14px 40px;
+      border: none;
+      border-radius: 60px;
+      font-weight: 600;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: 0.25s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .btn-submit:hover {
+      background: #0090b0;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 180, 216, 0.25);
+    }
+    .btn-submit:disabled {
+      opacity: 0.6;
+      cursor: not-allowed;
+      transform: none;
+    }
+    .alert-success {
+      background: #d1fae5;
+      color: #065f46;
+      padding: 14px 20px;
+      border-radius: 12px;
+      display: none;
+      margin-bottom: 16px;
+      font-weight: 500;
+    }
+    .alert-success.show {
+      display: block;
+    }
+
+    /* Dynamic fields container */
+    .dynamic-fields {
+      background: #f8fafc;
+      border-radius: 16px;
+      padding: 20px 24px;
+      margin: 8px 0 16px;
+      border: 1px dashed #d1d9e6;
+      transition: all 0.3s ease;
+    }
+    .dynamic-fields.active {
+      border-color: #00b4d8;
+      background: #f0f9fc;
+    }
+    .dynamic-fields .form-group:last-child {
+      margin-bottom: 0;
+    }
+    .dynamic-fields .form-group label {
+      font-weight: 500;
+    }
+    .service-selector {
+      margin-bottom: 24px;
+    }
+    .service-selector .form-group {
+      margin-bottom: 0;
     }
 
     /* === CTA === */
@@ -562,6 +667,15 @@
         height: 40px;
         font-size: 1rem;
       }
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+      .apply-section {
+        padding: 28px 16px;
+      }
+      .dynamic-fields {
+        padding: 16px;
+      }
     }
     @media (max-width: 480px) {
       .hero {
@@ -628,7 +742,8 @@
       <div class="nav-links" id="navLinks" role="menubar">
         <a href="#services" role="menuitem">Services</a>
         <a href="#impact" role="menuitem">Impact</a>
-        <a href="#" class="btn-nav" role="menuitem">Get Started</a>
+        <a href="#apply" class="btn-nav" role="menuitem">Apply Now</a>
+        <a href="#contact" role="menuitem">Contact</a>
         <a href="#" role="menuitem">Login</a>
       </div>
     </div>
@@ -642,7 +757,7 @@
         <p>We provide world-class education, professional training, workforce solutions and intelligent technology that help individuals, businesses and institutions succeed.</p>
         <div class="hero-buttons">
           <a href="#services" class="btn-hero">Explore Services</a>
-          <a href="#" class="btn-hero-outline">Contact Us</a>
+          <a href="#apply" class="btn-hero-outline">Apply Now</a>
         </div>
       </div>
     </div>
@@ -660,39 +775,36 @@
   <section id="services" class="section" style="padding-top:0;" aria-label="Our services">
     <div class="container">
       <div class="grid-4">
-        <div class="service-card">
+        <div class="service-card" data-service="education">
           <div class="service-icon" aria-hidden="true">🎓</div>
           <h3>International Education</h3>
           <p>Expert study abroad consultancy, admissions support and visa guidance for students worldwide.</p>
-          <span class="learn-more">Learn More →</span>
+          <a href="#apply" class="learn-more">Apply Now →</a>
         </div>
-        <div class="service-card">
+        <div class="service-card" data-service="roadsafety">
           <div class="service-icon" aria-hidden="true">🚸</div>
           <h3>Road Safety Training</h3>
           <p>Professional road safety education for schools, transport companies, and government institutions.</p>
-          <span class="learn-more">Learn More →</span>
+          <a href="#apply" class="learn-more">Apply Now →</a>
         </div>
-        <div class="service-card">
+        <div class="service-card" data-service="osh">
           <div class="service-icon" aria-hidden="true">🏭</div>
           <h3>Occupational Safety &amp; Health</h3>
           <p>Workplace safety training that improves compliance, reduces risk and protects employees.</p>
-          <span class="learn-more">Learn More →</span>
+          <a href="#apply" class="learn-more">Apply Now →</a>
         </div>
-        <div class="service-card">
+        <div class="service-card" data-service="driver">
           <div class="service-icon" aria-hidden="true">🚗</div>
           <h3>Driver Recruitment &amp; Placement</h3>
           <p>Connecting qualified drivers with trusted employers in Kenya and international markets.</p>
-          <span class="learn-more">Learn More →</span>
+          <a href="#apply" class="learn-more">Apply Now →</a>
         </div>
-        <div class="service-card" style="grid-column: span 2; background: #eef9fc;">
+        <div class="service-card" style="grid-column: span 2; background: #eef9fc;" data-service="autov">
           <div class="service-icon" aria-hidden="true">📊</div>
           <h3>AUTO-V Vehicle Intelligence <span class="badge-tech">Africa's smart platform</span></h3>
           <p>Vehicle valuation, mileage calculator, fleet management, digital inspection reports — all in one.</p>
-          <span class="learn-more">Explore AUTO-V →</span>
+          <a href="#apply" class="learn-more">Apply Now →</a>
         </div>
-      </div>
-      <div class="view-all-wrap">
-        <a href="#" class="view-all-btn">View All Services <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
@@ -724,13 +836,117 @@
     </div>
   </section>
 
+  <!-- ===== SMART APPLY SECTION ===== -->
+  <section id="apply" class="section" aria-label="Apply for a service">
+    <div class="container">
+      <div class="apply-section">
+        <h2 class="section-title"><i class="fas fa-rocket" style="color:#00b4d8; margin-right:12px;"></i>Apply for a Service</h2>
+        <p class="section-sub">Select the service you're interested in and we'll tailor the application to your needs.</p>
+
+        <div class="alert-success" id="applyAlert">✅ Your application has been submitted successfully! Our team will review it and get back to you within 24 hours.</div>
+
+        <form id="applyForm" onsubmit="return handleSmartApply(event)">
+          <!-- Service Selection -->
+          <div class="service-selector">
+            <div class="form-group">
+              <label for="serviceType">Select Service <span class="required">*</span></label>
+              <select id="serviceType" required>
+                <option value="">— Please select a service —</option>
+                <option value="education">🎓 International Education</option>
+                <option value="roadsafety">🚸 Road Safety Training</option>
+                <option value="osh">🏭 Occupational Safety & Health</option>
+                <option value="driver">🚗 Driver Recruitment & Placement</option>
+                <option value="autov">📊 AUTO-V Vehicle Intelligence</option>
+              </select>
+            </div>
+          </div>
+
+          <!-- Personal Information -->
+          <div class="form-row">
+            <div class="form-group">
+              <label for="fullName">Full Name <span class="required">*</span></label>
+              <input type="text" id="fullName" placeholder="John Doe" required />
+            </div>
+            <div class="form-group">
+              <label for="email">Email Address <span class="required">*</span></label>
+              <input type="email" id="email" placeholder="john@example.com" required />
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="phone">Phone Number <span class="required">*</span></label>
+              <input type="tel" id="phone" placeholder="+254 700 000 000" required />
+            </div>
+            <div class="form-group">
+              <label for="location">Location (City/Country)</label>
+              <input type="text" id="location" placeholder="Nairobi, Kenya" />
+            </div>
+          </div>
+
+          <!-- Dynamic Fields Container -->
+          <div id="dynamicFieldsContainer" class="dynamic-fields">
+            <!-- Fields will be injected here based on service selection -->
+            <p style="color: #5a6f87; font-size: 0.95rem; text-align: center; padding: 16px 0;">
+              <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
+            </p>
+          </div>
+
+          <div class="form-group">
+            <label for="additionalInfo">Additional Information or Message</label>
+            <textarea id="additionalInfo" placeholder="Any other details you'd like to share with us..."></textarea>
+          </div>
+
+          <button type="submit" class="btn-submit" id="submitBtn">
+            <i class="fas fa-paper-plane"></i> Submit Application
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== CONTACT SECTION ===== -->
+  <section id="contact" class="section" style="padding-top:0;" aria-label="Contact us">
+    <div class="container">
+      <div style="background: white; border-radius: 40px; padding: 48px 40px; box-shadow: 0 8px 48px rgba(0,0,0,0.02); border: 1px solid rgba(0,0,0,0.02);">
+        <h2 class="section-title"><i class="fas fa-envelope" style="color:#00b4d8; margin-right:12px;"></i>Contact Us</h2>
+        <p class="section-sub" style="margin-bottom:32px;">Have questions? Reach out to our team and we'll get back to you within 24 hours.</p>
+
+        <div class="alert-success" id="contactAlert">✅ Your message has been sent. We'll be in touch soon!</div>
+
+        <form id="contactForm" onsubmit="return handleContact(event)">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="contactName">Full Name <span class="required">*</span></label>
+              <input type="text" id="contactName" placeholder="John Doe" required />
+            </div>
+            <div class="form-group">
+              <label for="contactEmail">Email Address <span class="required">*</span></label>
+              <input type="email" id="contactEmail" placeholder="john@example.com" required />
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="contactSubject">Subject <span class="required">*</span></label>
+            <input type="text" id="contactSubject" placeholder="How can we help you?" required />
+          </div>
+          <div class="form-group">
+            <label for="contactMessage">Message <span class="required">*</span></label>
+            <textarea id="contactMessage" placeholder="Tell us about your inquiry..." required style="min-height:120px;"></textarea>
+          </div>
+          <button type="submit" class="btn-submit">
+            <i class="fas fa-paper-plane"></i> Send Message
+          </button>
+        </form>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== CTA ===== -->
   <section style="padding: 50px 0;" aria-label="Call to action">
     <div class="container">
       <div class="cta-block">
-        <h2>Ready to Take the Next Step?</h2>
-        <p>Whether you're pursuing international education, improving workplace safety, recruiting skilled professionals or using intelligent vehicle solutions — MEI is ready to help.</p>
-        <a href="#" class="btn-hero" style="background:#66d9ff; color:#0b1a2e;">Get Started Today <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
+        <h2>Ready to Build Your Future?</h2>
+        <p>Whether you're pursuing international education, improving workplace safety, or recruiting skilled professionals — MEI is here to help.</p>
+        <a href="#apply" class="btn-hero" style="background:#66d9ff; color:#0b1a2e;">Apply Now <i class="fas fa-arrow-right" aria-hidden="true"></i></a>
       </div>
     </div>
   </section>
@@ -742,14 +958,14 @@
         <div class="footer-section">
           <h4>MEI Group</h4>
           <p style="max-width:280px;">Empowering people, building careers, driving innovation. A division of MEI Press Group Ltd.</p>
-          <a href="#" style="color:#66d9ff;"><i class="fas fa-arrow-right" aria-hidden="true"></i> View All Services</a>
+          <a href="#apply" style="color:#66d9ff;"><i class="fas fa-arrow-right" aria-hidden="true"></i> Apply Now</a>
         </div>
         <div class="footer-section">
           <h4>Quick Links</h4>
           <p><a href="#">Home</a></p>
           <p><a href="#services">Services</a></p>
-          <p><a href="#">Apply Now</a></p>
-          <p><a href="#">Login</a></p>
+          <p><a href="#apply">Apply Now</a></p>
+          <p><a href="#contact">Contact</a></p>
         </div>
         <div class="footer-section">
           <h4>Contact</h4>
@@ -792,7 +1008,6 @@
           menuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
         });
 
-        // Close menu on outside click
         document.addEventListener('click', function(e) {
           if (navLinks.classList.contains('active') && !e.target.closest('.navbar')) {
             navLinks.classList.remove('active');
@@ -801,7 +1016,6 @@
           }
         });
 
-        // Close menu on escape key
         document.addEventListener('keydown', function(e) {
           if (e.key === 'Escape' && navLinks.classList.contains('active')) {
             navLinks.classList.remove('active');
@@ -828,7 +1042,6 @@
               function updateCounter(time) {
                 const elapsed = time - startTime;
                 const progress = Math.min(elapsed / duration, 1);
-                // Ease out cubic
                 const eased = 1 - Math.pow(1 - progress, 3);
                 current = Math.round(eased * target);
 
@@ -865,19 +1078,15 @@
 
       // === Navbar scroll effect ===
       const navbar = document.getElementById('mainNav');
-      let lastScroll = 0;
-
       window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset || document.documentElement.scrollTop;
-        if (currentScroll > 50) {
+        if (window.scrollY > 50) {
           navbar.classList.add('scrolled');
         } else {
           navbar.classList.remove('scrolled');
         }
-        lastScroll = currentScroll;
       }, { passive: true });
 
-      // === Smooth anchor scroll (progressive enhancement) ===
+      // === Smooth anchor scroll ===
       document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
         anchor.addEventListener('click', function(e) {
           const targetId = this.getAttribute('href');
@@ -895,7 +1104,180 @@
         });
       });
 
-      console.log('✅ MEI Group website initialized successfully');
+      // === SMART DYNAMIC FIELDS ===
+      const serviceSelect = document.getElementById('serviceType');
+      const dynamicContainer = document.getElementById('dynamicFieldsContainer');
+      const applyAlert = document.getElementById('applyAlert');
+
+      // Field definitions for each service
+      const fieldConfigs = {
+        education: {
+          title: 'International Education Application',
+          fields: [
+            { id: 'eduCountry', label: 'Preferred Study Destination', type: 'select', options: ['USA', 'Canada', 'UK', 'Australia', 'Germany', 'Other'] },
+            { id: 'eduLevel', label: 'Level of Study', type: 'select', options: ['Undergraduate', 'Postgraduate', 'PhD', 'Diploma', 'Certificate'] },
+            { id: 'eduIntake', label: 'Preferred Intake', type: 'select', options: ['Fall (Sep/Oct)', 'Spring (Jan/Feb)', 'Summer (May/June)', 'Flexible'] },
+            { id: 'eduBudget', label: 'Approximate Budget (USD)', type: 'text', placeholder: 'e.g. 25,000' }
+          ]
+        },
+        roadsafety: {
+          title: 'Road Safety Training Application',
+          fields: [
+            { id: 'rsOrganization', label: 'Organization/Institution Name', type: 'text', placeholder: 'e.g. ABC School Ltd' },
+            { id: 'rsType', label: 'Type of Training Required', type: 'select', options: ['School Road Safety', 'Corporate Driver Training', 'Public Awareness Campaign', 'Government Program'] },
+            { id: 'rsParticipants', label: 'Number of Participants', type: 'number', placeholder: 'e.g. 50' },
+            { id: 'rsDate', label: 'Preferred Training Date', type: 'date' }
+          ]
+        },
+        osh: {
+          title: 'Occupational Safety & Health Application',
+          fields: [
+            { id: 'oshIndustry', label: 'Industry/Sector', type: 'text', placeholder: 'e.g. Construction, Manufacturing' },
+            { id: 'oshType', label: 'Type of OSH Training', type: 'select', options: ['OSH Level 1', 'OSH Level 2', 'Fire Safety', 'First Aid', 'Risk Assessment', 'Custom'] },
+            { id: 'oshEmployees', label: 'Number of Employees to Train', type: 'number', placeholder: 'e.g. 100' },
+            { id: 'oshLocation', label: 'Training Location', type: 'text', placeholder: 'e.g. Nairobi, Kenya' }
+          ]
+        },
+        driver: {
+          title: 'Driver Recruitment & Placement Application',
+          fields: [
+            { id: 'drvLicense', label: 'Driver License Type', type: 'select', options: ['Class B', 'Class C', 'Class D', 'Class E', 'International'] },
+            { id: 'drvExperience', label: 'Years of Driving Experience', type: 'number', placeholder: 'e.g. 5' },
+            { id: 'drvVehicles', label: 'Types of Vehicles Experienced With', type: 'text', placeholder: 'e.g. Saloon, Bus, Truck, Motorcycle' },
+            { id: 'drvRegion', label: 'Preferred Work Region', type: 'text', placeholder: 'e.g. Nairobi, Kenya or International' }
+          ]
+        },
+        autov: {
+          title: 'AUTO-V Vehicle Intelligence Application',
+          fields: [
+            { id: 'avService', label: 'AUTO-V Service Required', type: 'select', options: ['Vehicle Valuation', 'Fleet Management', 'Mileage Calculator', 'Vehicle Inspection', 'Digital Reports', 'Full Platform'] },
+            { id: 'avFleetSize', label: 'Fleet Size (if applicable)', type: 'number', placeholder: 'e.g. 50' },
+            { id: 'avIndustry', label: 'Industry', type: 'text', placeholder: 'e.g. Logistics, Transport, Insurance' },
+            { id: 'avTimeline', label: 'Expected Implementation Timeline', type: 'text', placeholder: 'e.g. Within 1 month' }
+          ]
+        }
+      };
+
+      function renderDynamicFields(serviceKey) {
+        const config = fieldConfigs[serviceKey];
+        if (!config) {
+          dynamicContainer.innerHTML = `
+            <p style="color: #5a6f87; font-size: 0.95rem; text-align: center; padding: 16px 0;">
+              <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
+            </p>
+          `;
+          dynamicContainer.classList.remove('active');
+          return;
+        }
+
+        let html = `<h4 style="font-size:1.1rem; margin-bottom:12px; color:#0b1a2e;"><i class="fas fa-clipboard-list" style="color:#00b4d8; margin-right:8px;"></i>${config.title}</h4>`;
+        html += `<div class="form-row">`;
+
+        config.fields.forEach((field, index) => {
+          if (index % 2 === 0 && index > 0) {
+            html += `</div><div class="form-row">`;
+          }
+
+          html += `<div class="form-group">`;
+          html += `<label for="${field.id}">${field.label}</label>`;
+
+          if (field.type === 'select') {
+            html += `<select id="${field.id}">`;
+            html += `<option value="">Select...</option>`;
+            field.options.forEach(opt => {
+              html += `<option value="${opt}">${opt}</option>`;
+            });
+            html += `</select>`;
+          } else if (field.type === 'date') {
+            html += `<input type="date" id="${field.id}" />`;
+          } else if (field.type === 'number') {
+            html += `<input type="number" id="${field.id}" placeholder="${field.placeholder || ''}" min="0" />`;
+          } else {
+            html += `<input type="text" id="${field.id}" placeholder="${field.placeholder || ''}" />`;
+          }
+
+          html += `</div>`;
+        });
+
+        // Close any open row
+        html += `</div>`;
+        dynamicContainer.innerHTML = html;
+        dynamicContainer.classList.add('active');
+      }
+
+      // Service selection change handler
+      serviceSelect.addEventListener('change', function() {
+        const value = this.value;
+        if (value) {
+          renderDynamicFields(value);
+        } else {
+          dynamicContainer.innerHTML = `
+            <p style="color: #5a6f87; font-size: 0.95rem; text-align: center; padding: 16px 0;">
+              <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
+            </p>
+          `;
+          dynamicContainer.classList.remove('active');
+        }
+      });
+
+      // Also trigger on page load if a service is pre-selected (e.g., from hash)
+      if (serviceSelect.value) {
+        renderDynamicFields(serviceSelect.value);
+      }
+
+      // === Form Handlers ===
+      window.handleSmartApply = function(e) {
+        e.preventDefault();
+        const submitBtn = document.getElementById('submitBtn');
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Submitting...';
+
+        // Simulate submission
+        setTimeout(function() {
+          applyAlert.classList.add('show');
+          document.getElementById('applyForm').reset();
+          // Reset dynamic fields
+          dynamicContainer.innerHTML = `
+            <p style="color: #5a6f87; font-size: 0.95rem; text-align: center; padding: 16px 0;">
+              <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
+            </p>
+          `;
+          dynamicContainer.classList.remove('active');
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+
+          setTimeout(function() {
+            applyAlert.classList.remove('show');
+          }, 6000);
+        }, 1500);
+
+        return false;
+      };
+
+      window.handleContact = function(e) {
+        e.preventDefault();
+        const alert = document.getElementById('contactAlert');
+        alert.classList.add('show');
+        document.getElementById('contactForm').reset();
+        setTimeout(function() {
+          alert.classList.remove('show');
+        }, 5000);
+        return false;
+      };
+
+      // === Quick apply from service cards ===
+      document.querySelectorAll('.service-card .learn-more').forEach(function(link) {
+        link.addEventListener('click', function(e) {
+          const card = this.closest('.service-card');
+          const service = card.dataset.service;
+          if (service && serviceSelect) {
+            serviceSelect.value = service;
+            renderDynamicFields(service);
+          }
+        });
+      });
+
+      console.log('✅ MEI Group website initialized successfully with Smart Apply');
     })();
   </script>
 </body>
