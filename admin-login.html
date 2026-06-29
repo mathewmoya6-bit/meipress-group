@@ -17,10 +17,7 @@
             justify-content: center;
             padding: 20px;
         }
-        .login-container {
-            width: 100%;
-            max-width: 420px;
-        }
+        .login-container { width: 100%; max-width: 420px; }
         .login-card {
             background: white;
             border-radius: 20px;
@@ -44,10 +41,7 @@
             0%, 100% { background-position: -200% 0; }
             50% { background-position: 200% 0; }
         }
-        .logo {
-            text-align: center;
-            margin-bottom: 32px;
-        }
+        .logo { text-align: center; margin-bottom: 32px; }
         .logo .icon {
             width: 72px;
             height: 72px;
@@ -61,18 +55,10 @@
             font-size: 1.8rem;
             margin-bottom: 12px;
             box-shadow: 0 8px 24px rgba(0,180,216,0.25);
-            transition: transform 0.3s ease;
-        }
-        .logo .icon:hover {
-            transform: scale(1.05) rotate(-2deg);
         }
         .logo h1 { font-size: 1.8rem; font-weight: 800; color: #0b1a2e; }
         .logo h1 span { color: #00b4d8; }
-        .logo .subtitle { 
-            color: #5a6f87; 
-            font-size: 0.95rem;
-            margin-top: 4px;
-        }
+        .logo p { color: #5a6f87; font-size: 0.95rem; }
         .form-group { margin-bottom: 18px; }
         .form-group label {
             display: block;
@@ -81,16 +67,13 @@
             margin-bottom: 6px;
             color: #1f2a3f;
         }
-        .form-group .input-wrapper {
-            position: relative;
-        }
+        .form-group .input-wrapper { position: relative; }
         .form-group .input-wrapper i {
             position: absolute;
             left: 14px;
             top: 50%;
             transform: translateY(-50%);
             color: #94a3b8;
-            transition: 0.2s;
         }
         .form-group .input-wrapper input {
             width: 100%;
@@ -107,9 +90,6 @@
             border-color: #00b4d8;
             box-shadow: 0 0 0 4px rgba(0,180,216,0.1);
             background: white;
-        }
-        .form-group .input-wrapper input:focus + i {
-            color: #00b4d8;
         }
         .form-group .input-wrapper input.error {
             border-color: #ef4444;
@@ -140,7 +120,6 @@
             font-size: 0.9rem;
             text-decoration: none;
             font-weight: 500;
-            transition: 0.2s;
         }
         .form-options a:hover { text-decoration: underline; }
         .btn {
@@ -158,7 +137,6 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            position: relative;
         }
         .btn:hover:not(:disabled) {
             transform: translateY(-2px);
@@ -204,7 +182,6 @@
         .btn.loading .btn-text { display: none; }
         @keyframes spin { to { transform: rotate(360deg); } }
 
-        /* Security Badges */
         .security-badges {
             display: flex;
             justify-content: center;
@@ -223,6 +200,15 @@
             border-radius: 20px;
         }
         .security-badges .badge i { color: #00b4d8; }
+        .server-status {
+            text-align: center;
+            font-size: 0.75rem;
+            margin-top: 12px;
+            padding: 8px;
+            border-radius: 8px;
+        }
+        .server-status.online { color: #10b981; background: #d1fae5; }
+        .server-status.offline { color: #ef4444; background: #fee2e2; }
 
         @media (max-width: 480px) {
             .login-card { padding: 32px 24px; }
@@ -239,7 +225,7 @@
             <div class="logo">
                 <div class="icon">MEI</div>
                 <h1>MEI <span>Admin</span></h1>
-                <p class="subtitle">Secure access to management dashboard</p>
+                <p>Secure access to management dashboard</p>
             </div>
 
             <div class="error" id="errorMessage">
@@ -278,6 +264,10 @@
                 </button>
             </form>
 
+            <div class="server-status offline" id="serverStatus">
+                <i class="fas fa-circle"></i> Backend server status: <span id="statusText">Checking...</span>
+            </div>
+
             <div class="security-badges">
                 <span class="badge"><i class="fas fa-lock"></i> Secure Login</span>
                 <span class="badge"><i class="fas fa-shield-alt"></i> SSL Protected</span>
@@ -293,176 +283,246 @@
     </div>
 
     <script>
-        document.getElementById('loginForm').addEventListener('submit', async function(e) {
-            e.preventDefault();
-            
-            const email = document.getElementById('email').value.trim();
-            const password = document.getElementById('password').value;
-            const error = document.getElementById('errorMessage');
+        // ============================================================
+        // ADMIN LOGIN - WITH BACKEND CONNECTION CHECK
+        // ============================================================
+
+        (function() {
+            'use strict';
+
+            // ===== UPDATE THIS LINE WITH YOUR CORRECT PORT =====
+            const API_BASE = 'http://localhost:10000/api';  // ← Changed from 5000 to 10000
+            // =======================================================
+
+            const errorMessage = document.getElementById('errorMessage');
             const errorText = document.getElementById('errorText');
-            const btn = document.getElementById('loginBtn');
+            const loginBtn = document.getElementById('loginBtn');
+            const loginForm = document.getElementById('loginForm');
 
-            // Reset error
-            error.classList.remove('show');
-            document.querySelectorAll('.input-wrapper input').forEach(el => el.classList.remove('error'));
-
-            // Validate
-            if (!email || !password) {
-                errorText.textContent = 'Please fill in all fields';
-                error.classList.add('show');
-                if (!email) document.getElementById('email').classList.add('error');
-                if (!password) document.getElementById('password').classList.add('error');
-                return;
+            // ===== CHECK SERVER STATUS =====
+            async function checkServerStatus() {
+                const statusEl = document.getElementById('serverStatus');
+                const statusText = document.getElementById('statusText');
+                
+                try {
+                    const response = await fetch('http://localhost:10000/health', {
+                        method: 'GET',
+                        signal: AbortSignal.timeout(3000)
+                    });
+                    
+                    if (response.ok) {
+                        statusEl.className = 'server-status online';
+                        statusText.textContent = 'Online ✓ (Port 10000)';
+                        console.log('✅ Backend server is running on port 10000');
+                    } else {
+                        throw new Error('Server responded with error');
+                    }
+                } catch (error) {
+                    statusEl.className = 'server-status offline';
+                    statusText.textContent = 'Offline ✗ (Start backend with: node server.js)';
+                    console.warn('⚠️ Backend server not running:', error.message);
+                }
             }
 
-            if (!email.includes('@')) {
-                errorText.textContent = 'Please enter a valid email address';
-                error.classList.add('show');
-                document.getElementById('email').classList.add('error');
-                return;
-            }
+            // Check server status on load
+            checkServerStatus();
 
-            // Show loading
-            btn.classList.add('loading');
-            btn.disabled = true;
+            // ===== FORGOT PASSWORD =====
+            window.showForgotPassword = function() {
+                errorText.textContent = 'Please contact the system administrator to reset your password.';
+                errorMessage.classList.add('show');
+                setTimeout(() => {
+                    errorMessage.classList.remove('show');
+                }, 5000);
+            };
 
-            try {
-                // Try backend API first
-                const response = await fetch('http://localhost:5000/api/auth/login', {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify({ email, password })
-                });
+            // ===== LOGIN HANDLER =====
+            loginForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value;
+                const remember = document.getElementById('remember').checked;
 
-                const result = await response.json();
+                // Reset error
+                errorMessage.classList.remove('show');
+                document.querySelectorAll('.input-wrapper input').forEach(el => el.classList.remove('error'));
 
-                if (result.success) {
-                    // Login successful - save session
-                    const session = {
-                        email: result.data.user.email,
-                        name: result.data.user.name || 'Admin',
-                        role: result.data.user.role || 'admin',
-                        accessToken: result.data.tokens.accessToken,
-                        refreshToken: result.data.tokens.refreshToken,
-                        loginTime: new Date().toISOString()
-                    };
-                    localStorage.setItem('mei_admin_session', JSON.stringify(session));
+                // Validate
+                if (!email || !password) {
+                    errorText.textContent = 'Please fill in all fields';
+                    errorMessage.classList.add('show');
+                    if (!email) document.getElementById('email').classList.add('error');
+                    if (!password) document.getElementById('password').classList.add('error');
+                    return;
+                }
+
+                if (!email.includes('@')) {
+                    errorText.textContent = 'Please enter a valid email address';
+                    errorMessage.classList.add('show');
+                    document.getElementById('email').classList.add('error');
+                    return;
+                }
+
+                // Show loading
+                loginBtn.classList.add('loading');
+                loginBtn.disabled = true;
+
+                try {
+                    // Try backend API first
+                    console.log('📡 Attempting backend login on port 10000...');
+                    const response = await fetch(`${API_BASE}/auth/login`, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify({ email, password })
+                    });
+
+                    if (response.ok) {
+                        const result = await response.json();
+                        
+                        if (result.success) {
+                            // Login successful - save session
+                            const session = {
+                                email: result.data.user.email,
+                                name: result.data.user.name || 'Admin',
+                                role: result.data.user.role || 'admin',
+                                accessToken: result.data.tokens.accessToken,
+                                refreshToken: result.data.tokens.refreshToken,
+                                loginTime: new Date().toISOString()
+                            };
+                            localStorage.setItem('mei_admin_session', JSON.stringify(session));
+                            
+                            // Show success
+                            const btnText = loginBtn.querySelector('.btn-text');
+                            btnText.innerHTML = '<i class="fas fa-check-circle"></i> Success! Redirecting...';
+                            
+                            setTimeout(() => {
+                                window.location.href = 'admin-dashboard.html';
+                            }, 800);
+                            return;
+                        }
+                    }
+
+                    // If backend fails or returns error, try localStorage fallback
+                    console.log('📦 Using localStorage fallback...');
+                    const admins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
                     
-                    // Show success
-                    const btnText = btn.querySelector('.btn-text');
-                    btnText.innerHTML = '<i class="fas fa-check-circle"></i> Success! Redirecting...';
-                    
-                    setTimeout(() => {
+                    // Check if admin exists
+                    const user = admins.find(a => a.email === email && btoa(password) === a.password);
+
+                    if (user) {
+                        const session = {
+                            email: user.email,
+                            name: user.name || 'Admin',
+                            role: user.role || 'admin',
+                            loginTime: new Date().toISOString()
+                        };
+                        localStorage.setItem('mei_admin_session', JSON.stringify(session));
                         window.location.href = 'admin-dashboard.html';
-                    }, 800);
-                    return;
-                }
+                        return;
+                    }
 
-                // If backend fails, try localStorage fallback
-                const admins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
-                const user = admins.find(a => a.email === email && btoa(password) === a.password);
+                    // Check default admin
+                    if (email === 'admin@mei.com' && password === 'admin123') {
+                        const newAdmin = {
+                            id: Date.now(),
+                            name: 'Administrator',
+                            email: email,
+                            password: btoa(password),
+                            role: 'admin',
+                            created: new Date().toISOString(),
+                            status: 'active'
+                        };
+                        const allAdmins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
+                        allAdmins.push(newAdmin);
+                        localStorage.setItem('mei_admins', JSON.stringify(allAdmins));
+                        
+                        const session = {
+                            email: newAdmin.email,
+                            name: newAdmin.name,
+                            role: newAdmin.role,
+                            loginTime: new Date().toISOString()
+                        };
+                        localStorage.setItem('mei_admin_session', JSON.stringify(session));
+                        window.location.href = 'admin-dashboard.html';
+                        return;
+                    }
 
-                if (user) {
-                    const session = {
-                        email: user.email,
-                        name: user.name || 'Admin',
-                        role: user.role || 'admin',
-                        loginTime: new Date().toISOString()
-                    };
-                    localStorage.setItem('mei_admin_session', JSON.stringify(session));
-                    window.location.href = 'admin-dashboard.html';
-                    return;
-                }
+                    // All failed
+                    throw new Error('Invalid credentials');
 
-                // Check default admin
-                if (email === 'admin@mei.com' && password === 'admin123') {
-                    const newAdmin = {
-                        id: Date.now(),
-                        name: 'Administrator',
-                        email: email,
-                        password: btoa(password),
-                        role: 'admin',
-                        created: new Date().toISOString(),
-                        status: 'active'
-                    };
-                    const allAdmins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
-                    allAdmins.push(newAdmin);
-                    localStorage.setItem('mei_admins', JSON.stringify(allAdmins));
+                } catch (error) {
+                    console.error('Login error:', error);
                     
-                    const session = {
-                        email: newAdmin.email,
-                        name: newAdmin.name,
-                        role: newAdmin.role,
-                        loginTime: new Date().toISOString()
-                    };
-                    localStorage.setItem('mei_admin_session', JSON.stringify(session));
-                    window.location.href = 'admin-dashboard.html';
-                    return;
+                    // Try localStorage as last resort
+                    try {
+                        const admins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
+                        const user = admins.find(a => a.email === email && btoa(password) === a.password);
+                        
+                        if (user) {
+                            const session = {
+                                email: user.email,
+                                name: user.name || 'Admin',
+                                role: user.role || 'admin',
+                                loginTime: new Date().toISOString()
+                            };
+                            localStorage.setItem('mei_admin_session', JSON.stringify(session));
+                            window.location.href = 'admin-dashboard.html';
+                            return;
+                        }
+                    } catch (fallbackError) {
+                        console.error('Fallback login also failed:', fallbackError);
+                    }
+
+                    errorText.textContent = 'Invalid email or password. Please try again.';
+                    errorMessage.classList.add('show');
+                    document.getElementById('password').value = '';
+                    document.getElementById('password').focus();
                 }
 
-                // All failed
-                throw new Error('Invalid credentials');
-
-            } catch (error) {
-                console.error('Login error:', error);
-                errorText.textContent = 'Invalid email or password. Please try again.';
-                error.classList.add('show');
-                document.getElementById('password').value = '';
-                document.getElementById('password').focus();
+                loginBtn.classList.remove('loading');
+                loginBtn.disabled = false;
                 
-                btn.classList.remove('loading');
-                btn.disabled = false;
-                
-                // Reset button text
-                const btnText = btn.querySelector('.btn-text');
+                const btnText = loginBtn.querySelector('.btn-text');
                 btnText.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-            }
-        });
-
-        // Forgot password
-        function showForgotPassword() {
-            const error = document.getElementById('errorMessage');
-            const errorText = document.getElementById('errorText');
-            errorText.textContent = 'Please contact the system administrator to reset your password.';
-            error.classList.add('show');
-            setTimeout(() => {
-                error.classList.remove('show');
-            }, 5000);
-        }
-
-        // Check if already logged in
-        const session = localStorage.getItem('mei_admin_session');
-        if (session) {
-            try {
-                const data = JSON.parse(session);
-                if (data.accessToken || data.loginTime) {
-                    window.location.href = 'admin-dashboard.html';
-                }
-            } catch (e) {
-                localStorage.removeItem('mei_admin_session');
-            }
-        }
-
-        // Keyboard shortcut: Enter key submits form
-        document.getElementById('password').addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                document.getElementById('loginForm').dispatchEvent(new Event('submit'));
-            }
-        });
-
-        // Clear error on input
-        document.querySelectorAll('input').forEach(input => {
-            input.addEventListener('input', function() {
-                this.classList.remove('error');
-                document.getElementById('errorMessage').classList.remove('show');
             });
-        });
 
-        console.log('🔐 MEI Press Group Admin Login v2.0');
-        console.log('📧 Demo: admin@mei.com');
-        console.log('🔑 Password: admin123');
+            // ===== ENTER KEY SUPPORT =====
+            document.getElementById('password').addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    loginForm.dispatchEvent(new Event('submit'));
+                }
+            });
+
+            // ===== CLEAR ERROR ON INPUT =====
+            document.querySelectorAll('input').forEach(input => {
+                input.addEventListener('input', function() {
+                    this.classList.remove('error');
+                    errorMessage.classList.remove('show');
+                });
+            });
+
+            // ===== CHECK IF ALREADY LOGGED IN =====
+            const session = localStorage.getItem('mei_admin_session');
+            if (session) {
+                try {
+                    const data = JSON.parse(session);
+                    if (data.accessToken || data.loginTime) {
+                        window.location.href = 'admin-dashboard.html';
+                    }
+                } catch (e) {
+                    localStorage.removeItem('mei_admin_session');
+                }
+            }
+
+            console.log('🔐 MEI Press Group Admin Login v2.0');
+            console.log('📧 Demo: admin@mei.com');
+            console.log('🔑 Password: admin123');
+            console.log('💡 Backend URL: http://localhost:10000');
+
+        })();
     </script>
 </body>
 </html>
