@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MEI Press Group | Professional Training, International Education &amp; Driver Recruitment</title>
-    <meta name="description" content="MEI Press Group – Professional training, international education, workplace safety, road safety programmes, and driver recruitment services in Kenya and worldwide." />
-    <meta name="theme-color" content="#0b1a2e" />
+    <title>MEI Press Group | Global Education, Training & Recruitment</title>
+    <meta name="description" content="MEI Press Group – World-class international education consultancy, professional training, workplace safety, and global recruitment solutions." />
+    <meta name="theme-color" content="#0a1628" />
 
     <!-- ===== FAVICON ===== -->
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>" />
@@ -13,30 +13,43 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..800&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
 
     <style>
-        /* ===== CSS VARIABLES ===== */
+        /* ============================================================
+           CSS VARIABLES - International Edition
+           ============================================================ */
         :root {
-            --primary: #00b4d8;
-            --primary-dark: #0090b0;
-            --primary-light: #66d9ff;
-            --secondary: #0b1a2e;
-            --secondary-light: #1a3a4f;
-            --bg: #fafcff;
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #60a5fa;
+            --primary-bg: #eff6ff;
+            --secondary: #0a1628;
+            --secondary-light: #1a2a4a;
+            --accent: #7c3aed;
+            --accent-light: #a78bfa;
+            --gold: #f59e0b;
+            --success: #10b981;
+            --bg: #f8fafc;
             --bg-card: #ffffff;
-            --text: #0b1a2e;
-            --text-secondary: #3d5570;
-            --text-light: #5a6f87;
+            --text: #0a1628;
+            --text-secondary: #475569;
+            --text-light: #94a3b8;
             --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
             --shadow: 0 4px 24px rgba(0,0,0,0.06);
-            --shadow-hover: 0 20px 48px rgba(0,0,0,0.08);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.08);
+            --shadow-xl: 0 40px 80px rgba(0,0,0,0.12);
             --radius: 16px;
             --radius-sm: 8px;
-            --transition: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --radius-full: 9999px;
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --max-width: 1280px;
         }
 
-        /* ===== RESET & BASE ===== */
+        /* ============================================================
+           RESET & BASE
+           ============================================================ */
         * {
             margin: 0;
             padding: 0;
@@ -49,43 +62,147 @@
             font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
             background: var(--bg);
             color: var(--text);
-            line-height: 1.5;
+            line-height: 1.6;
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
+            overflow-x: hidden;
         }
         a {
             text-decoration: none;
             color: inherit;
         }
+        img {
+            max-width: 100%;
+            display: block;
+        }
         .container {
-            max-width: 1200px;
+            max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 32px;
         }
 
-        /* ===== NAVBAR ===== */
+        /* ============================================================
+           UTILITY
+           ============================================================ */
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .section-tag {
+            display: inline-block;
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary);
+            background: var(--primary-bg);
+            padding: 4px 16px;
+            border-radius: var(--radius-full);
+            margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 2.8rem;
+            font-weight: 800;
+            line-height: 1.1;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .section-title .highlight {
+            color: var(--primary);
+        }
+        .section-sub {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            max-width: 600px;
+            line-height: 1.7;
+        }
+        .section-center {
+            text-align: center;
+        }
+        .section-center .section-sub {
+            margin: 0 auto 48px;
+        }
+
+        /* ============================================================
+           ANIMATIONS
+           ============================================================ */
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateX(-40px); }
+            to { opacity: 1; transform: translateX(0); }
+        }
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .animate-on-scroll.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================================
+           NAVBAR
+           ============================================================ */
         .navbar {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04), 0 4px 20px rgba(0, 0, 0, 0.02);
-            padding: 10px 0;
-            position: sticky;
+            position: fixed;
             top: 0;
+            left: 0;
+            right: 0;
             z-index: 1000;
-            border-bottom: 1px solid rgba(0, 180, 216, 0.08);
-            transition: box-shadow 0.3s ease;
+            padding: 16px 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
         }
         .navbar.scrolled {
-            box-shadow: 0 2px 30px rgba(0, 0, 0, 0.08);
+            background: rgba(255,255,255,0.92);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 10px 0;
         }
+        .navbar.scrolled .nav-link {
+            color: var(--text);
+        }
+        .navbar.scrolled .nav-link:hover {
+            color: var(--primary);
+        }
+        .navbar.scrolled .logo-text .brand {
+            color: var(--text);
+        }
+        .navbar.scrolled .logo-icon {
+            box-shadow: 0 4px 12px rgba(37,99,235,0.2);
+        }
+
         .nav-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            max-width: 1200px;
+            max-width: var(--max-width);
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 32px;
         }
 
         .logo {
@@ -95,23 +212,22 @@
             flex-shrink: 0;
         }
         .logo-icon {
-            width: 46px;
-            height: 46px;
-            background: linear-gradient(145deg, var(--primary), var(--primary-dark));
+            width: 44px;
+            height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             border-radius: 12px;
             display: flex;
             align-items: center;
             justify-content: center;
             color: white;
             font-weight: 800;
-            font-size: 1.2rem;
+            font-size: 1rem;
             letter-spacing: -0.5px;
-            box-shadow: 0 4px 12px rgba(0, 180, 216, 0.2);
             flex-shrink: 0;
-            transition: transform 0.2s ease;
+            transition: transform 0.3s ease;
         }
         .logo-icon:hover {
-            transform: scale(1.04);
+            transform: scale(1.05);
         }
         .logo-text {
             display: flex;
@@ -120,34 +236,38 @@
         }
         .logo-text .brand {
             font-weight: 800;
-            font-size: 1.5rem;
-            letter-spacing: -0.8px;
-            color: var(--text);
+            font-size: 1.3rem;
+            letter-spacing: -0.5px;
+            color: white;
+            transition: color 0.3s ease;
         }
         .logo-text .brand span {
-            color: var(--primary);
+            color: var(--primary-light);
         }
         .logo-text .sub {
+            font-size: 0.55rem;
             font-weight: 400;
-            font-size: 0.6rem;
-            color: var(--text-light);
-            letter-spacing: 0.4px;
+            color: rgba(255,255,255,0.5);
+            letter-spacing: 0.8px;
             text-transform: uppercase;
+        }
+        .navbar.scrolled .logo-text .sub {
+            color: var(--text-light);
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 28px;
+            gap: 32px;
         }
-        .nav-links a {
+        .nav-link {
+            font-size: 0.9rem;
             font-weight: 500;
-            font-size: 0.95rem;
-            color: #1f2a3f;
-            transition: color 0.2s ease;
+            color: rgba(255,255,255,0.75);
+            transition: color 0.3s ease;
             position: relative;
         }
-        .nav-links a::after {
+        .nav-link::after {
             content: '';
             position: absolute;
             bottom: -4px;
@@ -155,203 +275,283 @@
             width: 0;
             height: 2px;
             background: var(--primary);
-            transition: width 0.25s ease;
+            transition: width 0.3s ease;
         }
-        .nav-links a:hover::after {
+        .nav-link:hover::after {
             width: 100%;
         }
-        .nav-links a:hover {
-            color: var(--primary);
+        .nav-link:hover {
+            color: white;
         }
         .btn-nav {
             background: var(--primary);
             color: white !important;
-            padding: 8px 24px;
-            border-radius: 40px;
+            padding: 10px 28px;
+            border-radius: var(--radius-full);
             font-weight: 600;
-            transition: 0.2s ease;
+            font-size: 0.85rem;
+            transition: all 0.3s ease;
+            border: none;
+            cursor: pointer;
         }
         .btn-nav::after {
             display: none !important;
         }
         .btn-nav:hover {
             background: var(--primary-dark);
-            transform: translateY(-1px);
-            box-shadow: 0 6px 20px rgba(0, 180, 216, 0.25);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
         }
         .mobile-menu-btn {
             display: none;
             background: none;
             border: none;
-            font-size: 1.6rem;
-            color: var(--text);
+            font-size: 1.4rem;
+            color: white;
             cursor: pointer;
             padding: 4px;
-            transition: color 0.2s;
+            transition: color 0.3s ease;
         }
-        .mobile-menu-btn:hover {
-            color: var(--primary);
+        .navbar.scrolled .mobile-menu-btn {
+            color: var(--text);
         }
 
-        /* ===== HERO ===== */
+        /* ============================================================
+           HERO
+           ============================================================ */
         .hero {
-            background: linear-gradient(145deg, var(--secondary) 0%, var(--secondary-light) 100%);
-            color: white;
-            padding: 100px 0 110px;
-            border-radius: 0 0 48px 48px;
             position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            background: var(--secondary);
             overflow: hidden;
+            padding: 120px 0 80px;
         }
         .hero::before {
             content: '';
             position: absolute;
-            top: -50%;
-            right: -20%;
-            width: 700px;
-            height: 700px;
-            background: radial-gradient(circle, rgba(0, 180, 216, 0.08) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
+            inset: 0;
+            background: 
+                radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.08) 0%, transparent 60%),
+                radial-gradient(ellipse at 80% 20%, rgba(124,58,237,0.06) 0%, transparent 50%),
+                radial-gradient(ellipse at 60% 80%, rgba(37,99,235,0.04) 0%, transparent 40%);
+            z-index: 1;
         }
-        .hero::after {
-            content: '';
-            position: absolute;
-            bottom: -30%;
-            left: -10%;
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(102, 217, 255, 0.04) 0%, transparent 70%);
-            border-radius: 50%;
-            pointer-events: none;
-        }
-        .hero-content {
-            max-width: 760px;
+        .hero .container {
             position: relative;
             z-index: 2;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
+            align-items: center;
         }
-        .hero-tag {
-            display: inline-block;
-            background: rgba(0, 180, 216, 0.15);
+
+        .hero-content {
+            animation: fadeUp 1s ease;
+        }
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(37,99,235,0.12);
             color: var(--primary-light);
             padding: 6px 18px;
-            border-radius: 40px;
+            border-radius: var(--radius-full);
             font-size: 0.75rem;
             font-weight: 600;
             letter-spacing: 0.5px;
-            text-transform: uppercase;
-            margin-bottom: 16px;
-            border: 1px solid rgba(0, 180, 216, 0.2);
+            border: 1px solid rgba(37,99,235,0.15);
+            margin-bottom: 24px;
         }
-        .hero-content h1 {
-            font-size: 3.8rem;
-            font-weight: 800;
-            letter-spacing: -1.5px;
-            line-height: 1.08;
+        .hero-badge .dot {
+            width: 6px;
+            height: 6px;
+            background: var(--success);
+            border-radius: 50%;
+            animation: pulse 2s infinite;
+        }
+        .hero h1 {
+            font-size: 4rem;
+            font-weight: 900;
+            line-height: 1.05;
+            letter-spacing: -2px;
+            color: white;
             margin-bottom: 20px;
         }
-        .hero-content h1 .highlight {
-            color: var(--primary-light);
+        .hero h1 .highlight {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
-        .hero-content p {
-            font-size: 1.2rem;
-            color: rgba(255, 255, 255, 0.8);
-            max-width: 600px;
-            margin-bottom: 36px;
-            line-height: 1.7;
+        .hero p {
+            font-size: 1.15rem;
+            color: rgba(255,255,255,0.7);
+            max-width: 520px;
+            line-height: 1.8;
+            margin-bottom: 32px;
         }
         .hero-buttons {
             display: flex;
             flex-wrap: wrap;
             gap: 16px;
         }
-        .btn-hero {
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
             background: var(--primary);
-            color: #fff;
-            padding: 16px 42px;
-            border-radius: 60px;
+            color: white;
+            padding: 16px 36px;
+            border-radius: var(--radius-full);
             font-weight: 600;
             font-size: 1rem;
-            transition: 0.25s ease;
-            display: inline-block;
+            transition: all 0.3s ease;
             border: none;
             cursor: pointer;
         }
-        .btn-hero:hover {
+        .btn-primary:hover {
             background: var(--primary-dark);
             transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(0, 180, 216, 0.3);
+            box-shadow: 0 12px 32px rgba(37,99,235,0.35);
         }
-        .btn-hero-outline {
-            background: transparent;
-            border: 1.5px solid rgba(255, 255, 255, 0.3);
-            color: white;
-            padding: 16px 42px;
-            border-radius: 60px;
-            font-weight: 600;
-            transition: 0.25s ease;
+        .btn-secondary {
             display: inline-flex;
             align-items: center;
-            gap: 8px;
+            gap: 10px;
+            background: rgba(255,255,255,0.06);
+            color: white;
+            padding: 16px 36px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            border: 1px solid rgba(255,255,255,0.1);
+            cursor: pointer;
         }
-        .btn-hero-outline:hover {
-            border-color: var(--primary-light);
-            background: rgba(0, 180, 216, 0.08);
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.12);
             transform: translateY(-2px);
+            border-color: rgba(255,255,255,0.2);
         }
 
-        /* Hero Stats */
         .hero-stats {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 24px;
             margin-top: 48px;
             padding-top: 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.08);
-            max-width: 680px;
+            border-top: 1px solid rgba(255,255,255,0.06);
         }
-        .hero-stats .stat-item .number {
+        .hero-stat .number {
             font-size: 2rem;
             font-weight: 800;
-            color: var(--primary-light);
+            color: white;
             display: block;
+            line-height: 1.2;
         }
-        .hero-stats .stat-item .label {
+        .hero-stat .number .plus {
+            color: var(--primary-light);
+        }
+        .hero-stat .label {
             font-size: 0.85rem;
-            opacity: 0.7;
+            color: rgba(255,255,255,0.5);
         }
 
-        /* ===== SECTION ===== */
-        .section {
-            padding: 80px 0;
+        /* Hero Visual */
+        .hero-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            animation: fadeUp 1s ease 0.3s both;
         }
-        .section-title {
-            font-size: 2.4rem;
-            font-weight: 700;
-            letter-spacing: -0.5px;
-            margin-bottom: 12px;
+        .hero-visual .grid-pattern {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            width: 100%;
+            max-width: 480px;
         }
-        .section-title .highlight {
-            color: var(--primary);
+        .hero-visual .grid-item {
+            aspect-ratio: 1;
+            background: rgba(255,255,255,0.03);
+            border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.04);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.4s ease;
+            animation: float 6s ease-in-out infinite;
         }
-        .section-sub {
+        .hero-visual .grid-item:nth-child(2) { animation-delay: 0.5s; }
+        .hero-visual .grid-item:nth-child(3) { animation-delay: 1s; }
+        .hero-visual .grid-item:nth-child(4) { animation-delay: 1.5s; }
+        .hero-visual .grid-item:nth-child(5) { animation-delay: 2s; }
+        .hero-visual .grid-item:nth-child(6) { animation-delay: 2.5s; }
+        .hero-visual .grid-item:hover {
+            background: rgba(37,99,235,0.1);
+            border-color: rgba(37,99,235,0.2);
+            transform: scale(1.05);
+        }
+
+        /* ============================================================
+           TRUST BAR
+           ============================================================ */
+        .trust-bar {
+            padding: 40px 0;
+            background: white;
+            border-bottom: 1px solid var(--border);
+        }
+        .trust-bar .container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 24px;
+        }
+        .trust-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
             color: var(--text-secondary);
-            font-size: 1.1rem;
-            max-width: 600px;
-            margin-bottom: 48px;
+            font-weight: 500;
+            font-size: 0.9rem;
         }
-        .section-center {
-            text-align: center;
-        }
-        .section-center .section-sub {
-            margin-left: auto;
-            margin-right: auto;
+        .trust-item i {
+            color: var(--primary);
+            font-size: 1.2rem;
         }
 
-        /* ===== ABOUT US ===== */
+        /* ============================================================
+           SECTIONS
+           ============================================================ */
+        .section {
+            padding: 100px 0;
+        }
+        .section-alt {
+            background: white;
+        }
+        .section-dark {
+            background: var(--secondary);
+            color: white;
+        }
+        .section-dark .section-sub {
+            color: rgba(255,255,255,0.6);
+        }
+        .section-dark .section-tag {
+            background: rgba(37,99,235,0.15);
+            color: var(--primary-light);
+        }
+
+        /* ============================================================
+           ABOUT
+           ============================================================ */
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            gap: 80px;
             align-items: center;
         }
         .about-content h3 {
@@ -362,166 +562,216 @@
         .about-content p {
             color: var(--text-secondary);
             margin-bottom: 16px;
-            line-height: 1.7;
+            line-height: 1.8;
         }
         .about-values {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 12px;
-            margin-top: 20px;
+            margin-top: 24px;
         }
-        .about-values .value-item {
+        .about-value {
             display: flex;
             align-items: center;
             gap: 10px;
             font-weight: 500;
-            color: var(--text);
         }
-        .about-values .value-item i {
+        .about-value i {
             color: var(--primary);
-            font-size: 1.1rem;
         }
         .about-image {
-            background: linear-gradient(145deg, var(--primary-bg), #e6f7fc);
+            background: linear-gradient(135deg, var(--primary-bg), #e0e7ff);
             border-radius: var(--radius);
-            padding: 40px;
-            min-height: 300px;
+            padding: 60px;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 6rem;
-            border: 1px solid rgba(0, 180, 216, 0.1);
+            font-size: 8rem;
+            border: 1px solid rgba(37,99,235,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        .about-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.05) 0%, transparent 60%);
         }
 
-        /* ===== SERVICES ===== */
-        .grid-4 {
+        /* ============================================================
+           SERVICES
+           ============================================================ */
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 24px;
         }
         .service-card {
-            background: var(--bg-card);
+            background: white;
             border-radius: var(--radius);
-            padding: 32px 24px 28px;
-            box-shadow: var(--shadow);
+            padding: 32px 28px;
             border: 1px solid var(--border);
-            transition: var(--transition);
-            cursor: default;
-            display: flex;
-            flex-direction: column;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+        .service-card:hover::before {
+            opacity: 1;
         }
         .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-hover);
-            border-color: rgba(0, 180, 216, 0.15);
+            transform: translateY(-8px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
         }
-        .service-icon {
+        .service-card .icon {
             font-size: 2.8rem;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
         .service-card h3 {
-            font-size: 1.2rem;
+            font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 8px;
         }
-        .service-card .service-desc {
+        .service-card p {
             color: var(--text-secondary);
-            font-size: 0.92rem;
+            font-size: 0.9rem;
             line-height: 1.7;
-            flex: 1;
         }
-        .service-card .service-desc ul {
+        .service-card ul {
             list-style: none;
             padding: 0;
-            margin: 8px 0 4px;
+            margin-top: 12px;
         }
-        .service-card .service-desc ul li {
-            padding: 3px 0 3px 20px;
+        .service-card ul li {
+            padding: 4px 0 4px 20px;
             position: relative;
             font-size: 0.85rem;
             color: var(--text-secondary);
         }
-        .service-card .service-desc ul li::before {
-            content: '›';
+        .service-card ul li::before {
+            content: '→';
             position: absolute;
-            left: 2px;
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-        .learn-more {
+            left: 0;
             color: var(--primary);
             font-weight: 600;
-            font-size: 0.9rem;
+        }
+        .service-card .learn-more {
             display: inline-flex;
             align-items: center;
-            gap: 6px;
-            transition: var(--transition);
+            gap: 8px;
+            color: var(--primary);
+            font-weight: 600;
+            font-size: 0.85rem;
             margin-top: 16px;
-            align-self: flex-start;
+            transition: gap 0.3s ease;
         }
         .service-card:hover .learn-more {
-            gap: 12px;
+            gap: 16px;
         }
 
-        /* ===== PROCESS ===== */
+        /* ============================================================
+           STATS COUNTER
+           ============================================================ */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 32px;
+            text-align: center;
+        }
+        .stat-item .number {
+            font-size: 3rem;
+            font-weight: 800;
+            color: white;
+            display: block;
+            line-height: 1.1;
+        }
+        .stat-item .label {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.5);
+            margin-top: 4px;
+        }
+        .stat-item .number .text-gradient {
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* ============================================================
+           PROCESS
+           ============================================================ */
         .process-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+            grid-template-columns: repeat(4, 1fr);
             gap: 24px;
         }
         .process-step {
             text-align: center;
             padding: 24px;
         }
-        .process-step .step-number {
-            width: 48px;
-            height: 48px;
+        .process-step .number {
+            width: 56px;
+            height: 56px;
             background: var(--primary);
             color: white;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-weight: 700;
+            font-weight: 800;
             font-size: 1.2rem;
-            margin: 0 auto 12px;
+            margin: 0 auto 16px;
         }
         .process-step h4 {
-            font-weight: 600;
+            font-weight: 700;
             margin-bottom: 4px;
         }
         .process-step p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-secondary);
         }
+        .section-dark .process-step p {
+            color: rgba(255,255,255,0.5);
+        }
 
-        /* ===== TESTIMONIALS ===== */
+        /* ============================================================
+           TESTIMONIALS
+           ============================================================ */
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
         .testimonial-card {
-            background: var(--bg-card);
+            background: white;
             border-radius: var(--radius);
-            padding: 28px;
+            padding: 32px;
             border: 1px solid var(--border);
-            transition: var(--transition);
+            transition: all 0.4s ease;
         }
         .testimonial-card:hover {
-            box-shadow: var(--shadow-hover);
+            box-shadow: var(--shadow-lg);
+            transform: translateY(-4px);
         }
         .testimonial-card .stars {
-            color: #f59e0b;
-            margin-bottom: 8px;
+            color: var(--gold);
+            margin-bottom: 12px;
+            font-size: 0.9rem;
         }
         .testimonial-card blockquote {
             font-size: 0.95rem;
             color: var(--text-secondary);
-            line-height: 1.7;
+            line-height: 1.8;
             font-style: italic;
-            margin-bottom: 12px;
+            margin-bottom: 16px;
         }
         .testimonial-card .author {
             display: flex;
@@ -538,7 +788,6 @@
             justify-content: center;
             font-weight: 700;
             color: var(--primary);
-            font-size: 1rem;
         }
         .testimonial-card .author .name {
             font-weight: 600;
@@ -548,135 +797,176 @@
             color: var(--text-secondary);
         }
 
-        /* ===== FAQ ===== */
+        /* ============================================================
+           FAQ
+           ============================================================ */
         .faq-grid {
             max-width: 800px;
             margin: 0 auto;
         }
         .faq-item {
-            background: var(--bg-card);
+            background: white;
             border-radius: var(--radius-sm);
             padding: 20px 24px;
             margin-bottom: 12px;
             border: 1px solid var(--border);
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
         .faq-item:hover {
             border-color: var(--primary);
         }
-        .faq-item .faq-question {
+        .faq-item .question {
             display: flex;
             justify-content: space-between;
             align-items: center;
             font-weight: 600;
         }
-        .faq-item .faq-question i {
+        .faq-item .question i {
             color: var(--primary);
-            transition: var(--transition);
+            transition: transform 0.3s ease;
         }
-        .faq-item .faq-answer {
+        .faq-item .answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
+            transition: max-height 0.4s ease;
             color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
         }
-        .faq-item.active .faq-answer {
-            max-height: 200px;
-            padding-top: 12px;
+        .faq-item.active .answer {
+            max-height: 300px;
+            padding-top: 16px;
         }
-        .faq-item.active .faq-question i {
+        .faq-item.active .question i {
             transform: rotate(180deg);
         }
-
-        /* ===== CTA ===== */
-        .cta-block {
-            background: linear-gradient(145deg, var(--secondary), var(--secondary-light));
-            padding: 64px 48px;
-            border-radius: 48px;
+        .section-dark .faq-item {
+            background: rgba(255,255,255,0.04);
+            border-color: rgba(255,255,255,0.06);
+        }
+        .section-dark .faq-item .question {
             color: white;
-            text-align: center;
         }
-        .cta-block h2 {
-            font-size: 2.4rem;
-            font-weight: 700;
-        }
-        .cta-block p {
-            opacity: 0.8;
-            max-width: 500px;
-            margin: 12px auto 32px;
-            font-size: 1.05rem;
-        }
-        .btn-cta {
-            background: var(--primary-light);
-            color: var(--secondary);
-            padding: 16px 42px;
-            border-radius: 60px;
-            font-weight: 700;
-            font-size: 1rem;
-            transition: var(--transition);
-            display: inline-block;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-cta:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 12px 28px rgba(0, 180, 216, 0.3);
+        .section-dark .faq-item .answer {
+            color: rgba(255,255,255,0.6);
         }
 
-        /* ===== FOOTER ===== */
+        /* ============================================================
+           CTA
+           ============================================================ */
+        .cta-section {
+            padding: 80px 0;
+            background: var(--secondary);
+            position: relative;
+            overflow: hidden;
+        }
+        .cta-section::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 30% 50%, rgba(37,99,235,0.08) 0%, transparent 70%);
+        }
+        .cta-box {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+        .cta-box h2 {
+            font-size: 2.8rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.1;
+            margin-bottom: 16px;
+        }
+        .cta-box p {
+            font-size: 1.1rem;
+            color: rgba(255,255,255,0.6);
+            margin-bottom: 32px;
+            line-height: 1.7;
+        }
+        .cta-box .btn-group {
+            display: flex;
+            justify-content: center;
+            gap: 16px;
+            flex-wrap: wrap;
+        }
+
+        /* ============================================================
+           FOOTER
+           ============================================================ */
         .footer {
             background: var(--secondary);
-            color: rgba(255, 255, 255, 0.7);
-            padding: 48px 0 24px;
-            margin-top: 40px;
-            border-radius: 48px 48px 0 0;
+            color: rgba(255,255,255,0.5);
+            padding: 60px 0 24px;
+            border-top: 1px solid rgba(255,255,255,0.04);
         }
-        .footer-content {
+        .footer-grid {
             display: grid;
             grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 32px;
-            padding-bottom: 32px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 48px;
+            padding-bottom: 40px;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
         }
-        .footer-section h4 {
+        .footer-brand h4 {
             color: white;
-            font-weight: 600;
-            margin-bottom: 12px;
-            font-size: 1rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
         }
-        .footer-section p {
-            margin: 6px 0;
-            font-size: 0.9rem;
-        }
-        .footer-section a {
-            color: rgba(255, 255, 255, 0.7);
-            transition: 0.2s ease;
-        }
-        .footer-section a:hover {
+        .footer-brand h4 span {
             color: var(--primary-light);
         }
-        .footer-section .contact-item {
+        .footer-brand p {
+            max-width: 300px;
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+        .footer-col h4 {
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 12px;
+        }
+        .footer-col a {
+            display: block;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.85rem;
+            margin-bottom: 8px;
+            transition: color 0.3s ease;
+        }
+        .footer-col a:hover {
+            color: white;
+        }
+        .footer-col .contact-item {
             display: flex;
             align-items: center;
             gap: 10px;
+            font-size: 0.85rem;
+            color: rgba(255,255,255,0.4);
             margin-bottom: 8px;
+        }
+        .footer-col .contact-item i {
+            width: 18px;
+            color: var(--primary-light);
         }
         .social-links {
             display: flex;
             gap: 12px;
-            margin-top: 8px;
+            margin-top: 12px;
         }
         .social-links a {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            width: 40px;
-            height: 40px;
+            width: 38px;
+            height: 38px;
             border-radius: 50%;
-            background: rgba(255, 255, 255, 0.06);
-            color: rgba(255, 255, 255, 0.5);
-            transition: var(--transition);
+            background: rgba(255,255,255,0.04);
+            color: rgba(255,255,255,0.3);
+            transition: all 0.3s ease;
         }
         .social-links a:hover {
             background: var(--primary);
@@ -686,52 +976,53 @@
         .footer-bottom {
             text-align: center;
             padding-top: 24px;
-            font-size: 0.85rem;
-            opacity: 0.4;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.2);
         }
 
-        /* ===== WHATSAPP ===== */
+        /* ============================================================
+           WHATSAPP FLOAT
+           ============================================================ */
         .whatsapp-float {
             position: fixed;
-            bottom: 28px;
-            right: 28px;
+            bottom: 24px;
+            right: 24px;
             background: #25d366;
             color: white;
-            width: 60px;
-            height: 60px;
+            width: 56px;
+            height: 56px;
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2.2rem;
-            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.3);
-            transition: var(--transition);
+            font-size: 2rem;
+            box-shadow: 0 8px 30px rgba(37,211,102,0.3);
+            transition: all 0.3s ease;
             z-index: 999;
         }
         .whatsapp-float:hover {
-            transform: scale(1.06);
-            background: #1ebe5c;
-            box-shadow: 0 10px 40px rgba(37, 211, 102, 0.4);
+            transform: scale(1.08);
+            box-shadow: 0 12px 40px rgba(37,211,102,0.4);
         }
 
-        /* ===== RESPONSIVE ===== */
-        @media (max-width: 1024px) {
-            .grid-4 {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .testimonials-grid {
-                grid-template-columns: 1fr 1fr;
-            }
-            .about-grid {
-                grid-template-columns: 1fr;
-                gap: 40px;
-            }
-            .footer-content {
-                grid-template-columns: 1fr 1fr;
-            }
-            .hero-content h1 {
-                font-size: 3rem;
-            }
+        /* ============================================================
+           RESPONSIVE
+           ============================================================ */
+        @media (max-width: 1200px) {
+            .hero h1 { font-size: 3.2rem; }
+            .services-grid { grid-template-columns: repeat(2, 1fr); }
+            .testimonials-grid { grid-template-columns: 1fr 1fr; }
+        }
+        @media (max-width: 992px) {
+            .hero .container { grid-template-columns: 1fr; text-align: center; }
+            .hero p { margin: 0 auto 32px; }
+            .hero-buttons { justify-content: center; }
+            .hero-stats { justify-items: center; }
+            .hero-visual .grid-pattern { max-width: 360px; margin: 0 auto; }
+            .about-grid { grid-template-columns: 1fr; gap: 40px; }
+            .process-grid { grid-template-columns: repeat(2, 1fr); }
+            .stats-grid { grid-template-columns: repeat(2, 1fr); }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
         }
         @media (max-width: 768px) {
             .nav-links {
@@ -739,325 +1030,325 @@
                 flex-direction: column;
                 background: white;
                 position: absolute;
-                top: 68px;
+                top: 100%;
                 left: 0;
                 right: 0;
-                padding: 24px 28px;
-                box-shadow: 0 20px 48px rgba(0, 0, 0, 0.06);
-                border-radius: 0 0 24px 24px;
+                padding: 24px;
+                box-shadow: var(--shadow-lg);
                 gap: 16px;
-                border-top: 1px solid rgba(0, 180, 216, 0.06);
+                border-radius: 0 0 var(--radius) var(--radius);
             }
-            .nav-links.active {
-                display: flex;
-            }
-            .nav-links a::after {
-                display: none;
-            }
-            .mobile-menu-btn {
-                display: block;
-            }
-            .hero {
-                padding: 60px 0 70px;
-            }
-            .hero-content h1 {
-                font-size: 2.4rem;
-            }
-            .hero-content p {
-                font-size: 1rem;
-            }
-            .hero-stats {
-                grid-template-columns: repeat(2, 1fr);
-                gap: 16px;
-            }
-            .hero-stats .stat-item .number {
-                font-size: 1.5rem;
-            }
-            .grid-4 {
-                grid-template-columns: 1fr;
-            }
-            .testimonials-grid {
-                grid-template-columns: 1fr;
-            }
-            .footer-content {
-                grid-template-columns: 1fr;
-                gap: 24px;
-            }
-            .cta-block {
-                padding: 36px 20px;
-            }
-            .cta-block h2 {
-                font-size: 1.8rem;
-            }
-            .section {
-                padding: 50px 0;
-            }
-            .section-title {
-                font-size: 1.8rem;
-            }
-            .about-values {
-                grid-template-columns: 1fr;
-            }
-            .process-grid {
-                grid-template-columns: 1fr 1fr;
-            }
+            .nav-links.active { display: flex; }
+            .nav-link { color: var(--text) !important; }
+            .mobile-menu-btn { display: block; }
+            .container { padding: 0 20px; }
+
+            .hero { padding: 100px 0 60px; }
+            .hero h1 { font-size: 2.4rem; }
+            .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 16px; }
+            .hero-stat .number { font-size: 1.5rem; }
+
+            .section { padding: 60px 0; }
+            .section-title { font-size: 2rem; }
+
+            .services-grid { grid-template-columns: 1fr; }
+            .testimonials-grid { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+
+            .about-values { grid-template-columns: 1fr; }
+            .cta-box h2 { font-size: 2rem; }
+
+            .trust-bar .container { justify-content: center; }
         }
         @media (max-width: 480px) {
-            .hero {
-                padding: 40px 0 50px;
-                border-radius: 0 0 32px 32px;
-            }
-            .hero-content h1 {
-                font-size: 2rem;
-            }
-            .btn-hero,
-            .btn-hero-outline {
-                padding: 12px 24px;
-                font-size: 0.9rem;
-                width: 100%;
-                justify-content: center;
-            }
-            .hero-buttons {
-                flex-direction: column;
-            }
-            .hero-stats {
-                grid-template-columns: 1fr 1fr;
-                gap: 12px;
-                margin-top: 32px;
-                padding-top: 24px;
-            }
-            .process-grid {
-                grid-template-columns: 1fr;
-            }
-            .logo-text .brand {
-                font-size: 1.2rem;
-            }
-            .logo-icon {
-                width: 36px;
-                height: 36px;
-                font-size: 0.9rem;
-            }
-            .whatsapp-float {
-                width: 52px;
-                height: 52px;
-                font-size: 1.8rem;
-                bottom: 20px;
-                right: 20px;
-            }
-            .footer {
-                border-radius: 32px 32px 0 0;
-                padding: 32px 0 20px;
-            }
+            .hero h1 { font-size: 1.8rem; }
+            .hero-buttons { flex-direction: column; align-items: center; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .stats-grid { grid-template-columns: 1fr; }
+            .section-title { font-size: 1.6rem; }
         }
     </style>
 </head>
 <body>
 
-    <!-- ===== NAVBAR ===== -->
-    <nav class="navbar" id="mainNav">
+    <!-- ============================================================
+    NAVBAR
+    ============================================================ -->
+    <nav class="navbar" id="navbar">
         <div class="nav-container">
-            <a href="#" class="logo" aria-label="MEI Group Home">
-                <div class="logo-icon" aria-hidden="true">MEI</div>
+            <a href="#" class="logo">
+                <div class="logo-icon">MEI</div>
                 <div class="logo-text">
                     <span class="brand">MEI <span>Group</span></span>
                     <span class="sub">division of MEI Press Group Ltd.</span>
                 </div>
             </a>
 
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu" aria-expanded="false">
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
                 <i class="fas fa-bars"></i>
             </button>
             <div class="nav-links" id="navLinks">
-                <a href="#about">About</a>
-                <a href="#services">Services</a>
-                <a href="#testimonials">Testimonials</a>
-                <a href="#faq">FAQ</a>
+                <a href="#about" class="nav-link">About</a>
+                <a href="#services" class="nav-link">Services</a>
+                <a href="#testimonials" class="nav-link">Testimonials</a>
+                <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#apply" class="btn-nav">Apply Now</a>
-                <a href="#contact">Contact</a>
             </div>
         </div>
     </nav>
 
-    <!-- ===== HERO ===== -->
-    <section class="hero" aria-label="Hero banner">
+    <!-- ============================================================
+    HERO
+    ============================================================ -->
+    <section class="hero" id="hero">
         <div class="container">
             <div class="hero-content">
-                <span class="hero-tag"><i class="fas fa-star" style="margin-right:6px;"></i> Trusted by 500+ Professionals</span>
-                <h1>Professional Training,<br /><span class="highlight">International Education</span> &amp; Driver Recruitment</h1>
-                <p>Helping individuals, schools, companies, and organizations achieve success through internationally recognized education, workplace safety training, road safety programmes, and professional driver recruitment.</p>
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    Trusted by 1,000+ professionals worldwide
+                </div>
+                <h1>
+                    Global Education.<br />
+                    <span class="highlight">Professional Training.</span><br />
+                    Smart Recruitment.
+                </h1>
+                <p>
+                    MEI Press Group connects individuals, schools, and organizations to world-class 
+                    education, workplace safety training, and professional recruitment solutions 
+                    across the globe.
+                </p>
                 <div class="hero-buttons">
-                    <a href="#apply" class="btn-hero">Apply Now</a>
-                    <a href="#contact" class="btn-hero-outline"><i class="fas fa-phone-alt"></i> Talk to an Advisor</a>
+                    <a href="#apply" class="btn-primary">
+                        <i class="fas fa-rocket"></i> Get Started
+                    </a>
+                    <a href="#services" class="btn-secondary">
+                        <i class="fas fa-chevron-right"></i> Explore Services
+                    </a>
                 </div>
 
                 <div class="hero-stats">
-                    <div class="stat-item">
-                        <span class="number">12+</span>
-                        <span class="label">Years Experience</span>
+                    <div class="hero-stat">
+                        <span class="number">12<span class="plus">+</span></span>
+                        <span class="label">Years of Excellence</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="number">500+</span>
+                    <div class="hero-stat">
+                        <span class="number">1,000<span class="plus">+</span></span>
                         <span class="label">Professionals Trained</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="number">100+</span>
+                    <div class="hero-stat">
+                        <span class="number">100<span class="plus">+</span></span>
                         <span class="label">Partner Universities</span>
                     </div>
-                    <div class="stat-item">
-                        <span class="number">98%</span>
-                        <span class="label">Client Satisfaction</span>
+                    <div class="hero-stat">
+                        <span class="number">98<span class="plus">%</span></span>
+                        <span class="label">Satisfaction Rate</span>
                     </div>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="grid-pattern">
+                    <div class="grid-item">🎓</div>
+                    <div class="grid-item">🚸</div>
+                    <div class="grid-item">🏭</div>
+                    <div class="grid-item">🚗</div>
+                    <div class="grid-item">🌍</div>
+                    <div class="grid-item">📊</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== ABOUT US ===== -->
-    <section id="about" class="section">
+    <!-- ============================================================
+    TRUST BAR
+    ============================================================ -->
+    <section class="trust-bar">
+        <div class="container">
+            <span class="trust-item"><i class="fas fa-check-circle"></i> Globally Recognized</span>
+            <span class="trust-item"><i class="fas fa-check-circle"></i> ISO Certified</span>
+            <span class="trust-item"><i class="fas fa-check-circle"></i> 100+ Partners</span>
+            <span class="trust-item"><i class="fas fa-check-circle"></i> Trusted by Employers</span>
+            <span class="trust-item"><i class="fas fa-check-circle"></i> Professional Standards</span>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    ABOUT
+    ============================================================ -->
+    <section class="section" id="about">
         <div class="container">
             <div class="about-grid">
-                <div class="about-content">
-                    <span style="color:var(--primary);font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">About MEI Group</span>
-                    <h3>Empowering People. <span class="highlight">Building Careers.</span></h3>
-                    <p>MEI Group is a division of MEI Press Group Ltd., a trusted provider of professional training, international education consultancy, workplace safety programmes, and driver recruitment services in Kenya and worldwide.</p>
-                    <p>Our mission is to bridge the gap between talent and opportunity, helping individuals, schools, companies, and organizations achieve their full potential through world-class training and placement solutions.</p>
+                <div class="about-content animate-on-scroll">
+                    <span class="section-tag">About Us</span>
+                    <h3>Empowering People. <span class="text-gradient">Building Careers.</span></h3>
+                    <p>
+                        MEI Group is a division of MEI Press Group Ltd., a globally trusted provider 
+                        of international education consultancy, professional training, workplace safety, 
+                        and recruitment solutions.
+                    </p>
+                    <p>
+                        Our mission is to bridge the gap between talent and opportunity—helping individuals 
+                        achieve their dreams and organizations build world-class teams.
+                    </p>
                     <div class="about-values">
-                        <div class="value-item"><i class="fas fa-check-circle"></i> Excellence</div>
-                        <div class="value-item"><i class="fas fa-check-circle"></i> Integrity</div>
-                        <div class="value-item"><i class="fas fa-check-circle"></i> Innovation</div>
-                        <div class="value-item"><i class="fas fa-check-circle"></i> Impact</div>
+                        <span class="about-value"><i class="fas fa-check-circle"></i> Excellence</span>
+                        <span class="about-value"><i class="fas fa-check-circle"></i> Integrity</span>
+                        <span class="about-value"><i class="fas fa-check-circle"></i> Innovation</span>
+                        <span class="about-value"><i class="fas fa-check-circle"></i> Global Impact</span>
                     </div>
                 </div>
-                <div class="about-image">
-                    <span style="font-size:6rem;opacity:0.3;">🏢</span>
+                <div class="about-image animate-on-scroll">
+                    <span style="position:relative;z-index:1;">🏢</span>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== SERVICES ===== -->
-    <section id="services" class="section" style="background:var(--bg);">
+    <!-- ============================================================
+    SERVICES
+    ============================================================ -->
+    <section class="section section-alt" id="services">
         <div class="container">
             <div class="section-center">
-                <span style="color:var(--primary);font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">Our Services</span>
-                <h2 class="section-title">What <span class="highlight">We Offer</span></h2>
-                <p class="section-sub">We deliver practical solutions that create opportunities, improve professional skills and support organisational growth.</p>
+                <span class="section-tag">What We Offer</span>
+                <h2 class="section-title">World-Class <span class="highlight">Services</span></h2>
+                <p class="section-sub">
+                    Delivering practical, internationally-recognized solutions that create 
+                    opportunities and drive success.
+                </p>
             </div>
 
-            <div class="grid-4">
-                <!-- International Education -->
-                <div class="service-card" data-service="education">
-                    <div class="service-icon">🎓</div>
+            <div class="services-grid">
+                <div class="service-card animate-on-scroll">
+                    <div class="icon">🎓</div>
                     <h3>International Education</h3>
-                    <div class="service-desc">
-                        <p>Expert study abroad consultancy, admissions support and visa guidance.</p>
-                        <ul>
-                            <li><strong>USA</strong> – Ivy League &amp; top public universities</li>
-                            <li><strong>Canada</strong> – U15 research universities</li>
-                            <li><strong>Australia</strong> – Group of Eight</li>
-                        </ul>
-                        <p style="font-size:0.8rem;color:var(--primary);margin-top:4px;">💰 Financial support &amp; education loans available</p>
-                    </div>
+                    <p>Expert study abroad consultancy, admissions support, and visa guidance.</p>
+                    <ul>
+                        <li>USA, Canada, Australia, UK</li>
+                        <li>100+ partner universities</li>
+                        <li>Education loans &amp; scholarships</li>
+                    </ul>
                     <a href="#apply" class="learn-more">Apply Now →</a>
                 </div>
 
-                <!-- Road Safety -->
-                <div class="service-card" data-service="roadsafety">
-                    <div class="service-icon">🚸</div>
+                <div class="service-card animate-on-scroll">
+                    <div class="icon">🚸</div>
                     <h3>Road Safety Training</h3>
-                    <div class="service-desc">
-                        <p>Professional road safety education for schools, transport companies, and government institutions.</p>
-                        <ul>
-                            <li>Safe to &amp; from School programs</li>
-                            <li>Defensive Driving training</li>
-                            <li>Driver Profiling &amp; assessment</li>
-                            <li>Fleet safety assessments</li>
-                        </ul>
-                    </div>
+                    <p>Professional safety education for schools, transport, and institutions.</p>
+                    <ul>
+                        <li>Safe to &amp; from School</li>
+                        <li>Defensive Driving</li>
+                        <li>Driver Profiling</li>
+                    </ul>
                     <a href="#apply" class="learn-more">Apply Now →</a>
                 </div>
 
-                <!-- OSH -->
-                <div class="service-card" data-service="osh">
-                    <div class="service-icon">🏭</div>
-                    <h3>Occupational Safety &amp; Health</h3>
-                    <div class="service-desc">
-                        <p>Workplace safety training that improves compliance, reduces risk and protects employees.</p>
-                        <ul>
-                            <li>OSHA 2007 Compliance</li>
-                            <li>Risk Assessment &amp; Safety Audits</li>
-                            <li>Fire Safety &amp; First Aid Training</li>
-                            <li>PPE Management &amp; Permits to Work</li>
-                        </ul>
-                    </div>
+                <div class="service-card animate-on-scroll">
+                    <div class="icon">🏭</div>
+                    <h3>Occupational Safety</h3>
+                    <p>Workplace safety training that protects employees and ensures compliance.</p>
+                    <ul>
+                        <li>OSHA 2007 Compliance</li>
+                        <li>Risk Assessment &amp; Audits</li>
+                        <li>Fire Safety &amp; First Aid</li>
+                    </ul>
                     <a href="#apply" class="learn-more">Apply Now →</a>
                 </div>
 
-                <!-- Driver Recruitment -->
-                <div class="service-card" data-service="driver">
-                    <div class="service-icon">🚗</div>
+                <div class="service-card animate-on-scroll">
+                    <div class="icon">🚗</div>
                     <h3>Driver Recruitment</h3>
-                    <div class="service-desc">
-                        <p>Connecting qualified drivers with trusted employers in Kenya and international markets.</p>
-                        <ul>
-                            <li><strong>For Job Seekers:</strong> CV prep, interview coaching, placement</li>
-                            <li><strong>For Employers:</strong> Screening, background checks, assessment</li>
-                            <li>Local &amp; International Placement</li>
-                        </ul>
-                    </div>
+                    <p>Connecting qualified drivers with trusted employers across the globe.</p>
+                    <ul>
+                        <li>Job Seeker Placement</li>
+                        <li>Employer Screening</li>
+                        <li>Local &amp; International</li>
+                    </ul>
                     <a href="#apply" class="learn-more">Apply Now →</a>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== PROCESS ===== -->
-    <section id="process" class="section">
+    <!-- ============================================================
+    STATS (Dark Background)
+    ============================================================ -->
+    <section class="section section-dark" id="impact">
+        <div class="container">
+            <div class="stats-grid">
+                <div class="stat-item animate-on-scroll">
+                    <span class="number"><span class="text-gradient">12+</span></span>
+                    <span class="label">Years of Experience</span>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <span class="number"><span class="text-gradient">1,000+</span></span>
+                    <span class="label">Professionals Trained</span>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <span class="number"><span class="text-gradient">100+</span></span>
+                    <span class="label">Partner Institutions</span>
+                </div>
+                <div class="stat-item animate-on-scroll">
+                    <span class="number"><span class="text-gradient">98%</span></span>
+                    <span class="label">Satisfaction Rate</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    PROCESS
+    ============================================================ -->
+    <section class="section" id="process">
         <div class="container">
             <div class="section-center">
-                <span style="color:var(--primary);font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">How It Works</span>
-                <h2 class="section-title">Simple <span class="highlight">Process</span></h2>
-                <p class="section-sub">We make it easy to get started. Follow these simple steps to begin your journey with MEI Group.</p>
+                <span class="section-tag">How It Works</span>
+                <h2 class="section-title">Your Journey <span class="highlight">Starts Here</span></h2>
+                <p class="section-sub">Four simple steps to get started with MEI Group.</p>
             </div>
 
             <div class="process-grid">
-                <div class="process-step">
-                    <div class="step-number">1</div>
+                <div class="process-step animate-on-scroll">
+                    <div class="number">1</div>
                     <h4>Apply Online</h4>
                     <p>Fill out our quick application form</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">2</div>
-                    <h4>Free Consultation</h4>
-                    <p>Discuss your goals with our experts</p>
+                <div class="process-step animate-on-scroll">
+                    <div class="number">2</div>
+                    <h4>Consultation</h4>
+                    <p>Speak with our expert advisors</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">3</div>
+                <div class="process-step animate-on-scroll">
+                    <div class="number">3</div>
                     <h4>Plan &amp; Prepare</h4>
-                    <p>Get a customised plan for your success</p>
+                    <p>Get a customised success plan</p>
                 </div>
-                <div class="process-step">
-                    <div class="step-number">4</div>
-                    <h4>Achieve Your Goals</h4>
+                <div class="process-step animate-on-scroll">
+                    <div class="number">4</div>
+                    <h4>Achieve Success</h4>
                     <p>Start your journey with confidence</p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== TESTIMONIALS ===== -->
-    <section id="testimonials" class="section" style="background:var(--bg);">
+    <!-- ============================================================
+    TESTIMONIALS
+    ============================================================ -->
+    <section class="section section-alt" id="testimonials">
         <div class="container">
             <div class="section-center">
-                <span style="color:var(--primary);font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">Testimonials</span>
+                <span class="section-tag">Testimonials</span>
                 <h2 class="section-title">What Our <span class="highlight">Clients Say</span></h2>
-                <p class="section-sub">Real stories from people who trusted MEI Group to transform their careers and businesses.</p>
+                <p class="section-sub">Real stories from people who trusted MEI Group.</p>
             </div>
 
             <div class="testimonials-grid">
-                <div class="testimonial-card">
+                <div class="testimonial-card animate-on-scroll">
                     <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote>"MEI Group helped me secure admission to a top university in Canada. Their guidance throughout the application and visa process was exceptional."</blockquote>
+                    <blockquote>"MEI Group helped me secure admission to a top university in Canada. Their guidance was exceptional every step of the way."</blockquote>
                     <div class="author">
                         <div class="avatar">JM</div>
                         <div>
@@ -1067,9 +1358,9 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card">
+                <div class="testimonial-card animate-on-scroll">
                     <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote>"The road safety training programme transformed our company's safety culture. Our drivers are more confident and our accident rate has dropped significantly."</blockquote>
+                    <blockquote>"The road safety programme transformed our company's culture. Accident rates dropped significantly within months."</blockquote>
                     <div class="author">
                         <div class="avatar">PK</div>
                         <div>
@@ -1079,9 +1370,9 @@
                     </div>
                 </div>
 
-                <div class="testimonial-card">
+                <div class="testimonial-card animate-on-scroll">
                     <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote>"MEI Group found me a great driving job in Europe. They handled everything from documentation to interview preparation. I couldn't be happier."</blockquote>
+                    <blockquote>"MEI Group found me a great driving position in Europe. They handled everything professionally and efficiently."</blockquote>
                     <div class="author">
                         <div class="avatar">SO</div>
                         <div>
@@ -1094,122 +1385,148 @@
         </div>
     </section>
 
-    <!-- ===== FAQ ===== -->
-    <section id="faq" class="section">
+    <!-- ============================================================
+    FAQ
+    ============================================================ -->
+    <section class="section" id="faq">
         <div class="container">
             <div class="section-center">
-                <span style="color:var(--primary);font-weight:600;font-size:0.85rem;text-transform:uppercase;letter-spacing:1px;">FAQ</span>
+                <span class="section-tag">FAQ</span>
                 <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
-                <p class="section-sub">Find answers to the most common questions about our services and processes.</p>
+                <p class="section-sub">Find answers to the most common questions about our services.</p>
             </div>
 
             <div class="faq-grid">
                 <div class="faq-item active">
-                    <div class="faq-question">
+                    <div class="question">
                         <span>How do I apply for a service?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">Simply click the "Apply Now" button on this page, select the service you're interested in, fill out the application form, and submit it. Our team will review your application and get back to you within 24 hours.</div>
+                    <div class="answer">Simply click the "Apply Now" button, select your service, fill out the form, and submit. Our team will respond within 24 hours.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">
+                    <div class="question">
                         <span>Which countries do you support for international education?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">We support applications to universities in USA, Canada, Australia, UK, Germany, and several other countries. We have partnerships with over 100 universities worldwide.</div>
+                    <div class="answer">We support applications to the USA, Canada, Australia, UK, Germany, and many other countries through our 100+ university partnerships.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">
+                    <div class="question">
                         <span>Do you offer education loans or financial support?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">Yes! We offer guidance on education loans with no consignor requirements, scholarship opportunities, and financial planning assistance through our partnership with leading education finance institutions.</div>
+                    <div class="answer">Yes! We provide guidance on education loans with no consignor requirements, scholarships, and financial planning through our partner institutions.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">
+                    <div class="question">
                         <span>How long does visa processing take?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">Visa processing times vary by country and type. Generally, student visas take 2-8 weeks, while work visas can take 1-3 months. We guide you through the entire process to ensure a smooth application.</div>
+                    <div class="answer">Visa processing varies by country—typically 2-8 weeks for student visas and 1-3 months for work visas. We guide you through every step.</div>
                 </div>
 
                 <div class="faq-item">
-                    <div class="faq-question">
+                    <div class="question">
                         <span>How do employers recruit drivers through MEI Group?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="faq-answer">Employers can contact us directly to discuss their driver recruitment needs. We conduct thorough screening, background checks, and defensive driving assessments to ensure we match you with qualified, reliable drivers.</div>
+                    <div class="answer">Employers can contact us directly. We conduct thorough screening, background checks, and defensive driving assessments to match you with qualified drivers.</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- ===== APPLY FORM ===== -->
-    <section id="apply" class="section" style="background:var(--bg);">
+    <!-- ============================================================
+    CTA
+    ============================================================ -->
+    <section class="cta-section" id="apply">
         <div class="container">
-            <div class="apply-section" style="background:var(--bg-card);border-radius:var(--radius);padding:48px 40px;box-shadow:var(--shadow);border:1px solid var(--border);">
-                <div class="section-center">
-                    <h2 class="section-title"><i class="fas fa-rocket" style="color:var(--primary);margin-right:12px;"></i>Apply for a <span class="highlight">Service</span></h2>
-                    <p class="section-sub">Select the service you're interested in and we'll tailor the application to your needs.</p>
+            <div class="cta-box">
+                <h2>Ready to Build <span class="text-gradient">Your Future?</span></h2>
+                <p>
+                    Whether you're pursuing international education, improving workplace safety, 
+                    or recruiting top talent—MEI Group is here to help you succeed.
+                </p>
+                <div class="btn-group">
+                    <a href="#apply-section" class="btn-primary">
+                        <i class="fas fa-rocket"></i> Apply Now
+                    </a>
+                    <a href="#contact" class="btn-secondary">
+                        <i class="fas fa-headset"></i> Talk to an Advisor
+                    </a>
                 </div>
+            </div>
+        </div>
+    </section>
 
-                <div class="alert-success" id="applyAlert" style="background:#d1fae5;color:#065f46;padding:14px 20px;border-radius:12px;display:none;margin-bottom:16px;font-weight:500;">
+    <!-- ============================================================
+    CONTACT / APPLY SECTION
+    ============================================================ -->
+    <section class="section section-alt" id="apply-section">
+        <div class="container">
+            <div class="section-center">
+                <span class="section-tag">Get Started</span>
+                <h2 class="section-title">Apply for a <span class="highlight">Service</span></h2>
+                <p class="section-sub">Select the service you're interested in and we'll tailor the application to your needs.</p>
+            </div>
+
+            <div style="max-width:800px;margin:0 auto;background:white;border-radius:var(--radius);padding:40px;border:1px solid var(--border);">
+                <div id="applyAlert" style="display:none;background:#d1fae5;color:#065f46;padding:14px 20px;border-radius:12px;margin-bottom:16px;font-weight:500;">
                     ✅ Your application has been submitted successfully! Our team will review it and get back to you within 24 hours.
                 </div>
 
                 <form id="applyForm" onsubmit="return handleSmartApply(event)">
-                    <div class="service-selector">
-                        <div class="form-group">
-                            <label for="serviceType">Select Service <span class="required">*</span></label>
-                            <select id="serviceType" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);">
-                                <option value="">— Please select a service —</option>
-                                <option value="education">🎓 International Education</option>
-                                <option value="roadsafety">🚸 Road Safety Training</option>
-                                <option value="osh">🏭 Occupational Safety & Health</option>
-                                <option value="driver">🚗 Driver Recruitment & Placement</option>
-                            </select>
+                    <div style="margin-bottom:20px;">
+                        <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Select Service <span style="color:#ef4444;">*</span></label>
+                        <select id="serviceType" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
+                            <option value="">— Please select a service —</option>
+                            <option value="education">🎓 International Education</option>
+                            <option value="roadsafety">🚸 Road Safety Training</option>
+                            <option value="osh">🏭 Occupational Safety & Health</option>
+                            <option value="driver">🚗 Driver Recruitment & Placement</option>
+                        </select>
+                    </div>
+
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <div>
+                            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Full Name <span style="color:#ef4444;">*</span></label>
+                            <input type="text" id="fullName" placeholder="John Doe" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
+                        </div>
+                        <div>
+                            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Email Address <span style="color:#ef4444;">*</span></label>
+                            <input type="email" id="email" placeholder="john@example.com" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
+                        </div>
+                    </div>
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:16px;">
+                        <div>
+                            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Phone Number <span style="color:#ef4444;">*</span></label>
+                            <input type="tel" id="phone" placeholder="+254 700 000 000" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
+                        </div>
+                        <div>
+                            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Location (City/Country)</label>
+                            <input type="text" id="location" placeholder="Nairobi, Kenya" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
                         </div>
                     </div>
 
-                    <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-                        <div class="form-group">
-                            <label for="fullName">Full Name <span class="required">*</span></label>
-                            <input type="text" id="fullName" placeholder="John Doe" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />
-                        </div>
-                        <div class="form-group">
-                            <label for="email">Email Address <span class="required">*</span></label>
-                            <input type="email" id="email" placeholder="john@example.com" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />
-                        </div>
-                    </div>
-                    <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-                        <div class="form-group">
-                            <label for="phone">Phone Number <span class="required">*</span></label>
-                            <input type="tel" id="phone" placeholder="+254 700 000 000" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />
-                        </div>
-                        <div class="form-group">
-                            <label for="location">Location (City/Country)</label>
-                            <input type="text" id="location" placeholder="Nairobi, Kenya" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />
-                        </div>
-                    </div>
-
-                    <div id="dynamicFieldsContainer" class="dynamic-fields" style="background:#f8fafc;border-radius:16px;padding:20px 24px;margin:8px 0 16px;border:1px dashed #d1d9e6;transition:all 0.3s ease;">
+                    <div id="dynamicFieldsContainer" style="background:#f8fafc;border-radius:var(--radius-sm);padding:20px 24px;margin:16px 0;border:1px dashed #d1d9e6;">
                         <p style="color:var(--text-light);font-size:0.95rem;text-align:center;padding:16px 0;">
                             <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
                         </p>
                     </div>
 
-                    <div class="form-group">
-                        <label for="additionalInfo">Additional Information or Message</label>
-                        <textarea id="additionalInfo" placeholder="Any other details you'd like to share with us..." style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);resize:vertical;min-height:80px;"></textarea>
+                    <div>
+                        <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Additional Information</label>
+                        <textarea id="additionalInfo" placeholder="Any other details you'd like to share..." style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;resize:vertical;min-height:80px;"></textarea>
                     </div>
 
-                    <button type="submit" class="btn-submit" id="submitBtn" style="background:var(--primary);color:white;padding:14px 40px;border:none;border-radius:60px;font-weight:600;font-size:1rem;cursor:pointer;transition:0.25s ease;display:inline-flex;align-items:center;gap:10px;">
+                    <button type="submit" id="submitBtn" style="margin-top:20px;background:var(--primary);color:white;padding:14px 40px;border:none;border-radius:var(--radius-full);font-weight:600;font-size:1rem;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:10px;">
                         <i class="fas fa-paper-plane"></i> Submit Application
                     </button>
-                    <p style="margin-top:12px;font-size:0.85rem;color:var(--text-light);">
+                    <p style="margin-top:12px;font-size:0.8rem;color:var(--text-light);">
                         <i class="fas fa-lock" style="margin-right:6px;"></i> Your information is secure and will be sent directly to our team.
                     </p>
                 </form>
@@ -1217,39 +1534,42 @@
         </div>
     </section>
 
-    <!-- ===== CONTACT ===== -->
-    <section id="contact" class="section">
+    <!-- ============================================================
+    CONTACT
+    ============================================================ -->
+    <section class="section" id="contact">
         <div class="container">
-            <div class="contact-section" style="background:var(--bg-card);border-radius:var(--radius);padding:48px 40px;box-shadow:var(--shadow);border:1px solid var(--border);">
+            <div style="max-width:800px;margin:0 auto;background:white;border-radius:var(--radius);padding:40px;border:1px solid var(--border);">
                 <div class="section-center">
-                    <h2 class="section-title"><i class="fas fa-envelope" style="color:var(--primary);margin-right:12px;"></i>Contact <span class="highlight">Us</span></h2>
-                    <p class="section-sub" style="margin-bottom:32px;">Have questions? Reach out to our team and we'll get back to you within 24 hours.</p>
+                    <span class="section-tag">Contact</span>
+                    <h2 class="section-title" style="font-size:2rem;">Get in <span class="highlight">Touch</span></h2>
+                    <p style="color:var(--text-secondary);margin-bottom:32px;">Have questions? Reach out to our team and we'll get back to you within 24 hours.</p>
                 </div>
 
-                <div class="alert-success" id="contactAlert" style="background:#d1fae5;color:#065f46;padding:14px 20px;border-radius:12px;display:none;margin-bottom:16px;font-weight:500;">
+                <div id="contactAlert" style="display:none;background:#d1fae5;color:#065f46;padding:14px 20px;border-radius:12px;margin-bottom:16px;font-weight:500;">
                     ✅ Your message has been sent. We'll be in touch soon!
                 </div>
 
                 <form id="contactForm" onsubmit="return handleContact(event)">
-                    <div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
-                        <div class="form-group">
-                            <label for="contactName">Full Name <span class="required">*</span></label>
-                            <input type="text" id="contactName" placeholder="John Doe" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />
+                    <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                        <div>
+                            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Full Name <span style="color:#ef4444;">*</span></label>
+                            <input type="text" id="contactName" placeholder="John Doe" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
                         </div>
-                        <div class="form-group">
-                            <label for="contactEmail">Email Address <span class="required">*</span></label>
-                            <input type="email" id="contactEmail" placeholder="john@example.com" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />
+                        <div>
+                            <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Email Address <span style="color:#ef4444;">*</span></label>
+                            <input type="email" id="contactEmail" placeholder="john@example.com" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
                         </div>
                     </div>
-                    <div class="form-group">
-                        <label for="contactSubject">Subject <span class="required">*</span></label>
-                        <input type="text" id="contactSubject" placeholder="How can we help you?" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />
+                    <div style="margin-top:16px;">
+                        <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Subject <span style="color:#ef4444;">*</span></label>
+                        <input type="text" id="contactSubject" placeholder="How can we help you?" required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;">
                     </div>
-                    <div class="form-group">
-                        <label for="contactMessage">Message <span class="required">*</span></label>
-                        <textarea id="contactMessage" placeholder="Tell us about your inquiry..." required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);resize:vertical;min-height:120px;"></textarea>
+                    <div style="margin-top:16px;">
+                        <label style="font-weight:600;font-size:0.9rem;display:block;margin-bottom:4px;">Message <span style="color:#ef4444;">*</span></label>
+                        <textarea id="contactMessage" placeholder="Tell us about your inquiry..." required style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:1rem;background:white;resize:vertical;min-height:120px;"></textarea>
                     </div>
-                    <button type="submit" class="btn-submit" style="background:var(--primary);color:white;padding:14px 40px;border:none;border-radius:60px;font-weight:600;font-size:1rem;cursor:pointer;transition:0.25s ease;display:inline-flex;align-items:center;gap:10px;">
+                    <button type="submit" style="margin-top:20px;background:var(--primary);color:white;padding:14px 40px;border:none;border-radius:var(--radius-full);font-weight:600;font-size:1rem;cursor:pointer;transition:all 0.3s ease;display:inline-flex;align-items:center;gap:10px;">
                         <i class="fas fa-paper-plane"></i> Send Message
                     </button>
                 </form>
@@ -1257,23 +1577,14 @@
         </div>
     </section>
 
-    <!-- ===== CTA ===== -->
-    <section style="padding:50px 0;">
-        <div class="container">
-            <div class="cta-block">
-                <h2>Ready to Build Your Future?</h2>
-                <p>Whether you're pursuing international education, improving workplace safety, or recruiting skilled professionals — MEI is here to help.</p>
-                <a href="#apply" class="btn-cta">Apply Now <i class="fas fa-arrow-right" style="margin-left:8px;"></i></a>
-            </div>
-        </div>
-    </section>
-
-    <!-- ===== FOOTER ===== -->
+    <!-- ============================================================
+    FOOTER
+    ============================================================ -->
     <footer class="footer">
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h4>MEI Group</h4>
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>MEI <span>Group</span></h4>
                     <p>Empowering people, building careers, driving innovation. A division of MEI Press Group Ltd.</p>
                     <div class="social-links">
                         <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
@@ -1282,40 +1593,51 @@
                         <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
-                <div class="footer-section">
+                <div class="footer-col">
                     <h4>Quick Links</h4>
-                    <p><a href="#">Home</a></p>
-                    <p><a href="#about">About</a></p>
-                    <p><a href="#services">Services</a></p>
-                    <p><a href="#apply">Apply Now</a></p>
-                    <p><a href="#contact">Contact</a></p>
+                    <a href="#">Home</a>
+                    <a href="#about">About</a>
+                    <a href="#services">Services</a>
+                    <a href="#apply">Apply Now</a>
+                    <a href="#contact">Contact</a>
                 </div>
-                <div class="footer-section">
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="#apply">International Education</a>
+                    <a href="#apply">Road Safety Training</a>
+                    <a href="#apply">Occupational Safety</a>
+                    <a href="#apply">Driver Recruitment</a>
+                </div>
+                <div class="footer-col">
                     <h4>Contact</h4>
-                    <div class="contact-item"><i class="fas fa-phone-alt" style="width:20px;"></i> <a href="tel:+254703738707">0703 738 707</a></div>
-                    <div class="contact-item"><i class="fas fa-envelope" style="width:20px;"></i> <a href="mailto:info@meipressgroup.com">info@meipressgroup.com</a></div>
-                    <div class="contact-item"><i class="fab fa-whatsapp" style="width:20px;"></i> <a href="https://wa.me/254703738707">WhatsApp</a></div>
-                </div>
-                <div class="footer-section">
-                    <h4>Legal</h4>
-                    <p><a href="#">Privacy Policy</a></p>
-                    <p><a href="#">Terms &amp; Conditions</a></p>
-                    <p><a href="#">Cookie Policy</a></p>
+                    <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:+254703738707">0703 738 707</a></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:info@meipressgroup.com">info@meipressgroup.com</a></div>
+                    <div class="contact-item"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/254703738707">WhatsApp</a></div>
                 </div>
             </div>
-            <div class="footer-bottom">&copy; 2025 MEI Press Group Ltd. All rights reserved.</div>
+            <div class="footer-bottom">
+                &copy; 2025 MEI Press Group Ltd. All rights reserved. 
+                <span style="margin:0 8px;">·</span> 
+                <a href="#" style="color:rgba(255,255,255,0.2);">Privacy Policy</a>
+                <span style="margin:0 8px;">·</span>
+                <a href="#" style="color:rgba(255,255,255,0.2);">Terms &amp; Conditions</a>
+            </div>
         </div>
     </footer>
 
-    <!-- ===== WHATSAPP FLOAT ===== -->
-    <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="Contact us on WhatsApp">
+    <!-- ============================================================
+    WHATSAPP FLOAT
+    ============================================================ -->
+    <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">
         <i class="fab fa-whatsapp"></i>
     </a>
 
-    <!-- ===== SCRIPTS ===== -->
+    <!-- ============================================================
+    SCRIPTS
+    ============================================================ -->
     <script>
         // ============================================================
-        // MEI GROUP - COMPLETE WEBSITE SCRIPT
+        // MEI GROUP - INTERNATIONAL EDITION
         // ============================================================
 
         (function() {
@@ -1333,22 +1655,36 @@
                 localStorage.setItem('mei_contacts', JSON.stringify(contacts));
             }
 
-            // ===== MOBILE MENU =====
+            // ===== NAVBAR =====
+            const navbar = document.getElementById('navbar');
             const menuBtn = document.getElementById('mobileMenuBtn');
             const navLinks = document.getElementById('navLinks');
 
+            // Scroll effect
+            let lastScroll = 0;
+            window.addEventListener('scroll', function() {
+                const currentScroll = window.pageYOffset;
+                if (currentScroll > 50) {
+                    navbar.classList.add('scrolled');
+                } else {
+                    navbar.classList.remove('scrolled');
+                }
+                lastScroll = currentScroll;
+            }, { passive: true });
+
+            // Mobile menu
             if (menuBtn && navLinks) {
                 menuBtn.addEventListener('click', function(e) {
                     e.stopPropagation();
-                    const isOpen = navLinks.classList.toggle('active');
-                    menuBtn.setAttribute('aria-expanded', isOpen);
-                    menuBtn.innerHTML = isOpen ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                    navLinks.classList.toggle('active');
+                    this.innerHTML = navLinks.classList.contains('active') ? 
+                        '<i class="fas fa-times"></i>' : 
+                        '<i class="fas fa-bars"></i>';
                 });
 
                 document.addEventListener('click', function(e) {
                     if (navLinks.classList.contains('active') && !e.target.closest('.navbar')) {
                         navLinks.classList.remove('active');
-                        menuBtn.setAttribute('aria-expanded', 'false');
                         menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                     }
                 });
@@ -1356,20 +1692,12 @@
                 document.addEventListener('keydown', function(e) {
                     if (e.key === 'Escape' && navLinks.classList.contains('active')) {
                         navLinks.classList.remove('active');
-                        menuBtn.setAttribute('aria-expanded', 'false');
                         menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
                     }
                 });
             }
 
-            // ===== NAVBAR SCROLL =====
-            const navbar = document.getElementById('mainNav');
-            window.addEventListener('scroll', function() {
-                if (window.scrollY > 50) navbar.classList.add('scrolled');
-                else navbar.classList.remove('scrolled');
-            }, { passive: true });
-
-            // ===== SMOOTH ANCHOR SCROLL =====
+            // ===== SMOOTH SCROLL =====
             document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
                 anchor.addEventListener('click', function(e) {
                     const targetId = this.getAttribute('href');
@@ -1378,82 +1706,79 @@
                     if (targetEl) {
                         e.preventDefault();
                         const navHeight = navbar.offsetHeight || 70;
-                        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight -
-                            16;
+                        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
                         window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                        
+                        // Close mobile menu
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                            menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
                     }
+                });
+            });
+
+            // ===== ANIMATE ON SCROLL =====
+            const animateElements = document.querySelectorAll('.animate-on-scroll');
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+
+            animateElements.forEach(function(el) {
+                observer.observe(el);
+            });
+
+            // ===== FAQ ACCORDION =====
+            document.querySelectorAll('.faq-item').forEach(function(item) {
+                item.addEventListener('click', function() {
+                    this.classList.toggle('active');
                 });
             });
 
             // ===== DYNAMIC FIELDS =====
             const serviceSelect = document.getElementById('serviceType');
             const dynamicContainer = document.getElementById('dynamicFieldsContainer');
-            const applyAlert = document.getElementById('applyAlert');
 
             const fieldConfigs = {
                 education: {
                     title: 'International Education Application',
                     fields: [
-                        { id: 'eduCountry', label: 'Preferred Study Destination', type: 'select', options: ['USA',
-                                'Canada', 'Australia', 'UK', 'Germany', 'Other'
-                            ] },
-                        { id: 'eduLevel', label: 'Level of Study', type: 'select', options: ['Undergraduate',
-                                'Postgraduate', 'PhD', 'Diploma', 'Certificate'
-                            ] },
-                        { id: 'eduIntake', label: 'Preferred Intake', type: 'select', options: ['Fall (Sep/Oct)',
-                                'Spring (Jan/Feb)', 'Summer (May/June)', 'Flexible'
-                            ] },
+                        { id: 'eduCountry', label: 'Preferred Study Destination', type: 'select', options: ['USA', 'Canada', 'Australia', 'UK', 'Germany', 'Other'] },
+                        { id: 'eduLevel', label: 'Level of Study', type: 'select', options: ['Undergraduate', 'Postgraduate', 'PhD', 'Diploma', 'Certificate'] },
+                        { id: 'eduIntake', label: 'Preferred Intake', type: 'select', options: ['Fall (Sep/Oct)', 'Spring (Jan/Feb)', 'Summer (May/June)', 'Flexible'] },
                         { id: 'eduBudget', label: 'Approximate Budget (USD)', type: 'text', placeholder: 'e.g. 25,000' },
-                        { id: 'eduFinance', label: 'Do you require financial support / education loan?', type: 'select',
-                            options: ['Yes, I need a loan', 'Yes, I need scholarship guidance', 'No, self-funded',
-                                'Not sure'
-                            ] }
+                        { id: 'eduFinance', label: 'Do you require financial support?', type: 'select', options: ['Yes, I need a loan', 'Yes, scholarship guidance', 'No, self-funded', 'Not sure'] }
                     ]
                 },
                 roadsafety: {
                     title: 'Road Safety Training Application',
                     fields: [
-                        { id: 'rsOrganization', label: 'Organization/Institution Name', type: 'text',
-                            placeholder: 'e.g. ABC School Ltd' },
-                        { id: 'rsType', label: 'Type of Training Required', type: 'select', options: ['School Road Safety Program',
-                                'Defensive Driving', 'Fleet Safety Assessment', 'Driver Profiling'
-                            ] },
-                        { id: 'rsParticipants', label: 'Number of Participants', type: 'number',
-                            placeholder: 'e.g. 50' },
+                        { id: 'rsOrganization', label: 'Organization Name', type: 'text', placeholder: 'e.g. ABC School Ltd' },
+                        { id: 'rsType', label: 'Training Type', type: 'select', options: ['School Road Safety Program', 'Defensive Driving', 'Fleet Safety Assessment', 'Driver Profiling'] },
+                        { id: 'rsParticipants', label: 'Number of Participants', type: 'number', placeholder: 'e.g. 50' },
                         { id: 'rsDate', label: 'Preferred Training Date', type: 'date' }
                     ]
                 },
                 osh: {
                     title: 'Occupational Safety & Health Application',
                     fields: [
-                        { id: 'oshIndustry', label: 'Industry/Sector', type: 'text',
-                            placeholder: 'e.g. Construction, Manufacturing' },
-                        { id: 'oshType', label: 'Type of OSH Service', type: 'select', options: ['Legal Compliance (OSHA 2007)',
-                                'Risk Assessment', 'Safety Audit', 'Fire Safety', 'First Aid Training',
-                                'PPE Management', 'Safety Committee Formation', 'Permits to Work',
-                                'Emergency Preparedness', 'Occupational Health Surveillance', 'Chemical Safety',
-                                'Comprehensive OSH Program'
-                            ] },
-                        { id: 'oshEmployees', label: 'Number of Employees', type: 'number',
-                            placeholder: 'e.g. 100' },
-                        { id: 'oshLocation', label: 'Training/Service Location', type: 'text',
-                            placeholder: 'e.g. Nairobi, Kenya' }
+                        { id: 'oshIndustry', label: 'Industry/Sector', type: 'text', placeholder: 'e.g. Construction, Manufacturing' },
+                        { id: 'oshType', label: 'OSH Service Required', type: 'select', options: ['Legal Compliance (OSHA 2007)', 'Risk Assessment', 'Safety Audit', 'Fire Safety', 'First Aid Training', 'PPE Management', 'Safety Committee Formation', 'Permits to Work', 'Emergency Preparedness', 'Occupational Health Surveillance', 'Chemical Safety', 'Comprehensive OSH Program'] },
+                        { id: 'oshEmployees', label: 'Number of Employees', type: 'number', placeholder: 'e.g. 100' },
+                        { id: 'oshLocation', label: 'Service Location', type: 'text', placeholder: 'e.g. Nairobi, Kenya' }
                     ]
                 },
                 driver: {
                     title: 'Driver Recruitment & Placement Application',
                     fields: [
-                        { id: 'drvType', label: 'I am a:', type: 'select', options: ['Job Seeker looking for placement',
-                                'Employer looking for drivers'
-                            ] },
-                        { id: 'drvLicense', label: 'Driver License Type (if applicable)', type: 'select',
-                            options: ['Class B', 'Class C', 'Class D', 'Class E', 'International',
-                                'Not applicable'
-                            ] },
-                        { id: 'drvExperience', label: 'Years of Driving Experience (if applicable)', type: 'number',
-                            placeholder: 'e.g. 5' },
-                        { id: 'drvRegion', label: 'Preferred Work Region / Location', type: 'text',
-                            placeholder: 'e.g. Nairobi, Kenya or International' }
+                        { id: 'drvType', label: 'I am a:', type: 'select', options: ['Job Seeker looking for placement', 'Employer looking for drivers'] },
+                        { id: 'drvLicense', label: 'Driver License Type (if applicable)', type: 'select', options: ['Class B', 'Class C', 'Class D', 'Class E', 'International', 'Not applicable'] },
+                        { id: 'drvExperience', label: 'Years of Driving Experience (if applicable)', type: 'number', placeholder: 'e.g. 5' },
+                        { id: 'drvRegion', label: 'Preferred Work Region', type: 'text', placeholder: 'e.g. Nairobi, Kenya or International' }
                     ]
                 }
             };
@@ -1461,40 +1786,39 @@
             function renderDynamicFields(serviceKey) {
                 const config = fieldConfigs[serviceKey];
                 if (!config) {
-                    dynamicContainer.innerHTML =
-                        `<p style="color: var(--text-light); font-size: 0.95rem; text-align: center; padding: 16px 0;"><i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.</p>`;
-                    dynamicContainer.classList.remove('active');
+                    dynamicContainer.innerHTML = `<p style="color: var(--text-light); font-size: 0.95rem; text-align: center; padding: 16px 0;">
+                        <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
+                    </p>`;
                     return;
                 }
-                let html =
-                    `<h4 style="font-size:1.1rem; margin-bottom:12px; color:var(--text);"><i class="fas fa-clipboard-list" style="color:var(--primary); margin-right:8px;"></i>${config.title}</h4><div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">`;
+                let html = `<h4 style="font-size:1.05rem;margin-bottom:12px;color:var(--text);">${config.title}</h4><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">`;
                 config.fields.forEach((field, index) => {
-                    if (index % 2 === 0 && index > 0) html += `</div><div class="form-row" style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">`;
-                    html += `<div class="form-group"><label for="${field.id}">${field.label}</label>`;
+                    if (index % 2 === 0 && index > 0) html += `</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;">`;
+                    html += `<div><label style="font-weight:600;font-size:0.85rem;display:block;margin-bottom:4px;">${field.label}</label>`;
                     if (field.type === 'select') {
-                        html += `<select id="${field.id}" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);"><option value="">Select...</option>`;
+                        html += `<select id="${field.id}" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:0.95rem;background:white;"><option value="">Select...</option>`;
                         field.options.forEach(opt => html += `<option value="${opt}">${opt}</option>`);
                         html += `</select>`;
-                    } else if (field.type === 'date') html +=
-                        `<input type="date" id="${field.id}" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />`;
-                    else if (field.type === 'number') html +=
-                        `<input type="number" id="${field.id}" placeholder="${field.placeholder || ''}" min="0" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />`;
-                    else html +=
-                        `<input type="text" id="${field.id}" placeholder="${field.placeholder || ''}" style="width:100%;padding:12px 16px;border:1.5px solid var(--border);border-radius:12px;font-family:inherit;font-size:1rem;background:white;color:var(--text);" />`;
+                    } else if (field.type === 'date') {
+                        html += `<input type="date" id="${field.id}" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:0.95rem;background:white;" />`;
+                    } else if (field.type === 'number') {
+                        html += `<input type="number" id="${field.id}" placeholder="${field.placeholder || ''}" min="0" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:0.95rem;background:white;" />`;
+                    } else {
+                        html += `<input type="text" id="${field.id}" placeholder="${field.placeholder || ''}" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--radius-sm);font-family:inherit;font-size:0.95rem;background:white;" />`;
+                    }
                     html += `</div>`;
                 });
                 html += `</div>`;
                 dynamicContainer.innerHTML = html;
-                dynamicContainer.classList.add('active');
             }
 
             serviceSelect.addEventListener('change', function() {
                 const value = this.value;
                 if (value) renderDynamicFields(value);
                 else {
-                    dynamicContainer.innerHTML =
-                        `<p style="color: var(--text-light); font-size: 0.95rem; text-align: center; padding: 16px 0;"><i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.</p>`;
-                    dynamicContainer.classList.remove('active');
+                    dynamicContainer.innerHTML = `<p style="color: var(--text-light); font-size: 0.95rem; text-align: center; padding: 16px 0;">
+                        <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
+                    </p>`;
                 }
             });
 
@@ -1518,7 +1842,7 @@
                     date: new Date().toISOString()
                 };
 
-                const dynamicInputs = dynamicContainer.querySelectorAll('input, select, textarea');
+                const dynamicInputs = dynamicContainer.querySelectorAll('input, select');
                 dynamicInputs.forEach(input => {
                     if (input.id) {
                         formData[input.id] = input.value;
@@ -1529,14 +1853,16 @@
                 saveApplications();
 
                 setTimeout(function() {
-                    applyAlert.style.display = 'block';
+                    const alert = document.getElementById('applyAlert');
+                    alert.style.display = 'block';
                     document.getElementById('applyForm').reset();
-                    dynamicContainer.innerHTML =
-                        `<p style="color: var(--text-light); font-size: 0.95rem; text-align: center; padding: 16px 0;"><i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.</p>`;
-                    dynamicContainer.classList.remove('active');
+                    dynamicContainer.innerHTML = `<p style="color: var(--text-light); font-size: 0.95rem; text-align: center; padding: 16px 0;">
+                        <i class="fas fa-info-circle" style="margin-right:8px;"></i>Select a service above to see additional questions.
+                    </p>`;
+                    serviceSelect.value = '';
                     submitBtn.disabled = false;
                     submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
-                    setTimeout(function() { applyAlert.style.display = 'none'; }, 6000);
+                    setTimeout(function() { alert.style.display = 'none'; }, 6000);
                 }, 1500);
 
                 return false;
@@ -1563,7 +1889,7 @@
                 return false;
             };
 
-            // ===== QUICK APPLY FROM SERVICE CARDS =====
+            // ===== QUICK APPLY =====
             document.querySelectorAll('.service-card .learn-more').forEach(function(link) {
                 link.addEventListener('click', function(e) {
                     const card = this.closest('.service-card');
@@ -1571,20 +1897,13 @@
                     if (service && serviceSelect) {
                         serviceSelect.value = service;
                         renderDynamicFields(service);
+                        document.getElementById('apply-section').scrollIntoView({ behavior: 'smooth' });
                     }
                 });
             });
 
-            // ===== FAQ ACCORDION =====
-            document.querySelectorAll('.faq-item').forEach(function(item) {
-                item.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                });
-            });
-
-            console.log('✅ MEI Group website initialized successfully');
-            console.log('📊 Applications stored:', applications.length);
-            console.log('📧 Contacts stored:', contacts.length);
+            console.log('✅ MEI Group - International Edition loaded');
+            console.log('🌍 Global platform ready');
 
         })();
     </script>
