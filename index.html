@@ -262,7 +262,7 @@
         }
 
         /* ============================================================
-           HERO - IMPROVED
+           HERO
            ============================================================ */
         .hero {
             position: relative;
@@ -531,9 +531,6 @@
             display: block;
             line-height: 1.1;
         }
-        .stat-item .number .text-gradient {
-            -webkit-text-fill-color: transparent;
-        }
         .stat-item .label {
             font-size: 0.95rem;
             color: rgba(255,255,255,0.5);
@@ -541,61 +538,7 @@
         }
 
         /* ============================================================
-           ABOUT US
-           ============================================================ */
-        .about-section {
-            padding: 100px 0;
-        }
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-        .about-content h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .about-content p {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.8;
-        }
-        .about-values {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .about-value {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-        .about-value i { color: var(--primary); }
-        .about-image {
-            background: linear-gradient(135deg, var(--primary-bg), #e0e7ff);
-            border-radius: var(--radius);
-            padding: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8rem;
-            border: 1px solid rgba(37,99,235,0.06);
-            position: relative;
-            overflow: hidden;
-        }
-        .about-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.05) 0%, transparent 60%);
-        }
-
-        /* ============================================================
-           SERVICES - IMPROVED CARDS
+           SERVICES - IMPROVED DRIVER SECTION
            ============================================================ */
         .services-section {
             padding: 100px 0;
@@ -699,14 +642,6 @@
             color: white;
             transform: translateY(-2px);
         }
-        .service-card .btn-group .btn-sm.gold {
-            background: var(--gold);
-            color: white;
-        }
-        .service-card .btn-group .btn-sm.gold:hover {
-            background: #d97706;
-            transform: translateY(-2px);
-        }
 
         .service-card .badge-group {
             display: flex;
@@ -748,6 +683,100 @@
             gap: 2px 24px;
         }
         .service-card.osh-card ul li { padding: 3px 0 3px 22px; }
+
+        /* Driver License Classes - Special Styling */
+        .service-card.driver-card {
+            grid-column: span 2;
+            background: linear-gradient(135deg, #ffffff, #f0f7ff);
+        }
+        .service-card.driver-card .license-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 8px;
+            margin: 12px 0 8px;
+        }
+        .service-card.driver-card .license-item {
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 8px 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+        }
+        .service-card.driver-card .license-item:hover {
+            border-color: var(--primary);
+            background: var(--primary-bg);
+        }
+        .service-card.driver-card .license-item .code {
+            font-weight: 700;
+            font-size: 1rem;
+            color: var(--primary);
+            display: block;
+        }
+        .service-card.driver-card .license-item .name {
+            font-size: 0.65rem;
+            color: var(--text-secondary);
+        }
+        .service-card.driver-card ul {
+            grid-template-columns: 1fr 1fr;
+            display: grid;
+            gap: 2px 24px;
+        }
+        .service-card.driver-card ul li { padding: 3px 0 3px 22px; }
+
+        /* ============================================================
+           ABOUT
+           ============================================================ */
+        .about-section {
+            padding: 100px 0;
+        }
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 80px;
+            align-items: center;
+        }
+        .about-content h3 {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+        .about-content p {
+            color: var(--text-secondary);
+            margin-bottom: 16px;
+            line-height: 1.8;
+        }
+        .about-values {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin-top: 24px;
+        }
+        .about-value {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 500;
+        }
+        .about-value i { color: var(--primary); }
+        .about-image {
+            background: linear-gradient(135deg, var(--primary-bg), #e0e7ff);
+            border-radius: var(--radius);
+            padding: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 8rem;
+            border: 1px solid rgba(37,99,235,0.06);
+            position: relative;
+            overflow: hidden;
+        }
+        .about-image::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.05) 0%, transparent 60%);
+        }
 
         /* ============================================================
            PROCESS
@@ -1062,7 +1091,7 @@
         }
 
         /* ============================================================
-           FOOTER - IMPROVED
+           FOOTER
            ============================================================ */
         .footer {
             background: var(--secondary);
@@ -1147,11 +1176,6 @@
             font-size: 0.8rem;
             color: rgba(255,255,255,0.2);
         }
-        .footer-bottom a {
-            color: rgba(255,255,255,0.3);
-            transition: color 0.3s ease;
-        }
-        .footer-bottom a:hover { color: white; }
 
         /* ============================================================
            WHATSAPP FLOAT
@@ -1186,6 +1210,9 @@
             .services-grid { grid-template-columns: repeat(2, 1fr); }
             .service-card.osh-card { grid-column: span 1; }
             .service-card.osh-card ul { grid-template-columns: 1fr; }
+            .service-card.driver-card { grid-column: span 1; }
+            .service-card.driver-card ul { grid-template-columns: 1fr; }
+            .service-card.driver-card .license-grid { grid-template-columns: repeat(3, 1fr); }
             .testimonials-grid { grid-template-columns: 1fr 1fr; }
             .process-grid { grid-template-columns: repeat(3, 1fr); }
             .process-step .arrow { display: none; }
@@ -1204,6 +1231,7 @@
             .form-card { padding: 32px 24px; }
             .form-card .form-row { grid-template-columns: 1fr; }
             .why-grid { grid-template-columns: 1fr 1fr; }
+            .service-card.driver-card .license-grid { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 768px) {
             .nav-links {
@@ -1233,6 +1261,9 @@
             .services-grid { grid-template-columns: 1fr; }
             .service-card.osh-card { grid-column: span 1; }
             .service-card.osh-card ul { grid-template-columns: 1fr; }
+            .service-card.driver-card { grid-column: span 1; }
+            .service-card.driver-card ul { grid-template-columns: 1fr; }
+            .service-card.driver-card .license-grid { grid-template-columns: repeat(2, 1fr); }
             .testimonials-grid { grid-template-columns: 1fr; }
             .process-grid { grid-template-columns: 1fr 1fr; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1250,6 +1281,7 @@
             .section-title { font-size: 1.6rem; }
             .hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
             .process-grid { grid-template-columns: 1fr; }
+            .service-card.driver-card .license-grid { grid-template-columns: repeat(2, 1fr); }
         }
     </style>
 </head>
@@ -1282,7 +1314,7 @@
     </nav>
 
     <!-- ============================================================
-    HERO - IMPROVED
+    HERO
     ============================================================ -->
     <section class="hero" id="hero">
         <div class="container">
@@ -1395,7 +1427,7 @@
     </section>
 
     <!-- ============================================================
-    STATS SECTION - IMPROVED
+    STATS SECTION
     ============================================================ -->
     <section class="stats-section" id="stats">
         <div class="container">
@@ -1421,7 +1453,7 @@
     </section>
 
     <!-- ============================================================
-    ABOUT US - IMPROVED
+    ABOUT US
     ============================================================ -->
     <section class="about-section" id="about">
         <div class="container">
@@ -1458,7 +1490,7 @@
     </section>
 
     <!-- ============================================================
-    SERVICES - IMPROVED WITH BETTER BUTTONS
+    SERVICES - IMPROVED DRIVER SECTION WITH LICENSE CLASSES
     ============================================================ -->
     <section class="services-section" id="services">
         <div class="container">
@@ -1539,16 +1571,41 @@
                     </div>
                 </div>
 
-                <!-- Driver Recruitment -->
-                <div class="service-card animate-on-scroll" data-service="driver">
+                <!-- Driver Recruitment - IMPROVED WITH LICENSE CLASSES -->
+                <div class="service-card driver-card animate-on-scroll" data-service="driver">
                     <div class="icon">🚗</div>
-                    <h3>Driver Recruitment</h3>
-                    <p class="desc">Connecting qualified drivers with trusted employers across the globe.</p>
+                    <h3>Driver Recruitment &amp; Placement</h3>
+                    <p class="desc">Connecting qualified drivers with trusted employers across the globe. We recruit for all license classes.</p>
+                    
+                    <div class="badge-group">
+                        <span class="badge safety">Local Placement</span>
+                        <span class="badge training">International Placement</span>
+                        <span class="badge legal">License Verification</span>
+                        <span class="badge health">Background Checks</span>
+                    </div>
+
+                    <!-- License Classes Grid -->
+                    <div class="license-grid">
+                        <div class="license-item"><span class="code">A2</span><span class="name">Motorcycle</span></div>
+                        <div class="license-item"><span class="code">A3</span><span class="name">Light Motorcycle</span></div>
+                        <div class="license-item"><span class="code">B1</span><span class="name">Light Vehicle</span></div>
+                        <div class="license-item"><span class="code">B2</span><span class="name">Medium Vehicle</span></div>
+                        <div class="license-item"><span class="code">B3</span><span class="name">Heavy Vehicle</span></div>
+                        <div class="license-item"><span class="code">C</span><span class="name">Heavy Truck</span></div>
+                        <div class="license-item"><span class="code">CD</span><span class="name">Heavy Truck + Trailer</span></div>
+                        <div class="license-item"><span class="code">CED</span><span class="name">Heavy Truck + Extra</span></div>
+                        <div class="license-item"><span class="code">D1</span><span class="name">Minibus</span></div>
+                        <div class="license-item"><span class="code">D2</span><span class="name">Bus</span></div>
+                        <div class="license-item"><span class="code">D3</span><span class="name">Heavy Bus</span></div>
+                        <div class="license-item"><span class="code">G</span><span class="name">Special/Agricultural</span></div>
+                    </div>
+
                     <ul>
-                        <li><strong>For Job Seekers:</strong> CV prep, interview coaching, placement support</li>
-                        <li><strong>For Employers:</strong> Screening, background checks, driving assessment</li>
-                        <li><strong>Local Placement:</strong> Nairobi, Mombasa, Kisumu, and other Kenyan cities</li>
+                        <li><strong>For Job Seekers:</strong> CV preparation, interview coaching, license verification, placement support</li>
+                        <li><strong>For Employers:</strong> Driver screening, background checks, defensive driving assessment, compliance documentation</li>
+                        <li><strong>Local Placement:</strong> Nairobi, Mombasa, Kisumu, Nakuru, Eldoret, and other Kenyan cities</li>
                         <li><strong>International:</strong> Middle East, Europe, and other global markets</li>
+                        <li><strong>Classes 1-12:</strong> Full support for all driver license categories</li>
                     </ul>
                     <div class="btn-group">
                         <a href="#apply" class="btn-sm primary"><i class="fas fa-paper-plane"></i> Apply Now</a>
@@ -1742,6 +1799,14 @@
                     </div>
                     <div class="answer">Our OSH training covers OSHA 2007 compliance, risk assessment, fire safety, first aid, PPE management, occupational health surveillance, chemical safety, permits to work, and emergency preparedness.</div>
                 </div>
+
+                <div class="faq-item">
+                    <div class="question">
+                        <span>What driver license classes do you support?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="answer">We support all driver license classes including A2, A3, B1, B2, B3, C, CD, CED, D1, D2, D3, G, and Classes 1-12. We help with license verification, conversion, and placement for all categories.</div>
+                </div>
             </div>
         </div>
     </section>
@@ -1888,7 +1953,7 @@
     </section>
 
     <!-- ============================================================
-    FOOTER - IMPROVED
+    FOOTER
     ============================================================ -->
     <footer class="footer">
         <div class="container">
@@ -2090,8 +2155,8 @@
                     title: 'Driver Recruitment & Placement Application',
                     fields: [
                         { id: 'drvType', label: 'I am a:', type: 'select', options: ['Job Seeker looking for placement', 'Employer looking for drivers'] },
-                        { id: 'drvLicense', label: 'Driver License Type (if applicable)', type: 'select', options: ['Class B', 'Class C', 'Class D', 'Class E', 'International', 'Not applicable'] },
-                        { id: 'drvExperience', label: 'Years of Driving Experience (if applicable)', type: 'number', placeholder: 'e.g. 5' },
+                        { id: 'drvLicense', label: 'Driver License Class', type: 'select', options: ['A2 - Motorcycle', 'A3 - Light Motorcycle', 'B1 - Light Vehicle', 'B2 - Medium Vehicle', 'B3 - Heavy Vehicle', 'C - Heavy Truck', 'CD - Heavy Truck + Trailer', 'CED - Heavy Truck + Extra', 'D1 - Minibus', 'D2 - Bus', 'D3 - Heavy Bus', 'G - Special/Agricultural', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12', 'International License'] },
+                        { id: 'drvExperience', label: 'Years of Driving Experience', type: 'number', placeholder: 'e.g. 5' },
                         { id: 'drvRegion', label: 'Preferred Work Region', type: 'text', placeholder: 'e.g. Nairobi, Kenya or International' }
                     ]
                 }
