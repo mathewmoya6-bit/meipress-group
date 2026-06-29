@@ -684,7 +684,7 @@
         }
         .service-card.osh-card ul li { padding: 3px 0 3px 22px; }
 
-        /* Driver License Classes - Special Styling */
+        /* Driver License Classes - UPDATED WITH CORRECT DESCRIPTIONS */
         .service-card.driver-card {
             grid-column: span 2;
             background: linear-gradient(135deg, #ffffff, #f0f7ff);
@@ -702,20 +702,39 @@
             text-align: center;
             border: 1px solid var(--border);
             transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card.driver-card .license-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
         .service-card.driver-card .license-item:hover {
             border-color: var(--primary);
             background: var(--primary-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        .service-card.driver-card .license-item:hover::before {
+            opacity: 1;
         }
         .service-card.driver-card .license-item .code {
             font-weight: 700;
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--primary);
             display: block;
         }
         .service-card.driver-card .license-item .name {
             font-size: 0.65rem;
             color: var(--text-secondary);
+            line-height: 1.3;
         }
         .service-card.driver-card ul {
             grid-template-columns: 1fr 1fr;
@@ -1490,7 +1509,7 @@
     </section>
 
     <!-- ============================================================
-    SERVICES - IMPROVED DRIVER SECTION WITH LICENSE CLASSES
+    SERVICES - UPDATED WITH CORRECT LICENSE CLASSES
     ============================================================ -->
     <section class="services-section" id="services">
         <div class="container">
@@ -1571,7 +1590,7 @@
                     </div>
                 </div>
 
-                <!-- Driver Recruitment - IMPROVED WITH LICENSE CLASSES -->
+                <!-- Driver Recruitment - UPDATED WITH CORRECT LICENSE DESCRIPTIONS -->
                 <div class="service-card driver-card animate-on-scroll" data-service="driver">
                     <div class="icon">🚗</div>
                     <h3>Driver Recruitment &amp; Placement</h3>
@@ -1584,20 +1603,22 @@
                         <span class="badge health">Background Checks</span>
                     </div>
 
-                    <!-- License Classes Grid -->
+                    <!-- License Classes Grid - UPDATED DESCRIPTIONS -->
                     <div class="license-grid">
-                        <div class="license-item"><span class="code">A2</span><span class="name">Motorcycle</span></div>
-                        <div class="license-item"><span class="code">A3</span><span class="name">Light Motorcycle</span></div>
-                        <div class="license-item"><span class="code">B1</span><span class="name">Light Vehicle</span></div>
-                        <div class="license-item"><span class="code">B2</span><span class="name">Medium Vehicle</span></div>
-                        <div class="license-item"><span class="code">B3</span><span class="name">Heavy Vehicle</span></div>
+                        <div class="license-item"><span class="code">A2</span><span class="name">Light Motorcycle</span></div>
+                        <div class="license-item"><span class="code">A3</span><span class="name">Three Wheeler TukTuk</span></div>
+                        <div class="license-item"><span class="code">B1</span><span class="name">Light Vehicle - Automatic</span></div>
+                        <div class="license-item"><span class="code">B2</span><span class="name">Light Vehicle - Manual</span></div>
+                        <div class="license-item"><span class="code">B3</span><span class="name">Professional Driver</span></div>
+                        <div class="license-item"><span class="code">C1</span><span class="name">Light Truck</span></div>
                         <div class="license-item"><span class="code">C</span><span class="name">Heavy Truck</span></div>
-                        <div class="license-item"><span class="code">CD</span><span class="name">Heavy Truck + Trailer</span></div>
-                        <div class="license-item"><span class="code">CED</span><span class="name">Heavy Truck + Extra</span></div>
-                        <div class="license-item"><span class="code">D1</span><span class="name">Minibus</span></div>
-                        <div class="license-item"><span class="code">D2</span><span class="name">Bus</span></div>
-                        <div class="license-item"><span class="code">D3</span><span class="name">Heavy Bus</span></div>
-                        <div class="license-item"><span class="code">G</span><span class="name">Special/Agricultural</span></div>
+                        <div class="license-item"><span class="code">CD</span><span class="name">Heavy Truck + Hazardous Material Courier</span></div>
+                        <div class="license-item"><span class="code">CE</span><span class="name">Heavy Truck + Trailer (HGV)</span></div>
+                        <div class="license-item"><span class="code">D1</span><span class="name">14 Seater</span></div>
+                        <div class="license-item"><span class="code">D2</span><span class="name">33 Seater Bus</span></div>
+                        <div class="license-item"><span class="code">D3</span><span class="name">55-63 Seater Bus</span></div>
+                        <div class="license-item"><span class="code">G</span><span class="name">Industrial / Agricultural</span></div>
+                        <div class="license-item"><span class="code">1-12</span><span class="name">All Classes Supported</span></div>
                     </div>
 
                     <ul>
@@ -1805,7 +1826,7 @@
                         <span>What driver license classes do you support?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">We support all driver license classes including A2, A3, B1, B2, B3, C, CD, CED, D1, D2, D3, G, and Classes 1-12. We help with license verification, conversion, and placement for all categories.</div>
+                    <div class="answer">We support all driver license classes including A2 (Light Motorcycle), A3 (TukTuk), B1 (Automatic), B2 (Manual), B3 (Professional), C1 (Light Truck), C (Heavy Truck), CD (Hazardous Material), CE (HGV), D1 (14 Seater), D2 (33 Seater), D3 (55-63 Seater), G (Industrial/Agricultural), and Classes 1-12.</div>
                 </div>
             </div>
         </div>
@@ -2155,7 +2176,34 @@
                     title: 'Driver Recruitment & Placement Application',
                     fields: [
                         { id: 'drvType', label: 'I am a:', type: 'select', options: ['Job Seeker looking for placement', 'Employer looking for drivers'] },
-                        { id: 'drvLicense', label: 'Driver License Class', type: 'select', options: ['A2 - Motorcycle', 'A3 - Light Motorcycle', 'B1 - Light Vehicle', 'B2 - Medium Vehicle', 'B3 - Heavy Vehicle', 'C - Heavy Truck', 'CD - Heavy Truck + Trailer', 'CED - Heavy Truck + Extra', 'D1 - Minibus', 'D2 - Bus', 'D3 - Heavy Bus', 'G - Special/Agricultural', 'Class 1', 'Class 2', 'Class 3', 'Class 4', 'Class 5', 'Class 6', 'Class 7', 'Class 8', 'Class 9', 'Class 10', 'Class 11', 'Class 12', 'International License'] },
+                        { id: 'drvLicense', label: 'Driver License Class', type: 'select', options: [
+                            'A2 - Light Motorcycle',
+                            'A3 - Three Wheeler TukTuk',
+                            'B1 - Light Vehicle (Automatic)',
+                            'B2 - Light Vehicle (Manual)',
+                            'B3 - Professional Driver',
+                            'C1 - Light Truck',
+                            'C - Heavy Truck',
+                            'CD - Heavy Truck + Hazardous Material Courier',
+                            'CE - Heavy Truck + Trailer (HGV)',
+                            'D1 - 14 Seater',
+                            'D2 - 33 Seater Bus',
+                            'D3 - 55-63 Seater Bus',
+                            'G - Industrial/Agricultural',
+                            'Class 1',
+                            'Class 2',
+                            'Class 3',
+                            'Class 4',
+                            'Class 5',
+                            'Class 6',
+                            'Class 7',
+                            'Class 8',
+                            'Class 9',
+                            'Class 10',
+                            'Class 11',
+                            'Class 12',
+                            'International License'
+                        ] },
                         { id: 'drvExperience', label: 'Years of Driving Experience', type: 'number', placeholder: 'e.g. 5' },
                         { id: 'drvRegion', label: 'Preferred Work Region', type: 'text', placeholder: 'e.g. Nairobi, Kenya or International' }
                     ]
