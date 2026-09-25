@@ -687,6 +687,56 @@
         }
         .service-card.osh-card ul li { padding: 3px 0 3px 22px; }
 
+        .service-card.osh-card .osh-course-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin: 16px 0 8px;
+        }
+        .service-card.osh-card .osh-course-item {
+            background: var(--bg);
+            border-radius: var(--radius-sm);
+            padding: 18px 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+            position: relative;
+            overflow: hidden;
+        }
+        .service-card.osh-card .osh-course-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .service-card.osh-card .osh-course-item:hover {
+            border-color: var(--primary);
+            background: var(--primary-bg);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-sm);
+        }
+        .service-card.osh-card .osh-course-item:hover::before { opacity: 1; }
+        .service-card.osh-card .course-icon { font-size: 1.9rem; }
+        .service-card.osh-card .course-name {
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--text);
+        }
+        .service-card.osh-card .course-desc {
+            font-size: 0.72rem;
+            color: var(--text-secondary);
+            line-height: 1.4;
+        }
+
         .service-card.driver-card {
             grid-column: span 2;
             background: linear-gradient(135deg, #ffffff, #f0f7ff);
@@ -1282,6 +1332,7 @@
             .services-grid { grid-template-columns: 1fr; }
             .service-card.osh-card { grid-column: span 1; }
             .service-card.osh-card ul { grid-template-columns: 1fr; }
+            .service-card.osh-card .osh-course-grid { grid-template-columns: 1fr; }
             .service-card.driver-card { grid-column: span 1; }
             .service-card.driver-card ul { grid-template-columns: 1fr; }
             .service-card.driver-card .license-grid { grid-template-columns: repeat(2, 1fr); }
@@ -1567,26 +1618,31 @@
                     <div class="icon">🏭</div>
                     <h3>Occupational Safety &amp; Health</h3>
                     <p class="desc">Comprehensive workplace safety training that protects employees, ensures compliance, and builds a strong safety culture.</p>
-                    
+
                     <div class="badge-group">
                         <span class="badge legal">Legal Compliance</span>
                         <span class="badge safety">Workplace Safety</span>
-                        <span class="badge health">Health Services</span>
-                        <span class="badge training">Training &amp; Documentation</span>
+                        <span class="badge health">Certified Training</span>
                     </div>
 
-                    <ul>
-                        <li><strong>OSHA 2007</strong> – Duties, WPC/WSA, workplace registration</li>
-                        <li><strong>Risk Assessment</strong> – Hazard identification, risk rating, controls</li>
-                        <li><strong>Safety Audits</strong> – Inspections, checklists, audit reports</li>
-                        <li><strong>PPE Management</strong> – Selection, training, maintenance</li>
-                        <li><strong>Fire Safety</strong> – Risk assessment, drills, extinguisher use</li>
-                        <li><strong>First Aid</strong> – Standards, trained first aiders, emergency response</li>
-                        <li><strong>Occupational Health</strong> – Surveillance, medical exams</li>
-                        <li><strong>Chemical Safety</strong> – SDS/MSDS, labeling, spill response</li>
-                        <li><strong>Permits to Work</strong> – Hot work, confined space, working at height</li>
-                        <li><strong>Emergency Preparedness</strong> – Evacuation plans, drills</li>
-                    </ul>
+                    <div class="osh-course-grid">
+                        <div class="osh-course-item">
+                            <span class="course-icon">🩹</span>
+                            <span class="course-name">First Aid</span>
+                            <span class="course-desc">Emergency response &amp; certified first aiders</span>
+                        </div>
+                        <div class="osh-course-item">
+                            <span class="course-icon">🔥</span>
+                            <span class="course-name">Fire &amp; Safety</span>
+                            <span class="course-desc">Fire risk assessment, drills &amp; extinguisher use</span>
+                        </div>
+                        <div class="osh-course-item">
+                            <span class="course-icon">🦺</span>
+                            <span class="course-name">OSH</span>
+                            <span class="course-desc">OSHA 2007 compliance &amp; workplace risk management</span>
+                        </div>
+                    </div>
+
                     <div class="btn-group">
                         <a href="#apply" class="btn-sm primary"><i class="fas fa-paper-plane"></i> Apply Now</a>
                         <a href="#contact" class="btn-sm outline"><i class="fas fa-calendar-check"></i> Book Consultation</a>
@@ -1820,7 +1876,7 @@
                         <span>What does Occupational Safety &amp; Health training cover?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Our OSH training covers OSHA 2007 compliance, risk assessment, fire safety, first aid, PPE management, occupational health surveillance, chemical safety, permits to work, and emergency preparedness.</div>
+                    <div class="answer">Our OSH training covers three core courses: First Aid (emergency response and certified first aiders), Fire &amp; Safety (fire risk assessment, drills, and extinguisher use), and OSH (OSHA 2007 compliance and workplace risk management).</div>
                 </div>
 
                 <div class="faq-item">
@@ -2156,19 +2212,10 @@
                     title: 'Occupational Safety & Health Application',
                     fields: [
                         { id: 'oshIndustry', label: 'Industry/Sector', type: 'text', placeholder: 'e.g. Construction, Manufacturing, Transport' },
-                        { id: 'oshType', label: 'OSH Service Required', type: 'select', options: [
-                            'Legal Compliance (OSHA 2007)',
-                            'Risk Assessment & Safety Audit',
-                            'Fire Safety Training',
-                            'First Aid Training',
-                            'PPE Management',
-                            'Safety Committee Formation',
-                            'Permits to Work (Hot Work, Confined Space, Working at Height)',
-                            'Emergency Preparedness Planning',
-                            'Occupational Health Surveillance',
-                            'Chemical Safety (SDS/MSDS, Spill Response)',
-                            'Noise/Dust Monitoring',
-                            'Comprehensive OSH Program'
+                        { id: 'oshType', label: 'OSH Course Required', type: 'select', options: [
+                            'First Aid',
+                            'Fire & Safety',
+                            'OSH (Occupational Safety & Health)'
                         ] },
                         { id: 'oshEmployees', label: 'Number of Employees', type: 'number', placeholder: 'e.g. 100' },
                         { id: 'oshLocation', label: 'Service Location', type: 'text', placeholder: 'e.g. Nairobi, Kenya' }
