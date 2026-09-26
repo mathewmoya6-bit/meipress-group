@@ -509,7 +509,7 @@
         }
 
         /* ============================================================
-           SERVICES (cards linking to pages)
+           SERVICES
            ============================================================ */
         .services-section { padding: 100px 0; background: var(--bg); }
         .services-grid {
@@ -1716,151 +1716,9 @@
     </a>
 
     <!-- ============================================================
-    SCRIPTS
+    SCRIPTS (external files)
     ============================================================ -->
-    <script>
-        // ============================================================
-        // MEI GROUP – INDEX PAGE
-        // Supabase Integration for Contact Form
-        // ============================================================
-        const SUPABASE_URL = 'https://qkchnrrxrewmlvvxuuqe.supabase.co';
-        const SUPABASE_KEY = 'sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7';
-
-        (function() {
-            'use strict';
-
-            // ===== NAVBAR =====
-            const navbar = document.getElementById('navbar');
-            const menuBtn = document.getElementById('mobileMenuBtn');
-            const navLinks = document.getElementById('navLinks');
-
-            window.addEventListener('scroll', function() {
-                navbar.classList.toggle('scrolled', window.pageYOffset > 50);
-            }, { passive: true });
-
-            if (menuBtn && navLinks) {
-                menuBtn.addEventListener('click', function(e) {
-                    e.stopPropagation();
-                    navLinks.classList.toggle('active');
-                    this.innerHTML = navLinks.classList.contains('active') ?
-                        '<i class="fas fa-times"></i>' :
-                        '<i class="fas fa-bars"></i>';
-                });
-
-                document.addEventListener('click', function(e) {
-                    if (navLinks.classList.contains('active') && !e.target.closest('.navbar')) {
-                        navLinks.classList.remove('active');
-                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                    }
-                });
-            }
-
-            // ===== SMOOTH SCROLL =====
-            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
-                anchor.addEventListener('click', function(e) {
-                    const targetId = this.getAttribute('href');
-                    if (targetId === '#') return;
-                    const targetEl = document.querySelector(targetId);
-                    if (targetEl) {
-                        e.preventDefault();
-                        const navHeight = navbar.offsetHeight || 70;
-                        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
-                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
-
-                        if (navLinks.classList.contains('active')) {
-                            navLinks.classList.remove('active');
-                            menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                        }
-                    }
-                });
-            });
-
-            // ===== ANIMATE ON SCROLL =====
-            const observer = new IntersectionObserver(function(entries) {
-                entries.forEach(function(entry) {
-                    if (entry.isIntersecting) {
-                        entry.target.classList.add('visible');
-                    }
-                });
-            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
-
-            document.querySelectorAll('.animate-on-scroll').forEach(function(el) {
-                observer.observe(el);
-            });
-
-            // ===== FAQ ACCORDION =====
-            document.querySelectorAll('.faq-item').forEach(function(item) {
-                item.addEventListener('click', function() {
-                    this.classList.toggle('active');
-                });
-            });
-
-            // ===== CONTACT FORM → SUPABASE =====
-            document.getElementById('contactForm').addEventListener('submit', async function(e) {
-                e.preventDefault();
-
-                const submitBtn = document.getElementById('contactSubmitBtn');
-                const alertSuccess = document.getElementById('contactAlert');
-                const alertError = document.getElementById('contactError');
-
-                const formData = {
-                    service: 'General Contact',
-                    full_name: document.getElementById('contactName').value.trim(),
-                    email: document.getElementById('contactEmail').value.trim(),
-                    phone: document.getElementById('contactPhone').value.trim(),
-                    subject: document.getElementById('contactSubject').value.trim(),
-                    message: document.getElementById('contactMessage').value.trim(),
-                    status: 'new',
-                    created_at: new Date().toISOString()
-                };
-
-                if (!formData.full_name || !formData.email || !formData.subject || !formData.message) {
-                    alertError.textContent = '❌ Please fill in all required fields.';
-                    alertError.classList.add('show');
-                    setTimeout(() => alertError.classList.remove('show'), 5000);
-                    return;
-                }
-
-                submitBtn.disabled = true;
-                submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
-
-                try {
-                    const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                            'apikey': SUPABASE_KEY,
-                            'Authorization': `Bearer ${SUPABASE_KEY}`,
-                            'Prefer': 'return=minimal'
-                        },
-                        body: JSON.stringify(formData)
-                    });
-
-                    if (response.ok || response.status === 201) {
-                        alertSuccess.classList.add('show');
-                        alertError.classList.remove('show');
-                        this.reset();
-                        setTimeout(() => alertSuccess.classList.remove('show'), 6000);
-                    } else {
-                        const errorData = await response.json().catch(() => ({}));
-                        console.error('Supabase error:', errorData);
-                        alertError.textContent = '❌ Submission failed: ' + (errorData.message || 'Please try again.');
-                        alertError.classList.add('show');
-                        setTimeout(() => alertError.classList.remove('show'), 6000);
-                    }
-                } catch (error) {
-                    console.error('Network error:', error);
-                    alertError.textContent = '❌ Network error. Please check your connection.';
-                    alertError.classList.add('show');
-                    setTimeout(() => alertError.classList.remove('show'), 6000);
-                } finally {
-                    submitBtn.disabled = false;
-                    submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Send Message';
-                }
-            });
-
-            console.log('✅ MEI Group – Homepage loaded');
-        })();
-    </script>
+    <script src="js/config.js"></script>
+    <script src="js/index.js"></script>
 </body>
 </html>
