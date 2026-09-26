@@ -1,0 +1,796 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Road Safety Training | MEI Group</title>
+    <meta name="description" content="MEI Group – Professional Road Safety Training. Safe to & from School, Defensive Driving, Driver Profiling, Fleet Safety Assessments." />
+    <meta name="theme-color" content="#0a1628" />
+    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🚸</text></svg>" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+    <style>
+        :root {
+            --primary: #2563eb; --primary-dark: #1d4ed8; --primary-light: #60a5fa;
+            --primary-bg: #eff6ff; --secondary: #0a1628; --accent: #7c3aed;
+            --accent-light: #a78bfa; --gold: #f59e0b; --success: #10b981;
+            --bg: #f8fafc; --bg-card: #ffffff; --text: #0a1628;
+            --text-secondary: #475569; --text-light: #94a3b8; --border: #e2e8f0;
+            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+            --shadow: 0 4px 24px rgba(0,0,0,0.06);
+            --shadow-lg: 0 20px 60px rgba(0,0,0,0.08);
+            --radius: 16px; --radius-sm: 8px; --radius-full: 9999px;
+            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --max-width: 1280px;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body {
+            font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--bg); color: var(--text); line-height: 1.6;
+            -webkit-font-smoothing: antialiased; overflow-x: hidden;
+        }
+        a { text-decoration: none; color: inherit; }
+        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; }
+        .text-gradient {
+            background: linear-gradient(135deg, var(--primary), var(--accent));
+            -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        }
+        .section-tag {
+            display: inline-block; font-size: 0.7rem; font-weight: 600;
+            text-transform: uppercase; letter-spacing: 1.5px; color: var(--primary);
+            background: var(--primary-bg); padding: 4px 16px;
+            border-radius: var(--radius-full); margin-bottom: 12px;
+        }
+        .section-title {
+            font-size: 2.8rem; font-weight: 800; line-height: 1.1;
+            letter-spacing: -1px; margin-bottom: 16px;
+        }
+        .section-title .highlight { color: var(--primary); }
+        .section-sub {
+            font-size: 1.1rem; color: var(--text-secondary);
+            max-width: 600px; line-height: 1.7;
+        }
+        .section-center { text-align: center; }
+        .section-center .section-sub { margin: 0 auto 48px; }
+        .animate-on-scroll {
+            opacity: 0; transform: translateY(40px);
+            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .animate-on-scroll.visible { opacity: 1; transform: translateY(0); }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-12px); } }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+        @keyframes glow { 0%, 100% { box-shadow: 0 0 20px rgba(37,99,235,0.1); } 50% { box-shadow: 0 0 40px rgba(37,99,235,0.2); } }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* NAVBAR */
+        .navbar {
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+            padding: 18px 0; transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            background: transparent;
+        }
+        .navbar.scrolled {
+            background: rgba(255,255,255,0.96); backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px); box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            padding: 10px 0;
+        }
+        .navbar.scrolled .nav-link { color: var(--text); }
+        .navbar.scrolled .nav-link:hover { color: var(--primary); }
+        .navbar.scrolled .logo-text .brand { color: var(--text); }
+        .navbar.scrolled .logo-text .sub { color: var(--text-light); }
+        .navbar.scrolled .mobile-menu-btn { color: var(--text); }
+        .nav-container {
+            display: flex; justify-content: space-between; align-items: center;
+            max-width: var(--max-width); margin: 0 auto; padding: 0 32px;
+        }
+        .logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
+        .logo-icon-text {
+            width: 44px; height: 44px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            border-radius: 12px; display: flex; align-items: center; justify-content: center;
+            color: white; font-weight: 900; font-size: 1.1rem; letter-spacing: -0.5px;
+            flex-shrink: 0; transition: transform 0.3s ease;
+            box-shadow: 0 4px 16px rgba(37,99,235,0.25);
+        }
+        .logo-icon-text:hover { transform: scale(1.05); }
+        .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
+        .logo-text .brand { font-weight: 800; font-size: 1.3rem; letter-spacing: -0.5px; color: white; transition: color 0.3s ease; }
+        .logo-text .brand span { color: var(--primary-light); }
+        .logo-text .sub { font-size: 0.55rem; font-weight: 400; color: rgba(255,255,255,0.5); letter-spacing: 0.8px; text-transform: uppercase; transition: color 0.3s ease; }
+        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-link {
+            font-size: 0.9rem; font-weight: 500; color: rgba(255,255,255,0.75);
+            transition: color 0.3s ease; position: relative;
+        }
+        .nav-link::after {
+            content: ''; position: absolute; bottom: -4px; left: 0;
+            width: 0; height: 2px; background: var(--primary); transition: width 0.3s ease;
+        }
+        .nav-link:hover::after { width: 100%; }
+        .nav-link:hover { color: white; }
+        .btn-nav {
+            background: var(--primary); color: white !important; padding: 10px 28px;
+            border-radius: var(--radius-full); font-weight: 600; font-size: 0.85rem;
+            transition: all 0.3s ease; border: none; cursor: pointer;
+        }
+        .btn-nav::after { display: none !important; }
+        .btn-nav:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.3); }
+        .mobile-menu-btn { display: none; background: none; border: none; font-size: 1.4rem; color: white; cursor: pointer; padding: 4px; transition: color 0.3s ease; }
+
+        /* HERO */
+        .service-hero {
+            position: relative; min-height: 60vh; display: flex; align-items: center;
+            background: var(--secondary); overflow: hidden; padding: 140px 0 80px;
+        }
+        .service-hero::before {
+            content: ''; position: absolute; inset: 0;
+            background: radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.12) 0%, transparent 60%),
+                        radial-gradient(ellipse at 80% 20%, rgba(124,58,237,0.08) 0%, transparent 50%),
+                        radial-gradient(ellipse at 60% 80%, rgba(37,99,235,0.06) 0%, transparent 40%);
+            z-index: 1;
+        }
+        .service-hero .container { position: relative; z-index: 2; display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
+        .service-hero-content { animation: fadeUp 1s ease; }
+        .service-hero h1 { font-size: 3.4rem; font-weight: 900; line-height: 1.1; letter-spacing: -2px; color: white; margin-bottom: 16px; }
+        .service-hero h1 .highlight { background: linear-gradient(135deg, var(--primary-light), var(--accent-light)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .service-hero p { font-size: 1.15rem; color: rgba(255,255,255,0.7); line-height: 1.8; margin-bottom: 32px; max-width: 560px; }
+        .service-hero .hero-badge {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(37,99,235,0.12); color: var(--primary-light);
+            padding: 8px 20px; border-radius: var(--radius-full);
+            font-size: 0.75rem; font-weight: 600; letter-spacing: 0.5px;
+            border: 1px solid rgba(37,99,235,0.15); margin-bottom: 28px;
+            animation: glow 3s ease-in-out infinite;
+        }
+        .service-hero .hero-badge .dot { width: 8px; height: 8px; background: var(--success); border-radius: 50%; animation: pulse 2s infinite; }
+        .service-hero-buttons { display: flex; flex-wrap: wrap; gap: 16px; }
+        .btn-primary {
+            display: inline-flex; align-items: center; gap: 12px;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white; padding: 18px 40px; border-radius: var(--radius-full);
+            font-weight: 600; font-size: 1rem; transition: all 0.3s ease;
+            border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+        }
+        .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 12px 40px rgba(37,99,235,0.4); }
+        .btn-primary i { transition: transform 0.3s ease; }
+        .btn-primary:hover i { transform: translateX(4px); }
+        .btn-secondary {
+            display: inline-flex; align-items: center; gap: 10px;
+            background: rgba(255,255,255,0.06); color: white; padding: 18px 36px;
+            border-radius: var(--radius-full); font-weight: 600; font-size: 1rem;
+            transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.1); cursor: pointer;
+        }
+        .btn-secondary:hover { background: rgba(255,255,255,0.12); transform: translateY(-3px); border-color: rgba(255,255,255,0.2); }
+        .service-hero-visual { display: flex; align-items: center; justify-content: center; animation: fadeUp 1s ease 0.3s both; position: relative; }
+        .service-hero-visual .orb { position: absolute; border-radius: 50%; filter: blur(60px); opacity: 0.3; }
+        .service-hero-visual .orb-1 { width: 300px; height: 300px; background: var(--primary); top: -50px; right: -50px; animation: float 8s ease-in-out infinite; }
+        .service-hero-visual .orb-2 { width: 200px; height: 200px; background: var(--accent); bottom: -30px; left: -30px; animation: float 10s ease-in-out infinite reverse; }
+        .hero-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; width: 100%; max-width: 400px; position: relative; z-index: 1; }
+        .hero-grid-item {
+            aspect-ratio: 1; background: rgba(255,255,255,0.03); border-radius: var(--radius);
+            border: 1px solid rgba(255,255,255,0.06); display: flex; align-items: center;
+            justify-content: center; font-size: 2.4rem; transition: all 0.4s ease;
+            animation: float 6s ease-in-out infinite; backdrop-filter: blur(4px);
+        }
+        .hero-grid-item:nth-child(2) { animation-delay: 0.5s; }
+        .hero-grid-item:nth-child(3) { animation-delay: 1s; }
+        .hero-grid-item:nth-child(4) { animation-delay: 1.5s; }
+        .hero-grid-item:nth-child(5) { animation-delay: 2s; }
+        .hero-grid-item:nth-child(6) { animation-delay: 2.5s; }
+        .hero-grid-item:nth-child(7) { animation-delay: 3s; }
+        .hero-grid-item:nth-child(8) { animation-delay: 3.5s; }
+        .hero-grid-item:nth-child(9) { animation-delay: 4s; }
+        .hero-grid-item:hover { background: rgba(37,99,235,0.12); border-color: rgba(37,99,235,0.2); transform: scale(1.08); box-shadow: 0 8px 32px rgba(37,99,235,0.1); }
+
+        /* SERVICE DETAILS */
+        .service-detail-section { padding: 100px 0; background: white; }
+        .detail-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: start; }
+        .detail-content h2 { font-size: 2.2rem; font-weight: 800; margin-bottom: 20px; letter-spacing: -1px; }
+        .detail-content p { color: var(--text-secondary); line-height: 1.8; margin-bottom: 16px; }
+        .detail-list { list-style: none; padding: 0; margin: 20px 0; }
+        .detail-list li {
+            padding: 10px 0 10px 32px; position: relative;
+            color: var(--text-secondary); line-height: 1.7;
+            border-bottom: 1px solid var(--border);
+        }
+        .detail-list li:last-child { border-bottom: none; }
+        .detail-list li::before {
+            content: '✓'; position: absolute; left: 0;
+            color: var(--primary); font-weight: 700; font-size: 1.1rem;
+        }
+        .detail-list li strong { color: var(--text); }
+        .detail-card {
+            background: var(--bg); border-radius: var(--radius); padding: 32px;
+            border: 1px solid var(--border); position: sticky; top: 100px;
+        }
+        .detail-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 16px; }
+        .detail-card .info-row {
+            display: flex; justify-content: space-between; padding: 10px 0;
+            border-bottom: 1px solid var(--border); font-size: 0.95rem;
+        }
+        .detail-card .info-row:last-child { border-bottom: none; }
+        .detail-card .info-row .label { color: var(--text-secondary); }
+        .detail-card .info-row .value { font-weight: 600; color: var(--text); }
+        .detail-card .btn-primary { width: 100%; justify-content: center; margin-top: 20px; padding: 16px 24px; }
+
+        /* PROGRAMS */
+        .programs-section { padding: 100px 0; background: var(--bg); }
+        .programs-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; }
+        .program-card {
+            background: white; border-radius: var(--radius); padding: 32px;
+            border: 1px solid var(--border); transition: all 0.4s ease;
+        }
+        .program-card:hover { transform: translateY(-6px); box-shadow: var(--shadow-lg); border-color: var(--primary); }
+        .program-card .icon { font-size: 2.8rem; margin-bottom: 16px; }
+        .program-card h3 { font-size: 1.3rem; font-weight: 700; margin-bottom: 8px; }
+        .program-card p { color: var(--text-secondary); font-size: 0.95rem; line-height: 1.7; margin-bottom: 12px; }
+        .program-card ul { list-style: none; padding: 0; }
+        .program-card ul li {
+            padding: 6px 0 6px 24px; position: relative;
+            font-size: 0.9rem; color: var(--text-secondary);
+        }
+        .program-card ul li::before { content: '→'; position: absolute; left: 0; color: var(--primary); font-weight: 600; }
+
+        /* FORM */
+        .form-section { padding: 100px 0; background: white; }
+        .form-card {
+            max-width: 800px; margin: 0 auto; background: var(--bg-card);
+            border-radius: var(--radius); padding: 48px; border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+        .form-card .form-group { margin-bottom: 18px; }
+        .form-card label { font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 4px; color: var(--text); }
+        .form-card label .required { color: #ef4444; }
+        .form-card input, .form-card select, .form-card textarea {
+            width: 100%; padding: 12px 16px; border: 1.5px solid var(--border);
+            border-radius: var(--radius-sm); font-family: inherit; font-size: 1rem;
+            background: var(--bg); color: var(--text); transition: all 0.3s ease;
+        }
+        .form-card input:focus, .form-card select:focus, .form-card textarea:focus {
+            outline: none; border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(37,99,235,0.08); background: white;
+        }
+        .form-card .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .form-card .btn-submit {
+            background: var(--primary); color: white; padding: 14px 40px;
+            border: none; border-radius: var(--radius-full); font-weight: 600;
+            font-size: 1rem; cursor: pointer; transition: all 0.3s ease;
+            display: inline-flex; align-items: center; gap: 10px; margin-top: 8px;
+        }
+        .form-card .btn-submit:hover { background: var(--primary-dark); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(37,99,235,0.25); }
+        .form-card .btn-submit:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+        .form-card .alert-success {
+            background: #d1fae5; color: #065f46; padding: 14px 20px;
+            border-radius: var(--radius-sm); display: none; margin-bottom: 16px;
+            font-weight: 500; border-left: 4px solid var(--success);
+        }
+        .form-card .alert-success.show { display: block; animation: fadeUp 0.4s ease; }
+        .form-card .alert-error {
+            background: #fee2e2; color: #991b1b; padding: 14px 20px;
+            border-radius: var(--radius-sm); display: none; margin-bottom: 16px;
+            font-weight: 500; border-left: 4px solid #ef4444;
+        }
+        .form-card .alert-error.show { display: block; animation: fadeUp 0.4s ease; }
+
+        /* PROCESS */
+        .process-section { padding: 100px 0; background: var(--bg); }
+        .process-grid { display: grid; grid-template-columns: repeat(6, 1fr); gap: 16px; }
+        .process-step { text-align: center; padding: 24px 16px; position: relative; }
+        .process-step .number {
+            width: 48px; height: 48px; background: var(--primary); color: white;
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 800; font-size: 1rem; margin: 0 auto 12px;
+        }
+        .process-step .arrow { position: absolute; right: -12px; top: 50%; transform: translateY(-50%); color: var(--text-light); font-size: 1.2rem; }
+        .process-step:last-child .arrow { display: none; }
+        .process-step h4 { font-weight: 600; font-size: 0.85rem; margin-bottom: 2px; }
+        .process-step p { font-size: 0.75rem; color: var(--text-secondary); }
+
+        /* CTA */
+        .cta-section { padding: 80px 0; background: var(--secondary); position: relative; overflow: hidden; }
+        .cta-section::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 30% 50%, rgba(37,99,235,0.08) 0%, transparent 70%); }
+        .cta-box { position: relative; z-index: 1; text-align: center; max-width: 700px; margin: 0 auto; }
+        .cta-box h2 { font-size: 2.8rem; font-weight: 800; color: white; line-height: 1.1; margin-bottom: 16px; }
+        .cta-box p { font-size: 1.1rem; color: rgba(255,255,255,0.6); margin-bottom: 32px; line-height: 1.7; }
+
+        /* FOOTER */
+        .footer { background: var(--secondary); color: rgba(255,255,255,0.5); padding: 60px 0 24px; border-top: 1px solid rgba(255,255,255,0.04); }
+        .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 48px; padding-bottom: 40px; border-bottom: 1px solid rgba(255,255,255,0.04); }
+        .footer-brand h4 { color: white; font-size: 1.2rem; font-weight: 700; margin-bottom: 8px; }
+        .footer-brand h4 span { color: var(--primary-light); }
+        .footer-brand p { max-width: 300px; font-size: 0.9rem; line-height: 1.7; }
+        .footer-col h4 { color: white; font-weight: 600; font-size: 0.9rem; margin-bottom: 12px; }
+        .footer-col a { display: block; color: rgba(255,255,255,0.4); font-size: 0.85rem; margin-bottom: 8px; transition: color 0.3s ease; }
+        .footer-col a:hover { color: white; }
+        .footer-col .contact-item { display: flex; align-items: center; gap: 10px; font-size: 0.85rem; color: rgba(255,255,255,0.4); margin-bottom: 8px; }
+        .footer-col .contact-item i { width: 18px; color: var(--primary-light); }
+        .footer-col .hours { font-size: 0.8rem; color: rgba(255,255,255,0.3); margin-top: 4px; }
+        .social-links { display: flex; gap: 12px; margin-top: 12px; }
+        .social-links a {
+            display: inline-flex; align-items: center; justify-content: center;
+            width: 38px; height: 38px; border-radius: 50%;
+            background: rgba(255,255,255,0.04); color: rgba(255,255,255,0.3); transition: all 0.3s ease;
+        }
+        .social-links a:hover { background: var(--primary); color: white; transform: translateY(-2px); }
+        .footer-bottom { text-align: center; padding-top: 24px; font-size: 0.8rem; color: rgba(255,255,255,0.2); }
+        .whatsapp-float {
+            position: fixed; bottom: 24px; right: 24px; background: #25d366;
+            color: white; width: 56px; height: 56px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 2rem; box-shadow: 0 8px 30px rgba(37,211,102,0.3);
+            transition: all 0.3s ease; z-index: 999;
+        }
+        .whatsapp-float:hover { transform: scale(1.08); box-shadow: 0 12px 40px rgba(37,211,102,0.4); }
+
+        /* RESPONSIVE */
+        @media (max-width: 1200px) {
+            .service-hero h1 { font-size: 2.8rem; }
+            .programs-grid { grid-template-columns: 1fr 1fr; }
+            .process-grid { grid-template-columns: repeat(3, 1fr); }
+            .process-step .arrow { display: none; }
+        }
+        @media (max-width: 992px) {
+            .service-hero .container { grid-template-columns: 1fr; text-align: center; }
+            .service-hero p { margin: 0 auto 32px; }
+            .service-hero-buttons { justify-content: center; }
+            .service-hero-visual .orb { display: none; }
+            .hero-grid { max-width: 300px; margin: 0 auto; }
+            .detail-grid { grid-template-columns: 1fr; gap: 40px; }
+            .detail-card { position: static; }
+            .footer-grid { grid-template-columns: 1fr 1fr; }
+            .service-hero h1 { font-size: 2.2rem; }
+            .form-card { padding: 32px 24px; }
+            .form-card .form-row { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none; flex-direction: column; background: white;
+                position: absolute; top: 100%; left: 0; right: 0; padding: 24px;
+                box-shadow: var(--shadow-lg); gap: 16px;
+                border-radius: 0 0 var(--radius) var(--radius);
+            }
+            .nav-links.active { display: flex; }
+            .nav-link { color: var(--text) !important; }
+            .mobile-menu-btn { display: block; }
+            .container { padding: 0 20px; }
+            .service-hero { padding: 120px 0 60px; }
+            .service-hero h1 { font-size: 1.8rem; letter-spacing: -1px; }
+            .section-title { font-size: 2rem; }
+            .programs-grid { grid-template-columns: 1fr; }
+            .process-grid { grid-template-columns: 1fr 1fr; }
+            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
+            .cta-box h2 { font-size: 2rem; }
+            .form-card { padding: 24px 16px; }
+        }
+        @media (max-width: 480px) {
+            .service-hero h1 { font-size: 1.5rem; }
+            .service-hero-buttons { flex-direction: column; align-items: center; }
+            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
+            .section-title { font-size: 1.6rem; }
+            .process-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <div class="logo-icon-text">MEI</div>
+                <div class="logo-text">
+                    <span class="brand">MEI <span>Group</span></span>
+                    <span class="sub">division of MEI Press Holdings Ltd.</span>
+                </div>
+            </a>
+            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu"><i class="fas fa-bars"></i></button>
+            <div class="nav-links" id="navLinks">
+                <a href="index.html#about" class="nav-link">About</a>
+                <a href="index.html#services" class="nav-link">Services</a>
+                <a href="index.html#testimonials" class="nav-link">Testimonials</a>
+                <a href="index.html#faq" class="nav-link">FAQ</a>
+                <a href="index.html#apply" class="btn-nav">Apply Now</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <section class="service-hero">
+        <div class="container">
+            <div class="service-hero-content">
+                <div class="hero-badge">
+                    <span class="dot"></span>
+                    <span>🚸 Road Safety Training</span>
+                </div>
+                <h1>
+                    Professional Safety<br />
+                    <span class="highlight">Education for All</span>
+                </h1>
+                <p>
+                    Comprehensive road safety programs for schools, transport companies, and institutions. 
+                    From safe school commutes to advanced defensive driving—we build safer roads.
+                </p>
+                <div class="service-hero-buttons">
+                    <a href="#apply-form" class="btn-primary"><i class="fas fa-paper-plane"></i> Apply Now</a>
+                    <a href="index.html#contact" class="btn-secondary"><i class="fas fa-calendar-check"></i> Book Consultation</a>
+                </div>
+            </div>
+            <div class="service-hero-visual">
+                <div class="orb orb-1"></div>
+                <div class="orb orb-2"></div>
+                <div class="hero-grid">
+                    <div class="hero-grid-item">🚸</div>
+                    <div class="hero-grid-item">🚗</div>
+                    <div class="hero-grid-item">🛑</div>
+                    <div class="hero-grid-item">🚦</div>
+                    <div class="hero-grid-item">📊</div>
+                    <div class="hero-grid-item">🛣️</div>
+                    <div class="hero-grid-item">🚌</div>
+                    <div class="hero-grid-item">⚠️</div>
+                    <div class="hero-grid-item">🏫</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- DETAILS -->
+    <section class="service-detail-section">
+        <div class="container">
+            <div class="detail-grid">
+                <div class="detail-content animate-on-scroll">
+                    <span class="section-tag">What We Offer</span>
+                    <h2>Building a <span class="text-gradient">Safety Culture</span> on Every Road</h2>
+                    <p>
+                        MEI Group delivers professional road safety training designed for real-world impact. 
+                        Whether you're a school looking to protect students, a transport company seeking to 
+                        reduce accidents, or an institution needing fleet assessments—we have a program for you.
+                    </p>
+                    <ul class="detail-list">
+                        <li><strong>Safe to &amp; from School</strong> – Primary &amp; secondary programs teaching children road safety awareness.</li>
+                        <li><strong>Defensive Driving</strong> – Advanced driver training for corporate and professional drivers.</li>
+                        <li><strong>Driver Profiling</strong> – Comprehensive assessment &amp; behavior analysis for fleet managers.</li>
+                        <li><strong>Fleet Safety Assessments</strong> – Full audit of your fleet operations, policies, and driver records.</li>
+                    </ul>
+                </div>
+                <div class="detail-card animate-on-scroll">
+                    <h3>📋 Key Information</h3>
+                    <div class="info-row"><span class="label">Target Audience</span><span class="value">Schools, Transport, Institutions</span></div>
+                    <div class="info-row"><span class="label">Programs</span><span class="value">4 core modules</span></div>
+                    <div class="info-row"><span class="label">Delivery</span><span class="value">On-site or at our facility</span></div>
+                    <div class="info-row"><span class="label">Certification</span><span class="value">Attendance &amp; completion certificates</span></div>
+                    <div class="info-row"><span class="label">Group Size</span><span class="value">Flexible (10–500+)</span></div>
+                    <a href="#apply-form" class="btn-primary"><i class="fas fa-paper-plane"></i> Apply for Training</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROGRAMS -->
+    <section class="programs-section">
+        <div class="container">
+            <div class="section-center">
+                <span class="section-tag">Our Programs</span>
+                <h2 class="section-title">Road Safety <span class="highlight">Training Modules</span></h2>
+                <p class="section-sub">Four focused programs designed to address the most critical road safety needs.</p>
+            </div>
+            <div class="programs-grid">
+                <div class="program-card animate-on-scroll">
+                    <div class="icon">🏫</div>
+                    <h3>Safe to &amp; from School</h3>
+                    <p>Age-appropriate road safety education for primary and secondary school students.</p>
+                    <ul>
+                        <li>Pedestrian safety &amp; crossing rules</li>
+                        <li>School bus safety procedures</li>
+                        <li>Bicycle &amp; motorcycle safety</li>
+                        <li>Interactive workshops &amp; simulations</li>
+                    </ul>
+                </div>
+                <div class="program-card animate-on-scroll">
+                    <div class="icon">🚗</div>
+                    <h3>Defensive Driving</h3>
+                    <p>Advanced driver training for corporate fleets, professional drivers, and organizations.</p>
+                    <ul>
+                        <li>Hazard perception &amp; reaction</li>
+                        <li>Emergency maneuvering</li>
+                        <li>Fatigue &amp; distraction management</li>
+                        <li>Vehicle control in adverse conditions</li>
+                    </ul>
+                </div>
+                <div class="program-card animate-on-scroll">
+                    <div class="icon">📊</div>
+                    <h3>Driver Profiling</h3>
+                    <p>Comprehensive assessment and behavior analysis for fleet management and recruitment.</p>
+                    <ul>
+                        <li>Driving behavior evaluation</li>
+                        <li>Risk assessment reports</li>
+                        <li>License &amp; record verification</li>
+                        <li>Recommendations for improvement</li>
+                    </ul>
+                </div>
+                <div class="program-card animate-on-scroll">
+                    <div class="icon">🛣️</div>
+                    <h3>Fleet Safety Assessments</h3>
+                    <p>Full audit of your fleet operations to identify risks and improve safety performance.</p>
+                    <ul>
+                        <li>Policy &amp; procedure review</li>
+                        <li>Driver records &amp; compliance check</li>
+                        <li>Vehicle maintenance &amp; inspection</li>
+                        <li>Actionable safety improvement plan</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- APPLY FORM -->
+    <section class="form-section" id="apply-form">
+        <div class="container">
+            <div class="section-center">
+                <span class="section-tag">Get Started</span>
+                <h2 class="section-title">Apply for <span class="highlight">Road Safety Training</span></h2>
+                <p class="section-sub">Fill out the form below and our team will contact you within 24 hours.</p>
+            </div>
+            <div class="form-card">
+                <div class="alert-success" id="formAlert">✅ Your application has been submitted successfully! We'll contact you within 24 hours.</div>
+                <div class="alert-error" id="formError">❌ Something went wrong. Please try again or contact us directly.</div>
+                <form id="roadsafetyForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="fullName">Full Name <span class="required">*</span></label>
+                            <input type="text" id="fullName" placeholder="John Doe" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email Address <span class="required">*</span></label>
+                            <input type="email" id="email" placeholder="john@example.com" required />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="phone">Phone Number <span class="required">*</span></label>
+                            <input type="tel" id="phone" placeholder="+254 700 000 000" required />
+                        </div>
+                        <div class="form-group">
+                            <label for="organization">Organization / School Name</label>
+                            <input type="text" id="organization" placeholder="e.g. ABC School Ltd" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="trainingType">Training Type <span class="required">*</span></label>
+                            <select id="trainingType" required>
+                                <option value="">— Select training —</option>
+                                <option value="Safe to & from School">🏫 Safe to &amp; from School</option>
+                                <option value="Defensive Driving">🚗 Defensive Driving</option>
+                                <option value="Driver Profiling">📊 Driver Profiling</option>
+                                <option value="Fleet Safety Assessment">🛣️ Fleet Safety Assessment</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="participants">Number of Participants</label>
+                            <input type="number" id="participants" placeholder="e.g. 50" min="1" />
+                        </div>
+                    </div>
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="preferredDate">Preferred Training Date</label>
+                            <input type="date" id="preferredDate" />
+                        </div>
+                        <div class="form-group">
+                            <label for="location">Location (City/Country)</label>
+                            <input type="text" id="location" placeholder="Nairobi, Kenya" />
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="additionalInfo">Additional Information</label>
+                        <textarea id="additionalInfo" placeholder="Any other details you'd like to share..." rows="3"></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit" id="submitBtn">
+                        <i class="fas fa-paper-plane"></i> Submit Application
+                    </button>
+                    <p style="margin-top:12px; font-size:0.8rem; color:var(--text-light);">
+                        <i class="fas fa-lock" style="margin-right:6px;"></i> Your information is secure.
+                    </p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- PROCESS -->
+    <section class="process-section">
+        <div class="container">
+            <div class="section-center">
+                <span class="section-tag">How It Works</span>
+                <h2 class="section-title">Your Journey <span class="highlight">Starts Here</span></h2>
+                <p class="section-sub">Six simple steps to get started with MEI Group.</p>
+            </div>
+            <div class="process-grid">
+                <div class="process-step animate-on-scroll"><div class="number">1</div><h4>Choose a Service</h4><p>Select your service</p><span class="arrow">→</span></div>
+                <div class="process-step animate-on-scroll"><div class="number">2</div><h4>Submit Application</h4><p>Fill out the form</p><span class="arrow">→</span></div>
+                <div class="process-step animate-on-scroll"><div class="number">3</div><h4>Consultation</h4><p>Speak with experts</p><span class="arrow">→</span></div>
+                <div class="process-step animate-on-scroll"><div class="number">4</div><h4>Document Review</h4><p>We verify everything</p><span class="arrow">→</span></div>
+                <div class="process-step animate-on-scroll"><div class="number">5</div><h4>Approval</h4><p>Get confirmed</p><span class="arrow">→</span></div>
+                <div class="process-step animate-on-scroll"><div class="number">6</div><h4>Begin Journey</h4><p>Start your success</p></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-box">
+                <h2>Ready to Build a <span class="text-gradient">Safer Fleet?</span></h2>
+                <p>Protect your students, employees, and drivers with professional road safety training from MEI Group.</p>
+                <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
+                    <a href="#apply-form" class="btn-primary"><i class="fas fa-rocket"></i> Apply Now</a>
+                    <a href="index.html#contact" class="btn-secondary"><i class="fas fa-headset"></i> Talk to an Advisor</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <h4>MEI <span>Group</span></h4>
+                    <p>division of MEI Press Holdings Ltd. Empowering people, building careers, driving innovation.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-col">
+                    <h4>Quick Links</h4>
+                    <a href="index.html">Home</a>
+                    <a href="index.html#about">About</a>
+                    <a href="index.html#services">Services</a>
+                    <a href="index.html#apply">Apply</a>
+                    <a href="index.html#contact">Contact</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Services</h4>
+                    <a href="service-education.html">International Education</a>
+                    <a href="service-roadsafety.html">Road Safety Training</a>
+                    <a href="service-osh.html">Occupational Safety &amp; Health</a>
+                </div>
+                <div class="footer-col">
+                    <h4>Contact</h4>
+                    <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:+254703738707">+254 703 738 707</a></div>
+                    <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:info@meipressgroup.com">info@meipressgroup.com</a></div>
+                    <div class="contact-item"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/254703738707">WhatsApp</a></div>
+                    <div class="hours"><strong style="color:rgba(255,255,255,0.5);">Business Hours</strong><br>Monday–Friday<br>8:00 AM – 5:00 PM</div>
+                </div>
+            </div>
+            <div class="footer-bottom">&copy; 2025 MEI Press Holdings Ltd. All rights reserved.</div>
+        </div>
+    </footer>
+    <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp"><i class="fab fa-whatsapp"></i></a>
+
+    <script>
+        // ============================================================
+        // MEI GROUP – ROAD SAFETY TRAINING PAGE
+        // Supabase Integration
+        // ============================================================
+        const SUPABASE_URL = 'https://qkchnrrxrewmlvvxuuqe.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7';
+
+        (function() {
+            const navbar = document.getElementById('navbar');
+            const menuBtn = document.getElementById('mobileMenuBtn');
+            const navLinks = document.getElementById('navLinks');
+            window.addEventListener('scroll', function() {
+                navbar.classList.toggle('scrolled', window.pageYOffset > 50);
+            }, { passive: true });
+            if (menuBtn && navLinks) {
+                menuBtn.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    navLinks.classList.toggle('active');
+                    this.innerHTML = navLinks.classList.contains('active') ? '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+                });
+                document.addEventListener('click', function(e) {
+                    if (navLinks.classList.contains('active') && !e.target.closest('.navbar')) {
+                        navLinks.classList.remove('active');
+                        menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            }
+            document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+                anchor.addEventListener('click', function(e) {
+                    const targetId = this.getAttribute('href');
+                    if (targetId === '#') return;
+                    const targetEl = document.querySelector(targetId);
+                    if (targetEl) {
+                        e.preventDefault();
+                        const navHeight = navbar.offsetHeight || 70;
+                        const targetPosition = targetEl.getBoundingClientRect().top + window.pageYOffset - navHeight - 20;
+                        window.scrollTo({ top: targetPosition, behavior: 'smooth' });
+                        if (navLinks.classList.contains('active')) {
+                            navLinks.classList.remove('active');
+                            menuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                        }
+                    }
+                });
+            });
+            const observer = new IntersectionObserver(function(entries) {
+                entries.forEach(function(entry) {
+                    if (entry.isIntersecting) entry.target.classList.add('visible');
+                });
+            }, { threshold: 0.1, rootMargin: '0px 0px -50px 0px' });
+            document.querySelectorAll('.animate-on-scroll').forEach(function(el) { observer.observe(el); });
+        })();
+
+        document.getElementById('roadsafetyForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            const submitBtn = document.getElementById('submitBtn');
+            const alertSuccess = document.getElementById('formAlert');
+            const alertError = document.getElementById('formError');
+
+            const formData = {
+                service: 'Road Safety Training',
+                full_name: document.getElementById('fullName').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                phone: document.getElementById('phone').value.trim(),
+                organization: document.getElementById('organization').value.trim(),
+                training_type: document.getElementById('trainingType').value,
+                participants: document.getElementById('participants').value,
+                preferred_date: document.getElementById('preferredDate').value,
+                location: document.getElementById('location').value.trim(),
+                additional_info: document.getElementById('additionalInfo').value.trim(),
+                status: 'pending',
+                created_at: new Date().toISOString()
+            };
+
+            if (!formData.full_name || !formData.email || !formData.phone || !formData.training_type) {
+                alertError.textContent = '❌ Please fill in all required fields.';
+                alertError.classList.add('show');
+                setTimeout(() => alertError.classList.remove('show'), 5000);
+                return;
+            }
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<i class="fas fa-spinner" style="animation:spin 1s linear infinite;"></i> Submitting...';
+
+            try {
+                const response = await fetch(`${SUPABASE_URL}/rest/v1/applications`, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`,
+                        'Prefer': 'return=minimal'
+                    },
+                    body: JSON.stringify(formData)
+                });
+
+                if (response.ok || response.status === 201) {
+                    alertSuccess.classList.add('show');
+                    alertError.classList.remove('show');
+                    this.reset();
+                    setTimeout(() => alertSuccess.classList.remove('show'), 6000);
+                } else {
+                    const errorData = await response.json().catch(() => ({}));
+                    console.error('Supabase error:', errorData);
+                    alertError.textContent = '❌ Submission failed: ' + (errorData.message || 'Please try again.');
+                    alertError.classList.add('show');
+                    setTimeout(() => alertError.classList.remove('show'), 6000);
+                }
+            } catch (error) {
+                console.error('Network error:', error);
+                alertError.textContent = '❌ Network error. Please check your connection and try again.';
+                alertError.classList.add('show');
+                setTimeout(() => alertError.classList.remove('show'), 6000);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = '<i class="fas fa-paper-plane"></i> Submit Application';
+            }
+        });
+
+        console.log('✅ MEI Group – Road Safety Training page loaded');
+    </script>
+</body>
+</html>
