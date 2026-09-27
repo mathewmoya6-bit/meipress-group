@@ -43,7 +43,6 @@ a{text-decoration:none}
 .month-header span{background:#ffffff18;border:1px solid #ffffff30;padding:5px 11px;border-radius:20px;font-size:12px}
 .program-list{display:grid;grid-template-columns:repeat(2,1fr);gap:0}
 .program{display:flex;gap:18px;padding:25px;border-bottom:1px solid var(--border)}
-.program:nth-last-child(-n+2){border-bottom:0}
 .program-icon{width:50px;height:50px;flex:0 0 50px;border-radius:13px;background:#eef5fa;display:flex;align-items:center;justify-content:center;font-size:25px}
 .program-content{flex:1;min-width:0}
 .program-tag{display:inline-block;color:var(--green);font-size:11px;text-transform:uppercase;font-weight:800;letter-spacing:.7px;margin-bottom:5px}
@@ -55,6 +54,8 @@ a{text-decoration:none}
 .register-btn{display:inline-block;background:var(--green);color:#fff;padding:9px 17px;border-radius:7px;font-size:13px;font-weight:800}
 .register-btn:hover{background:#64a936}
 .empty-state{background:#fff;border:1px dashed var(--border);border-radius:15px;padding:50px;text-align:center;color:var(--muted)}
+.empty-state strong{display:block;color:var(--navy);font-size:18px;margin-bottom:8px}
+.empty-state p{margin:5px 0}
 .cta{background:var(--navy);color:#fff;padding:65px 0;text-align:center}
 .cta h2{font-size:32px;margin:0 0 12px}
 .cta p{color:#d6e1eb;max-width:650px;margin:0 auto 25px}
@@ -74,8 +75,6 @@ a{text-decoration:none}
 .hero{padding:60px 0}
 .highlights{grid-template-columns:repeat(2,1fr)}
 .program-list{grid-template-columns:1fr}
-.program:nth-last-child(-n+2){border-bottom:1px solid var(--border)}
-.program:last-child{border-bottom:0}
 .footer-grid{grid-template-columns:1fr}
 }
 @media(max-width:500px){
@@ -138,19 +137,19 @@ body{background:#fff}
 
 <div class="highlights">
 <div class="highlight">
-<strong id="monthCount">—</strong>
+<strong id="monthCount">0</strong>
 <span>Training Months</span>
 </div>
 <div class="highlight">
-<strong id="roadCount">—</strong>
+<strong id="roadCount">0</strong>
 <span>Road Safety Sessions</span>
 </div>
 <div class="highlight">
-<strong id="oshCount">—</strong>
+<strong id="oshCount">0</strong>
 <span>OSH Sessions</span>
 </div>
 <div class="highlight">
-<strong id="totalCount">—</strong>
+<strong id="totalCount">0</strong>
 <span>Total Sessions</span>
 </div>
 </div>
@@ -196,6 +195,37 @@ body{background:#fff}
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script src="js/config.js"></script>
-<script src="js/training-calendar.js"></script>
+
+<script>
+(function(){
+try{
+let url=window.SUPABASE_URL;
+let key=window.SUPABASE_ANON_KEY;
+
+if(!url&&typeof SUPABASE_URL!=="undefined")url=SUPABASE_URL;
+if(!key&&typeof SUPABASE_ANON_KEY!=="undefined")key=SUPABASE_ANON_KEY;
+
+if(url)window.SUPABASE_URL=url;
+if(key)window.SUPABASE_ANON_KEY=key;
+
+if(typeof supabase==="undefined"){
+console.error("Supabase library did not load.");
+return;
+}
+
+if(!url||!key){
+console.error("Supabase configuration missing.",{url:!!url,key:!!key});
+return;
+}
+
+window.supabaseClient=supabase.createClient(url,key);
+console.log("MEI Supabase initialized:",url);
+}catch(error){
+console.error("Supabase initialization failed:",error);
+}
+})();
+</script>
+
+<script src="js/training-calendar.js?v=20260927"></script>
 </body>
 </html>
