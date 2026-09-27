@@ -1,72 +1,110 @@
-/*
-=========================================================
-MEI GROUP — SHARED BRAND SYSTEM
-MEI Press Holdings Ltd
-=========================================================
-
-File:
-    assets/brand.js
-
-Used by:
-    index.html
-    education.html
-    road-safety.html
-    occupational-safety.html
-    training-calendar.html
-    training-registration.html
-    driver-recruitment.html
-    admin.html / other public pages as required
-
-Assets expected:
-    assets/logo.svg
-    assets/logo-white.svg
-    assets/logo-mark.svg
-    assets/logo-mark-white.svg
-    assets/favicon.svg
-=========================================================
-*/
-
 (function () {
-
     "use strict";
+
+    /*
+    =========================================================
+    MEI GROUP SHARED BRAND SYSTEM
+    =========================================================
+
+    File:
+        /assets/brand.js
+
+    Include on every public page:
+
+        <script src="assets/brand.js"></script>
+
+    Expected assets:
+
+        /assets/brand.js
+        /assets/logo.svg
+        /assets/logo-white.svg
+        /assets/logo-mark.svg
+        /assets/logo-mark-white.svg
+        /assets/favicon.svg
+    =========================================================
+    */
 
 
     /* =====================================================
-       BRAND CONFIGURATION
+       FIND THE FOLDER CONTAINING brand.js
+    ===================================================== */
+
+    const currentScript =
+        document.currentScript ||
+        document.querySelector(
+            'script[src*="brand.js"]'
+        );
+
+    let assetBase = "assets/";
+
+    if (currentScript && currentScript.src) {
+
+        try {
+
+            const scriptURL =
+                new URL(
+                    currentScript.src,
+                    window.location.href
+                );
+
+            assetBase =
+                scriptURL.href.substring(
+                    0,
+                    scriptURL.href.lastIndexOf("/") + 1
+                );
+
+        } catch (error) {
+
+            console.warn(
+                "MEI Brand: Could not determine asset path.",
+                error
+            );
+
+        }
+    }
+
+
+    /* =====================================================
+       BRAND INFORMATION
     ===================================================== */
 
     const MEI_BRAND = {
 
-        companyName: "MEI Group",
+        companyName:
+            "MEI Group",
 
-        legalName: "MEI Press Holdings Ltd",
+        legalName:
+            "MEI Press Holdings Ltd",
 
-        logo: "assets/logo.svg",
+        phone:
+            "+254 720 216 985",
 
-        logoWhite: "assets/logo-white.svg",
+        email:
+            "info@meipressgroup.com",
 
-        logoMark: "assets/logo-mark.svg",
+        location:
+            "Kenya",
 
-        logoMarkWhite: "assets/logo-mark-white.svg",
+        logo:
+            assetBase + "logo.svg",
 
-        favicon: "assets/favicon.svg",
+        logoWhite:
+            assetBase + "logo-white.svg",
 
-        phone: "+254 720 216 985",
+        logoMark:
+            assetBase + "logo-mark.svg",
 
-        email: "info@meipressgroup.com",
+        logoMarkWhite:
+            assetBase + "logo-mark-white.svg",
 
-        website: "meipressgroup.com",
-
-        location: "Kenya"
+        favicon:
+            assetBase + "favicon.svg"
 
     };
 
 
-    /*
-     * Make brand information available globally.
-     */
-
-    window.MEI_BRAND = MEI_BRAND;
+    window.MEI_BRAND =
+        MEI_BRAND;
 
 
     /* =====================================================
@@ -114,22 +152,22 @@ Assets expected:
 
 
     /* =====================================================
-       DETERMINE CURRENT PAGE
+       CURRENT PAGE
     ===================================================== */
 
     function getCurrentPage() {
 
-        let path =
+        let page =
             window.location.pathname
                 .split("/")
                 .pop()
                 .toLowerCase();
 
-        if (!path) {
-            path = "index.html";
+        if (!page) {
+            page = "index.html";
         }
 
-        return path;
+        return page;
 
     }
 
@@ -144,13 +182,9 @@ Assets expected:
 
     function createFavicon() {
 
-        /*
-         * Prevent duplicate favicon.
-         */
-
         if (
             document.querySelector(
-                'link[data-mei-favicon="true"]'
+                'link[data-mei-favicon="1"]'
             )
         ) {
             return;
@@ -160,16 +194,16 @@ Assets expected:
         const favicon =
             document.createElement("link");
 
-
         favicon.rel = "icon";
 
-        favicon.type = "image/svg+xml";
+        favicon.type =
+            "image/svg+xml";
 
         favicon.href =
             MEI_BRAND.favicon;
 
         favicon.dataset.meiFavicon =
-            "true";
+            "1";
 
 
         document.head.appendChild(
@@ -180,14 +214,14 @@ Assets expected:
 
 
     /* =====================================================
-       SHARED CSS
+       CSS
     ===================================================== */
 
-    function injectStyles() {
+    function createStyles() {
 
         if (
             document.getElementById(
-                "mei-brand-styles"
+                "mei-brand-css"
             )
         ) {
             return;
@@ -199,46 +233,34 @@ Assets expected:
 
 
         style.id =
-            "mei-brand-styles";
+            "mei-brand-css";
 
 
         style.textContent = `
 
-        /* =================================================
-           MEI HEADER
-        ================================================= */
+        /* ================================================
+           HEADER
+        ================================================ */
 
         .mei-site-header {
 
-            position: sticky;
-
-            top: 0;
+            position: relative;
 
             z-index: 9999;
 
             width: 100%;
 
-            background:
-                #071a2b;
+            background: #071a2b;
 
             color: #ffffff;
 
             border-bottom:
-                1px solid rgba(
-                    255,
-                    255,
-                    255,
-                    0.08
-                );
+                1px solid
+                rgba(255,255,255,.08);
 
             box-shadow:
-                0 5px 20px
-                rgba(
-                    0,
-                    0,
-                    0,
-                    0.12
-                );
+                0 4px 18px
+                rgba(0,0,0,.10);
 
         }
 
@@ -246,195 +268,222 @@ Assets expected:
         .mei-header-inner {
 
             width:
-                min(
-                    calc(100% - 40px),
-                    1180px
-                );
+                calc(100% - 40px);
 
-            min-height: 76px;
+            max-width:
+                1180px;
 
-            margin: 0 auto;
+            min-height:
+                76px;
 
-            display: flex;
+            margin:
+                0 auto;
 
-            align-items: center;
+            display:
+                flex;
 
-            justify-content: space-between;
+            align-items:
+                center;
 
-            gap: 25px;
+            justify-content:
+                space-between;
+
+            gap:
+                25px;
 
         }
 
 
-        /* =================================================
+        /* ================================================
            LOGO
-        ================================================= */
+        ================================================ */
 
         .mei-brand-logo {
 
-            display: inline-flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            gap: 12px;
+            gap:
+                11px;
 
-            flex-shrink: 0;
+            flex-shrink:
+                0;
 
-            text-decoration: none;
+            text-decoration:
+                none;
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
         }
 
 
         .mei-brand-logo img {
 
-            width: 48px;
+            display:
+                block;
 
-            height: 48px;
+            width:
+                48px;
 
-            object-fit: contain;
+            height:
+                48px;
 
-        }
-
-
-        .mei-brand-text {
-
-            display: flex;
-
-            flex-direction: column;
-
-            line-height: 1.1;
+            object-fit:
+                contain;
 
         }
 
 
         .mei-brand-name {
 
-            font-size: 18px;
+            display:
+                block;
 
-            font-weight: 900;
+            color:
+                #ffffff;
 
-            letter-spacing: -0.3px;
+            font-size:
+                18px;
 
-            color: #ffffff;
+            line-height:
+                1.1;
+
+            font-weight:
+                900;
 
         }
 
 
         .mei-brand-legal {
 
-            margin-top: 4px;
+            display:
+                block;
 
-            font-size: 9px;
-
-            font-weight: 600;
+            margin-top:
+                4px;
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.60
-                );
+                rgba(255,255,255,.60);
 
-            letter-spacing: 0.3px;
+            font-size:
+                9px;
+
+            line-height:
+                1.1;
+
+            font-weight:
+                600;
 
         }
 
 
-        /* =================================================
+        /* ================================================
            DESKTOP NAVIGATION
-        ================================================= */
+        ================================================ */
 
         .mei-main-nav {
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: flex-end;
-
-            gap: 3px;
+            gap:
+                2px;
 
         }
 
 
         .mei-main-nav a {
 
-            position: relative;
+            position:
+                relative;
 
-            display: inline-flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            justify-content: center;
+            justify-content:
+                center;
 
-            min-height: 42px;
+            min-height:
+                42px;
 
             padding:
-                0 11px;
+                0 10px;
 
-            border-radius: 7px;
+            border-radius:
+                7px;
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.78
-                );
+                rgba(255,255,255,.78);
 
-            text-decoration: none;
+            text-decoration:
+                none;
 
-            font-size: 12px;
+            font-size:
+                12px;
 
-            font-weight: 700;
+            font-weight:
+                700;
+
+            white-space:
+                nowrap;
 
             transition:
-                background 0.2s ease,
-                color 0.2s ease;
+                .2s ease;
 
         }
 
 
         .mei-main-nav a:hover {
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.07
-                );
+                rgba(255,255,255,.07);
 
         }
 
 
         .mei-main-nav a.active {
 
-            color: #18c77a;
+            color:
+                #18c77a;
 
         }
 
 
         .mei-main-nav a.active::after {
 
-            content: "";
+            content:
+                "";
 
-            position: absolute;
+            position:
+                absolute;
 
-            left: 11px;
+            left:
+                10px;
 
-            right: 11px;
+            right:
+                10px;
 
-            bottom: 3px;
+            bottom:
+                3px;
 
-            height: 2px;
+            height:
+                2px;
 
-            border-radius: 2px;
+            border-radius:
+                2px;
 
             background:
                 #18c77a;
@@ -442,9 +491,10 @@ Assets expected:
         }
 
 
-        .mei-main-nav .mei-nav-cta {
+        .mei-main-nav a.mei-nav-contact {
 
-            margin-left: 7px;
+            margin-left:
+                7px;
 
             padding:
                 0 16px;
@@ -455,12 +505,13 @@ Assets expected:
             color:
                 #071a2b;
 
-            font-weight: 900;
+            font-weight:
+                900;
 
         }
 
 
-        .mei-main-nav .mei-nav-cta:hover {
+        .mei-main-nav a.mei-nav-contact:hover {
 
             background:
                 #ffffff;
@@ -471,146 +522,132 @@ Assets expected:
         }
 
 
-        .mei-main-nav .mei-nav-cta.active::after {
+        .mei-main-nav a.mei-nav-contact.active::after {
 
-            display: none;
+            display:
+                none;
 
         }
 
 
-        /* =================================================
-           MOBILE MENU BUTTON
-        ================================================= */
+        /* ================================================
+           MOBILE BUTTON
+        ================================================ */
 
         .mei-menu-toggle {
 
-            width: 44px;
+            display:
+                none;
 
-            height: 44px;
+            width:
+                44px;
 
-            display: none;
+            height:
+                44px;
 
-            align-items: center;
+            border:
+                1px solid
+                rgba(255,255,255,.18);
 
-            justify-content: center;
-
-            border: 1px solid
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.15
-                );
-
-            border-radius: 8px;
+            border-radius:
+                8px;
 
             background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.05
-                );
+                rgba(255,255,255,.05);
 
-            color: #ffffff;
+            color:
+                #ffffff;
 
-            cursor: pointer;
+            cursor:
+                pointer;
 
-            font-size: 22px;
+            font-size:
+                23px;
 
-            line-height: 1;
+            align-items:
+                center;
+
+            justify-content:
+                center;
 
         }
 
 
-        .mei-menu-toggle:hover {
-
-            background:
-                rgba(
-                    24,
-                    199,
-                    122,
-                    0.15
-                );
-
-        }
-
-
-        /* =================================================
-           MOBILE NAVIGATION
-        ================================================= */
+        /* ================================================
+           MOBILE NAV
+        ================================================ */
 
         .mei-mobile-nav {
 
-            display: none;
+            display:
+                none;
+
+            width:
+                100%;
+
+            padding:
+                10px 20px 18px;
 
             background:
                 #071a2b;
 
             border-top:
                 1px solid
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.08
-                );
-
-            padding:
-                10px 20px 18px;
+                rgba(255,255,255,.08);
 
         }
 
 
         .mei-mobile-nav.open {
 
-            display: block;
+            display:
+                block;
 
         }
 
 
         .mei-mobile-nav a {
 
-            display: flex;
+            display:
+                flex;
 
-            align-items: center;
+            align-items:
+                center;
 
-            min-height: 46px;
+            min-height:
+                46px;
 
             padding:
                 0 12px;
 
-            border-radius: 7px;
+            margin:
+                2px 0;
+
+            border-radius:
+                7px;
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.82
-                );
+                rgba(255,255,255,.82);
 
-            text-decoration: none;
+            text-decoration:
+                none;
 
-            font-size: 14px;
+            font-size:
+                14px;
 
-            font-weight: 700;
+            font-weight:
+                700;
 
         }
 
 
         .mei-mobile-nav a:hover {
 
-            background:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.06
-                );
-
             color:
                 #18c77a;
+
+            background:
+                rgba(255,255,255,.06);
 
         }
 
@@ -621,21 +658,18 @@ Assets expected:
                 #18c77a;
 
             background:
-                rgba(
-                    24,
-                    199,
-                    122,
-                    0.08
-                );
+                rgba(24,199,122,.08);
 
         }
 
 
-        .mei-mobile-nav .mei-mobile-cta {
+        .mei-mobile-nav a.mei-mobile-contact {
 
-            margin-top: 8px;
+            margin-top:
+                10px;
 
-            justify-content: center;
+            justify-content:
+                center;
 
             background:
                 #18c77a;
@@ -646,20 +680,9 @@ Assets expected:
         }
 
 
-        .mei-mobile-nav .mei-mobile-cta:hover {
-
-            background:
-                #ffffff;
-
-            color:
-                #071a2b;
-
-        }
-
-
-        /* =================================================
+        /* ================================================
            FOOTER
-        ================================================= */
+        ================================================ */
 
         .mei-site-footer {
 
@@ -669,48 +692,42 @@ Assets expected:
             color:
                 #ffffff;
 
-            border-top:
-                1px solid
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.07
-                );
-
         }
 
 
-        .mei-footer-main {
+        .mei-footer-inner {
 
             width:
-                min(
-                    calc(100% - 40px),
-                    1180px
-                );
+                calc(100% - 40px);
+
+            max-width:
+                1180px;
 
             margin:
                 0 auto;
 
             padding:
-                55px 0 35px;
+                55px 0 30px;
 
-            display: grid;
+            display:
+                grid;
 
             grid-template-columns:
-                1.3fr
+                1.4fr
                 1fr
                 1fr
                 1fr;
 
-            gap: 40px;
+            gap:
+                40px;
 
         }
 
 
         .mei-footer-brand {
 
-            max-width: 330px;
+            max-width:
+                340px;
 
         }
 
@@ -718,15 +735,16 @@ Assets expected:
         .mei-footer-logo {
 
             display:
-                inline-flex;
+                flex;
 
             align-items:
                 center;
 
-            gap: 11px;
+            gap:
+                10px;
 
             margin-bottom:
-                18px;
+                17px;
 
             text-decoration:
                 none;
@@ -739,39 +757,42 @@ Assets expected:
 
         .mei-footer-logo img {
 
-            width: 45px;
+            width:
+                44px;
 
-            height: 45px;
+            height:
+                44px;
 
-            object-fit: contain;
+            object-fit:
+                contain;
 
         }
 
 
         .mei-footer-logo strong {
 
-            display: block;
+            font-size:
+                18px;
 
-            font-size: 18px;
-
-            font-weight: 900;
+            font-weight:
+                900;
 
         }
 
 
         .mei-footer-brand p {
 
+            margin:
+                0;
+
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.60
-                );
+                rgba(255,255,255,.58);
 
-            font-size: 13px;
+            font-size:
+                13px;
 
-            line-height: 1.7;
+            line-height:
+                1.7;
 
         }
 
@@ -779,20 +800,22 @@ Assets expected:
         .mei-footer-column h4 {
 
             margin:
-                0 0 16px;
+                0 0 15px;
 
             color:
                 #ffffff;
 
-            font-size: 13px;
+            font-size:
+                12px;
 
-            font-weight: 900;
+            font-weight:
+                900;
 
             text-transform:
                 uppercase;
 
             letter-spacing:
-                0.5px;
+                .6px;
 
         }
 
@@ -806,23 +829,19 @@ Assets expected:
                 fit-content;
 
             margin-bottom:
-                10px;
+                9px;
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.60
-                );
+                rgba(255,255,255,.58);
 
-            font-size: 13px;
+            font-size:
+                13px;
 
             text-decoration:
                 none;
 
             transition:
-                color 0.2s ease;
+                .2s ease;
 
         }
 
@@ -840,32 +859,30 @@ Assets expected:
             display:
                 grid;
 
-            gap: 10px;
+            gap:
+                12px;
 
         }
 
 
-        .mei-footer-contact div {
+        .mei-footer-contact-item {
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.60
-                );
+                rgba(255,255,255,.58);
 
-            font-size: 13px;
-
-            line-height: 1.5;
+            font-size:
+                13px;
 
         }
 
 
-        .mei-footer-contact strong {
+        .mei-footer-contact-item strong {
 
             display:
                 block;
+
+            margin-bottom:
+                2px;
 
             color:
                 #ffffff;
@@ -873,19 +890,16 @@ Assets expected:
             font-size:
                 11px;
 
-            margin-bottom:
-                2px;
-
         }
 
 
         .mei-footer-bottom {
 
             width:
-                min(
-                    calc(100% - 40px),
-                    1180px
-                );
+                calc(100% - 40px);
+
+            max-width:
+                1180px;
 
             margin:
                 0 auto;
@@ -895,12 +909,7 @@ Assets expected:
 
             border-top:
                 1px solid
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.08
-                );
+                rgba(255,255,255,.08);
 
             display:
                 flex;
@@ -917,18 +926,10 @@ Assets expected:
         }
 
 
-        .mei-footer-bottom p {
-
-            margin:
-                0;
+        .mei-footer-bottom span {
 
             color:
-                rgba(
-                    255,
-                    255,
-                    255,
-                    0.48
-                );
+                rgba(255,255,255,.45);
 
             font-size:
                 11px;
@@ -947,22 +948,24 @@ Assets expected:
         }
 
 
-        /* =================================================
+        /* ================================================
            RESPONSIVE
-        ================================================= */
+        ================================================ */
 
         @media (max-width: 1100px) {
 
             .mei-main-nav {
 
-                display: none;
+                display:
+                    none;
 
             }
 
 
             .mei-menu-toggle {
 
-                display: inline-flex;
+                display:
+                    flex;
 
             }
 
@@ -1009,7 +1012,7 @@ Assets expected:
             }
 
 
-            .mei-footer-main {
+            .mei-footer-inner {
 
                 width:
                     calc(100% - 28px);
@@ -1019,9 +1022,6 @@ Assets expected:
 
                 gap:
                     30px 20px;
-
-                padding:
-                    40px 0 25px;
 
             }
 
@@ -1055,7 +1055,7 @@ Assets expected:
 
         @media (max-width: 450px) {
 
-            .mei-footer-main {
+            .mei-footer-inner {
 
                 grid-template-columns:
                     1fr;
@@ -1075,14 +1075,138 @@ Assets expected:
 
 
     /* =====================================================
+       CHECK ACTIVE PAGE
+    ===================================================== */
+
+    function isActive(item) {
+
+        const href =
+            item.href;
+
+        const hash =
+            window.location.hash;
+
+
+        if (
+            href === "index.html"
+        ) {
+
+            return (
+                currentPage ===
+                "index.html" &&
+                hash === ""
+            );
+
+        }
+
+
+        if (
+            href ===
+            "index.html#services"
+        ) {
+
+            return (
+                currentPage ===
+                "index.html" &&
+                hash === "#services"
+            );
+
+        }
+
+
+        return (
+            currentPage ===
+            href.toLowerCase()
+        );
+
+    }
+
+
+    /* =====================================================
+       CREATE DESKTOP NAV
+    ===================================================== */
+
+    function createDesktopNav() {
+
+        let html = "";
+
+
+        navigation.forEach(
+            item => {
+
+                html += `
+                    <a
+                        href="${item.href}"
+                        class="${isActive(item) ? "active" : ""}"
+                    >
+                        ${item.label}
+                    </a>
+                `;
+
+            }
+        );
+
+
+        html += `
+            <a
+                href="index.html#contact"
+                class="mei-nav-contact"
+            >
+                Contact Us
+            </a>
+        `;
+
+
+        return html;
+
+    }
+
+
+    /* =====================================================
+       CREATE MOBILE NAV
+    ===================================================== */
+
+    function createMobileNav() {
+
+        let html = "";
+
+
+        navigation.forEach(
+            item => {
+
+                html += `
+                    <a
+                        href="${item.href}"
+                        class="${isActive(item) ? "active" : ""}"
+                    >
+                        ${item.label}
+                    </a>
+                `;
+
+            }
+        );
+
+
+        html += `
+            <a
+                href="index.html#contact"
+                class="mei-mobile-contact"
+            >
+                Contact Us
+            </a>
+        `;
+
+
+        return html;
+
+    }
+
+
+    /* =====================================================
        CREATE HEADER
     ===================================================== */
 
     function createHeader() {
-
-        /*
-         * Prevent duplicate headers.
-         */
 
         if (
             document.querySelector(
@@ -1094,7 +1218,9 @@ Assets expected:
 
 
         const header =
-            document.createElement("header");
+            document.createElement(
+                "header"
+            );
 
 
         header.className =
@@ -1108,15 +1234,15 @@ Assets expected:
                 <a
                     href="index.html"
                     class="mei-brand-logo"
-                    aria-label="MEI Group Home"
+                    aria-label="MEI Group"
                 >
 
                     <img
                         src="${MEI_BRAND.logoWhite}"
-                        alt="MEI Group"
+                        alt="MEI Group logo"
                     >
 
-                    <span class="mei-brand-text">
+                    <span>
 
                         <span class="mei-brand-name">
                             MEI Group
@@ -1136,7 +1262,7 @@ Assets expected:
                     aria-label="Main navigation"
                 >
 
-                    ${createDesktopNavigation()}
+                    ${createDesktopNav()}
 
                 </nav>
 
@@ -1145,7 +1271,7 @@ Assets expected:
                     type="button"
                     class="mei-menu-toggle"
                     id="meiMenuToggle"
-                    aria-label="Open navigation menu"
+                    aria-label="Open menu"
                     aria-expanded="false"
                 >
                     ☰
@@ -1159,7 +1285,7 @@ Assets expected:
                 id="meiMobileNav"
             >
 
-                ${createMobileNavigation()}
+                ${createMobileNav()}
 
             </div>
 
@@ -1167,7 +1293,7 @@ Assets expected:
 
 
         /*
-         * Insert header at the beginning of body.
+         * Put the header at the very top.
          */
 
         document.body.insertBefore(
@@ -1176,159 +1302,7 @@ Assets expected:
         );
 
 
-        initializeMobileMenu();
-
-    }
-
-
-    /* =====================================================
-       DESKTOP NAVIGATION HTML
-    ===================================================== */
-
-    function createDesktopNavigation() {
-
-        return navigation.map(
-            item => {
-
-                const active =
-                    isNavigationItemActive(
-                        item
-                    );
-
-                const isContact =
-                    item.href.includes(
-                        "#contact"
-                    );
-
-
-                return `
-
-                    <a
-                        href="${item.href}"
-                        class="${active ? "active" : ""} ${isContact ? "mei-nav-cta" : ""}"
-                    >
-                        ${item.label}
-                    </a>
-
-                `;
-
-            }
-        ).join("");
-
-    }
-
-
-    /* =====================================================
-       MOBILE NAVIGATION HTML
-    ===================================================== */
-
-    function createMobileNavigation() {
-
-        const mobileItems =
-            navigation.filter(
-                item =>
-                    !item.href.includes(
-                        "#contact"
-                    )
-            );
-
-
-        let html =
-            mobileItems.map(
-                item => {
-
-                    const active =
-                        isNavigationItemActive(
-                            item
-                        );
-
-
-                    return `
-
-                        <a
-                            href="${item.href}"
-                            class="${active ? "active" : ""}"
-                        >
-                            ${item.label}
-                        </a>
-
-                    `;
-
-                }
-            ).join("");
-
-
-        html += `
-
-            <a
-                href="index.html#contact"
-                class="mei-mobile-cta"
-            >
-                Contact Us
-            </a>
-
-        `;
-
-
-        return html;
-
-    }
-
-
-    /* =====================================================
-       ACTIVE NAVIGATION
-    ===================================================== */
-
-    function isNavigationItemActive(item) {
-
-        const href =
-            item.href;
-
-
-        /*
-         * Home.
-         */
-
-        if (
-            href === "index.html"
-        ) {
-
-            return (
-                currentPage ===
-                    "index.html" &&
-                !window.location.hash
-            );
-
-        }
-
-
-        /*
-         * Services section.
-         */
-
-        if (
-            href ===
-                "index.html#services"
-        ) {
-
-            return (
-                currentPage ===
-                    "index.html" &&
-                window.location.hash ===
-                    "#services"
-            );
-
-        }
-
-
-        /*
-         * Normal page.
-         */
-
-        return (
-            href.toLowerCase() ===
-            currentPage
-        );
+        setupMobileMenu();
 
     }
 
@@ -1337,105 +1311,84 @@ Assets expected:
        MOBILE MENU
     ===================================================== */
 
-    function initializeMobileMenu() {
+    function setupMobileMenu() {
 
-        const toggle =
+        const button =
             document.getElementById(
                 "meiMenuToggle"
             );
 
 
-        const mobileNav =
+        const menu =
             document.getElementById(
                 "meiMobileNav"
             );
 
 
         if (
-            !toggle ||
-            !mobileNav
+            !button ||
+            !menu
         ) {
             return;
         }
 
 
-        toggle.addEventListener(
+        button.addEventListener(
             "click",
             function () {
 
-                const isOpen =
-                    mobileNav.classList.toggle(
+                const open =
+                    menu.classList.toggle(
                         "open"
                     );
 
 
-                toggle.setAttribute(
+                button.textContent =
+                    open
+                        ? "×"
+                        : "☰";
+
+
+                button.setAttribute(
                     "aria-expanded",
-                    isOpen
+                    open
                         ? "true"
                         : "false"
                 );
-
-
-                toggle.setAttribute(
-                    "aria-label",
-                    isOpen
-                        ? "Close navigation menu"
-                        : "Open navigation menu"
-                );
-
-
-                toggle.textContent =
-                    isOpen
-                        ? "×"
-                        : "☰";
 
             }
         );
 
 
-        /*
-         * Close mobile navigation after
-         * clicking a link.
-         */
-
-        mobileNav
+        menu
             .querySelectorAll("a")
-            .forEach(link => {
+            .forEach(
+                link => {
 
-                link.addEventListener(
-                    "click",
-                    function () {
+                    link.addEventListener(
+                        "click",
+                        function () {
 
-                        mobileNav.classList.remove(
-                            "open"
-                        );
-
-
-                        toggle.setAttribute(
-                            "aria-expanded",
-                            "false"
-                        );
+                            menu.classList.remove(
+                                "open"
+                            );
 
 
-                        toggle.setAttribute(
-                            "aria-label",
-                            "Open navigation menu"
-                        );
+                            button.textContent =
+                                "☰";
 
 
-                        toggle.textContent =
-                            "☰";
+                            button.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
 
-                    }
-                );
+                        }
+                    );
 
-            });
+                }
+            );
 
-
-        /*
-         * Close menu when Escape is pressed.
-         */
 
         document.addEventListener(
             "keydown",
@@ -1446,19 +1399,19 @@ Assets expected:
                     "Escape"
                 ) {
 
-                    mobileNav.classList.remove(
+                    menu.classList.remove(
                         "open"
                     );
 
 
-                    toggle.setAttribute(
+                    button.textContent =
+                        "☰";
+
+
+                    button.setAttribute(
                         "aria-expanded",
                         "false"
                     );
-
-
-                    toggle.textContent =
-                        "☰";
 
                 }
 
@@ -1474,10 +1427,6 @@ Assets expected:
 
     function createFooter() {
 
-        /*
-         * Prevent duplicate footer.
-         */
-
         if (
             document.querySelector(
                 ".mei-site-footer"
@@ -1488,7 +1437,9 @@ Assets expected:
 
 
         const footer =
-            document.createElement("footer");
+            document.createElement(
+                "footer"
+            );
 
 
         footer.className =
@@ -1501,7 +1452,7 @@ Assets expected:
 
         footer.innerHTML = `
 
-            <div class="mei-footer-main">
+            <div class="mei-footer-inner">
 
 
                 <div class="mei-footer-brand">
@@ -1513,26 +1464,23 @@ Assets expected:
 
                         <img
                             src="${MEI_BRAND.logoWhite}"
-                            alt="MEI Group"
+                            alt="MEI Group logo"
                         >
 
-                        <span>
-
-                            <strong>
-                                MEI Group
-                            </strong>
-
-                        </span>
+                        <strong>
+                            MEI Group
+                        </strong>
 
                     </a>
 
 
                     <p>
                         MEI Group, a division of
-                        MEI Press Holdings Ltd, provides
-                        professional services in international
-                        education, road safety, occupational
-                        safety and health, and driver recruitment.
+                        MEI Press Holdings Ltd,
+                        provides professional services
+                        in international education,
+                        road safety, occupational safety
+                        and health, and driver recruitment.
                     </p>
 
                 </div>
@@ -1544,21 +1492,17 @@ Assets expected:
                         Services
                     </h4>
 
-
                     <a href="education.html">
                         International Education
                     </a>
-
 
                     <a href="road-safety.html">
                         Road Safety
                     </a>
 
-
                     <a href="occupational-safety.html">
                         Occupational Safety & Health
                     </a>
-
 
                     <a href="driver-recruitment.html">
                         Driver Recruitment
@@ -1573,21 +1517,21 @@ Assets expected:
                         Quick Links
                     </h4>
 
-
                     <a href="index.html">
                         Home
                     </a>
 
-
-                    <a href="index.html#about">
-                        About Us
+                    <a href="index.html#services">
+                        Services
                     </a>
 
+                    <a href="index.html#about">
+                        About
+                    </a>
 
                     <a href="training-calendar.html">
                         Training Calendar
                     </a>
-
 
                     <a href="index.html#contact">
                         Contact
@@ -1605,7 +1549,7 @@ Assets expected:
 
                     <div class="mei-footer-contact">
 
-                        <div>
+                        <div class="mei-footer-contact-item">
 
                             <strong>
                                 Phone
@@ -1616,7 +1560,7 @@ Assets expected:
                         </div>
 
 
-                        <div>
+                        <div class="mei-footer-contact-item">
 
                             <strong>
                                 Email
@@ -1627,7 +1571,7 @@ Assets expected:
                         </div>
 
 
-                        <div>
+                        <div class="mei-footer-contact-item">
 
                             <strong>
                                 Location
@@ -1647,16 +1591,16 @@ Assets expected:
 
             <div class="mei-footer-bottom">
 
-                <p>
+                <span>
                     © ${year}
                     ${MEI_BRAND.legalName}.
                     All rights reserved.
-                </p>
+                </span>
 
 
-                <p class="mei-footer-tagline">
+                <span class="mei-footer-tagline">
                     Professional. Practical. Opportunity Focused.
-                </p>
+                </span>
 
             </div>
 
@@ -1674,35 +1618,37 @@ Assets expected:
        INITIALIZE
     ===================================================== */
 
-    function initializeMEIBrand() {
+    function initializeMEI() {
 
-        /*
-         * Run all brand functions.
-         */
+        try {
 
-        createFavicon();
+            createFavicon();
 
-        injectStyles();
+            createStyles();
 
-        createHeader();
+            createHeader();
 
-        createFooter();
+            createFooter();
 
 
-        /*
-         * Make sure body does not accidentally
-         * inherit old fixed header spacing.
-         */
+            console.log(
+                "MEI Group brand system loaded successfully."
+            );
 
-        document.body.classList.add(
-            "mei-brand-loaded"
-        );
+        } catch (error) {
+
+            console.error(
+                "MEI Group brand system error:",
+                error
+            );
+
+        }
 
     }
 
 
     /* =====================================================
-       DOM READY
+       START
     ===================================================== */
 
     if (
@@ -1712,14 +1658,13 @@ Assets expected:
 
         document.addEventListener(
             "DOMContentLoaded",
-            initializeMEIBrand
+            initializeMEI
         );
 
     } else {
 
-        initializeMEIBrand();
+        initializeMEI();
 
     }
-
 
 })();
