@@ -1,1156 +1,1601 @@
-(function(){
-'use strict';
+/* =========================================================
+   MEI GROUP - ADMIN TRAINING MANAGEMENT
+   File: js/admin-training.js
+   Version: 20260927
+   ========================================================= */
 
-const db=window.supabaseClient;
-let trainingSessions=[];
-let trainingCourses=[];
-let trainingRegistrations=[];
-let editingTrainingId=null;
+(function () {
+    "use strict";
 
-function esc(value){
-    return String(value??'')
-        .replace(/&/g,'&amp;')
-        .replace(/</g,'&lt;')
-        .replace(/>/g,'&gt;')
-        .replace(/"/g,'&quot;')
-        .replace(/'/g,'&#039;');
-}
+    let trainingSessions = [];
+    let trainingCourses = [];
+    let trainingRegistrations = [];
 
-function formatDate(date){
-    if(!date)return '—';
-    const d=new Date(date+'T00:00:00');
-    return isNaN(d)?date:d.toLocaleDateString('en-GB',{
-        day:'2-digit',
-        month:'short',
-        year:'numeric'
-    });
-}
+    const $ = (id) => document.getElementById(id);
 
-function formatTime(time){
-    if(!time)return '';
-    return String(time).slice(0,5);
-}
+    /* =========================================================
+       HELPERS
+       ========================================================= */
 
-function money(value){
-    const n=Number(value||0);
-    return n.toLocaleString('en-KE',{
-        minimumFractionDigits:2,
-        maximumFractionDigits:2
-    });
-}
-
-function statusBadge(status){
-    const labels={
-        scheduled:'Scheduled',
-        open:'Open',
-        full:'Full',
-        in_progress:'In Progress',
-        completed:'Completed',
-        cancelled:'Cancelled',
-        postponed:'Postponed',
-        registered:'Registered',
-        confirmed:'Confirmed',
-        waitlisted:'Waitlisted',
-        cancelled_registration:'Cancelled',
-        no_show:'No Show',
-        unpaid:'Unpaid',
-        partial:'Partial',
-        paid:'Paid',
-        refunded:'Refunded'
-    };
-
-    const safe=String(status||'').replace(/[^a-zA-Z0-9_-]/g,'_');
-
-    return `<span class="status-badge ${safe}">
-        <span class="dot"></span>${esc(labels[status]||status||'Unknown')}
-    </span>`;
-}
-
-function showError(message){
-    if(typeof window.showToast==='function'){
-        window.showToast(message,'error');
-    }else{
-        alert(message);
-    }
-}
-
-function showSuccess(message){
-    if(typeof window.showToast==='function'){
-        window.showToast(message,'success');
-    }
-}
-
-async function checkSupabaseSession(){
-    if(!db){
-        showError('Supabase client is not initialized.');
-        return false;
+    function escapeHTML(value) {
+        return String(value ?? "")
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
     }
 
-    try{
-        const {data,error}=await db.auth.getSession();
+    function formatDate(dateValue) {
+        if (!dateValue) return "—";
 
-        if(error){
-            console.error(error);
-            showError(error.message);
-            return false;
+        const date = new Date(dateValue + "T00:00:00");
+
+        if (Number.isNaN(date.getTime())) {
+            return dateValue;
         }
 
-        if(!data.session){
-            console.warn('No Supabase Auth session found.');
-            return false;
-        }
-
-        return true;
-    }catch(error){
-        console.error(error);
-        return false;
+        return date.toLocaleDateString("en-KE", {
+            day: "2-digit",
+            month: "short",
+            year: "numeric"
+        });
     }
-}
 
-async function loadCourses(){
-    const select=document.getElementById('trainingCourse');
+    function formatTime(timeValue) {
+        if (!timeValue) return "—";
 
-    try{
-        const {data,error}=await db
-            .from('training_courses')
-            .select('*')
-            .eq('active',true)
-            .order('display_order',{ascending:true})
-            .order('course_name',{ascending:true});
+        const parts = String(timeValue).split(":");
+        if (parts.length < 2) return timeValue;
 
-        if(error)throw error;
+        let hour = parseInt(parts[0], 10);
+        const minute = parts[1];
 
-        trainingCourses=data||[];
+        if (Number.isNaN(hour)) return timeValue;
 
-        if(select){
-            select.innerHTML='<option value="">Select course</option>';
+        const suffix = hour >= 12 ? "PM" : "AM";
+        hour = hour % 12 || 12;
 
-            trainingCourses.forEach(course=>{
-                const option=document.createElement('option');
-                option.value=course.id;
-                option.textContent=
-                    `${course.course_code?course.course_code+' — ':''}${course.course_name}`;
-                select.appendChild(option);
-            });
+        return `${hour}:${minute} ${suffix}`;
+    }
+
+    function formatMoney(value) {
+        const amount = Number(value || 0);
+
+        return amount.toLocaleString("en-KE", {
+            minimumFractionDigits: 2,
+            maximumFractionDigits: 2
+        });
+    }
+
+    function getSupabase() {
+        if (!window.supabaseClient) {
+            throw new Error(
+                "Supabase client is not initialized. Check admin.html configuration."
+            );
         }
+
+        return window.supabaseClient;
+    }
+
+    async function requireSupabaseAuth() {
+        const supabase = getSupabase();
+
+        const {
+            data: { session },
+            error
+        } = await supabase.auth.getSession();
+
+        if (error) {
+            throw error;
+        }
+
+        if (!session) {
+            throw new Error(
+                "No Supabase Auth session found. Please sign in through admin-login.html using Supabase Auth."
+            );
+        }
+
+        return session;
+    }
+
+    function showMessage(message, type = "success") {
+        if (typeof window.showToast === "function") {
+            window.showToast(message, type);
+            return;
+        }
+
+        const existing = $("trainingFormMessage");
+
+        if (existing) {
+            existing.textContent = message;
+            existing.style.display = "block";
+            existing.className = `form-message ${type}`;
+
+            setTimeout(() => {
+                existing.style.display = "none";
+            }, 5000);
+
+            return;
+        }
+
+        if (type === "error") {
+            console.error(message);
+        } else {
+            console.log(message);
+        }
+    }
+
+    function getCourseById(id) {
+        return trainingCourses.find(
+            course => String(course.id) === String(id)
+        );
+    }
+
+    function getSessionById(id) {
+        return trainingSessions.find(
+            session => String(session.id) === String(id)
+        );
+    }
+
+    function getCourseName(courseId) {
+        const course = getCourseById(courseId);
+
+        return course
+            ? course.course_name
+            : "Training Course";
+    }
+
+    /* =========================================================
+       LOAD TRAINING COURSES
+       ========================================================= */
+
+    async function loadTrainingCourses() {
+        const supabase = getSupabase();
+
+        const { data, error } = await supabase
+            .from("training_courses")
+            .select("*")
+            .order("display_order", { ascending: true })
+            .order("course_name", { ascending: true });
+
+        if (error) {
+            throw error;
+        }
+
+        trainingCourses = data || [];
+
+        populateCourseSelect();
 
         return trainingCourses;
-    }catch(error){
-        console.error('TRAINING COURSES ERROR:',error);
-
-        if(select){
-            select.innerHTML='<option value="">Unable to load courses</option>';
-        }
-
-        showError('Could not load training courses: '+error.message);
-        return [];
-    }
-}
-
-async function loadAdminTrainingSessions(){
-    const tbody=document.getElementById('trainingSessionsTable');
-
-    if(!tbody)return;
-
-    tbody.innerHTML=`
-        <tr>
-            <td colspan="8" style="text-align:center;padding:30px;color:var(--text-secondary);">
-                <i class="fas fa-spinner fa-spin"></i> Loading training sessions...
-            </td>
-        </tr>`;
-
-    try{
-        if(!db)throw new Error('Supabase client is not initialized.');
-
-        const service=document.getElementById('trainingServiceFilter')?.value||'';
-        const status=document.getElementById('trainingStatusFilter')?.value||'';
-
-        let query=db
-            .from('training_sessions')
-            .select('*')
-            .order('session_date',{ascending:true})
-            .order('start_time',{ascending:true});
-
-        if(service)query=query.eq('service',service);
-        if(status)query=query.eq('status',status);
-
-        const {data,error}=await query;
-
-        if(error)throw error;
-
-        trainingSessions=data||[];
-
-        renderTrainingStats();
-        renderTrainingSessions();
-
-    }catch(error){
-        console.error('TRAINING SESSIONS ERROR:',error);
-
-        tbody.innerHTML=`
-            <tr>
-                <td colspan="8">
-                    <div class="empty-state">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h4>Unable to load training sessions</h4>
-                        <p>${esc(error.message||'Unknown database error')}</p>
-                    </div>
-                </td>
-            </tr>`;
-
-        showError('Training sessions: '+error.message);
-    }
-}
-
-function renderTrainingStats(){
-    const today=new Date();
-    today.setHours(0,0,0,0);
-
-    const total=trainingSessions.length;
-    const published=trainingSessions.filter(s=>s.published===true).length;
-    const open=trainingSessions.filter(s=>s.status==='open').length;
-    const upcoming=trainingSessions.filter(s=>{
-        if(!s.session_date)return false;
-        const d=new Date(s.session_date+'T00:00:00');
-        return d>=today&&!['cancelled','postponed','completed'].includes(s.status);
-    }).length;
-
-    const set=(id,value)=>{
-        const el=document.getElementById(id);
-        if(el)el.textContent=value;
-    };
-
-    set('trainingTotal',total);
-    set('trainingPublished',published);
-    set('trainingOpen',open);
-    set('trainingUpcoming',upcoming);
-    set('trainingCount',total);
-}
-
-function renderTrainingSessions(){
-    const tbody=document.getElementById('trainingSessionsTable');
-
-    if(!tbody)return;
-
-    if(!trainingSessions.length){
-        tbody.innerHTML=`
-            <tr>
-                <td colspan="8">
-                    <div class="empty-state">
-                        <i class="fas fa-calendar-xmark"></i>
-                        <h4>No training sessions found</h4>
-                        <p>Create your first training session using the button above.</p>
-                    </div>
-                </td>
-            </tr>`;
-        return;
     }
 
-    tbody.innerHTML=trainingSessions.map(session=>{
-        const course=findCourse(session.course_id);
-        const registrations=trainingRegistrations.filter(
-            r=>Number(r.session_id)===Number(session.id)
-        ).length;
+    function populateCourseSelect(selectedId = null) {
+        const select = $("trainingCourse");
 
-        return `
-            <tr>
-                <td>
-                    <strong>${formatDate(session.session_date)}</strong>
-                    <div style="font-size:.72rem;color:var(--text-secondary);">
-                        ${formatTime(session.start_time)}
-                        ${session.end_time?' - '+formatTime(session.end_time):''}
-                    </div>
-                </td>
+        if (!select) return;
 
-                <td>
-                    <strong>${esc(course?.course_name||session.session_title||'Training')}</strong>
-                    ${course?.course_code?`
-                        <div style="font-size:.7rem;color:var(--text-secondary);">
-                            ${esc(course.course_code)}
-                        </div>`:''}
-                </td>
+        const currentValue =
+            selectedId !== null
+                ? String(selectedId)
+                : String(select.value || "");
 
-                <td>${esc(session.service||'—')}</td>
+        select.innerHTML = `
+            <option value="">Select training course</option>
+        `;
 
-                <td>
-                    ${esc(session.venue||'—')}
-                    ${session.location?`
-                        <div style="font-size:.72rem;color:var(--text-secondary);">
-                            ${esc(session.location)}
-                        </div>`:''}
-                </td>
+        trainingCourses
+            .filter(course => course.active !== false)
+            .forEach(course => {
+                const option = document.createElement("option");
 
-                <td>
-                    <strong>${Number(session.capacity||0)}</strong>
-                    <div style="font-size:.7rem;color:var(--text-secondary);">
-                        ${registrations} registered
-                    </div>
-                </td>
+                option.value = course.id;
 
-                <td>${statusBadge(session.status)}</td>
+                option.textContent =
+                    `${course.course_code ? course.course_code + " - " : ""}${course.course_name}`;
 
-                <td>
-                    ${session.published
-                        ?'<span class="published-yes"><i class="fas fa-check-circle"></i> Yes</span>'
-                        :'<span class="published-no"><i class="fas fa-eye-slash"></i> No</span>'
-                    }
-                </td>
+                if (String(course.id) === currentValue) {
+                    option.selected = true;
+                }
 
-                <td>
-                    <div class="action-btns">
-                        <button
-                            class="view"
-                            title="View registrations"
-                            onclick="viewSessionRegistrations(${session.id})">
-                            <i class="fas fa-users"></i>
-                        </button>
+                select.appendChild(option);
+            });
+    }
 
-                        <button
-                            class="edit-btn"
-                            onclick="editTrainingSession(${session.id})">
-                            <i class="fas fa-edit"></i> Edit
-                        </button>
+    /* =========================================================
+       COURSE AUTO-FILL
+       ========================================================= */
 
-                        <button
-                            class="delete-btn"
-                            onclick="deleteTrainingSession(${session.id})">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </td>
-            </tr>`;
-    }).join('');
-}
+    function syncCourseFields() {
+        const courseId = $("trainingCourse")?.value;
 
-function findCourse(id){
-    return trainingCourses.find(c=>Number(c.id)===Number(id));
-}
-
-window.openTrainingModal=async function(sessionId=null){
-    editingTrainingId=sessionId;
-
-    const modal=document.getElementById('trainingModal');
-    const title=document.getElementById('trainingModalTitle');
-    const form=document.getElementById('trainingForm');
-    const message=document.getElementById('trainingFormMessage');
-
-    if(!modal)return;
-
-    await loadCourses();
-
-    form.reset();
-
-    document.getElementById('trainingId').value='';
-    document.getElementById('trainingStartTime').value='09:00';
-    document.getElementById('trainingEndTime').value='16:00';
-    document.getElementById('trainingVenue').value='MEI Group Training Centre';
-    document.getElementById('trainingCapacity').value='25';
-    document.getElementById('trainingPrice').value='0';
-    document.getElementById('trainingPublished').checked=true;
-
-    message.textContent='';
-    message.style.color='';
-
-    title.textContent=sessionId
-        ? 'Edit Training Session'
-        : 'Add Training Session';
-
-    if(sessionId){
-        const session=trainingSessions.find(
-            s=>Number(s.id)===Number(sessionId)
-        );
-
-        if(!session){
-            showError('Training session not found.');
+        if (!courseId) {
             return;
         }
 
-        document.getElementById('trainingId').value=session.id;
-        document.getElementById('trainingCourse').value=session.course_id||'';
-        document.getElementById('trainingService').value=session.service||'';
-        document.getElementById('trainingTitle').value=session.session_title||'';
-        document.getElementById('trainingDate').value=session.session_date||'';
-        document.getElementById('trainingDeadline').value=session.registration_deadline||'';
-        document.getElementById('trainingStartTime').value=formatTime(session.start_time)||'09:00';
-        document.getElementById('trainingEndTime').value=formatTime(session.end_time)||'16:00';
-        document.getElementById('trainingVenue').value=session.venue||'';
-        document.getElementById('trainingLocation').value=session.location||'';
-        document.getElementById('trainingTrainer').value=session.trainer_name||'';
-        document.getElementById('trainingCapacity').value=session.capacity||25;
-        document.getElementById('trainingPrice').value=session.price??0;
-        document.getElementById('trainingStatus').value=session.status||'scheduled';
-        document.getElementById('trainingDescription').value=session.description||'';
-        document.getElementById('trainingNotes').value=session.notes||'';
-        document.getElementById('trainingPublished').checked=!!session.published;
+        const course = getCourseById(courseId);
+
+        if (!course) {
+            return;
+        }
+
+        const serviceField = $("trainingService");
+        const titleField = $("trainingTitle");
+        const priceField = $("trainingPrice");
+
+        if (serviceField && course.service) {
+            serviceField.value = course.service;
+        }
+
+        if (titleField && !titleField.value.trim()) {
+            titleField.value = course.course_name || "";
+        }
+
+        if (
+            priceField &&
+            (
+                priceField.value === "" ||
+                Number(priceField.value) === 0
+            )
+        ) {
+            priceField.value = course.default_price || 0;
+        }
     }
 
-    modal.classList.add('active');
-};
+    /* =========================================================
+       LOAD TRAINING SESSIONS
+       ========================================================= */
 
-window.editTrainingSession=function(id){
-    window.openTrainingModal(id);
-};
+    async function loadAdminTrainingSessions() {
+        try {
+            const supabase = getSupabase();
 
-window.closeTrainingModal=function(){
-    const modal=document.getElementById('trainingModal');
-    if(modal)modal.classList.remove('active');
-    editingTrainingId=null;
-};
+            await requireSupabaseAuth();
 
-document.getElementById('trainingModal')?.addEventListener('click',function(e){
-    if(e.target===this)window.closeTrainingModal();
-});
+            await loadTrainingCourses();
 
-document.getElementById('trainingForm')?.addEventListener('submit',async function(e){
-    e.preventDefault();
+            const { data, error } = await supabase
+                .from("training_sessions")
+                .select("*")
+                .order("session_date", { ascending: true })
+                .order("start_time", { ascending: true });
 
-    const button=document.getElementById('saveTrainingButton');
-    const message=document.getElementById('trainingFormMessage');
+            if (error) {
+                throw error;
+            }
 
-    button.disabled=true;
-    message.textContent='Saving...';
-    message.style.color='var(--text-secondary)';
+            trainingSessions = data || [];
 
-    try{
-        const session={
-            course_id:Number(document.getElementById('trainingCourse').value),
-            service:document.getElementById('trainingService').value,
-            session_title:document.getElementById('trainingTitle').value.trim(),
-            session_date:document.getElementById('trainingDate').value,
-            start_time:document.getElementById('trainingStartTime').value||null,
-            end_time:document.getElementById('trainingEndTime').value||null,
-            venue:document.getElementById('trainingVenue').value.trim()||null,
-            location:document.getElementById('trainingLocation').value.trim()||null,
-            trainer_name:document.getElementById('trainingTrainer').value.trim()||null,
-            capacity:Number(document.getElementById('trainingCapacity').value||0),
-            registration_deadline:document.getElementById('trainingDeadline').value||null,
-            price:Number(document.getElementById('trainingPrice').value||0),
-            currency:'KES',
-            status:document.getElementById('trainingStatus').value,
-            description:document.getElementById('trainingDescription').value.trim()||null,
-            notes:document.getElementById('trainingNotes').value.trim()||null,
-            published:document.getElementById('trainingPublished').checked
-        };
+            renderTrainingSessions();
 
-        if(!session.course_id){
-            throw new Error('Please select a course.');
+            return trainingSessions;
+
+        } catch (error) {
+            console.error(
+                "TRAINING SESSION LOAD ERROR:",
+                error
+            );
+
+            const table = $("trainingSessionsTable");
+
+            if (table) {
+                table.innerHTML = `
+                    <tr>
+                        <td colspan="10" style="text-align:center;padding:30px;">
+                            <strong>Unable to load training sessions</strong>
+                            <div style="margin-top:8px;color:#b91c1c;">
+                                ${escapeHTML(error.message)}
+                            </div>
+                        </td>
+                    </tr>
+                `;
+            }
+
+            showMessage(error.message, "error");
+
+            return [];
         }
-
-        if(!session.service){
-            throw new Error('Please select a program.');
-        }
-
-        if(!session.session_title){
-            throw new Error('Please enter the session title.');
-        }
-
-        if(!session.session_date){
-            throw new Error('Please select the training date.');
-        }
-
-        if(session.capacity<1){
-            throw new Error('Capacity must be at least 1.');
-        }
-
-        let result;
-
-        if(editingTrainingId){
-            result=await db
-                .from('training_sessions')
-                .update(session)
-                .eq('id',editingTrainingId)
-                .select()
-                .single();
-        }else{
-            result=await db
-                .from('training_sessions')
-                .insert(session)
-                .select()
-                .single();
-        }
-
-        if(result.error)throw result.error;
-
-        message.textContent='Saved successfully.';
-        message.style.color='var(--green)';
-
-        showSuccess(
-            editingTrainingId
-                ? 'Training session updated.'
-                : 'Training session created.'
-        );
-
-        await loadAdminTrainingSessions();
-
-        setTimeout(()=>{
-            window.closeTrainingModal();
-        },500);
-
-    }catch(error){
-        console.error('SAVE TRAINING ERROR:',error);
-        message.textContent=error.message||'Unable to save training session.';
-        message.style.color='var(--red)';
-        showError(error.message||'Unable to save training session.');
-    }finally{
-        button.disabled=false;
-    }
-});
-
-window.deleteTrainingSession=async function(id){
-    const session=trainingSessions.find(s=>Number(s.id)===Number(id));
-
-    if(!session)return;
-
-    const registrations=trainingRegistrations.filter(
-        r=>Number(r.session_id)===Number(id)
-    );
-
-    let message=
-        `Delete "${session.session_title}" on ${formatDate(session.session_date)}?`;
-
-    if(registrations.length){
-        message+=
-            `\n\nThis session has ${registrations.length} registration(s). `+
-            `Delete the session only if you are sure the registrations should also be removed or handled first.`;
     }
 
-    if(!confirm(message))return;
+    /* =========================================================
+       RENDER TRAINING SESSIONS
+       ========================================================= */
 
-    try{
-        const {error}=await db
-            .from('training_sessions')
-            .delete()
-            .eq('id',id);
+    function renderTrainingSessions() {
+        const table = $("trainingSessionsTable");
 
-        if(error)throw error;
+        if (!table) return;
 
-        showSuccess('Training session deleted.');
+        const serviceFilter =
+            $("trainingServiceFilter")?.value || "";
 
-        await loadAdminTrainingSessions();
-        await loadTrainingRegistrations();
+        const statusFilter =
+            $("trainingStatusFilter")?.value || "";
 
-    }catch(error){
-        console.error('DELETE TRAINING ERROR:',error);
-        showError(
-            'Could not delete training session: '+error.message
-        );
-    }
-};
+        let rows = [...trainingSessions];
 
-async function loadRegistrationData(){
-    try{
-        const {data,error}=await db
-            .from('training_registrations')
-            .select('*')
-            .order('created_at',{ascending:false});
-
-        if(error)throw error;
-
-        trainingRegistrations=data||[];
-
-        return trainingRegistrations;
-    }catch(error){
-        console.error('REGISTRATION DATA ERROR:',error);
-        trainingRegistrations=[];
-        return [];
-    }
-}
-
-window.loadTrainingRegistrations=async function(){
-    const tbody=document.getElementById('trainingRegistrationsTable');
-
-    if(!tbody)return;
-
-    tbody.innerHTML=`
-        <tr>
-            <td colspan="9" style="text-align:center;padding:30px;color:var(--text-secondary);">
-                <i class="fas fa-spinner fa-spin"></i> Loading registrations...
-            </td>
-        </tr>`;
-
-    try{
-        if(!db)throw new Error('Supabase client is not initialized.');
-
-        await loadRegistrationData();
-
-        const sessionIds=[
-            ...new Set(trainingRegistrations.map(r=>r.session_id).filter(Boolean))
-        ];
-
-        let sessions=[];
-
-        if(sessionIds.length){
-            const {data,error}=await db
-                .from('training_sessions')
-                .select('*')
-                .in('id',sessionIds);
-
-            if(error)throw error;
-
-            sessions=data||[];
+        if (serviceFilter) {
+            rows = rows.filter(
+                session =>
+                    String(session.service || "") ===
+                    String(serviceFilter)
+            );
         }
 
-        const sessionMap=new Map(
-            sessions.map(s=>[Number(s.id),s])
-        );
+        if (statusFilter) {
+            rows = rows.filter(
+                session =>
+                    String(session.status || "") ===
+                    String(statusFilter)
+            );
+        }
 
-        document.getElementById('registrationsCount').textContent=
-            trainingRegistrations.length;
+        updateTrainingStats(rows);
 
-        document.getElementById('regBadge').textContent=
-            trainingRegistrations.filter(r=>
-                ['registered','confirmed','waitlisted'].includes(r.registration_status)
-            ).length;
+        const count = $("trainingCount");
 
-        if(!trainingRegistrations.length){
-            tbody.innerHTML=`
+        if (count) {
+            count.textContent = rows.length;
+        }
+
+        if (!rows.length) {
+            table.innerHTML = `
                 <tr>
-                    <td colspan="9">
-                        <div class="empty-state">
-                            <i class="fas fa-users-slash"></i>
-                            <h4>No registrations yet</h4>
-                            <p>Public registrations will appear here.</p>
+                    <td colspan="10" style="text-align:center;padding:35px;">
+                        <strong>No training sessions found.</strong>
+                        <div style="margin-top:6px;color:#64748b;">
+                            Create a training session or change the filters.
                         </div>
                     </td>
-                </tr>`;
+                </tr>
+            `;
+
             return;
         }
 
-        tbody.innerHTML=trainingRegistrations.map(reg=>{
-            const session=sessionMap.get(Number(reg.session_id));
-            const course=findCourse(session?.course_id);
+        table.innerHTML = rows.map(session => {
+
+            const courseName =
+                getCourseName(session.course_id);
+
+            const status =
+                String(session.status || "scheduled");
+
+            const statusClass =
+                getStatusClass(status);
+
+            const published =
+                session.published === true;
+
+            const registrationCount =
+                trainingRegistrations.filter(
+                    reg =>
+                        String(reg.session_id) ===
+                        String(session.id)
+                ).length;
 
             return `
                 <tr>
-                    <td>
-                        <strong>${esc(reg.registration_number||'Pending')}</strong>
-                    </td>
 
                     <td>
-                        <strong>${esc(reg.full_name||'—')}</strong>
-                        ${reg.organization?`
-                            <div style="font-size:.7rem;color:var(--text-secondary);">
-                                ${esc(reg.organization)}
-                            </div>`:''}
-                    </td>
+                        <strong>
+                            ${escapeHTML(session.session_title || courseName)}
+                        </strong>
 
-                    <td>${esc(reg.email||'—')}</td>
-                    <td>${esc(reg.phone||'—')}</td>
-
-                    <td>
-                        ${esc(
-                            course?.course_name||
-                            session?.session_title||
-                            '—'
-                        )}
-                    </td>
-
-                    <td>
-                        ${formatDate(session?.session_date)}
-                    </td>
-
-                    <td>
-                        ${statusBadge(reg.payment_status||'unpaid')}
-                        <div style="font-size:.7rem;margin-top:3px;">
-                            Due: KES ${money(reg.amount_due)}
+                        <div style="
+                            font-size:12px;
+                            color:#64748b;
+                            margin-top:3px;
+                        ">
+                            ${escapeHTML(courseName)}
                         </div>
                     </td>
 
-                    <td>${statusBadge(reg.registration_status||'registered')}</td>
+                    <td>
+                        ${escapeHTML(session.service || "—")}
+                    </td>
 
                     <td>
-                        <div class="action-btns">
-                            <button
-                                class="view"
-                                title="View registration"
-                                onclick="viewTrainingRegistration(${reg.id})">
-                                <i class="fas fa-eye"></i>
-                            </button>
+                        <strong>
+                            ${formatDate(session.session_date)}
+                        </strong>
 
-                            <button
-                                class="edit-btn"
-                                onclick="editTrainingRegistration(${reg.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
-
-                            <button
-                                class="delete-btn"
-                                onclick="deleteTrainingRegistration(${reg.id})">
-                                <i class="fas fa-trash"></i>
-                            </button>
+                        <div style="
+                            font-size:12px;
+                            color:#64748b;
+                            margin-top:3px;
+                        ">
+                            ${formatTime(session.start_time)}
+                            -
+                            ${formatTime(session.end_time)}
                         </div>
                     </td>
-                </tr>`;
-        }).join('');
 
-    }catch(error){
-        console.error('REGISTRATION ERROR:',error);
+                    <td>
+                        ${escapeHTML(session.venue || "—")}
+                    </td>
 
-        tbody.innerHTML=`
-            <tr>
-                <td colspan="9">
-                    <div class="empty-state">
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <h4>Unable to load registrations</h4>
-                        <p>${esc(error.message||'Unknown database error')}</p>
-                    </div>
-                </td>
-            </tr>`;
+                    <td>
+                        ${escapeHTML(session.trainer_name || "—")}
+                    </td>
 
-        showError('Registrations: '+error.message);
+                    <td>
+                        ${session.capacity ?? "—"}
+                    </td>
+
+                    <td>
+                        ${registrationCount}
+                    </td>
+
+                    <td>
+                        <span class="status-badge ${statusClass}">
+                            ${escapeHTML(status)}
+                        </span>
+                    </td>
+
+                    <td>
+                        ${
+                            published
+                                ? `
+                                    <span class="status-badge status-success">
+                                        Published
+                                    </span>
+                                  `
+                                : `
+                                    <span class="status-badge status-warning">
+                                        Hidden
+                                    </span>
+                                  `
+                        }
+                    </td>
+
+                    <td>
+                        <div style="
+                            display:flex;
+                            gap:6px;
+                            flex-wrap:wrap;
+                        ">
+
+                            <button
+                                type="button"
+                                class="btn btn-sm"
+                                onclick="editTrainingSession(${session.id})"
+                            >
+                                Edit
+                            </button>
+
+                            <button
+                                type="button"
+                                class="btn btn-sm btn-danger"
+                                onclick="deleteTrainingSession(${session.id})"
+                            >
+                                Delete
+                            </button>
+
+                        </div>
+                    </td>
+
+                </tr>
+            `;
+
+        }).join("");
     }
-};
 
-window.viewTrainingRegistration=function(id){
-    const reg=trainingRegistrations.find(
-        r=>Number(r.id)===Number(id)
-    );
+    /* =========================================================
+       TRAINING STATISTICS
+       ========================================================= */
 
-    if(!reg)return;
+    function updateTrainingStats(rows) {
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
 
-    const session=trainingSessions.find(
-        s=>Number(s.id)===Number(reg.session_id)
-    );
+        const total = rows.length;
 
-    const course=findCourse(session?.course_id);
+        const published =
+            rows.filter(
+                session => session.published === true
+            ).length;
 
-    const content=`
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;">
-            <div>
-                <strong>Registration Number</strong>
-                <div>${esc(reg.registration_number||'Pending')}</div>
-            </div>
+        const open =
+            rows.filter(
+                session => session.status === "open"
+            ).length;
 
-            <div>
-                <strong>Status</strong>
-                <div>${statusBadge(reg.registration_status||'registered')}</div>
-            </div>
+        const upcoming =
+            rows.filter(session => {
+                if (!session.session_date) return false;
 
-            <div>
-                <strong>Participant</strong>
-                <div>${esc(reg.full_name||'—')}</div>
-            </div>
+                const date =
+                    new Date(
+                        session.session_date + "T00:00:00"
+                    );
 
-            <div>
-                <strong>Participant Type</strong>
-                <div>${esc(reg.participant_type||'—')}</div>
-            </div>
-
-            <div>
-                <strong>Email</strong>
-                <div>${esc(reg.email||'—')}</div>
-            </div>
-
-            <div>
-                <strong>Phone</strong>
-                <div>${esc(reg.phone||'—')}</div>
-            </div>
-
-            <div>
-                <strong>Organization</strong>
-                <div>${esc(reg.organization||'—')}</div>
-            </div>
-
-            <div>
-                <strong>Job Title</strong>
-                <div>${esc(reg.job_title||'—')}</div>
-            </div>
-
-            <div>
-                <strong>Course</strong>
-                <div>${esc(course?.course_name||session?.session_title||'—')}</div>
-            </div>
-
-            <div>
-                <strong>Training Date</strong>
-                <div>${formatDate(session?.session_date)}</div>
-            </div>
-
-            <div>
-                <strong>Amount Due</strong>
-                <div>KES ${money(reg.amount_due)}</div>
-            </div>
-
-            <div>
-                <strong>Amount Paid</strong>
-                <div>KES ${money(reg.amount_paid)}</div>
-            </div>
-
-            <div>
-                <strong>Payment Status</strong>
-                <div>${statusBadge(reg.payment_status||'unpaid')}</div>
-            </div>
-
-            <div>
-                <strong>Registered</strong>
-                <div>${formatDateTime(reg.created_at)}</div>
-            </div>
-
-            <div style="grid-column:1/-1;">
-                <strong>Notes</strong>
-                <div style="white-space:pre-wrap;margin-top:4px;">
-                    ${esc(reg.notes||'—')}
-                </div>
-            </div>
-        </div>
-
-        <div style="margin-top:24px;padding-top:18px;border-top:1px solid var(--border);">
-            <strong>Update Registration Status</strong>
-
-            <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:10px;">
-                ${[
-                    ['registered','Registered'],
-                    ['confirmed','Confirmed'],
-                    ['waitlisted','Waitlisted'],
-                    ['completed','Completed'],
-                    ['no_show','No Show'],
-                    ['cancelled','Cancelled']
-                ].map(([value,label])=>`
-                    <button
-                        onclick="updateRegistrationStatus(${reg.id},'${value}')"
-                        class="btn btn-outline">
-                        ${label}
-                    </button>
-                `).join('')}
-            </div>
-        </div>`;
-
-    showModalForTraining('Registration Details',content);
-};
-
-function showModalForTraining(title,content){
-    const titleEl=document.getElementById('modalTitle');
-    const bodyEl=document.getElementById('modalBody');
-    const modal=document.getElementById('modalOverlay');
-
-    if(!titleEl||!bodyEl||!modal)return;
-
-    titleEl.textContent=title;
-    bodyEl.innerHTML=content;
-    modal.classList.add('active');
-}
-
-window.editTrainingRegistration=function(id){
-    const reg=trainingRegistrations.find(
-        r=>Number(r.id)===Number(id)
-    );
-
-    if(!reg)return;
-
-    const content=`
-        <form id="registrationEditForm">
-            <div class="form-grid">
-
-                <div class="form-group">
-                    <label>Registration Number</label>
-                    <input value="${esc(reg.registration_number||'')}" disabled>
-                </div>
-
-                <div class="form-group">
-                    <label>Participant</label>
-                    <input value="${esc(reg.full_name||'')}" disabled>
-                </div>
-
-                <div class="form-group">
-                    <label>Payment Status</label>
-                    <select id="editRegPaymentStatus">
-                        ${[
-                            ['unpaid','Unpaid'],
-                            ['partial','Partial'],
-                            ['paid','Paid'],
-                            ['refunded','Refunded']
-                        ].map(([v,l])=>`
-                            <option value="${v}" ${reg.payment_status===v?'selected':''}>
-                                ${l}
-                            </option>
-                        `).join('')}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Amount Paid (KES)</label>
-                    <input
-                        type="number"
-                        id="editRegAmountPaid"
-                        min="0"
-                        step="0.01"
-                        value="${Number(reg.amount_paid||0)}">
-                </div>
-
-                <div class="form-group">
-                    <label>Registration Status</label>
-                    <select id="editRegStatus">
-                        ${[
-                            ['registered','Registered'],
-                            ['confirmed','Confirmed'],
-                            ['waitlisted','Waitlisted'],
-                            ['cancelled','Cancelled'],
-                            ['completed','Completed'],
-                            ['no_show','No Show']
-                        ].map(([v,l])=>`
-                            <option value="${v}" ${reg.registration_status===v?'selected':''}>
-                                ${l}
-                            </option>
-                        `).join('')}
-                    </select>
-                </div>
-
-                <div class="form-group">
-                    <label>Participant Type</label>
-                    <select id="editRegParticipantType">
-                        ${[
-                            ['individual','Individual'],
-                            ['corporate','Corporate'],
-                            ['organization','Organization']
-                        ].map(([v,l])=>`
-                            <option value="${v}" ${reg.participant_type===v?'selected':''}>
-                                ${l}
-                            </option>
-                        `).join('')}
-                    </select>
-                </div>
-
-                <div class="form-group full">
-                    <label>Notes</label>
-                    <textarea id="editRegNotes" rows="4">${esc(reg.notes||'')}</textarea>
-                </div>
-
-            </div>
-
-            <div style="display:flex;justify-content:flex-end;gap:10px;margin-top:20px;">
-                <button
-                    type="button"
-                    class="btn btn-outline"
-                    onclick="closeModal()">
-                    Cancel
-                </button>
-
-                <button
-                    type="submit"
-                    class="btn btn-primary">
-                    <i class="fas fa-save"></i> Save
-                </button>
-            </div>
-        </form>`;
-
-    showModalForTraining('Edit Registration',content);
-
-    document.getElementById('registrationEditForm').addEventListener(
-        'submit',
-        async function(e){
-            e.preventDefault();
-
-            try{
-                const update={
-                    payment_status:document.getElementById('editRegPaymentStatus').value,
-                    amount_paid:Number(
-                        document.getElementById('editRegAmountPaid').value||0
-                    ),
-                    registration_status:
-                        document.getElementById('editRegStatus').value,
-                    participant_type:
-                        document.getElementById('editRegParticipantType').value,
-                    notes:
-                        document.getElementById('editRegNotes').value.trim()||null
-                };
-
-                const {error}=await db
-                    .from('training_registrations')
-                    .update(update)
-                    .eq('id',id);
-
-                if(error)throw error;
-
-                showSuccess('Registration updated.');
-
-                closeModal();
-
-                await loadTrainingRegistrations();
-                await loadRegistrationData();
-
-                if(window.loadAdminTrainingSessions){
-                    await window.loadAdminTrainingSessions();
-                }
-
-            }catch(error){
-                console.error(error);
-                showError(
-                    'Could not update registration: '+error.message
+                return (
+                    date >= today &&
+                    !["cancelled", "postponed", "completed"]
+                        .includes(session.status)
                 );
+            }).length;
+
+        if ($("trainingTotal")) {
+            $("trainingTotal").textContent = total;
+        }
+
+        if ($("trainingPublished")) {
+            $("trainingPublished").textContent = published;
+        }
+
+        if ($("trainingOpen")) {
+            $("trainingOpen").textContent = open;
+        }
+
+        if ($("trainingUpcoming")) {
+            $("trainingUpcoming").textContent = upcoming;
+        }
+    }
+
+    function getStatusClass(status) {
+        switch (String(status).toLowerCase()) {
+            case "open":
+                return "status-success";
+
+            case "scheduled":
+                return "status-info";
+
+            case "full":
+                return "status-warning";
+
+            case "in_progress":
+                return "status-info";
+
+            case "completed":
+                return "status-success";
+
+            case "cancelled":
+                return "status-danger";
+
+            case "postponed":
+                return "status-warning";
+
+            default:
+                return "status-neutral";
+        }
+    }
+
+    /* =========================================================
+       OPEN TRAINING MODAL
+       ========================================================= */
+
+    window.openTrainingModal = async function (id = null) {
+
+        const modal = $("trainingModal");
+        const form = $("trainingForm");
+
+        if (!modal || !form) {
+            console.error("Training modal/form not found.");
+            return;
+        }
+
+        try {
+            if (!trainingCourses.length) {
+                await loadTrainingCourses();
+            }
+        } catch (error) {
+            showMessage(error.message, "error");
+            return;
+        }
+
+        form.reset();
+
+        if ($("trainingId")) {
+            $("trainingId").value = "";
+        }
+
+        if ($("trainingPublished")) {
+            $("trainingPublished").checked = true;
+        }
+
+        if ($("trainingStatus")) {
+            $("trainingStatus").value = "open";
+        }
+
+        if ($("trainingCapacity")) {
+            $("trainingCapacity").value = "25";
+        }
+
+        if ($("trainingPrice")) {
+            $("trainingPrice").value = "0";
+        }
+
+        const title =
+            modal.querySelector(".modal-title") ||
+            modal.querySelector("h2") ||
+            modal.querySelector("h3");
+
+        if (id !== null) {
+
+            const session =
+                getSessionById(id);
+
+            if (!session) {
+                showMessage(
+                    "Training session could not be found.",
+                    "error"
+                );
+                return;
+            }
+
+            if ($("trainingId")) {
+                $("trainingId").value = session.id;
+            }
+
+            populateCourseSelect(session.course_id);
+
+            if ($("trainingCourse")) {
+                $("trainingCourse").value =
+                    session.course_id || "";
+            }
+
+            if ($("trainingService")) {
+                $("trainingService").value =
+                    session.service || "";
+            }
+
+            if ($("trainingTitle")) {
+                $("trainingTitle").value =
+                    session.session_title || "";
+            }
+
+            if ($("trainingDate")) {
+                $("trainingDate").value =
+                    session.session_date || "";
+            }
+
+            if ($("trainingDeadline")) {
+                $("trainingDeadline").value =
+                    session.registration_deadline || "";
+            }
+
+            if ($("trainingStartTime")) {
+                $("trainingStartTime").value =
+                    session.start_time || "";
+            }
+
+            if ($("trainingEndTime")) {
+                $("trainingEndTime").value =
+                    session.end_time || "";
+            }
+
+            if ($("trainingVenue")) {
+                $("trainingVenue").value =
+                    session.venue || "";
+            }
+
+            if ($("trainingLocation")) {
+                $("trainingLocation").value =
+                    session.location || "";
+            }
+
+            if ($("trainingTrainer")) {
+                $("trainingTrainer").value =
+                    session.trainer_name || "";
+            }
+
+            if ($("trainingCapacity")) {
+                $("trainingCapacity").value =
+                    session.capacity ?? 25;
+            }
+
+            if ($("trainingPrice")) {
+                $("trainingPrice").value =
+                    session.price ?? 0;
+            }
+
+            if ($("trainingStatus")) {
+                $("trainingStatus").value =
+                    session.status || "scheduled";
+            }
+
+            if ($("trainingDescription")) {
+                $("trainingDescription").value =
+                    session.description || "";
+            }
+
+            if ($("trainingNotes")) {
+                $("trainingNotes").value =
+                    session.notes || "";
+            }
+
+            if ($("trainingPublished")) {
+                $("trainingPublished").checked =
+                    session.published === true;
+            }
+
+            if ($("saveTrainingButton")) {
+                $("saveTrainingButton").textContent =
+                    "Update Training Session";
+            }
+
+            if (title) {
+                title.textContent =
+                    "Edit Training Session";
+            }
+
+        } else {
+
+            populateCourseSelect();
+
+            if ($("trainingStartTime")) {
+                $("trainingStartTime").value = "09:00";
+            }
+
+            if ($("trainingEndTime")) {
+                $("trainingEndTime").value = "16:00";
+            }
+
+            if ($("trainingVenue")) {
+                $("trainingVenue").value =
+                    "MEI Group Training Centre";
+            }
+
+            if ($("trainingCapacity")) {
+                $("trainingCapacity").value = "25";
+            }
+
+            if ($("trainingStatus")) {
+                $("trainingStatus").value = "open";
+            }
+
+            if ($("trainingPublished")) {
+                $("trainingPublished").checked = true;
+            }
+
+            if ($("saveTrainingButton")) {
+                $("saveTrainingButton").textContent =
+                    "Save Training Session";
+            }
+
+            if (title) {
+                title.textContent =
+                    "Add Training Session";
             }
         }
-    );
-};
 
-window.updateRegistrationStatus=async function(id,status){
-    try{
-        const {error}=await db
-            .from('training_registrations')
-            .update({
-                registration_status:status
-            })
-            .eq('id',id);
+        modal.style.display = "flex";
+        modal.classList.add("active");
 
-        if(error)throw error;
+        document.body.classList.add("modal-open");
+    };
 
-        showSuccess('Registration status updated.');
+    /* =========================================================
+       CLOSE MODAL
+       ========================================================= */
 
-        closeModal();
+    window.closeTrainingModal = function () {
 
-        await loadTrainingRegistrations();
-        await loadRegistrationData();
+        const modal = $("trainingModal");
 
-        if(window.loadAdminTrainingSessions){
-            await window.loadAdminTrainingSessions();
+        if (!modal) return;
+
+        modal.style.display = "none";
+        modal.classList.remove("active");
+
+        document.body.classList.remove("modal-open");
+    };
+
+    /* =========================================================
+       EDIT
+       ========================================================= */
+
+    window.editTrainingSession = function (id) {
+        window.openTrainingModal(id);
+    };
+
+    /* =========================================================
+       SAVE TRAINING SESSION
+       ========================================================= */
+
+    async function saveTrainingSession(event) {
+
+        event.preventDefault();
+
+        const button = $("saveTrainingButton");
+
+        try {
+
+            const supabase = getSupabase();
+
+            const authSession =
+                await requireSupabaseAuth();
+
+            const courseId =
+                $("trainingCourse")?.value;
+
+            if (!courseId) {
+                throw new Error(
+                    "Please select a training course."
+                );
+            }
+
+            const course =
+                getCourseById(courseId);
+
+            if (!course) {
+                throw new Error(
+                    "The selected training course could not be found."
+                );
+            }
+
+            const sessionId =
+                $("trainingId")?.value;
+
+            const sessionDate =
+                $("trainingDate")?.value;
+
+            if (!sessionDate) {
+                throw new Error(
+                    "Please select the training date."
+                );
+            }
+
+            const title =
+                $("trainingTitle")?.value.trim() ||
+                course.course_name;
+
+            const service =
+                course.service ||
+                $("trainingService")?.value ||
+                "";
+
+            const payload = {
+                course_id: Number(courseId),
+
+                service: service,
+
+                session_title: title,
+
+                session_date:
+                    sessionDate,
+
+                start_time:
+                    $("trainingStartTime")?.value ||
+                    null,
+
+                end_time:
+                    $("trainingEndTime")?.value ||
+                    null,
+
+                venue:
+                    $("trainingVenue")?.value.trim() ||
+                    null,
+
+                location:
+                    $("trainingLocation")?.value.trim() ||
+                    null,
+
+                trainer_name:
+                    $("trainingTrainer")?.value.trim() ||
+                    null,
+
+                capacity:
+                    Number(
+                        $("trainingCapacity")?.value || 25
+                    ),
+
+                registration_deadline:
+                    $("trainingDeadline")?.value ||
+                    null,
+
+                price:
+                    Number(
+                        $("trainingPrice")?.value || 0
+                    ),
+
+                currency: "KES",
+
+                status:
+                    $("trainingStatus")?.value ||
+                    "scheduled",
+
+                description:
+                    $("trainingDescription")?.value.trim() ||
+                    null,
+
+                notes:
+                    $("trainingNotes")?.value.trim() ||
+                    null,
+
+                published:
+                    $("trainingPublished")?.checked === true
+            };
+
+            if (button) {
+                button.disabled = true;
+                button.textContent =
+                    sessionId
+                        ? "Updating..."
+                        : "Saving...";
+            }
+
+            let result;
+
+            if (sessionId) {
+
+                result = await supabase
+                    .from("training_sessions")
+                    .update(payload)
+                    .eq("id", sessionId)
+                    .select()
+                    .single();
+
+            } else {
+
+                payload.created_by =
+                    authSession.user.id;
+
+                result = await supabase
+                    .from("training_sessions")
+                    .insert(payload)
+                    .select()
+                    .single();
+            }
+
+            if (result.error) {
+                throw result.error;
+            }
+
+            showMessage(
+                sessionId
+                    ? "Training session updated successfully."
+                    : "Training session created successfully.",
+                "success"
+            );
+
+            window.closeTrainingModal();
+
+            await loadAdminTrainingSessions();
+
+        } catch (error) {
+
+            console.error(
+                "SAVE TRAINING SESSION ERROR:",
+                error
+            );
+
+            showMessage(
+                error.message ||
+                "Unable to save training session.",
+                "error"
+            );
+
+        } finally {
+
+            if (button) {
+                button.disabled = false;
+
+                button.textContent =
+                    $("trainingId")?.value
+                        ? "Update Training Session"
+                        : "Save Training Session";
+            }
         }
-
-    }catch(error){
-        console.error(error);
-        showError(
-            'Could not update registration: '+error.message
-        );
     }
-};
 
-window.deleteTrainingRegistration=async function(id){
-    const reg=trainingRegistrations.find(
-        r=>Number(r.id)===Number(id)
-    );
+    /* =========================================================
+       DELETE TRAINING SESSION
+       ========================================================= */
 
-    if(!reg)return;
+    window.deleteTrainingSession = async function (id) {
 
-    if(!confirm(
-        `Delete registration ${reg.registration_number||'#'+id} for ${reg.full_name||'this participant'}?`
-    ))return;
+        const session =
+            getSessionById(id);
 
-    try{
-        const {error}=await db
-            .from('training_registrations')
-            .delete()
-            .eq('id',id);
-
-        if(error)throw error;
-
-        showSuccess('Registration deleted.');
-
-        await loadTrainingRegistrations();
-        await loadRegistrationData();
-
-        if(window.loadAdminTrainingSessions){
-            await window.loadAdminTrainingSessions();
-        }
-
-    }catch(error){
-        console.error(error);
-        showError(
-            'Could not delete registration: '+error.message
-        );
-    }
-};
-
-window.viewSessionRegistrations=function(sessionId){
-    window.switchTab('registrations');
-
-    setTimeout(()=>{
-        const filtered=trainingRegistrations.filter(
-            r=>Number(r.session_id)===Number(sessionId)
-        );
-
-        const session=trainingSessions.find(
-            s=>Number(s.id)===Number(sessionId)
-        );
-
-        if(!filtered.length){
-            showSuccess(
-                `No registrations yet for ${session?.session_title||'this session'}.`
+        if (!session) {
+            showMessage(
+                "Training session not found.",
+                "error"
             );
             return;
         }
 
-        showSuccess(
-            `${filtered.length} registration(s) for ${session?.session_title||'this session'}.`
-        );
+        const confirmed =
+            window.confirm(
+                `Delete "${session.session_title}" on ${formatDate(session.session_date)}?\n\nThis action cannot be undone.`
+            );
 
-        const tbody=document.getElementById(
-            'trainingRegistrationsTable'
-        );
+        if (!confirmed) {
+            return;
+        }
 
-        if(!tbody)return;
+        try {
 
-        tbody.innerHTML=filtered.map(reg=>{
-            const course=findCourse(session?.course_id);
+            const supabase = getSupabase();
 
-            return `
+            await requireSupabaseAuth();
+
+            const { error } =
+                await supabase
+                    .from("training_sessions")
+                    .delete()
+                    .eq("id", id);
+
+            if (error) {
+                throw error;
+            }
+
+            showMessage(
+                "Training session deleted successfully.",
+                "success"
+            );
+
+            await loadAdminTrainingSessions();
+
+            if (
+                typeof window.loadTrainingRegistrations ===
+                "function"
+            ) {
+                await window.loadTrainingRegistrations();
+            }
+
+        } catch (error) {
+
+            console.error(
+                "DELETE TRAINING SESSION ERROR:",
+                error
+            );
+
+            showMessage(
+                error.message ||
+                "Unable to delete training session.",
+                "error"
+            );
+        }
+    };
+
+    /* =========================================================
+       LOAD REGISTRATIONS
+       ========================================================= */
+
+    window.loadTrainingRegistrations =
+        async function () {
+
+            try {
+
+                const supabase =
+                    getSupabase();
+
+                await requireSupabaseAuth();
+
+                const { data, error } =
+                    await supabase
+                        .from("training_registrations")
+                        .select("*")
+                        .order(
+                            "created_at",
+                            {
+                                ascending: false
+                            }
+                        );
+
+                if (error) {
+                    throw error;
+                }
+
+                trainingRegistrations =
+                    data || [];
+
+                renderTrainingRegistrations();
+
+                return trainingRegistrations;
+
+            } catch (error) {
+
+                console.error(
+                    "TRAINING REGISTRATION LOAD ERROR:",
+                    error
+                );
+
+                const table =
+                    $("trainingRegistrationsTable");
+
+                if (table) {
+                    table.innerHTML = `
+                        <tr>
+                            <td colspan="10"
+                                style="text-align:center;padding:30px;">
+                                <strong>
+                                    Unable to load registrations
+                                </strong>
+
+                                <div style="
+                                    margin-top:8px;
+                                    color:#b91c1c;
+                                ">
+                                    ${escapeHTML(error.message)}
+                                </div>
+                            </td>
+                        </tr>
+                    `;
+                }
+
+                showMessage(
+                    error.message,
+                    "error"
+                );
+
+                return [];
+            }
+        };
+
+    /* =========================================================
+       RENDER REGISTRATIONS
+       ========================================================= */
+
+    function renderTrainingRegistrations() {
+
+        const table =
+            $("trainingRegistrationsTable");
+
+        if (!table) return;
+
+        const count =
+            $("registrationsCount");
+
+        const badge =
+            $("regBadge");
+
+        if (count) {
+            count.textContent =
+                trainingRegistrations.length;
+        }
+
+        if (badge) {
+            badge.textContent =
+                trainingRegistrations.length;
+        }
+
+        if (!trainingRegistrations.length) {
+
+            table.innerHTML = `
                 <tr>
-                    <td><strong>${esc(reg.registration_number||'Pending')}</strong></td>
-                    <td><strong>${esc(reg.full_name||'—')}</strong></td>
-                    <td>${esc(reg.email||'—')}</td>
-                    <td>${esc(reg.phone||'—')}</td>
-                    <td>${esc(course?.course_name||session?.session_title||'—')}</td>
-                    <td>${formatDate(session?.session_date)}</td>
-                    <td>${statusBadge(reg.payment_status||'unpaid')}</td>
-                    <td>${statusBadge(reg.registration_status||'registered')}</td>
-                    <td>
-                        <div class="action-btns">
-                            <button
-                                class="view"
-                                onclick="viewTrainingRegistration(${reg.id})">
-                                <i class="fas fa-eye"></i>
-                            </button>
-                            <button
-                                class="edit-btn"
-                                onclick="editTrainingRegistration(${reg.id})">
-                                <i class="fas fa-edit"></i>
-                            </button>
+                    <td colspan="10"
+                        style="text-align:center;padding:35px;">
+                        <strong>
+                            No training registrations yet.
+                        </strong>
+
+                        <div style="
+                            margin-top:6px;
+                            color:#64748b;
+                        ">
+                            Registrations submitted from the
+                            public training calendar will appear here.
                         </div>
                     </td>
-                </tr>`;
-        }).join('');
-    },100);
-};
+                </tr>
+            `;
 
-function formatDateTime(value){
-    if(!value)return '—';
+            return;
+        }
 
-    const d=new Date(value);
+        table.innerHTML =
+            trainingRegistrations.map(reg => {
 
-    if(isNaN(d))return '—';
+                const session =
+                    getSessionById(
+                        reg.session_id
+                    );
 
-    return d.toLocaleString('en-GB',{
-        day:'2-digit',
-        month:'short',
-        year:'numeric',
-        hour:'2-digit',
-        minute:'2-digit'
-    });
-}
+                const status =
+                    String(
+                        reg.registration_status ||
+                        "registered"
+                    );
 
-async function initializeTrainingModule(){
-    const ready=await checkSupabaseSession();
+                const paymentStatus =
+                    String(
+                        reg.payment_status ||
+                        "unpaid"
+                    );
 
-    if(!ready){
-        console.warn(
-            'Training admin module: no Supabase Auth session. '+
-            'RLS-protected admin operations may fail.'
-        );
+                return `
+                    <tr>
+
+                        <td>
+                            <strong>
+                                ${escapeHTML(
+                                    reg.registration_number ||
+                                    "—"
+                                )}
+                            </strong>
+                        </td>
+
+                        <td>
+                            <strong>
+                                ${escapeHTML(
+                                    reg.full_name ||
+                                    "—"
+                                )}
+                            </strong>
+
+                            <div style="
+                                font-size:12px;
+                                color:#64748b;
+                                margin-top:3px;
+                            ">
+                                ${escapeHTML(
+                                    reg.email || ""
+                                )}
+                            </div>
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                reg.phone || "—"
+                            )}
+                        </td>
+
+                        <td>
+                            ${
+                                session
+                                    ? escapeHTML(
+                                        session.session_title
+                                    )
+                                    : "Training Session"
+                            }
+
+                            <div style="
+                                font-size:12px;
+                                color:#64748b;
+                                margin-top:3px;
+                            ">
+                                ${
+                                    session
+                                        ? formatDate(
+                                            session.session_date
+                                        )
+                                        : "—"
+                                }
+                            </div>
+                        </td>
+
+                        <td>
+                            ${escapeHTML(
+                                reg.organization || "—"
+                            )}
+                        </td>
+
+                        <td>
+                            KES ${formatMoney(
+                                reg.amount_due
+                            )}
+                        </td>
+
+                        <td>
+                            KES ${formatMoney(
+                                reg.amount_paid
+                            )}
+                        </td>
+
+                        <td>
+                            <span class="
+                                status-badge
+                                ${getPaymentStatusClass(
+                                    paymentStatus
+                                )}
+                            ">
+                                ${escapeHTML(
+                                    paymentStatus
+                                )}
+                            </span>
+                        </td>
+
+                        <td>
+                            <span class="
+                                status-badge
+                                ${getRegistrationStatusClass(
+                                    status
+                                )}
+                            ">
+                                ${escapeHTML(
+                                    status
+                                )}
+                            </span>
+                        </td>
+
+                        <td>
+
+                            <div style="
+                                display:flex;
+                                gap:5px;
+                                flex-wrap:wrap;
+                            ">
+
+                                ${
+                                    status !== "confirmed"
+                                        ? `
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm"
+                                                onclick="updateTrainingRegistration(${reg.id}, 'confirmed')"
+                                            >
+                                                Confirm
+                                            </button>
+                                          `
+                                        : ""
+                                }
+
+                                ${
+                                    status !== "completed"
+                                        ? `
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm"
+                                                onclick="updateTrainingRegistration(${reg.id}, 'completed')"
+                                            >
+                                                Complete
+                                            </button>
+                                          `
+                                        : ""
+                                }
+
+                                ${
+                                    status !== "cancelled"
+                                        ? `
+                                            <button
+                                                type="button"
+                                                class="btn btn-sm btn-danger"
+                                                onclick="updateTrainingRegistration(${reg.id}, 'cancelled')"
+                                            >
+                                                Cancel
+                                            </button>
+                                          `
+                                        : ""
+                                }
+
+                            </div>
+
+                        </td>
+
+                    </tr>
+                `;
+
+            }).join("");
     }
 
-    await loadCourses();
-    await loadRegistrationData();
-    await loadAdminTrainingSessions();
-}
+    function getPaymentStatusClass(status) {
 
-window.loadAdminTrainingSessions=loadAdminTrainingSessions;
+        switch (
+            String(status).toLowerCase()
+        ) {
 
-document.addEventListener('keydown',function(e){
-    if(e.key==='Escape'){
-        const modal=document.getElementById('trainingModal');
-        if(modal?.classList.contains('active')){
-            window.closeTrainingModal();
+            case "paid":
+                return "status-success";
+
+            case "partial":
+                return "status-warning";
+
+            case "refunded":
+                return "status-info";
+
+            case "unpaid":
+            default:
+                return "status-danger";
         }
     }
-});
 
-initializeTrainingModule();
+    function getRegistrationStatusClass(status) {
 
-console.log('✅ MEI Training Administration Module loaded');
+        switch (
+            String(status).toLowerCase()
+        ) {
+
+            case "confirmed":
+                return "status-success";
+
+            case "completed":
+                return "status-success";
+
+            case "registered":
+                return "status-info";
+
+            case "waitlisted":
+                return "status-warning";
+
+            case "cancelled":
+                return "status-danger";
+
+            case "no_show":
+                return "status-danger";
+
+            default:
+                return "status-neutral";
+        }
+    }
+
+    /* =========================================================
+       UPDATE REGISTRATION
+       ========================================================= */
+
+    window.updateTrainingRegistration =
+        async function (id, status) {
+
+            const allowed = [
+                "registered",
+                "confirmed",
+                "waitlisted",
+                "cancelled",
+                "completed",
+                "no_show"
+            ];
+
+            if (!allowed.includes(status)) {
+                showMessage(
+                    "Invalid registration status.",
+                    "error"
+                );
+                return;
+            }
+
+            try {
+
+                const supabase =
+                    getSupabase();
+
+                await requireSupabaseAuth();
+
+                const { error } =
+                    await supabase
+                        .from("training_registrations")
+                        .update({
+                            registration_status:
+                                status
+                        })
+                        .eq("id", id);
+
+                if (error) {
+                    throw error;
+                }
+
+                showMessage(
+                    `Registration marked as ${status}.`,
+                    "success"
+                );
+
+                await window.loadTrainingRegistrations();
+
+            } catch (error) {
+
+                console.error(
+                    "UPDATE REGISTRATION ERROR:",
+                    error
+                );
+
+                showMessage(
+                    error.message ||
+                    "Unable to update registration.",
+                    "error"
+                );
+            }
+        };
+
+    /* =========================================================
+       FILTER EVENTS
+       ========================================================= */
+
+    function setupFilters() {
+
+        const serviceFilter =
+            $("trainingServiceFilter");
+
+        const statusFilter =
+            $("trainingStatusFilter");
+
+        if (serviceFilter) {
+            serviceFilter.addEventListener(
+                "change",
+                renderTrainingSessions
+            );
+        }
+
+        if (statusFilter) {
+            statusFilter.addEventListener(
+                "change",
+                renderTrainingSessions
+            );
+        }
+    }
+
+    /* =========================================================
+       MODAL EVENTS
+       ========================================================= */
+
+    function setupModal() {
+
+        const form =
+            $("trainingForm");
+
+        if (form) {
+            form.addEventListener(
+                "submit",
+                saveTrainingSession
+            );
+        }
+
+        const course =
+            $("trainingCourse");
+
+        if (course) {
+            course.addEventListener(
+                "change",
+                syncCourseFields
+            );
+        }
+
+        const modal =
+            $("trainingModal");
+
+        if (modal) {
+
+            modal.addEventListener(
+                "click",
+                function (event) {
+
+                    if (
+                        event.target === modal
+                    ) {
+                        window.closeTrainingModal();
+                    }
+                }
+            );
+        }
+    }
+
+    /* =========================================================
+       REFRESH TRAINING DATA
+       ========================================================= */
+
+    window.refreshTrainingData =
+        async function () {
+
+            await loadAdminTrainingSessions();
+
+            await window.loadTrainingRegistrations();
+
+            showMessage(
+                "Training data refreshed.",
+                "success"
+            );
+        };
+
+    /* =========================================================
+       PUBLIC ACCESS
+       ========================================================= */
+
+    window.loadAdminTrainingSessions =
+        loadAdminTrainingSessions;
+
+    /* =========================================================
+       INITIALIZE
+       ========================================================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        function () {
+
+            setupFilters();
+            setupModal();
+
+            /*
+             * We intentionally do not force-load the dashboard here.
+             * The existing admin.html switchTab() controls when the
+             * Training Sessions and Registrations sections are loaded.
+             */
+
+            console.log(
+                "MEI Training Admin module initialized."
+            );
+        }
+    );
+
 })();
