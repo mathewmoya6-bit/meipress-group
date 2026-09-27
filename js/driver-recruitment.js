@@ -1,33 +1,27 @@
+/* =========================================================
+   MEI GROUP
+   DRIVER RECRUITMENT & PLACEMENT
+   Dynamic Job Seeker / Employer Application
+   ========================================================= */
+
 (function () {
     "use strict";
-
-    /*
-     * ============================================================
-     * MEI GROUP - DRIVER RECRUITMENT & PLACEMENT
-     * Supabase Application Handler
-     * ============================================================
-     */
 
     const SUPABASE_URL =
         "https://qkchnrrxrewmlvvxuuqe.supabase.co";
 
-    const SUPABASE_ANON_KEY =
+    const SUPABASE_KEY =
         "sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
 
 
-    let supabaseClient = null;
+    /* ---------------------------------------------------------
+       SUPABASE INITIALIZATION
+       --------------------------------------------------------- */
 
+    let client = window.supabaseClient || null;
 
-    /*
-     * ============================================================
-     * INITIALIZE SUPABASE
-     * ============================================================
-     */
-
-    function initializeSupabase() {
-
-        try {
-
+    try {
+        if (!client) {
             if (
                 !window.supabase ||
                 typeof window.supabase.createClient !== "function"
@@ -37,648 +31,838 @@
                 );
             }
 
-            supabaseClient =
-                window.supabase.createClient(
-                    SUPABASE_URL,
-                    SUPABASE_ANON_KEY
-                );
-
-            /*
-             * Make available globally for compatibility
-             * with other MEI Group pages.
-             */
-            window.supabaseClient =
-                supabaseClient;
-
-            console.log(
-                "MEI Group Supabase initialized."
+            client = window.supabase.createClient(
+                SUPABASE_URL,
+                SUPABASE_KEY
             );
 
-            return true;
-
-        } catch (error) {
-
-            console.error(
-                "Supabase initialization failed:",
-                error
-            );
-
-            return false;
+            window.supabaseClient = client;
         }
+    } catch (error) {
+        console.error(
+            "Supabase initialization error:",
+            error
+        );
     }
 
 
-    /*
-     * ============================================================
-     * ELEMENTS
-     * ============================================================
-     */
+    /* ---------------------------------------------------------
+       DOM
+       --------------------------------------------------------- */
 
     const form =
-        document.getElementById(
-            "driverApplyForm"
+        document.getElementById("driverApplyForm");
+
+    const applicantType =
+        document.getElementById("applicantType");
+
+    const jobSeekerFields =
+        document.getElementById("jobSeekerFields");
+
+    const employerFields =
+        document.getElementById("employerFields");
+
+    const typePlaceholder =
+        document.getElementById("typePlaceholder");
+
+    const submitArea =
+        document.getElementById("submitArea");
+
+    const submitBtn =
+        document.getElementById("submitBtn");
+
+    const formMessage =
+        document.getElementById("formMessage");
+
+
+    if (!form || !applicantType) {
+        console.error(
+            "Driver recruitment form was not found."
         );
-
-    const submitButton =
-        document.getElementById(
-            "driverSubmitBtn"
-        );
-
-    const successAlert =
-        document.getElementById(
-            "driverFormSuccess"
-        );
-
-    const errorAlert =
-        document.getElementById(
-            "driverFormError"
-        );
-
-
-    /*
-     * ============================================================
-     * ALERT HELPERS
-     * ============================================================
-     */
-
-    function showSuccess(message) {
-
-        if (!successAlert) return;
-
-        successAlert.textContent =
-            "✅ " + message;
-
-        successAlert.classList.add(
-            "show"
-        );
-
-        if (errorAlert) {
-            errorAlert.classList.remove(
-                "show"
-            );
-        }
+        return;
     }
 
 
-    function showError(message) {
+    /* ---------------------------------------------------------
+       HELPERS
+       --------------------------------------------------------- */
 
-        if (!errorAlert) return;
+    function getValue(id) {
+        const element = document.getElementById(id);
 
-        errorAlert.textContent =
-            "❌ " + message;
-
-        errorAlert.classList.add(
-            "show"
-        );
-
-        if (successAlert) {
-            successAlert.classList.remove(
-                "show"
-            );
+        if (!element) {
+            return "";
         }
+
+        return element.value.trim();
     }
 
 
-    function clearAlerts() {
+    function getNumber(id) {
+        const value = getValue(id);
 
-        if (successAlert) {
-            successAlert.classList.remove(
-                "show"
-            );
+        if (value === "") {
+            return null;
         }
 
-        if (errorAlert) {
-            errorAlert.classList.remove(
-                "show"
-            );
-        }
+        const number = Number(value);
+
+        return Number.isFinite(number)
+            ? number
+            : null;
     }
 
 
-    /*
-     * ============================================================
-     * VALIDATION
-     * ============================================================
-     */
+    function getSelectValue(id) {
+        return getValue(id);
+    }
+
 
     function normalizePhone(phone) {
-
-        return String(phone || "")
+        let value = String(phone || "")
             .trim()
-            .replace(/\s+/g, " ");
+            .replace(/[^\d+]/g, "");
+
+        if (value.startsWith("07")) {
+            value = "+254" + value.substring(1);
+        }
+
+        if (value.startsWith("01")) {
+            value = "+254" + value.substring(1);
+        }
+
+        if (value.startsWith("254") && !value.startsWith("+")) {
+            value = "+" + value;
+        }
+
+        return value;
     }
 
 
     function normalizeEmail(email) {
-
         return String(email || "")
             .trim()
             .toLowerCase();
     }
 
 
-    function validateForm() {
+    function showMessage(type, message) {
+        formMessage.className =
+            "message show " + type;
 
-        const applicantType =
-            document.getElementById(
-                "applicantType"
-            ).value.trim();
+        formMessage.textContent = message;
 
-        const applicantName =
-            document.getElementById(
-                "applicantName"
-            ).value.trim();
-
-        const applicantPhone =
-            document.getElementById(
-                "applicantPhone"
-            ).value.trim();
-
-        const applicantEmail =
-            document.getElementById(
-                "applicantEmail"
-            ).value.trim();
+        formMessage.scrollIntoView({
+            behavior: "smooth",
+            block: "nearest"
+        });
+    }
 
 
-        if (!applicantType) {
+    function clearMessage() {
+        formMessage.className = "message";
+        formMessage.textContent = "";
+    }
 
-            throw new Error(
-                "Please select whether you are a job seeker or employer."
+
+    function setRequired(ids, required) {
+        ids.forEach(function (id) {
+            const element =
+                document.getElementById(id);
+
+            if (element) {
+                element.required = required;
+            }
+        });
+    }
+
+
+    function clearFields(ids) {
+        ids.forEach(function (id) {
+            const element =
+                document.getElementById(id);
+
+            if (!element) {
+                return;
+            }
+
+            if (element.type === "checkbox") {
+                element.checked = false;
+            } else {
+                element.value = "";
+            }
+        });
+    }
+
+
+    /* ---------------------------------------------------------
+       FIELD GROUPS
+       --------------------------------------------------------- */
+
+    const jobSeekerRequiredFields = [
+        "jobFullName",
+        "jobPhone",
+        "jobEmail",
+        "currentLocation",
+        "licenseClass"
+    ];
+
+
+    const employerRequiredFields = [
+        "companyName",
+        "contactPerson",
+        "employerPhone",
+        "employerEmail",
+        "companyLocation",
+        "driversRequired",
+        "requiredLicenseClass",
+        "vehicleType",
+        "employmentLocation",
+        "placementScope",
+        "jobDescription"
+    ];
+
+
+    const jobSeekerFieldsAll = [
+        "jobFullName",
+        "jobPhone",
+        "jobEmail",
+        "nationality",
+        "currentLocation",
+        "preferredLocation",
+        "licenseClass",
+        "yearsExperience",
+        "currentEmployer",
+        "availability",
+        "internationalPlacement",
+        "passportStatus",
+        "documentsStatus",
+        "vehicleExperience",
+        "jobAdditionalDetails"
+    ];
+
+
+    const employerFieldsAll = [
+        "companyName",
+        "contactPerson",
+        "employerPhone",
+        "employerEmail",
+        "companyLocation",
+        "driversRequired",
+        "requiredLicenseClass",
+        "vehicleType",
+        "minimumExperienceYears",
+        "employmentLocation",
+        "placementScope",
+        "salaryRange",
+        "recruitmentTimeline",
+        "accommodationBenefits",
+        "jobDescription"
+    ];
+
+
+    /* ---------------------------------------------------------
+       SWITCH FORM
+       --------------------------------------------------------- */
+
+    function switchApplicantType() {
+
+        clearMessage();
+
+        const type =
+            applicantType.value;
+
+
+        // Hide everything first
+        jobSeekerFields.classList.add("hidden");
+        employerFields.classList.add("hidden");
+
+        typePlaceholder.style.display = "none";
+        submitArea.style.display = "none";
+
+
+        // Remove required flags from both forms
+        setRequired(
+            jobSeekerRequiredFields,
+            false
+        );
+
+        setRequired(
+            employerRequiredFields,
+            false
+        );
+
+
+        if (type === "Job Seeker") {
+
+            jobSeekerFields.classList.remove(
+                "hidden"
             );
+
+            setRequired(
+                jobSeekerRequiredFields,
+                true
+            );
+
+            submitArea.style.display = "block";
+
+        } else if (type === "Employer") {
+
+            employerFields.classList.remove(
+                "hidden"
+            );
+
+            setRequired(
+                employerRequiredFields,
+                true
+            );
+
+            submitArea.style.display = "block";
+
+        } else {
+
+            typePlaceholder.style.display =
+                "block";
+        }
+    }
+
+
+    applicantType.addEventListener(
+        "change",
+        switchApplicantType
+    );
+
+
+    /* ---------------------------------------------------------
+       VALIDATION
+       --------------------------------------------------------- */
+
+    function validateJobSeeker() {
+
+        const name =
+            getValue("jobFullName");
+
+        const phone =
+            getValue("jobPhone");
+
+        const email =
+            getValue("jobEmail");
+
+        const location =
+            getValue("currentLocation");
+
+        const licence =
+            getSelectValue("licenseClass");
+
+
+        if (!name) {
+            return "Please enter your full name.";
+        }
+
+        if (!phone) {
+            return "Please enter your phone number.";
+        }
+
+        if (!email) {
+            return "Please enter your email address.";
+        }
+
+        if (!location) {
+            return "Please enter your current location.";
+        }
+
+        if (!licence) {
+            return "Please select your driving licence class.";
         }
 
 
-        if (!applicantName) {
-
-            throw new Error(
-                "Please enter your full name."
-            );
-        }
-
-
-        if (!applicantPhone) {
-
-            throw new Error(
-                "Please enter your phone number."
-            );
-        }
-
-
-        if (!applicantEmail) {
-
-            throw new Error(
-                "Please enter your email address."
-            );
-        }
-
-
-        const emailPattern =
-            /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
+        const normalizedPhone =
+            normalizePhone(phone);
 
         if (
-            !emailPattern.test(
-                applicantEmail
-            )
+            normalizedPhone.length < 10
         ) {
-
-            throw new Error(
-                "Please enter a valid email address."
-            );
+            return "Please enter a valid phone number.";
         }
 
 
+        const normalizedEmail =
+            normalizeEmail(email);
+
+        if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                normalizedEmail
+            )
+        ) {
+            return "Please enter a valid email address.";
+        }
+
+
+        return null;
+    }
+
+
+    function validateEmployer() {
+
+        const company =
+            getValue("companyName");
+
+        const contact =
+            getValue("contactPerson");
+
+        const phone =
+            getValue("employerPhone");
+
+        const email =
+            getValue("employerEmail");
+
+        const companyLocation =
+            getValue("companyLocation");
+
+        const driversRequired =
+            getNumber("driversRequired");
+
+        const licence =
+            getSelectValue(
+                "requiredLicenseClass"
+            );
+
+        const vehicle =
+            getValue("vehicleType");
+
+        const employmentLocation =
+            getValue("employmentLocation");
+
+        const placementScope =
+            getSelectValue("placementScope");
+
+        const jobDescription =
+            getValue("jobDescription");
+
+
+        if (!company) {
+            return "Please enter the company name.";
+        }
+
+        if (!contact) {
+            return "Please enter the contact person's name.";
+        }
+
+        if (!phone) {
+            return "Please enter the employer phone number.";
+        }
+
+        if (!email) {
+            return "Please enter the employer email address.";
+        }
+
+        if (!companyLocation) {
+            return "Please enter the company location.";
+        }
+
+        if (
+            driversRequired === null ||
+            driversRequired < 1
+        ) {
+            return "Please enter the number of drivers required.";
+        }
+
+        if (!licence) {
+            return "Please select the required licence class.";
+        }
+
+        if (!vehicle) {
+            return "Please specify the vehicle type.";
+        }
+
+        if (!employmentLocation) {
+            return "Please enter the employment location.";
+        }
+
+        if (!placementScope) {
+            return "Please select the placement scope.";
+        }
+
+        if (!jobDescription) {
+            return "Please provide the job description or driver requirements.";
+        }
+
+
+        const normalizedPhone =
+            normalizePhone(phone);
+
+        if (
+            normalizedPhone.length < 10
+        ) {
+            return "Please enter a valid employer phone number.";
+        }
+
+
+        const normalizedEmail =
+            normalizeEmail(email);
+
+        if (
+            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
+                normalizedEmail
+            )
+        ) {
+            return "Please enter a valid employer email address.";
+        }
+
+
+        return null;
+    }
+
+
+    /* ---------------------------------------------------------
+       PAYLOAD BUILDERS
+       --------------------------------------------------------- */
+
+    function buildJobSeekerPayload() {
+
         return {
-            applicantType,
-            applicantName,
-            applicantPhone,
-            applicantEmail
+
+            applicant_type: "Job Seeker",
+
+            full_name:
+                getValue("jobFullName"),
+
+            phone:
+                normalizePhone(
+                    getValue("jobPhone")
+                ),
+
+            email:
+                normalizeEmail(
+                    getValue("jobEmail")
+                ),
+
+            nationality:
+                getValue("nationality") || null,
+
+            current_location:
+                getValue("currentLocation") || null,
+
+            preferred_location:
+                getValue("preferredLocation") || null,
+
+            license_class:
+                getSelectValue("licenseClass") || null,
+
+            years_experience:
+                getNumber("yearsExperience"),
+
+            current_employer:
+                getValue("currentEmployer") || null,
+
+            vehicle_experience:
+                getValue("vehicleExperience") || null,
+
+            availability:
+                getSelectValue("availability") || null,
+
+            international_placement:
+                getSelectValue(
+                    "internationalPlacement"
+                ) || null,
+
+            passport_status:
+                getSelectValue(
+                    "passportStatus"
+                ) || null,
+
+            documents_status:
+                getValue("documentsStatus") || null,
+
+            additional_details:
+                getValue(
+                    "jobAdditionalDetails"
+                ) || null,
+
+            status: "new",
+
+            source: "website"
         };
     }
 
 
-    /*
-     * ============================================================
-     * SUBMIT APPLICATION
-     * ============================================================
-     */
+    function buildEmployerPayload() {
 
-    async function submitApplication(event) {
+        return {
 
-        event.preventDefault();
+            applicant_type: "Employer",
 
-        clearAlerts();
+            full_name:
+                getValue("contactPerson"),
 
+            phone:
+                normalizePhone(
+                    getValue("employerPhone")
+                ),
 
-        if (!supabaseClient) {
+            email:
+                normalizeEmail(
+                    getValue("employerEmail")
+                ),
 
-            showError(
-                "The application service is not connected. Please refresh the page and try again."
-            );
+            company_name:
+                getValue("companyName"),
 
-            return;
-        }
+            company_location:
+                getValue("companyLocation"),
 
+            drivers_required:
+                getNumber("driversRequired"),
 
-        let values;
+            required_license_class:
+                getSelectValue(
+                    "requiredLicenseClass"
+                ),
 
+            vehicle_type:
+                getValue("vehicleType"),
 
-        try {
+            minimum_experience_years:
+                getNumber(
+                    "minimumExperienceYears"
+                ),
 
-            values =
-                validateForm();
+            employment_location:
+                getValue(
+                    "employmentLocation"
+                ),
 
-        } catch (error) {
+            placement_scope:
+                getSelectValue(
+                    "placementScope"
+                ),
 
-            showError(
-                error.message
-            );
+            salary_range:
+                getValue("salaryRange") || null,
 
-            return;
-        }
+            accommodation_benefits:
+                getValue(
+                    "accommodationBenefits"
+                ) || null,
 
+            job_description:
+                getValue("jobDescription"),
 
-        /*
-         * Disable button
-         */
+            recruitment_timeline:
+                getSelectValue(
+                    "recruitmentTimeline"
+                ) || null,
 
-        if (submitButton) {
+            status: "new",
 
-            submitButton.disabled = true;
-
-            submitButton.innerHTML =
-                '<i class="fas fa-spinner fa-spin"></i> Submitting...';
-        }
-
-
-        try {
-
-            const license =
-                document.getElementById(
-                    "applicantLicense"
-                ).value.trim();
-
-
-            const region =
-                document.getElementById(
-                    "applicantRegion"
-                ).value.trim();
-
-
-            const message =
-                document.getElementById(
-                    "applicantMessage"
-                ).value.trim();
-
-
-            /*
-             * ====================================================
-             * CHECK FOR RECENT DUPLICATE
-             * ====================================================
-             *
-             * We do not expose all applications.
-             * The query only checks whether an active application
-             * already exists for the same email.
-             *
-             * The SQL RLS policy below controls what anonymous
-             * users can access.
-             */
-
-            const {
-                data: existing,
-                error: duplicateError
-            } = await supabaseClient
-
-                .from("driver_applications")
-
-                .select(
-                    "id,application_number,status"
-                )
-
-                .eq(
-                    "email",
-                    values.applicantEmail
-                )
-
-                .neq(
-                    "status",
-                    "rejected"
-                )
-
-                .limit(1);
+            source: "website"
+        };
+    }
 
 
-            /*
-             * A permission error should not prevent submission
-             * if the database policy intentionally blocks reads.
-             *
-             * Therefore only treat unexpected errors as fatal.
-             */
+    /* ---------------------------------------------------------
+       SUBMIT
+       --------------------------------------------------------- */
 
-            if (
-                duplicateError &&
-                duplicateError.code !== "42501"
-            ) {
+    form.addEventListener(
+        "submit",
+        async function (event) {
 
-                console.warn(
-                    "Duplicate check warning:",
-                    duplicateError
+            event.preventDefault();
+
+            clearMessage();
+
+
+            if (!client) {
+
+                showMessage(
+                    "error",
+                    "The application system could not connect to Supabase. Please try again."
                 );
+
+                return;
             }
 
 
-            if (
-                !duplicateError &&
-                existing &&
-                existing.length > 0
-            ) {
+            const type =
+                applicantType.value;
 
-                const previous =
-                    existing[0];
 
-                throw new Error(
-                    `An application already exists for this email. Application number: ${
-                        previous.application_number ||
-                        "already submitted"
-                    }.`
+            if (!type) {
+
+                showMessage(
+                    "error",
+                    "Please select whether you are a Job Seeker or Employer."
                 );
+
+                return;
             }
 
 
-            /*
-             * ====================================================
-             * APPLICATION PAYLOAD
-             * ====================================================
-             */
+            let validationError = null;
 
-            const payload = {
+            if (type === "Job Seeker") {
+                validationError =
+                    validateJobSeeker();
+            }
 
-                applicant_type:
-                    values.applicantType,
-
-                full_name:
-                    values.applicantName,
-
-                phone:
-                    normalizePhone(
-                        values.applicantPhone
-                    ),
-
-                email:
-                    normalizeEmail(
-                        values.applicantEmail
-                    ),
-
-                license_class:
-                    license || null,
-
-                region_company:
-                    region || null,
-
-                additional_details:
-                    message || null,
-
-                status:
-                    "new",
-
-                source:
-                    "website",
-
-                created_at:
-                    new Date().toISOString()
-
-            };
+            if (type === "Employer") {
+                validationError =
+                    validateEmployer();
+            }
 
 
-            console.log(
-                "Submitting driver application..."
-            );
+            if (validationError) {
+
+                showMessage(
+                    "error",
+                    validationError
+                );
+
+                return;
+            }
 
 
-            /*
-             * ====================================================
-             * INSERT
-             * ====================================================
-             */
+            let payload;
 
-            const {
-                data,
-                error
-            } = await supabaseClient
-
-                .from(
-                    "driver_applications"
-                )
-
-                .insert(
-                    payload
-                )
-
-                .select(
-                    "application_number"
-                )
-                .single();
+            if (type === "Job Seeker") {
+                payload =
+                    buildJobSeekerPayload();
+            } else {
+                payload =
+                    buildEmployerPayload();
+            }
 
 
-            if (error) {
+            submitBtn.disabled = true;
 
-                console.error(
-                    "Driver application insert error:",
+            submitBtn.textContent =
+                "Submitting Application...";
+
+
+            try {
+
+                const {
+                    data,
                     error
+                } = await client
+                    .from("driver_applications")
+                    .insert(payload)
+                    .select(
+                        "id, application_number"
+                    )
+                    .single();
+
+
+                if (error) {
+
+                    console.error(
+                        "Supabase application error:",
+                        error
+                    );
+
+                    throw error;
+                }
+
+
+                const applicationNumber =
+                    data &&
+                    data.application_number
+                        ? data.application_number
+                        : "submitted successfully";
+
+
+                showMessage(
+                    "success",
+                    "Your " +
+                    type.toLowerCase() +
+                    " application has been submitted successfully. " +
+                    "Application Number: " +
+                    applicationNumber +
+                    ". MEI Group recruitment staff will review your information."
                 );
 
-                throw error;
-            }
 
-
-            /*
-             * ====================================================
-             * SUCCESS
-             * ====================================================
-             */
-
-            const applicationNumber =
-                data &&
-                data.application_number
-                    ? data.application_number
-                    : "submitted";
-
-
-            showSuccess(
-                `Application received successfully. Your application number is ${applicationNumber}. Our team will contact you within 24 hours.`
-            );
-
-
-            /*
-             * Reset form
-             */
-
-            if (form) {
+                // Reset the form
                 form.reset();
-            }
 
 
-            /*
-             * Update button
-             */
-
-            if (submitButton) {
-
-                submitButton.disabled = false;
-
-                submitButton.innerHTML =
-                    '<i class="fas fa-check"></i> Application Submitted';
-
-                /*
-                 * Restore button after a short delay.
-                 */
-
-                setTimeout(
-                    function () {
-
-                        submitButton.innerHTML =
-                            '<i class="fas fa-paper-plane"></i> Submit Application';
-
-                    },
-                    5000
+                // Hide dynamic sections
+                jobSeekerFields.classList.add(
+                    "hidden"
                 );
-            }
+
+                employerFields.classList.add(
+                    "hidden"
+                );
+
+                typePlaceholder.style.display =
+                    "block";
+
+                submitArea.style.display =
+                    "none";
 
 
-            /*
-             * Scroll user to success message.
-             */
-
-            if (successAlert) {
-
-                successAlert.scrollIntoView({
-                    behavior: "smooth",
-                    block: "center"
+                window.scrollTo({
+                    top:
+                        formMessage.getBoundingClientRect()
+                            .top +
+                        window.scrollY -
+                        100,
+                    behavior: "smooth"
                 });
-            }
 
 
-        } catch (error) {
+            } catch (error) {
 
-            console.error(
-                "DRIVER APPLICATION ERROR:",
-                error
-            );
+                let message =
+                    "We could not submit your application. Please try again.";
 
+                if (error && error.message) {
 
-            let message =
-                error.message ||
-                "Something went wrong while submitting your application.";
+                    console.error(
+                        error.message
+                    );
 
-
-            /*
-             * Friendly Supabase messages
-             */
-
-            if (
-                message.includes(
-                    "duplicate key"
-                )
-            ) {
-
-                message =
-                    "An application with these details already exists.";
-            }
-
-
-            if (
-                message.includes(
-                    "row-level security"
-                ) ||
-                message.includes(
-                    "violates row-level security"
-                )
-            ) {
-
-                message =
-                    "The application could not be submitted because the database security policy needs to be configured.";
-            }
+                    if (
+                        error.code === "42501"
+                    ) {
+                        message =
+                            "The application form does not currently have permission to submit. Please contact the MEI administrator.";
+                    } else if (
+                        error.code === "23503"
+                    ) {
+                        message =
+                            "A required database reference is missing. Please contact the MEI administrator.";
+                    } else if (
+                        error.code === "23514"
+                    ) {
+                        message =
+                            "One of the application values is not accepted by the database. Please review the form.";
+                    }
+                }
 
 
-            showError(
-                message
-            );
+                showMessage(
+                    "error",
+                    message
+                );
 
+            } finally {
 
-            if (submitButton) {
+                submitBtn.disabled = false;
 
-                submitButton.disabled = false;
-
-                submitButton.innerHTML =
-                    '<i class="fas fa-paper-plane"></i> Submit Application';
+                submitBtn.textContent =
+                    "Submit Application";
             }
         }
-    }
+    );
 
 
-    /*
-     * ============================================================
-     * INITIALIZE PAGE
-     * ============================================================
-     */
+    /* ---------------------------------------------------------
+       INITIAL STATE
+       --------------------------------------------------------- */
 
-    function initialize() {
-
-        const connected =
-            initializeSupabase();
-
-
-        if (!connected) {
-
-            showError(
-                "Application service could not be initialized. Please refresh the page."
-            );
-
-            return;
-        }
-
-
-        if (!form) {
-
-            console.error(
-                "driverApplyForm was not found."
-            );
-
-            return;
-        }
-
-
-        form.addEventListener(
-            "submit",
-            submitApplication
-        );
-
-
-        console.log(
-            "Driver recruitment form ready."
-        );
-    }
-
-
-    /*
-     * ============================================================
-     * DOM READY
-     * ============================================================
-     */
-
-    if (
-        document.readyState ===
-        "loading"
-    ) {
-
-        document.addEventListener(
-            "DOMContentLoaded",
-            initialize
-        );
-
-    } else {
-
-        initialize();
-    }
+    switchApplicantType();
 
 })();
