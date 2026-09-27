@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MEI Group | Professional Training, International Education & Driver Recruitment</title>
-    <meta name="description" content="MEI Group – division of MEI Press Holdings Ltd. Empowering individuals, schools, and businesses through world-class education, workplace safety training, and professional recruitment services." />
+    <title>MEI Group | Professional Training, International Education & Workplace Safety</title>
+    <meta name="description" content="MEI Group – division of MEI Press Holdings Ltd. Empowering individuals, schools, and businesses through world-class education and workplace safety training." />
     <meta name="theme-color" content="#0a1628" />
 
     <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>" />
@@ -487,9 +487,84 @@
         }
 
         /* ============================================================
+           QUICK LINKS (replaces Services section)
+           ============================================================ */
+        .quicklinks-section { padding: 80px 0; background: white; }
+        .quicklinks-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .quicklink-card {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg);
+            border-radius: var(--radius);
+            padding: 40px 32px;
+            border: 1px solid var(--border);
+            border-top: 3px solid var(--primary);
+            transition: all 0.4s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+        }
+        .quicklink-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-top-color: var(--accent);
+        }
+        .quicklink-card .icon {
+            font-size: 3rem;
+            margin-bottom: 18px;
+            line-height: 1;
+        }
+        .quicklink-card h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .quicklink-card p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.7;
+            margin-bottom: 22px;
+            flex-grow: 1;
+        }
+        .quicklink-card .link-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+        .quicklink-card .link-cta i {
+            transition: transform 0.3s ease;
+        }
+        .quicklink-card:hover .link-cta {
+            color: var(--accent);
+        }
+        .quicklink-card:hover .link-cta i {
+            transform: translateX(6px);
+        }
+        .quicklink-card::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 0;
+            background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(185,134,46,0.03));
+            transition: height 0.4s ease;
+        }
+        .quicklink-card:hover::after { height: 100%; }
+        .quicklink-card > * { position: relative; z-index: 1; }
+
+        /* ============================================================
            WHY CHOOSE US
            ============================================================ */
-        .why-section { background: white; padding: 80px 0; }
+        .why-section { background: var(--bg); padding: 80px 0; }
         .why-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -535,113 +610,6 @@
             font-size: 0.95rem;
             color: rgba(255,255,255,0.5);
             margin-top: 4px;
-        }
-
-        /* ============================================================
-           SERVICES
-           ============================================================ */
-        .services-section { padding: 100px 0; background: var(--bg); }
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 28px;
-        }
-        .service-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 36px 32px;
-            border: 1px solid var(--border);
-            border-top: 3px solid var(--primary);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .service-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        .service-card .icon {
-            font-size: 3rem;
-            margin-bottom: 16px;
-            line-height: 1;
-        }
-        .service-card h3 {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .service-card .desc {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 18px;
-            flex-grow: 1;
-        }
-        .service-card ul {
-            list-style: none;
-            padding: 0;
-            margin: 0 0 22px;
-        }
-        .service-card ul li {
-            padding: 5px 0 5px 24px;
-            position: relative;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-        .service-card ul li::before {
-            content: '';
-            position: absolute;
-            left: 2px;
-            top: 14px;
-            width: 6px;
-            height: 6px;
-            background: var(--accent);
-        }
-        .service-card .btn-group {
-            display: flex;
-            gap: 8px;
-            flex-wrap: wrap;
-            margin-top: auto;
-        }
-        .service-card .btn-learn {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: var(--primary);
-            color: white;
-            padding: 11px 22px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .service-card .btn-learn:hover {
-            background: var(--primary-dark);
-            transform: translateX(4px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
-        }
-        .service-card .btn-outline {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            background: transparent;
-            color: var(--primary);
-            padding: 10px 22px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 0.85rem;
-            border: 1.5px solid var(--primary);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .service-card .btn-outline:hover {
-            background: var(--primary-bg);
-            transform: translateY(-2px);
         }
 
         /* ============================================================
@@ -1321,7 +1289,7 @@
            ============================================================ */
         @media (max-width: 1200px) {
             .hero h1 { font-size: 3rem; }
-            .services-grid { grid-template-columns: 1fr 1fr; }
+            .quicklinks-grid { grid-template-columns: 1fr 1fr; }
             .featured-grid { grid-template-columns: 1fr 1fr; }
             .testimonials-grid { grid-template-columns: 1fr 1fr; }
             .process-grid { grid-template-columns: repeat(3, 1fr); }
@@ -1369,7 +1337,7 @@
             .hero-stat .number { font-size: 1.6rem; }
 
             .section-title { font-size: 2rem; }
-            .services-grid { grid-template-columns: 1fr; }
+            .quicklinks-grid { grid-template-columns: 1fr; }
             .featured-grid { grid-template-columns: 1fr; }
             .testimonials-grid { grid-template-columns: 1fr; }
             .process-grid { grid-template-columns: 1fr 1fr; }
@@ -1414,10 +1382,10 @@
             </button>
             <div class="nav-links" id="navLinks">
                 <a href="#about" class="nav-link">About</a>
-                <a href="#services" class="nav-link">Services</a>
+                <a href="education.html" class="nav-link">Education</a>
+                <a href="road-safety.html" class="nav-link">Road Safety</a>
+                <a href="occupational-safety.html" class="nav-link">OSH</a>
                 <a href="training-calendar.html" class="nav-link">Calendar</a>
-                <a href="training-registration.html" class="nav-link">Register</a>
-                <a href="#testimonials" class="nav-link">Testimonials</a>
                 <a href="#contact" class="btn-nav">Contact Us</a>
             </div>
         </div>
@@ -1443,11 +1411,11 @@
                     education, workplace safety training, and professional consultancy services.
                 </p>
                 <div class="hero-buttons">
-                    <a href="training-registration.html" class="btn-primary">
-                        <i class="fas fa-user-plus"></i> Register for Training
+                    <a href="training-calendar.html" class="btn-primary">
+                        <i class="fas fa-calendar-alt"></i> View Training Calendar
                     </a>
-                    <a href="training-calendar.html" class="btn-secondary">
-                        <i class="fas fa-calendar-alt"></i> View Calendar
+                    <a href="#contact" class="btn-secondary">
+                        <i class="fas fa-phone-alt"></i> Contact Us
                     </a>
                 </div>
 
@@ -1485,6 +1453,53 @@
                     <div class="hero-grid-item">🏆</div>
                     <div class="hero-grid-item">⭐</div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    QUICK LINKS (replaces Services section)
+    ============================================================ -->
+    <section class="quicklinks-section" id="services">
+        <div class="container">
+            <div class="section-center">
+                <span class="section-tag">Explore Our Services</span>
+                <h2 class="section-title">Where Would You Like to <span class="highlight">Go?</span></h2>
+                <p class="section-sub">
+                    Choose a service below to learn more and apply or register.
+                </p>
+            </div>
+
+            <div class="quicklinks-grid">
+                <!-- International Education -->
+                <a href="education.html" class="quicklink-card animate-on-scroll">
+                    <div class="icon">🎓</div>
+                    <h3>International Education</h3>
+                    <p>Expert study abroad consultancy, admissions support, and visa guidance.</p>
+                    <span class="link-cta">
+                        Explore Education <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <!-- Road Safety Training -->
+                <a href="road-safety.html" class="quicklink-card animate-on-scroll">
+                    <div class="icon">🚸</div>
+                    <h3>Road Safety Training</h3>
+                    <p>Professional safety education for schools, transport, and institutions.</p>
+                    <span class="link-cta">
+                        Explore Road Safety <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
+
+                <!-- Occupational Safety & Health -->
+                <a href="occupational-safety.html" class="quicklink-card animate-on-scroll">
+                    <div class="icon">🏭</div>
+                    <h3>Occupational Safety &amp; Health</h3>
+                    <p>Comprehensive workplace safety training that protects employees and ensures compliance.</p>
+                    <span class="link-cta">
+                        Explore OSH <i class="fas fa-arrow-right"></i>
+                    </span>
+                </a>
             </div>
         </div>
     </section>
@@ -1593,86 +1608,6 @@
                 </div>
                 <div class="about-image animate-on-scroll">
                     <span style="position:relative;z-index:1;">🏢</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    SERVICES
-    ============================================================ -->
-    <section class="services-section" id="services">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">What We Offer</span>
-                <h2 class="section-title">Our <span class="highlight">Services</span></h2>
-                <p class="section-sub">
-                    Delivering practical, internationally-recognized solutions that create
-                    opportunities and drive success.
-                </p>
-            </div>
-
-            <div class="services-grid">
-                <div class="service-card animate-on-scroll">
-                    <div class="icon">🎓</div>
-                    <h3>International Education</h3>
-                    <p class="desc">Expert study abroad consultancy, admissions support, and visa guidance.</p>
-                    <ul>
-                        <li><strong>USA</strong> – Ivy League &amp; top public universities</li>
-                        <li><strong>Canada</strong> – U15 research universities</li>
-                        <li><strong>Australia</strong> – Group of Eight</li>
-                        <li><strong>UK, Germany</strong> – Leading institutions</li>
-                        <li>💰 No Cosigner Required education loans</li>
-                        <li>Scholarship guidance &amp; financial planning</li>
-                    </ul>
-                    <div class="btn-group">
-                        <a href="education.html" class="btn-learn">
-                            <i class="fas fa-arrow-right"></i> Learn More
-                        </a>
-                        <a href="education.html#apply-form" class="btn-outline">
-                            <i class="fas fa-paper-plane"></i> Apply
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card animate-on-scroll">
-                    <div class="icon">🚸</div>
-                    <h3>Road Safety Training</h3>
-                    <p class="desc">Professional safety education for schools, transport, and institutions.</p>
-                    <ul>
-                        <li><strong>Safe to &amp; from School</strong> – Primary &amp; secondary programs</li>
-                        <li><strong>Defensive Driving</strong> – Advanced driver training</li>
-                        <li><strong>Driver Profiling</strong> – Assessment &amp; behavior analysis</li>
-                        <li><strong>Fleet Safety</strong> – Transport company audits</li>
-                    </ul>
-                    <div class="btn-group">
-                        <a href="road-safety.html" class="btn-learn">
-                            <i class="fas fa-arrow-right"></i> Learn More
-                        </a>
-                        <a href="training-registration.html" class="btn-outline">
-                            <i class="fas fa-user-plus"></i> Register
-                        </a>
-                    </div>
-                </div>
-
-                <div class="service-card animate-on-scroll">
-                    <div class="icon">🏭</div>
-                    <h3>Occupational Safety &amp; Health</h3>
-                    <p class="desc">Comprehensive workplace safety training that protects employees and ensures compliance.</p>
-                    <ul>
-                        <li>🩹 <strong>First Aid</strong> – Emergency response &amp; certified first aiders</li>
-                        <li>🔥 <strong>Fire &amp; Safety</strong> – Risk assessment, drills &amp; extinguisher use</li>
-                        <li>🦺 <strong>OSH</strong> – OSHA 2007 compliance &amp; risk management</li>
-                        <li><strong>Workplace Safety</strong> – General hazard identification</li>
-                    </ul>
-                    <div class="btn-group">
-                        <a href="occupational-safety.html" class="btn-learn">
-                            <i class="fas fa-arrow-right"></i> Learn More
-                        </a>
-                        <a href="training-registration.html" class="btn-outline">
-                            <i class="fas fa-user-plus"></i> Register
-                        </a>
-                    </div>
                 </div>
             </div>
         </div>
@@ -1895,7 +1830,7 @@
                         <span>Which countries do you support for international education?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">We support applications to the USA, Canada, Australia, UK, Germany, and many other countries through our 50+ university partnerships.</div>
+                    <div class="answer">We support applications to the USA, Canada, Australia, UK, Germany, and many other countries through our 50+ university partnerships. <a href="education.html" style="color:var(--primary);font-weight:600;">Learn more →</a></div>
                 </div>
 
                 <div class="faq-item">
@@ -1911,7 +1846,7 @@
                         <span>What does Occupational Safety &amp; Health training cover?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Our OSH training covers First Aid, Fire &amp; Safety, OSH (OSHA 2007 compliance), and Workplace Safety. Each course is certified and industry-recognized.</div>
+                    <div class="answer">Our OSH training covers First Aid, Fire &amp; Safety, OSH (OSHA 2007 compliance), and Workplace Safety. <a href="occupational-safety.html" style="color:var(--primary);font-weight:600;">Learn more →</a></div>
                 </div>
 
                 <div class="faq-item">
@@ -1919,7 +1854,7 @@
                         <span>What road safety programs do you offer?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">We offer Safe to &amp; from School, Defensive Driving, Driver Profiling, and Fleet Safety Assessments. Sessions run monthly throughout the year.</div>
+                    <div class="answer">We offer Safe to &amp; from School, Defensive Driving, Driver Profiling, and Fleet Safety Assessments. <a href="road-safety.html" style="color:var(--primary);font-weight:600;">Learn more →</a></div>
                 </div>
 
                 <div class="faq-item">
@@ -1927,7 +1862,7 @@
                         <span>How do I get my certificate after training?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">After successfully completing your training and any required assessment, MEI Group issues a certificate of completion. Certificates are typically issued within 5–7 working days and can be collected in person or sent digitally.</div>
+                    <div class="answer">After successfully completing your training and any required assessment, MEI Group issues a certificate of completion. Certificates are typically issued within 5–7 working days.</div>
                 </div>
 
                 <div class="faq-item">
@@ -2042,9 +1977,7 @@
                     <h4>Quick Links</h4>
                     <a href="#hero">Home</a>
                     <a href="#about">About</a>
-                    <a href="#services">Services</a>
                     <a href="training-calendar.html">Training Calendar</a>
-                    <a href="training-registration.html">Register</a>
                     <a href="#contact">Contact</a>
                     <a href="#" style="margin-top:8px;color:rgba(255,255,255,0.3);font-size:0.75rem;">Privacy Policy</a>
                     <a href="#" style="color:rgba(255,255,255,0.3);font-size:0.75rem;">Terms &amp; Conditions</a>
@@ -2054,7 +1987,6 @@
                     <a href="education.html">International Education</a>
                     <a href="road-safety.html">Road Safety Training</a>
                     <a href="occupational-safety.html">Occupational Safety &amp; Health</a>
-                    <a href="training-calendar.html">Training Calendar</a>
                 </div>
                 <div class="footer-col">
                     <h4>Contact</h4>
