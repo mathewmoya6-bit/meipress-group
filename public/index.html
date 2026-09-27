@@ -11,6 +11,10 @@
 
     <meta name="theme-color" content="#071a2b">
 
+    <link rel="icon"
+          type="image/svg+xml"
+          href="assets/favicon.svg">
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
@@ -18,6 +22,11 @@
           rel="stylesheet">
 
     <style>
+
+        /* ==================================================
+           MEI BRAND SYSTEM
+        ================================================== */
+
         :root {
             --mei-navy: #071a2b;
             --mei-navy-2: #0b304a;
@@ -37,9 +46,14 @@
             --danger: #dc3545;
             --warning: #f59e0b;
 
-            --shadow-sm: 0 4px 14px rgba(7, 26, 43, 0.07);
-            --shadow-md: 0 12px 35px rgba(7, 26, 43, 0.10);
-            --shadow-lg: 0 20px 55px rgba(7, 26, 43, 0.15);
+            --shadow-sm:
+                0 4px 14px rgba(7, 26, 43, 0.07);
+
+            --shadow-md:
+                0 12px 35px rgba(7, 26, 43, 0.10);
+
+            --shadow-lg:
+                0 20px 55px rgba(7, 26, 43, 0.15);
 
             --radius-sm: 8px;
             --radius-md: 14px;
@@ -48,33 +62,148 @@
             --container: 1180px;
         }
 
+
+        /* ==================================================
+           RESET
+        ================================================== */
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+
         html {
             scroll-behavior: smooth;
+            scroll-padding-top: 90px;
         }
 
+
         body {
-            font-family: "Inter", Arial, sans-serif;
+            position: relative;
+            min-height: 100vh;
+
+            font-family:
+                "Inter",
+                Arial,
+                Helvetica,
+                sans-serif;
+
             color: var(--text);
             background: var(--white);
+
             line-height: 1.6;
             overflow-x: hidden;
         }
+
+
+        /* ==================================================
+           MEI BACKGROUND DECORATION
+        ================================================== */
+
+        body::before,
+        body::after {
+            content: "";
+
+            position: fixed;
+
+            border-radius: 50%;
+
+            pointer-events: none;
+
+            z-index: -1;
+
+            filter: blur(80px);
+
+            opacity: 0.10;
+        }
+
+
+        body::before {
+            width: 400px;
+            height: 400px;
+
+            background: var(--mei-green);
+
+            top: -100px;
+            right: -100px;
+
+            animation:
+                meiFloatOne
+                12s
+                ease-in-out
+                infinite;
+        }
+
+
+        body::after {
+            width: 320px;
+            height: 320px;
+
+            background: var(--mei-navy);
+
+            bottom: -100px;
+            left: -100px;
+
+            animation:
+                meiFloatTwo
+                15s
+                ease-in-out
+                infinite
+                reverse;
+        }
+
+
+        @keyframes meiFloatOne {
+
+            0%,
+            100% {
+                transform:
+                    translate(0, 0)
+                    rotate(0deg);
+            }
+
+            50% {
+                transform:
+                    translate(-30px, 30px)
+                    rotate(8deg);
+            }
+        }
+
+
+        @keyframes meiFloatTwo {
+
+            0%,
+            100% {
+                transform:
+                    translate(0, 0)
+                    scale(1);
+            }
+
+            50% {
+                transform:
+                    translate(35px, -25px)
+                    scale(1.08);
+            }
+        }
+
+
+        /* ==================================================
+           GLOBAL
+        ================================================== */
 
         a {
             color: inherit;
             text-decoration: none;
         }
 
+
         img {
             max-width: 100%;
             display: block;
         }
+
 
         button,
         input,
@@ -83,10 +212,22 @@
             font: inherit;
         }
 
+
+        button {
+            cursor: pointer;
+        }
+
+
         .container {
-            width: min(100% - 40px, var(--container));
+            width:
+                min(
+                    100% - 40px,
+                    var(--container)
+                );
+
             margin: 0 auto;
         }
+
 
         /* ==================================================
            HERO
@@ -95,12 +236,19 @@
         .hero {
             position: relative;
             overflow: hidden;
+
             color: var(--white);
+
             background:
                 radial-gradient(
                     circle at 85% 20%,
                     rgba(24, 199, 122, 0.20),
                     transparent 30%
+                ),
+                radial-gradient(
+                    circle at 10% 90%,
+                    rgba(24, 199, 122, 0.08),
+                    transparent 28%
                 ),
                 linear-gradient(
                     135deg,
@@ -109,278 +257,596 @@
                 );
         }
 
+
         .hero::before {
             content: "";
+
             position: absolute;
+
             width: 500px;
             height: 500px;
+
             border-radius: 50%;
-            border: 1px solid rgba(24, 199, 122, 0.12);
+
+            border:
+                1px solid
+                rgba(24, 199, 122, 0.12);
+
             right: -200px;
             top: -180px;
         }
 
+
+        .hero::after {
+            content: "";
+
+            position: absolute;
+
+            width: 280px;
+            height: 280px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(255, 255, 255, 0.06);
+
+            left: -130px;
+            bottom: -160px;
+        }
+
+
         .hero-inner {
             min-height: 650px;
+
             display: grid;
-            grid-template-columns: 1.15fr 0.85fr;
+
+            grid-template-columns:
+                1.15fr
+                0.85fr;
+
             align-items: center;
+
             gap: 60px;
+
             position: relative;
+
             z-index: 2;
+
             padding: 80px 0;
         }
 
+
         .hero-badge {
             display: inline-flex;
+
             align-items: center;
+
             gap: 8px;
-            padding: 8px 13px;
+
+            padding:
+                8px
+                13px;
+
             border-radius: 999px;
-            background: rgba(24, 199, 122, 0.12);
-            border: 1px solid rgba(24, 199, 122, 0.3);
+
+            background:
+                rgba(24, 199, 122, 0.12);
+
+            border:
+                1px solid
+                rgba(24, 199, 122, 0.30);
+
             color: var(--mei-green);
+
             font-size: 12px;
+
             font-weight: 800;
+
             text-transform: uppercase;
+
             letter-spacing: 0.8px;
+
             margin-bottom: 20px;
         }
 
+
         .hero h1 {
-            font-size: clamp(40px, 5vw, 66px);
+            font-size:
+                clamp(
+                    40px,
+                    5vw,
+                    66px
+                );
+
             line-height: 1.04;
+
             letter-spacing: -2px;
+
             max-width: 760px;
+
             margin-bottom: 24px;
         }
+
 
         .hero h1 span {
             color: var(--mei-green);
         }
 
+
         .hero-text {
             max-width: 650px;
-            color: rgba(255, 255, 255, 0.82);
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.82
+                );
+
             font-size: 18px;
+
             margin-bottom: 32px;
         }
 
+
         .hero-actions {
             display: flex;
+
             align-items: center;
+
             gap: 13px;
+
             flex-wrap: wrap;
         }
 
+
+        /* ==================================================
+           BUTTONS
+        ================================================== */
+
         .btn {
             display: inline-flex;
+
             align-items: center;
             justify-content: center;
+
             gap: 8px;
+
             min-height: 48px;
-            padding: 0 20px;
+
+            padding:
+                0 20px;
+
             border-radius: 9px;
-            border: 1px solid transparent;
+
+            border:
+                1px solid
+                transparent;
+
             cursor: pointer;
+
             font-size: 14px;
+
             font-weight: 800;
-            transition: 0.2s ease;
+
+            transition:
+                0.2s ease;
         }
+
 
         .btn-primary {
-            background: var(--mei-green);
-            color: var(--mei-navy);
+            background:
+                var(--mei-green);
+
+            color:
+                var(--mei-navy);
         }
+
 
         .btn-primary:hover {
-            background: var(--mei-green-dark);
-            color: var(--white);
-            transform: translateY(-1px);
+            background:
+                var(--mei-green-dark);
+
+            color:
+                var(--white);
+
+            transform:
+                translateY(-1px);
         }
+
+
+        .btn-primary:disabled {
+            opacity: 0.65;
+
+            cursor:
+                not-allowed;
+
+            transform:
+                none;
+        }
+
 
         .btn-outline {
-            border-color: rgba(255, 255, 255, 0.35);
-            color: var(--white);
-            background: transparent;
+            border-color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.35
+                );
+
+            color:
+                var(--white);
+
+            background:
+                transparent;
         }
+
 
         .btn-outline:hover {
-            background: var(--white);
-            color: var(--mei-navy);
+            background:
+                var(--white);
+
+            color:
+                var(--mei-navy);
         }
 
+
+        /* ==================================================
+           HERO CARD
+        ================================================== */
+
         .hero-card {
-            background: rgba(255, 255, 255, 0.07);
-            border: 1px solid rgba(255, 255, 255, 0.13);
-            border-radius: var(--radius-lg);
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.07
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.13
+                );
+
+            border-radius:
+                var(--radius-lg);
+
             padding: 28px;
-            backdrop-filter: blur(10px);
-            box-shadow: var(--shadow-lg);
+
+            backdrop-filter:
+                blur(10px);
+
+            -webkit-backdrop-filter:
+                blur(10px);
+
+            box-shadow:
+                var(--shadow-lg);
         }
+
 
         .hero-card-top {
             display: flex;
+
             align-items: center;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             margin-bottom: 25px;
         }
+
 
         .hero-card-title {
             font-size: 16px;
             font-weight: 800;
         }
 
+
         .hero-card-badge {
-            background: var(--mei-green);
-            color: var(--mei-navy);
-            padding: 5px 9px;
+            background:
+                var(--mei-green);
+
+            color:
+                var(--mei-navy);
+
+            padding:
+                5px 9px;
+
             border-radius: 6px;
+
             font-size: 10px;
+
             font-weight: 900;
         }
 
+
         .hero-stat {
             display: flex;
+
             gap: 15px;
-            padding: 17px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.10);
+
+            padding:
+                17px 0;
+
+            border-bottom:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.10
+                );
         }
+
 
         .hero-stat:last-child {
             border-bottom: 0;
         }
 
+
         .hero-stat-icon {
             width: 42px;
             height: 42px;
+
             border-radius: 10px;
-            background: rgba(24, 199, 122, 0.12);
-            color: var(--mei-green);
+
+            background:
+                rgba(
+                    24,
+                    199,
+                    122,
+                    0.12
+                );
+
+            color:
+                var(--mei-green);
+
             display: grid;
+
             place-items: center;
+
+            font-size: 11px;
+
             font-weight: 900;
+
             flex-shrink: 0;
         }
 
+
         .hero-stat strong {
             display: block;
+
             font-size: 15px;
         }
 
+
         .hero-stat span {
             display: block;
-            color: rgba(255, 255, 255, 0.65);
+
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.65
+                );
+
             font-size: 12px;
+
             margin-top: 3px;
         }
 
+
         /* ==================================================
-           SECTION
+           SECTIONS
         ================================================== */
 
         section {
             padding: 90px 0;
         }
 
+
         .section-header {
             text-align: center;
+
             max-width: 760px;
-            margin: 0 auto 48px;
+
+            margin:
+                0 auto 48px;
         }
+
 
         .section-label {
             display: inline-block;
-            color: var(--mei-green-dark);
-            background: var(--mei-green-light);
-            padding: 6px 11px;
-            border-radius: 999px;
+
+            color:
+                var(--mei-green-dark);
+
+            background:
+                var(--mei-green-light);
+
+            padding:
+                6px 11px;
+
+            border-radius:
+                999px;
+
             font-size: 11px;
+
             font-weight: 900;
-            text-transform: uppercase;
+
+            text-transform:
+                uppercase;
+
             letter-spacing: 0.9px;
+
             margin-bottom: 13px;
         }
 
+
         .section-header h2 {
-            color: var(--mei-navy);
-            font-size: clamp(30px, 4vw, 44px);
+            color:
+                var(--mei-navy);
+
+            font-size:
+                clamp(
+                    30px,
+                    4vw,
+                    44px
+                );
+
             line-height: 1.12;
-            letter-spacing: -1.3px;
+
+            letter-spacing:
+                -1.3px;
+
             margin-bottom: 14px;
         }
 
+
         .section-header p {
-            color: var(--muted);
+            color:
+                var(--muted);
+
             font-size: 16px;
         }
+
 
         /* ==================================================
            SERVICES
         ================================================== */
 
         .services {
-            background: var(--background);
+            background:
+                var(--background);
         }
+
 
         .service-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
             gap: 20px;
         }
 
+
         .service-card {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
+            background:
+                var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                var(--radius-md);
+
             padding: 27px;
-            box-shadow: var(--shadow-sm);
-            transition: 0.25s ease;
+
+            box-shadow:
+                var(--shadow-sm);
+
+            transition:
+                0.25s ease;
+
             display: flex;
-            flex-direction: column;
+
+            flex-direction:
+                column;
         }
 
+
         .service-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-md);
-            border-color: rgba(24, 199, 122, 0.35);
+            transform:
+                translateY(-6px);
+
+            box-shadow:
+                var(--shadow-md);
+
+            border-color:
+                rgba(
+                    24,
+                    199,
+                    122,
+                    0.35
+                );
         }
+
 
         .service-icon {
             width: 54px;
             height: 54px;
+
             display: grid;
+
             place-items: center;
+
             border-radius: 13px;
-            background: var(--mei-green-light);
-            color: var(--mei-green-dark);
-            font-size: 23px;
+
+            background:
+                var(--mei-green-light);
+
+            color:
+                var(--mei-green-dark);
+
+            font-size: 13px;
+
             font-weight: 900;
+
             margin-bottom: 20px;
         }
 
+
         .service-card h3 {
-            color: var(--mei-navy);
+            color:
+                var(--mei-navy);
+
             font-size: 19px;
+
             margin-bottom: 10px;
         }
 
+
         .service-card p {
-            color: var(--muted);
+            color:
+                var(--muted);
+
             font-size: 14px;
+
             margin-bottom: 20px;
+
             flex: 1;
         }
 
+
         .service-link {
-            color: var(--mei-green-dark);
+            color:
+                var(--mei-green-dark);
+
             font-size: 13px;
+
             font-weight: 800;
         }
 
+
         .service-link:hover {
-            color: var(--mei-navy);
+            color:
+                var(--mei-navy);
         }
+
 
         /* ==================================================
            ABOUT
@@ -388,178 +854,338 @@
 
         .about-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+
+            grid-template-columns:
+                1fr 1fr;
+
             gap: 70px;
+
             align-items: center;
         }
 
+
         .about-content h2 {
-            color: var(--mei-navy);
-            font-size: clamp(30px, 4vw, 44px);
+            color:
+                var(--mei-navy);
+
+            font-size:
+                clamp(
+                    30px,
+                    4vw,
+                    44px
+                );
+
             line-height: 1.12;
-            letter-spacing: -1.3px;
+
+            letter-spacing:
+                -1.3px;
+
             margin-bottom: 20px;
         }
 
+
         .about-content > p {
-            color: var(--muted);
+            color:
+                var(--muted);
+
             margin-bottom: 25px;
         }
 
+
         .check-list {
             display: grid;
+
             gap: 14px;
         }
 
+
         .check-item {
             display: flex;
+
             gap: 12px;
-            align-items: flex-start;
+
+            align-items:
+                flex-start;
         }
+
 
         .check {
             flex-shrink: 0;
+
             width: 25px;
             height: 25px;
+
             border-radius: 50%;
+
             display: grid;
+
             place-items: center;
-            background: var(--mei-green-light);
-            color: var(--mei-green-dark);
+
+            background:
+                var(--mei-green-light);
+
+            color:
+                var(--mei-green-dark);
+
             font-size: 13px;
+
             font-weight: 900;
         }
 
+
         .check-item strong {
             display: block;
-            color: var(--mei-navy);
+
+            color:
+                var(--mei-navy);
+
             font-size: 14px;
         }
+
 
         .check-item span {
             display: block;
-            color: var(--muted);
+
+            color:
+                var(--muted);
+
             font-size: 13px;
         }
 
+
         .about-panel {
-            background: linear-gradient(
-                145deg,
-                var(--mei-navy),
-                var(--mei-navy-2)
-            );
-            color: var(--white);
-            border-radius: var(--radius-lg);
+            background:
+                linear-gradient(
+                    145deg,
+                    var(--mei-navy),
+                    var(--mei-navy-2)
+                );
+
+            color:
+                var(--white);
+
+            border-radius:
+                var(--radius-lg);
+
             padding: 35px;
-            box-shadow: var(--shadow-lg);
+
+            box-shadow:
+                var(--shadow-lg);
         }
+
 
         .about-panel h3 {
             font-size: 25px;
+
             margin-bottom: 12px;
         }
 
+
         .about-panel p {
-            color: rgba(255,255,255,0.72);
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.72
+                );
+
             font-size: 14px;
+
             margin-bottom: 30px;
         }
 
+
         .about-metrics {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
             gap: 12px;
         }
 
+
         .metric {
             padding: 18px;
+
             border-radius: 12px;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
+
+            background:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.06
+                );
+
+            border:
+                1px solid
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.08
+                );
         }
+
 
         .metric strong {
             display: block;
-            color: var(--mei-green);
+
+            color:
+                var(--mei-green);
+
             font-size: 25px;
         }
 
+
         .metric span {
-            color: rgba(255,255,255,0.65);
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.65
+                );
+
             font-size: 11px;
         }
+
 
         /* ==================================================
            TRAINING CALENDAR
         ================================================== */
 
         .calendar-section {
-            background: var(--background);
+            background:
+                var(--background);
         }
+
 
         .calendar-promo {
             display: grid;
-            grid-template-columns: 1fr 0.8fr;
+
+            grid-template-columns:
+                1fr 0.8fr;
+
             gap: 30px;
+
             align-items: stretch;
         }
 
+
         .calendar-main {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-lg);
+            background:
+                var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                var(--radius-lg);
+
             padding: 35px;
-            box-shadow: var(--shadow-sm);
+
+            box-shadow:
+                var(--shadow-sm);
         }
 
+
         .calendar-main h3 {
-            color: var(--mei-navy);
+            color:
+                var(--mei-navy);
+
             font-size: 27px;
+
             margin-bottom: 12px;
         }
 
+
         .calendar-main p {
-            color: var(--muted);
+            color:
+                var(--muted);
+
             margin-bottom: 24px;
         }
 
+
         .calendar-features {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
             gap: 12px;
+
             margin-bottom: 25px;
         }
+
 
         .calendar-feature {
             padding: 15px;
+
             border-radius: 10px;
-            background: var(--mei-green-light);
-            color: var(--mei-navy);
+
+            background:
+                var(--mei-green-light);
+
+            color:
+                var(--mei-navy);
+
             font-size: 13px;
+
             font-weight: 700;
         }
 
+
         .calendar-side {
-            background: var(--mei-navy);
-            color: var(--white);
-            border-radius: var(--radius-lg);
+            background:
+                var(--mei-navy);
+
+            color:
+                var(--white);
+
+            border-radius:
+                var(--radius-lg);
+
             padding: 35px;
         }
 
+
         .calendar-side h3 {
             font-size: 23px;
+
             margin-bottom: 12px;
         }
 
+
         .calendar-side p {
-            color: rgba(255,255,255,0.68);
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.68
+                );
+
             font-size: 14px;
+
             margin-bottom: 25px;
         }
+
 
         .calendar-side .btn {
             width: 100%;
         }
+
 
         /* ==================================================
            PROCESS
@@ -567,84 +1193,161 @@
 
         .process-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
+
+            grid-template-columns:
+                repeat(
+                    4,
+                    1fr
+                );
+
             gap: 20px;
         }
 
+
         .process-card {
             position: relative;
+
             padding: 25px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
-            background: var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                var(--radius-md);
+
+            background:
+                var(--white);
+
+            transition:
+                0.2s ease;
         }
+
+
+        .process-card:hover {
+            transform:
+                translateY(-3px);
+
+            box-shadow:
+                var(--shadow-sm);
+        }
+
 
         .process-number {
             width: 42px;
             height: 42px;
+
             border-radius: 10px;
-            background: var(--mei-navy);
-            color: var(--mei-green);
+
+            background:
+                var(--mei-navy);
+
+            color:
+                var(--mei-green);
+
             display: grid;
+
             place-items: center;
+
             font-weight: 900;
+
             margin-bottom: 18px;
         }
 
+
         .process-card h3 {
-            color: var(--mei-navy);
+            color:
+                var(--mei-navy);
+
             font-size: 17px;
+
             margin-bottom: 8px;
         }
 
+
         .process-card p {
-            color: var(--muted);
+            color:
+                var(--muted);
+
             font-size: 13px;
         }
+
 
         /* ==================================================
            TESTIMONIALS
         ================================================== */
 
         .testimonials {
-            background: var(--background);
+            background:
+                var(--background);
         }
+
 
         .testimonial-grid {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
+
+            grid-template-columns:
+                repeat(
+                    3,
+                    1fr
+                );
+
             gap: 20px;
         }
 
+
         .testimonial {
-            background: var(--white);
-            border: 1px solid var(--border);
-            border-radius: var(--radius-md);
+            background:
+                var(--white);
+
+            border:
+                1px solid
+                var(--border);
+
+            border-radius:
+                var(--radius-md);
+
             padding: 28px;
         }
 
+
         .stars {
-            color: var(--mei-green-dark);
+            color:
+                var(--mei-green-dark);
+
             letter-spacing: 2px;
+
             margin-bottom: 15px;
         }
 
+
         .testimonial p {
-            color: var(--muted);
+            color:
+                var(--muted);
+
             font-size: 14px;
+
             margin-bottom: 22px;
         }
 
+
         .testimonial-author {
-            color: var(--mei-navy);
+            color:
+                var(--mei-navy);
+
             font-weight: 800;
+
             font-size: 13px;
         }
 
+
         .testimonial-role {
-            color: var(--muted);
+            color:
+                var(--muted);
+
             font-size: 11px;
         }
+
 
         /* ==================================================
            FAQ
@@ -652,195 +1355,430 @@
 
         .faq-list {
             max-width: 850px;
+
             margin: 0 auto;
+
             display: grid;
+
             gap: 10px;
         }
 
+
         .faq-item {
-            border: 1px solid var(--border);
+            border:
+                1px solid
+                var(--border);
+
             border-radius: 11px;
+
             overflow: hidden;
-            background: var(--white);
+
+            background:
+                var(--white);
+
+            transition:
+                0.2s ease;
         }
+
+
+        .faq-item.active {
+            border-color:
+                rgba(
+                    24,
+                    199,
+                    122,
+                    0.35
+                );
+        }
+
 
         .faq-question {
             width: 100%;
+
             border: 0;
-            background: var(--white);
-            padding: 19px 20px;
+
+            background:
+                var(--white);
+
+            padding:
+                19px 20px;
+
             text-align: left;
+
             cursor: pointer;
-            color: var(--mei-navy);
+
+            color:
+                var(--mei-navy);
+
             font-weight: 800;
+
             display: flex;
+
             align-items: center;
-            justify-content: space-between;
+
+            justify-content:
+                space-between;
+
             gap: 15px;
         }
 
+
         .faq-question span:last-child {
-            color: var(--mei-green-dark);
+            color:
+                var(--mei-green-dark);
+
             font-size: 20px;
+
+            min-width: 20px;
+
+            text-align: center;
         }
+
 
         .faq-answer {
             display: none;
-            padding: 0 20px 20px;
-            color: var(--muted);
+
+            padding:
+                0 20px 20px;
+
+            color:
+                var(--muted);
+
             font-size: 14px;
         }
+
 
         .faq-item.active .faq-answer {
             display: block;
         }
+
 
         /* ==================================================
            CONTACT
         ================================================== */
 
         .contact-section {
-            background: var(--mei-navy);
-            color: var(--white);
+            position: relative;
+
+            overflow: hidden;
+
+            background:
+                linear-gradient(
+                    135deg,
+                    var(--mei-navy),
+                    var(--mei-navy-2)
+                );
+
+            color:
+                var(--white);
         }
 
+
+        .contact-section::before {
+            content: "";
+
+            position: absolute;
+
+            width: 450px;
+            height: 450px;
+
+            border-radius: 50%;
+
+            border:
+                1px solid
+                rgba(
+                    24,
+                    199,
+                    122,
+                    0.08
+                );
+
+            right: -200px;
+            bottom: -250px;
+        }
+
+
         .contact-grid {
+            position: relative;
+
+            z-index: 2;
+
             display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
+
+            grid-template-columns:
+                0.8fr
+                1.2fr;
+
             gap: 60px;
         }
 
+
         .contact-info h2 {
-            font-size: clamp(30px, 4vw, 44px);
+            font-size:
+                clamp(
+                    30px,
+                    4vw,
+                    44px
+                );
+
             line-height: 1.12;
+
             margin-bottom: 18px;
         }
 
+
         .contact-info > p {
-            color: rgba(255,255,255,0.68);
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.68
+                );
+
             margin-bottom: 30px;
         }
 
+
         .contact-details {
             display: grid;
+
             gap: 18px;
         }
 
+
         .contact-detail {
             display: flex;
+
             gap: 13px;
         }
+
 
         .contact-detail-icon {
             width: 38px;
             height: 38px;
+
             border-radius: 9px;
-            background: rgba(24,199,122,0.12);
-            color: var(--mei-green);
+
+            background:
+                rgba(
+                    24,
+                    199,
+                    122,
+                    0.12
+                );
+
+            color:
+                var(--mei-green);
+
             display: grid;
+
             place-items: center;
+
             flex-shrink: 0;
         }
 
+
         .contact-detail strong {
             display: block;
+
             font-size: 13px;
         }
+
 
         .contact-detail span {
-            color: rgba(255,255,255,0.62);
+            color:
+                rgba(
+                    255,
+                    255,
+                    255,
+                    0.62
+                );
+
             font-size: 13px;
         }
 
+
         .contact-form {
-            background: var(--white);
-            color: var(--text);
-            border-radius: var(--radius-lg);
+            background:
+                var(--white);
+
+            color:
+                var(--text);
+
+            border-radius:
+                var(--radius-lg);
+
             padding: 30px;
+
+            box-shadow:
+                var(--shadow-lg);
         }
 
+
         .contact-form h3 {
-            color: var(--mei-navy);
+            color:
+                var(--mei-navy);
+
             margin-bottom: 20px;
         }
 
+
         .form-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
+
+            grid-template-columns:
+                repeat(
+                    2,
+                    1fr
+                );
+
             gap: 15px;
         }
 
+
         .form-group {
             display: grid;
+
             gap: 6px;
         }
 
+
         .form-group.full {
-            grid-column: 1 / -1;
+            grid-column:
+                1 / -1;
         }
 
+
         .form-group label {
-            color: var(--mei-navy);
+            color:
+                var(--mei-navy);
+
             font-size: 12px;
+
             font-weight: 800;
         }
+
 
         .form-group input,
         .form-group select,
         .form-group textarea {
             width: 100%;
-            border: 1px solid var(--border);
+
+            border:
+                1px solid
+                var(--border);
+
             border-radius: 8px;
-            padding: 12px 13px;
+
+            padding:
+                12px 13px;
+
             outline: none;
-            color: var(--text);
-            background: var(--white);
+
+            color:
+                var(--text);
+
+            background:
+                var(--white);
+
+            transition:
+                0.2s ease;
         }
+
 
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: var(--mei-green);
-            box-shadow: 0 0 0 3px rgba(24,199,122,0.10);
+            border-color:
+                var(--mei-green);
+
+            box-shadow:
+                0 0 0 3px
+                rgba(
+                    24,
+                    199,
+                    122,
+                    0.10
+                );
         }
+
 
         .form-group textarea {
             min-height: 120px;
+
             resize: vertical;
         }
 
+
         .form-message {
             display: none;
+
             margin-top: 15px;
+
             padding: 12px;
+
             border-radius: 8px;
+
             font-size: 13px;
         }
 
+
         .form-message.success {
             display: block;
-            background: var(--mei-green-light);
-            color: var(--mei-green-dark);
+
+            background:
+                var(--mei-green-light);
+
+            color:
+                var(--mei-green-dark);
         }
+
 
         .form-message.error {
             display: block;
-            background: #fdecec;
-            color: var(--danger);
+
+            background:
+                #fdecec;
+
+            color:
+                var(--danger);
         }
 
-        /* ==================================================
-           SHARED BRAND HEADER COMPATIBILITY
-        ================================================== */
 
-        /*
-         * brand.js injects the main MEI header.
-         * Keep the page content below it.
-         */
+        /* ==================================================
+           BRAND.JS COMPATIBILITY
+        ================================================== */
 
         .mei-site-header {
             margin: 0;
         }
+
+
+        .mei-site-footer {
+            position: relative;
+
+            z-index: 2;
+        }
+
+
+        /* ==================================================
+           ACCESSIBILITY
+        ================================================== */
+
+        :focus-visible {
+            outline:
+                3px solid
+                rgba(
+                    24,
+                    199,
+                    122,
+                    0.45
+                );
+
+            outline-offset: 3px;
+        }
+
 
         /* ==================================================
            MOBILE
@@ -849,101 +1787,201 @@
         @media (max-width: 1050px) {
 
             .service-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
             }
+
 
             .process-grid {
-                grid-template-columns: repeat(2, 1fr);
+                grid-template-columns:
+                    repeat(
+                        2,
+                        1fr
+                    );
             }
 
+
             .hero-inner {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .hero-card {
                 max-width: 650px;
             }
         }
 
+
         @media (max-width: 800px) {
 
             .about-grid,
             .calendar-promo,
             .contact-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
 
+
             .testimonial-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .contact-grid {
                 gap: 35px;
             }
+
+
+            .hero-inner {
+                gap: 40px;
+            }
         }
+
 
         @media (max-width: 600px) {
 
             .container {
-                width: min(100% - 28px, var(--container));
+                width:
+                    min(
+                        100% - 28px,
+                        var(--container)
+                    );
             }
+
 
             section {
                 padding: 65px 0;
             }
 
+
             .hero-inner {
                 padding: 65px 0;
-                min-height: auto;
+
+                min-height:
+                    auto;
             }
 
+
             .hero h1 {
-                letter-spacing: -1px;
+                letter-spacing:
+                    -1px;
             }
+
+
+            .hero-text {
+                font-size: 16px;
+            }
+
+
+            .hero-actions {
+                flex-direction:
+                    column;
+
+                align-items:
+                    stretch;
+            }
+
+
+            .hero-actions .btn {
+                width: 100%;
+            }
+
 
             .service-grid,
             .process-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .calendar-features,
             .form-grid {
-                grid-template-columns: 1fr;
+                grid-template-columns:
+                    1fr;
             }
+
 
             .form-group.full {
-                grid-column: auto;
+                grid-column:
+                    auto;
             }
 
+
             .about-metrics {
-                grid-template-columns: 1fr 1fr;
+                grid-template-columns:
+                    1fr 1fr;
+            }
+
+
+            .contact-form,
+            .calendar-main,
+            .calendar-side,
+            .about-panel {
+                padding: 24px;
             }
         }
+
+
+        @media (prefers-reduced-motion: reduce) {
+
+            html {
+                scroll-behavior:
+                    auto;
+            }
+
+
+            *,
+            *::before,
+            *::after {
+                animation-duration:
+                    0.01ms !important;
+
+                animation-iteration-count:
+                    1 !important;
+
+                transition-duration:
+                    0.01ms !important;
+            }
+        }
+
     </style>
 </head>
 
+
 <body>
 
+
 <!-- =====================================================
-     MAIN CONTENT
-     The shared MEI header is injected by assets/brand.js
+     SHARED MEI HEADER
+     Injected automatically by assets/brand.js
 ===================================================== -->
 
+
 <main>
+
 
     <!-- =================================================
          HERO
     ================================================= -->
 
-    <section class="hero" id="home">
+    <section
+        class="hero"
+        id="home">
 
         <div class="container hero-inner">
 
             <div>
 
                 <div class="hero-badge">
-                    ● MEI Group
+                    <span>●</span>
+                    MEI Group
                 </div>
+
 
                 <h1>
                     Building
@@ -952,21 +1990,32 @@
                     <span>Opportunities.</span>
                 </h1>
 
+
                 <p class="hero-text">
-                    MEI Group delivers practical solutions in international
-                    education, road safety, occupational safety and health,
-                    and professional driver recruitment and placement.
+                    MEI Group delivers practical solutions in
+                    international education, road safety,
+                    occupational safety and health, and professional
+                    driver recruitment and placement.
                 </p>
+
 
                 <div class="hero-actions">
 
-                    <a href="#services" class="btn btn-primary">
+                    <a
+                        href="#services"
+                        class="btn btn-primary">
+
                         Explore Our Services
+
                     </a>
 
-                    <a href="training-calendar.html"
-                       class="btn btn-outline">
+
+                    <a
+                        href="training-calendar.html"
+                        class="btn btn-outline">
+
                         View Training Calendar
+
                     </a>
 
                 </div>
@@ -982,6 +2031,7 @@
                         What We Do
                     </div>
 
+
                     <div class="hero-card-badge">
                         MEI GROUP
                     </div>
@@ -996,13 +2046,16 @@
                     </div>
 
                     <div>
+
                         <strong>
                             International Education
                         </strong>
 
                         <span>
-                            Guidance and support for global study opportunities.
+                            Guidance and support for global
+                            study opportunities.
                         </span>
+
                     </div>
 
                 </div>
@@ -1015,13 +2068,16 @@
                     </div>
 
                     <div>
+
                         <strong>
                             Road Safety Training
                         </strong>
 
                         <span>
-                            Professional road safety and driver training.
+                            Professional road safety and
+                            driver training.
                         </span>
+
                     </div>
 
                 </div>
@@ -1034,13 +2090,16 @@
                     </div>
 
                     <div>
+
                         <strong>
                             Occupational Safety & Health
                         </strong>
 
                         <span>
-                            Practical workplace safety and compliance training.
+                            Practical workplace safety and
+                            compliance training.
                         </span>
+
                     </div>
 
                 </div>
@@ -1053,13 +2112,16 @@
                     </div>
 
                     <div>
+
                         <strong>
                             Driver Recruitment
                         </strong>
 
                         <span>
-                            Connecting qualified drivers with employers.
+                            Connecting qualified drivers
+                            with employers.
                         </span>
+
                     </div>
 
                 </div>
@@ -1075,7 +2137,9 @@
          SERVICES
     ================================================= -->
 
-    <section class="services" id="services">
+    <section
+        class="services"
+        id="services">
 
         <div class="container">
 
@@ -1085,14 +2149,16 @@
                     Our Services
                 </div>
 
+
                 <h2>
                     Professional Solutions That Create Impact
                 </h2>
 
+
                 <p>
-                    Our services are designed to develop people, improve
-                    workplace and road safety, and connect talent with
-                    meaningful opportunities.
+                    Our services are designed to develop people,
+                    improve workplace and road safety, and connect
+                    talent with meaningful opportunities.
                 </p>
 
             </div>
@@ -1107,19 +2173,26 @@
                         ED
                     </div>
 
+
                     <h3>
                         International Education
                     </h3>
 
+
                     <p>
-                        Guidance and support for students seeking international
-                        education opportunities, including application,
-                        documentation and study planning.
+                        Guidance and support for students seeking
+                        international education opportunities,
+                        including application, documentation and
+                        study planning.
                     </p>
 
-                    <a href="education.html"
-                       class="service-link">
+
+                    <a
+                        href="education.html"
+                        class="service-link">
+
                         Explore Education →
+
                     </a>
 
                 </article>
@@ -1131,18 +2204,25 @@
                         RS
                     </div>
 
+
                     <h3>
                         Road Safety Training
                     </h3>
 
+
                     <p>
-                        Practical road safety programmes designed for drivers,
-                        organisations, fleets and institutions.
+                        Practical road safety programmes designed
+                        for drivers, organisations, fleets and
+                        institutions.
                     </p>
 
-                    <a href="road-safety.html"
-                       class="service-link">
+
+                    <a
+                        href="road-safety.html"
+                        class="service-link">
+
                         Explore Road Safety →
+
                     </a>
 
                 </article>
@@ -1154,19 +2234,25 @@
                         OS
                     </div>
 
+
                     <h3>
                         Occupational Safety & Health
                     </h3>
 
+
                     <p>
-                        Workplace safety and occupational health training
-                        supporting organisations to build safer working
-                        environments.
+                        Workplace safety and occupational health
+                        training supporting organisations to build
+                        safer working environments.
                     </p>
 
-                    <a href="occupational-safety.html"
-                       class="service-link">
+
+                    <a
+                        href="occupational-safety.html"
+                        class="service-link">
+
                         Explore OSH →
+
                     </a>
 
                 </article>
@@ -1178,9 +2264,11 @@
                         DR
                     </div>
 
+
                     <h3>
                         Driver Recruitment
                     </h3>
+
 
                     <p>
                         Recruitment and placement services connecting
@@ -1188,9 +2276,13 @@
                         locally and internationally.
                     </p>
 
-                    <a href="driver-recruitment.html"
-                       class="service-link">
+
+                    <a
+                        href="driver-recruitment.html"
+                        class="service-link">
+
                         Find or Recruit Drivers →
+
                     </a>
 
                 </article>
@@ -1216,19 +2308,23 @@
                     About MEI Group
                 </div>
 
+
                 <h2>
                     Practical Solutions.
                     Professional Standards.
                 </h2>
 
+
                 <p>
                     MEI Group is a division of MEI Press Holdings Ltd,
-                    providing professional services focused on education,
-                    safety, training and employment opportunities.
+                    providing professional services focused on
+                    education, safety, training and employment
+                    opportunities.
                 </p>
 
 
                 <div class="check-list">
+
 
                     <div class="check-item">
 
@@ -1265,8 +2361,9 @@
                             </strong>
 
                             <span>
-                                Structured processes from enquiry through
-                                registration, training and follow-up.
+                                Structured processes from enquiry
+                                through registration, training
+                                and follow-up.
                             </span>
 
                         </div>
@@ -1287,8 +2384,9 @@
                             </strong>
 
                             <span>
-                                We help people develop skills and connect
-                                with education and employment opportunities.
+                                We help people develop skills and
+                                connect with education and employment
+                                opportunities.
                             </span>
 
                         </div>
@@ -1306,33 +2404,66 @@
                     Our Approach
                 </h3>
 
+
                 <p>
-                    We combine professional knowledge, practical training
-                    and technology to deliver accessible solutions for
-                    individuals, businesses and institutions.
+                    We combine professional knowledge, practical
+                    training and technology to deliver accessible
+                    solutions for individuals, businesses and
+                    institutions.
                 </p>
 
 
                 <div class="about-metrics">
 
                     <div class="metric">
-                        <strong>04</strong>
-                        <span>Core Service Areas</span>
+
+                        <strong>
+                            04
+                        </strong>
+
+                        <span>
+                            Core Service Areas
+                        </span>
+
                     </div>
 
-                    <div class="metric">
-                        <strong>01</strong>
-                        <span>Integrated Service Platform</span>
-                    </div>
 
                     <div class="metric">
-                        <strong>100%</strong>
-                        <span>Professional Focus</span>
+
+                        <strong>
+                            01
+                        </strong>
+
+                        <span>
+                            Integrated Service Platform
+                        </span>
+
                     </div>
 
+
                     <div class="metric">
-                        <strong>24/7</strong>
-                        <span>Online Enquiry Access</span>
+
+                        <strong>
+                            100%
+                        </strong>
+
+                        <span>
+                            Professional Focus
+                        </span>
+
+                    </div>
+
+
+                    <div class="metric">
+
+                        <strong>
+                            24/7
+                        </strong>
+
+                        <span>
+                            Online Enquiry Access
+                        </span>
+
                     </div>
 
                 </div>
@@ -1358,9 +2489,11 @@
                     Training Calendar
                 </div>
 
+
                 <h2>
                     Plan Your Next Training
                 </h2>
+
 
                 <p>
                     View upcoming MEI Group training programmes and
@@ -1373,17 +2506,19 @@
 
             <div class="calendar-promo">
 
+
                 <div class="calendar-main">
 
                     <h3>
                         Upcoming Training Programmes
                     </h3>
 
+
                     <p>
-                        Our training calendar brings together road safety,
-                        occupational safety and health, driver-related
-                        programmes and other professional development
-                        opportunities.
+                        Our training calendar brings together road
+                        safety, occupational safety and health,
+                        driver-related programmes and other
+                        professional development opportunities.
                     </p>
 
 
@@ -1393,13 +2528,16 @@
                             ✓ Scheduled Training Dates
                         </div>
 
+
                         <div class="calendar-feature">
                             ✓ Professional Trainers
                         </div>
 
+
                         <div class="calendar-feature">
                             ✓ Individual & Corporate Training
                         </div>
+
 
                         <div class="calendar-feature">
                             ✓ Online Registration
@@ -1408,9 +2546,12 @@
                     </div>
 
 
-                    <a href="training-calendar.html"
-                       class="btn btn-primary">
+                    <a
+                        href="training-calendar.html"
+                        class="btn btn-primary">
+
                         View Full Calendar
+
                     </a>
 
                 </div>
@@ -1422,14 +2563,20 @@
                         Need a Private Programme?
                     </h3>
 
+
                     <p>
                         Organisations can request customised training
-                        programmes for their teams, fleets and workplaces.
+                        programmes for their teams, fleets and
+                        workplaces.
                     </p>
 
-                    <a href="#contact"
-                       class="btn btn-primary">
+
+                    <a
+                        href="#contact"
+                        class="btn btn-primary">
+
                         Request Training
+
                     </a>
 
                 </div>
@@ -1455,9 +2602,11 @@
                     How It Works
                 </div>
 
+
                 <h2>
                     Simple. Structured. Professional.
                 </h2>
+
 
                 <p>
                     We make it easy to access the right service and
@@ -1468,6 +2617,7 @@
 
 
             <div class="process-grid">
+
 
                 <div class="process-card">
 
@@ -1498,8 +2648,8 @@
                     </h3>
 
                     <p>
-                        Our team reviews your requirements and recommends
-                        the appropriate service.
+                        Our team reviews your requirements and
+                        recommends the appropriate service.
                     </p>
 
                 </div>
@@ -1516,8 +2666,8 @@
                     </h3>
 
                     <p>
-                        Complete registration and documentation for your
-                        selected service or programme.
+                        Complete registration and documentation for
+                        your selected service or programme.
                     </p>
 
                 </div>
@@ -1534,8 +2684,9 @@
                     </h3>
 
                     <p>
-                        Receive professional support, training or placement
-                        services through the agreed programme.
+                        Receive professional support, training or
+                        placement services through the agreed
+                        programme.
                     </p>
 
                 </div>
@@ -1561,9 +2712,11 @@
                     Client Experience
                 </div>
 
+
                 <h2>
                     Built Around People and Organisations
                 </h2>
+
 
                 <p>
                     Our approach focuses on practical outcomes and
@@ -1575,20 +2728,24 @@
 
             <div class="testimonial-grid">
 
+
                 <div class="testimonial">
 
                     <div class="stars">
                         ★★★★★
                     </div>
 
+
                     <p>
-                        "The process was clear and professional from the
-                        initial enquiry through to the final service."
+                        "The process was clear and professional from
+                        the initial enquiry through to the final service."
                     </p>
+
 
                     <div class="testimonial-author">
                         Training Participant
                     </div>
+
 
                     <div class="testimonial-role">
                         Professional Training
@@ -1603,14 +2760,18 @@
                         ★★★★★
                     </div>
 
+
                     <p>
-                        "The team helped us identify the training programme
-                        that matched our organisation's requirements."
+                        "The team helped us identify the training
+                        programme that matched our organisation's
+                        requirements."
                     </p>
+
 
                     <div class="testimonial-author">
                         Corporate Client
                     </div>
+
 
                     <div class="testimonial-role">
                         Workplace Training
@@ -1625,14 +2786,17 @@
                         ★★★★★
                     </div>
 
+
                     <p>
-                        "The service was organised, responsive and focused
-                        on practical solutions."
+                        "The service was organised, responsive and
+                        focused on practical solutions."
                     </p>
+
 
                     <div class="testimonial-author">
                         Client
                     </div>
+
 
                     <div class="testimonial-role">
                         MEI Group Services
@@ -1661,6 +2825,7 @@
                     FAQ
                 </div>
 
+
                 <h2>
                     Frequently Asked Questions
                 </h2>
@@ -1687,11 +2852,14 @@
 
                     </button>
 
+
                     <div class="faq-answer">
-                        MEI Group provides international education support,
-                        road safety training, occupational safety and health
-                        training, and professional driver recruitment and
-                        placement services.
+
+                        MEI Group provides international education
+                        support, road safety training, occupational
+                        safety and health training, and professional
+                        driver recruitment and placement services.
+
                     </div>
 
                 </div>
@@ -1713,10 +2881,14 @@
 
                     </button>
 
+
                     <div class="faq-answer">
-                        Yes. Organisations can contact MEI Group to discuss
-                        customised training programmes based on their
-                        workforce, fleet or operational requirements.
+
+                        Yes. Organisations can contact MEI Group to
+                        discuss customised training programmes based
+                        on their workforce, fleet or operational
+                        requirements.
+
                     </div>
 
                 </div>
@@ -1738,10 +2910,14 @@
 
                     </button>
 
+
                     <div class="faq-answer">
+
                         Job seekers can complete the Driver Recruitment
-                        application form, while employers can submit their
-                        driver requirements through the same service.
+                        application form, while employers can submit
+                        their driver requirements through the same
+                        service.
+
                     </div>
 
                 </div>
@@ -1763,9 +2939,12 @@
 
                     </button>
 
+
                     <div class="faq-answer">
+
                         Visit the Training Calendar to view available
                         programmes, dates and registration options.
+
                     </div>
 
                 </div>
@@ -1787,10 +2966,13 @@
 
                     </button>
 
+
                     <div class="faq-answer">
+
                         Use the contact form below or contact MEI Group
                         directly using the telephone and email details
                         provided on this website.
+
                     </div>
 
                 </div>
@@ -1806,9 +2988,12 @@
          CONTACT
     ================================================= -->
 
-    <section class="contact-section" id="contact">
+    <section
+        class="contact-section"
+        id="contact">
 
         <div class="container contact-grid">
+
 
             <div class="contact-info">
 
@@ -1816,9 +3001,11 @@
                     Contact MEI Group
                 </div>
 
+
                 <h2>
                     Let's Discuss Your Requirements
                 </h2>
+
 
                 <p>
                     Whether you need training, education support,
@@ -1829,17 +3016,20 @@
 
                 <div class="contact-details">
 
+
                     <div class="contact-detail">
 
                         <div class="contact-detail-icon">
                             ☎
                         </div>
 
+
                         <div>
 
                             <strong>
                                 Phone
                             </strong>
+
 
                             <span>
                                 +254 720 216 985
@@ -1856,11 +3046,13 @@
                             ✉
                         </div>
 
+
                         <div>
 
                             <strong>
                                 Email
                             </strong>
+
 
                             <span>
                                 info@meipressgroup.com
@@ -1877,11 +3069,13 @@
                             ◎
                         </div>
 
+
                         <div>
 
                             <strong>
                                 Location
                             </strong>
+
 
                             <span>
                                 Kenya
@@ -1907,17 +3101,20 @@
 
                     <div class="form-grid">
 
+
                         <div class="form-group">
 
                             <label for="name">
                                 Full Name *
                             </label>
 
+
                             <input
                                 type="text"
                                 id="name"
                                 name="name"
                                 required
+                                autocomplete="name"
                                 placeholder="Your full name">
 
                         </div>
@@ -1929,11 +3126,13 @@
                                 Email *
                             </label>
 
+
                             <input
                                 type="email"
                                 id="email"
                                 name="email"
                                 required
+                                autocomplete="email"
                                 placeholder="you@example.com">
 
                         </div>
@@ -1945,10 +3144,12 @@
                                 Phone
                             </label>
 
+
                             <input
                                 type="tel"
                                 id="phone"
                                 name="phone"
+                                autocomplete="tel"
                                 placeholder="+254...">
 
                         </div>
@@ -1960,6 +3161,7 @@
                                 Service *
                             </label>
 
+
                             <select
                                 id="service"
                                 name="service"
@@ -1969,21 +3171,26 @@
                                     Select a service
                                 </option>
 
+
                                 <option value="General Contact">
                                     General Contact
                                 </option>
+
 
                                 <option value="International Education">
                                     International Education
                                 </option>
 
+
                                 <option value="Road Safety Training">
                                     Road Safety Training
                                 </option>
 
+
                                 <option value="Occupational Safety & Health">
                                     Occupational Safety & Health
                                 </option>
+
 
                                 <option value="Driver Recruitment">
                                     Driver Recruitment
@@ -2000,6 +3207,7 @@
                                 Message *
                             </label>
 
+
                             <textarea
                                 id="message"
                                 name="message"
@@ -2014,7 +3222,10 @@
                     <button
                         type="submit"
                         class="btn btn-primary"
-                        style="margin-top:18px;width:100%;">
+                        style="
+                            margin-top:18px;
+                            width:100%;
+                        ">
 
                         Send Enquiry
 
@@ -2023,7 +3234,9 @@
 
                     <div
                         id="formMessage"
-                        class="form-message">
+                        class="form-message"
+                        role="status"
+                        aria-live="polite">
                     </div>
 
                 </form>
@@ -2045,6 +3258,7 @@
 
 
 <script>
+
 /* =====================================================
    MEI SUPABASE CONFIGURATION
 ===================================================== */
@@ -2052,8 +3266,10 @@
 const MEI_SUPABASE_URL =
     "https://qkchnrrxrewmlvvxuuqe.supabase.co";
 
+
 const MEI_SUPABASE_KEY =
     "sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
+
 
 const supabaseClient =
     window.supabase.createClient(
@@ -2061,7 +3277,9 @@ const supabaseClient =
         MEI_SUPABASE_KEY
     );
 
-window.supabaseClient = supabaseClient;
+
+window.supabaseClient =
+    supabaseClient;
 
 
 /* =====================================================
@@ -2072,49 +3290,67 @@ document
     .querySelectorAll(".faq-question")
     .forEach(button => {
 
-        button.addEventListener("click", () => {
+        button.addEventListener(
+            "click",
+            () => {
 
-            const item =
-                button.closest(".faq-item");
-
-            const isActive =
-                item.classList.contains("active");
-
-
-            document
-                .querySelectorAll(".faq-item")
-                .forEach(other => {
-
-                    other.classList.remove("active");
-
-                    const icon =
-                        other.querySelector(
-                            ".faq-question span:last-child"
-                        );
-
-                    if (icon) {
-                        icon.textContent = "+";
-                    }
-
-                });
+                const item =
+                    button.closest(".faq-item");
 
 
-            if (!isActive) {
-
-                item.classList.add("active");
-
-                const icon =
-                    button.querySelector(
-                        "span:last-child"
+                const isActive =
+                    item.classList.contains(
+                        "active"
                     );
 
-                if (icon) {
-                    icon.textContent = "−";
+
+                document
+                    .querySelectorAll(
+                        ".faq-item"
+                    )
+                    .forEach(other => {
+
+                        other.classList.remove(
+                            "active"
+                        );
+
+
+                        const icon =
+                            other.querySelector(
+                                ".faq-question span:last-child"
+                            );
+
+
+                        if (icon) {
+                            icon.textContent =
+                                "+";
+                        }
+
+                    });
+
+
+                if (!isActive) {
+
+                    item.classList.add(
+                        "active"
+                    );
+
+
+                    const icon =
+                        button.querySelector(
+                            "span:last-child"
+                        );
+
+
+                    if (icon) {
+                        icon.textContent =
+                            "−";
+                    }
+
                 }
 
             }
-
-        });
+        );
 
     });
 
@@ -2124,10 +3360,15 @@ document
 ===================================================== */
 
 const contactForm =
-    document.getElementById("contactForm");
+    document.getElementById(
+        "contactForm"
+    );
+
 
 const formMessage =
-    document.getElementById("formMessage");
+    document.getElementById(
+        "formMessage"
+    );
 
 
 if (contactForm) {
@@ -2145,7 +3386,9 @@ if (contactForm) {
                 );
 
 
-            submitButton.disabled = true;
+            submitButton.disabled =
+                true;
+
 
             submitButton.textContent =
                 "Sending...";
@@ -2154,44 +3397,65 @@ if (contactForm) {
             formMessage.className =
                 "form-message";
 
+
             formMessage.textContent =
                 "";
 
 
             const formData =
-                new FormData(contactForm);
+                new FormData(
+                    contactForm
+                );
 
 
             const payload = {
 
                 name:
                     String(
-                        formData.get("name") || ""
+                        formData.get(
+                            "name"
+                        ) || ""
                     ).trim(),
+
 
                 email:
                     String(
-                        formData.get("email") || ""
+                        formData.get(
+                            "email"
+                        ) || ""
                     ).trim(),
+
 
                 phone:
                     String(
-                        formData.get("phone") || ""
+                        formData.get(
+                            "phone"
+                        ) || ""
                     ).trim(),
+
 
                 service:
                     String(
-                        formData.get("service") || ""
+                        formData.get(
+                            "service"
+                        ) || ""
                     ).trim(),
+
 
                 message:
                     String(
-                        formData.get("message") || ""
+                        formData.get(
+                            "message"
+                        ) || ""
                     ).trim(),
 
-                status: "new",
 
-                source: "website"
+                status:
+                    "new",
+
+
+                source:
+                    "website"
 
             };
 
@@ -2200,8 +3464,12 @@ if (contactForm) {
 
                 const { error } =
                     await supabaseClient
-                        .from("applications")
-                        .insert([payload]);
+                        .from(
+                            "applications"
+                        )
+                        .insert([
+                            payload
+                        ]);
 
 
                 if (error) {
@@ -2238,7 +3506,9 @@ if (contactForm) {
 
             } finally {
 
-                submitButton.disabled = false;
+                submitButton.disabled =
+                    false;
+
 
                 submitButton.textContent =
                     "Send Enquiry";
@@ -2249,21 +3519,16 @@ if (contactForm) {
     );
 
 }
+
 </script>
 
 
 <!-- =====================================================
      SHARED MEI BRANDING
-     
-     This automatically injects:
-     - favicon
-     - MEI logo
-     - navigation
-     - mobile navigation
-     - footer
 ===================================================== -->
 
 <script src="assets/brand.js"></script>
+
 
 </body>
 </html>
