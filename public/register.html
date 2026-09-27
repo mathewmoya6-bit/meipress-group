@@ -3,199 +3,374 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
+
 <title>Training Registration | MEI Group</title>
-<meta name="description" content="Register for an MEI Group training session.">
+
+<meta
+    name="description"
+    content="Register for an MEI Group training session."
+>
 
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+:root{
+    --navy:#071a2b;
+    --navy2:#0b304a;
+    --green:#18c77a;
+    --green-dark:#07985a;
+    --green-light:#e4f8ef;
+    --white:#ffffff;
+    --bg:#f4f7f9;
+    --text:#17212b;
+    --muted:#687984;
+    --border:#dfe7ec;
+    --danger:#8d2929;
+}
+
 body{
-font-family:Arial,Helvetica,sans-serif;
-background:#f4f7f9;
-color:#17212b;
-line-height:1.6
+    font-family:Inter,Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
 }
+
 .container{
-width:min(900px,92%);
-margin:auto
+    width:min(900px,92%);
+    margin:auto;
 }
+
+/* HEADER */
+
 header{
-background:#071a2b;
-color:#fff;
-padding:18px 0
+    background:var(--navy);
+    color:var(--white);
+    padding:18px 0;
 }
+
 .header-inner{
-display:flex;
-justify-content:space-between;
-align-items:center;
-gap:20px
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    gap:20px;
 }
+
 .logo{
-font-size:22px;
-font-weight:800
+    color:#fff;
+    text-decoration:none;
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:-.4px;
 }
-.logo span{color:#18c77a}
+
+.logo span{
+    color:var(--green);
+}
+
 .back{
-color:#fff;
-font-size:14px
+    color:#fff;
+    text-decoration:none;
+    font-size:14px;
+    font-weight:700;
 }
+
+.back:hover{
+    color:var(--green);
+}
+
+/* MAIN */
+
 main{
-padding:45px 0 70px
+    padding:45px 0 70px;
 }
+
 .card{
-background:#fff;
-border:1px solid #dfe7ec;
-border-radius:15px;
-box-shadow:0 6px 25px rgba(7,26,43,.07);
-overflow:hidden
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:15px;
+    box-shadow:0 6px 25px rgba(7,26,43,.07);
+    overflow:hidden;
 }
+
+/* LOADING */
+
+.loading{
+    padding:45px 30px;
+    text-align:center;
+}
+
+.spinner{
+    width:38px;
+    height:38px;
+    border:4px solid #dce8e3;
+    border-top-color:var(--green);
+    border-radius:50%;
+    animation:spin .8s linear infinite;
+    margin:0 auto 18px;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+/* CARD HEADER */
+
 .card-header{
-background:#071a2b;
-color:#fff;
-padding:28px
+    background:
+        linear-gradient(
+            135deg,
+            var(--navy),
+            var(--navy2)
+        );
+    color:var(--white);
+    padding:30px;
 }
+
 .card-header h1{
-font-size:30px;
-margin-bottom:8px
+    font-size:30px;
+    line-height:1.2;
+    margin-bottom:8px;
 }
+
 .card-header p{
-color:#cbd9e0
+    color:#cbd9e0;
 }
+
+/* SESSION */
+
 .session-summary{
-padding:24px 28px;
-background:#f8fafb;
-border-bottom:1px solid #e3eaee
+    padding:25px 30px;
+    background:#f8fafb;
+    border-bottom:1px solid #e3eaee;
 }
+
 .session-summary h2{
-color:#071a2b;
-margin-bottom:10px
+    color:var(--navy);
+    margin-bottom:15px;
+    font-size:23px;
 }
+
 .summary-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:12px
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:14px;
 }
+
 .summary-item{
-font-size:13px;
-color:#687984
+    font-size:13px;
+    color:var(--muted);
 }
+
 .summary-item strong{
-display:block;
-font-size:14px;
-color:#263642
+    display:block;
+    font-size:14px;
+    color:#263642;
+    margin-top:2px;
 }
+
+/* FORM */
+
 .form{
-padding:28px
+    padding:30px;
 }
+
 .form-grid{
-display:grid;
-grid-template-columns:1fr 1fr;
-gap:18px
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:18px;
 }
+
 .form-group{
-display:flex;
-flex-direction:column;
-gap:6px
+    display:flex;
+    flex-direction:column;
+    gap:6px;
 }
+
 .form-group.full{
-grid-column:1/-1
+    grid-column:1/-1;
 }
+
 label{
-font-size:13px;
-font-weight:700;
-color:#263642
+    font-size:13px;
+    font-weight:800;
+    color:#263642;
 }
+
 input,
 select,
 textarea{
-width:100%;
-padding:12px 13px;
-border:1px solid #ccd8df;
-border-radius:8px;
-font:inherit;
-background:#fff
+    width:100%;
+    padding:12px 13px;
+    border:1px solid #ccd8df;
+    border-radius:8px;
+    font:inherit;
+    background:#fff;
+    color:#17212b;
 }
-textarea{
-min-height:110px;
-resize:vertical
+
+input::placeholder,
+textarea::placeholder{
+    color:#9aa8b0;
 }
+
 input:focus,
 select:focus,
 textarea:focus{
-outline:none;
-border-color:#18b977;
-box-shadow:0 0 0 3px rgba(24,185,119,.1)
+    outline:none;
+    border-color:var(--green);
+    box-shadow:0 0 0 3px rgba(24,199,122,.12);
 }
+
+textarea{
+    min-height:110px;
+    resize:vertical;
+}
+
+/* CHECKBOX */
+
 .checkbox{
-display:flex;
-gap:10px;
-align-items:flex-start;
-font-size:13px;
-color:#53656f;
-margin-top:5px
+    display:flex;
+    flex-direction:row;
+    gap:10px;
+    align-items:flex-start;
+    font-size:13px;
+    font-weight:500;
+    color:#53656f;
+    margin-top:5px;
 }
+
 .checkbox input{
-width:auto;
-margin-top:4px
+    width:auto;
+    margin-top:5px;
 }
+
+/* BUTTON */
+
 .submit{
-margin-top:22px;
-width:100%;
-border:0;
-background:#12b96f;
-color:#fff;
-padding:14px;
-border-radius:8px;
-font-size:15px;
-font-weight:800;
-cursor:pointer
+    margin-top:22px;
+    width:100%;
+    border:0;
+    background:var(--green);
+    color:#fff;
+    padding:14px;
+    border-radius:8px;
+    font-size:15px;
+    font-weight:900;
+    cursor:pointer;
+    transition:.2s ease;
 }
+
 .submit:hover{
-background:#07985a
+    background:var(--green-dark);
 }
+
 .submit:disabled{
-opacity:.6;
-cursor:not-allowed
+    opacity:.6;
+    cursor:not-allowed;
 }
+
+/* MESSAGE */
+
 .message{
-display:none;
-margin-bottom:20px;
-padding:15px;
-border-radius:8px;
-font-size:14px
+    display:none;
+    margin-bottom:20px;
+    padding:15px;
+    border-radius:8px;
+    font-size:14px;
 }
+
 .message.success{
-display:block;
-background:#e8f8f0;
-border:1px solid #a9dfc5;
-color:#14653f
+    display:block;
+    background:#e8f8f0;
+    border:1px solid #a9dfc5;
+    color:#14653f;
 }
+
 .message.error{
-display:block;
-background:#fff1f1;
-border:1px solid #e2b6b6;
-color:#8d2929
+    display:block;
+    background:#fff1f1;
+    border:1px solid #e2b6b6;
+    color:var(--danger);
 }
-.loading{
-padding:35px;
-text-align:center
-}
+
+/* FOOTER */
+
 footer{
-background:#071a2b;
-color:#c8d5dc;
-padding:30px 0;
-font-size:13px
+    background:var(--navy);
+    color:#c8d5dc;
+    padding:30px 0;
+    font-size:13px;
 }
+
+.footer-inner{
+    display:flex;
+    justify-content:space-between;
+    gap:20px;
+    flex-wrap:wrap;
+}
+
+.footer-brand{
+    color:#fff;
+    font-weight:800;
+}
+
+.footer-brand span{
+    color:var(--green);
+}
+
+/* MOBILE */
+
 @media(max-width:650px){
-.form-grid,
-.summary-grid{
-grid-template-columns:1fr
-}
-.form-group.full{
-grid-column:auto
-}
-.header-inner{
-align-items:flex-start
-}
+
+    .header-inner{
+        align-items:flex-start;
+    }
+
+    .back{
+        font-size:13px;
+    }
+
+    main{
+        padding:25px 0 50px;
+    }
+
+    .card-header{
+        padding:24px;
+    }
+
+    .card-header h1{
+        font-size:25px;
+    }
+
+    .session-summary{
+        padding:22px 24px;
+    }
+
+    .summary-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form{
+        padding:24px;
+    }
+
+    .form-grid{
+        grid-template-columns:1fr;
+    }
+
+    .form-group.full{
+        grid-column:auto;
+    }
+
+    .footer-inner{
+        flex-direction:column;
+    }
 }
 </style>
 </head>
@@ -203,101 +378,260 @@ align-items:flex-start
 <body>
 
 <header>
+
 <div class="container header-inner">
 
 <a href="training-calendar.html" class="logo">
-MEI <span>GROUP</span>
+    MEI <span>GROUP</span>
 </a>
 
 <a href="training-calendar.html" class="back">
-← Training Calendar
+    ← Training Calendar
 </a>
 
 </div>
+
 </header>
+
 
 <main>
 
 <div class="container">
 
+<!-- LOADING -->
+
 <div id="loading" class="card">
+
 <div class="loading">
-Loading training session...
-</div>
+
+<div class="spinner"></div>
+
+<strong>Loading training session...</strong>
+
+<p
+    id="loadingText"
+    style="margin-top:6px;color:#687984;font-size:13px"
+>
+Please wait.
+</p>
+
 </div>
 
-<div id="registrationCard" class="card" style="display:none">
+</div>
+
+
+<!-- REGISTRATION CARD -->
+
+<div
+    id="registrationCard"
+    class="card"
+    style="display:none"
+>
 
 <div class="card-header">
-<h1>Training Registration</h1>
-<p>Complete the form below to register for this training session.</p>
+
+<h1>
+Training Registration
+</h1>
+
+<p>
+Complete the form below to register for this training session.
+</p>
+
 </div>
 
-<div id="sessionSummary" class="session-summary"></div>
+
+<div
+    id="sessionSummary"
+    class="session-summary"
+></div>
+
 
 <div class="form">
 
-<div id="message" class="message"></div>
+<div
+    id="message"
+    class="message"
+></div>
+
 
 <form id="registrationForm">
 
 <div class="form-grid">
 
-<div class="form-group">
-<label for="full_name">Full Name *</label>
-<input id="full_name" name="full_name" required>
-</div>
+
+<!-- NAME -->
 
 <div class="form-group">
-<label for="email">Email Address *</label>
-<input id="email" name="email" type="email" required>
+
+<label for="full_name">
+Full Name *
+</label>
+
+<input
+    id="full_name"
+    name="full_name"
+    autocomplete="name"
+    required
+>
+
 </div>
 
-<div class="form-group">
-<label for="phone">Phone Number *</label>
-<input id="phone" name="phone" required>
-</div>
+
+<!-- EMAIL -->
 
 <div class="form-group">
-<label for="organization">Organization</label>
-<input id="organization" name="organization">
+
+<label for="email">
+Email Address *
+</label>
+
+<input
+    id="email"
+    name="email"
+    type="email"
+    autocomplete="email"
+    required
+>
+
 </div>
 
-<div class="form-group">
-<label for="job_title">Job Title</label>
-<input id="job_title" name="job_title">
-</div>
+
+<!-- PHONE -->
 
 <div class="form-group">
-<label for="participant_type">Participant Type *</label>
-<select id="participant_type" name="participant_type" required>
-<option value="">Select</option>
-<option value="individual">Individual</option>
-<option value="corporate">Corporate</option>
-<option value="organization">Organization</option>
+
+<label for="phone">
+Phone Number *
+</label>
+
+<input
+    id="phone"
+    name="phone"
+    type="tel"
+    autocomplete="tel"
+    placeholder="e.g. 0703 738 707"
+    required
+>
+
+</div>
+
+
+<!-- ORGANIZATION -->
+
+<div class="form-group">
+
+<label for="organization">
+Organization
+</label>
+
+<input
+    id="organization"
+    name="organization"
+    autocomplete="organization"
+>
+
+</div>
+
+
+<!-- JOB TITLE -->
+
+<div class="form-group">
+
+<label for="job_title">
+Job Title
+</label>
+
+<input
+    id="job_title"
+    name="job_title"
+>
+
+</div>
+
+
+<!-- PARTICIPANT TYPE -->
+
+<div class="form-group">
+
+<label for="participant_type">
+Participant Type *
+</label>
+
+<select
+    id="participant_type"
+    name="participant_type"
+    required
+>
+
+<option value="">
+Select
+</option>
+
+<option value="individual">
+Individual
+</option>
+
+<option value="corporate">
+Corporate
+</option>
+
+<option value="organization">
+Organization
+</option>
+
 </select>
+
 </div>
+
+
+<!-- NOTES -->
 
 <div class="form-group full">
-<label for="notes">Additional Information</label>
-<textarea id="notes" name="notes" placeholder="Any additional information..."></textarea>
+
+<label for="notes">
+Additional Information
+</label>
+
+<textarea
+    id="notes"
+    name="notes"
+    placeholder="Any additional information..."
+></textarea>
+
 </div>
+
+
+<!-- CONSENT -->
 
 <div class="form-group full">
 
 <label class="checkbox">
-<input type="checkbox" id="consent" required>
+
+<input
+    type="checkbox"
+    id="consent"
+    required
+>
+
 <span>
-I confirm that the information provided is accurate and I agree
-to be contacted by MEI Group regarding this training registration.
+I confirm that the information provided is accurate
+and I agree to be contacted by MEI Group regarding
+this training registration.
 </span>
+
 </label>
 
 </div>
 
 </div>
 
-<button type="submit" class="submit" id="submitButton">
+
+<button
+    type="submit"
+    class="submit"
+    id="submitButton"
+>
 Complete Registration
 </button>
 
@@ -311,367 +645,885 @@ Complete Registration
 
 </main>
 
+
 <footer>
-<div class="container">
-MEI Group | +254 703 738 707 | info@meipressgroup.com
+
+<div class="container footer-inner">
+
+<div>
+<span class="footer-brand">
+MEI <span>GROUP</span>
+</span>
 </div>
+
+<div>
++254 703 738 707 |
+info@meipressgroup.com
+</div>
+
+</div>
+
 </footer>
 
+
+<!-- SUPABASE -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-<script src="js/config.js"></script>
+
 
 <script>
 
-let supabaseClient;
-let sessionData=null;
+/* =========================================================
+   MEI GROUP SUPABASE CONFIGURATION
+   ========================================================= */
+
+const MEI_SUPABASE_URL =
+    "https://qkchnrrxrewmlvvxuuqe.supabase.co";
+
+const MEI_SUPABASE_KEY =
+    "sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
+
+
+/* =========================================================
+   INITIALIZE SUPABASE
+   ========================================================= */
+
+let supabaseClient = null;
+let sessionData = null;
+
+try{
+
+    if(
+        !window.supabase ||
+        typeof window.supabase.createClient !== "function"
+    ){
+
+        throw new Error(
+            "Supabase library failed to load."
+        );
+
+    }
+
+    supabaseClient =
+        window.supabase.createClient(
+            MEI_SUPABASE_URL,
+            MEI_SUPABASE_KEY
+        );
+
+    /*
+     * Make it available globally as well.
+     * This keeps compatibility with your other MEI files.
+     */
+
+    window.supabaseClient = supabaseClient;
+
+    console.log(
+        "MEI Supabase client initialized successfully."
+    );
+
+}catch(error){
+
+    console.error(
+        "Supabase initialization error:",
+        error
+    );
+
+}
+
+
+/* =========================================================
+   HELPERS
+   ========================================================= */
 
 function escapeHTML(value){
-return String(value??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
 }
+
 
 function formatDate(date){
 
-if(!date)return"";
+    if(!date){
+        return "";
+    }
 
-return new Date(`${date}T00:00:00`)
-.toLocaleDateString("en-KE",{
-weekday:"long",
-day:"numeric",
-month:"long",
-year:"numeric"
-});
+    const parsed =
+        new Date(`${date}T00:00:00`);
+
+    if(Number.isNaN(parsed.getTime())){
+        return date;
+    }
+
+    return parsed.toLocaleDateString(
+        "en-KE",
+        {
+            weekday:"long",
+            day:"numeric",
+            month:"long",
+            year:"numeric"
+        }
+    );
 
 }
+
 
 function formatTime(time){
 
-if(!time)return"";
+    if(!time){
+        return "";
+    }
 
-const parts=time.split(":");
-const h=parseInt(parts[0],10);
-const m=parts[1]||"00";
+    const parts =
+        String(time).split(":");
 
-const suffix=h>=12?"PM":"AM";
-const hour=h%12||12;
+    const h =
+        parseInt(parts[0],10);
 
-return`${hour}:${m} ${suffix}`;
+    const m =
+        parts[1] || "00";
+
+    if(Number.isNaN(h)){
+        return time;
+    }
+
+    const suffix =
+        h >= 12 ? "PM" : "AM";
+
+    const hour =
+        h % 12 || 12;
+
+    return `${hour}:${m} ${suffix}`;
 
 }
+
 
 function showMessage(type,text){
 
-const message=document.getElementById("message");
+    const message =
+        document.getElementById("message");
 
-message.className=`message ${type}`;
-message.textContent=text;
+    message.className =
+        `message ${type}`;
+
+    message.textContent = text;
 
 }
+
 
 function getSessionId(){
 
-const params=new URLSearchParams(
-window.location.search
-);
+    const params =
+        new URLSearchParams(
+            window.location.search
+        );
 
-return params.get("session_id");
+    return params.get("session_id");
 
 }
+
+
+/* =========================================================
+   LOAD TRAINING SESSION
+   ========================================================= */
 
 async function loadSession(){
 
-const loading=document.getElementById("loading");
-const card=document.getElementById("registrationCard");
+    const loading =
+        document.getElementById("loading");
 
-try{
+    const card =
+        document.getElementById(
+            "registrationCard"
+        );
 
-if(!window.supabaseClient){
-throw new Error("Supabase client was not initialized.");
+    const loadingText =
+        document.getElementById(
+            "loadingText"
+        );
+
+    try{
+
+        /*
+         * Verify Supabase.
+         */
+
+        if(!supabaseClient){
+
+            throw new Error(
+                "Supabase could not be initialized. Please refresh the page."
+            );
+
+        }
+
+
+        /*
+         * Get session ID.
+         */
+
+        const sessionId =
+            getSessionId();
+
+        if(!sessionId){
+
+            throw new Error(
+                "No training session was selected."
+            );
+
+        }
+
+
+        console.log(
+            "Loading training session:",
+            sessionId
+        );
+
+
+        if(loadingText){
+
+            loadingText.textContent =
+                "Connecting to MEI Group training database...";
+
+        }
+
+
+        /*
+         * Query training_sessions.
+         */
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("training_sessions")
+
+            .select("*")
+
+            .eq("id",sessionId)
+
+            .eq("published",true)
+
+            .maybeSingle();
+
+
+        if(error){
+
+            console.error(
+                "TRAINING SESSION QUERY ERROR:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        if(!data){
+
+            throw new Error(
+                "The selected training session could not be found or is not published."
+            );
+
+        }
+
+
+        /*
+         * Check status.
+         */
+
+        const status =
+            String(
+                data.status || ""
+            ).toLowerCase();
+
+
+        if(
+            ["cancelled","postponed"]
+                .includes(status)
+        ){
+
+            throw new Error(
+                "This training session is no longer available."
+            );
+
+        }
+
+
+        sessionData = data;
+
+
+        /*
+         * Venue.
+         */
+
+        const venue =
+            data.venue ||
+            data.location ||
+            "MEI Group Training Centre";
+
+
+        /*
+         * Price.
+         */
+
+        const numericPrice =
+            Number(data.price || 0);
+
+
+        const price =
+            numericPrice > 0
+
+                ? `${data.currency || "KES"} ${numericPrice.toLocaleString("en-KE")}`
+
+                : "Contact MEI Group";
+
+
+        /*
+         * Session title fallback.
+         */
+
+        const title =
+            data.session_title ||
+            data.title ||
+            data.name ||
+            "MEI Group Training Session";
+
+
+        /*
+         * Build summary.
+         */
+
+        document.getElementById(
+            "sessionSummary"
+        ).innerHTML = `
+
+            <h2>
+                ${escapeHTML(title)}
+            </h2>
+
+            <div class="summary-grid">
+
+                <div class="summary-item">
+                    Date
+                    <strong>
+                        ${escapeHTML(
+                            formatDate(
+                                data.session_date
+                            )
+                        )}
+                    </strong>
+                </div>
+
+
+                <div class="summary-item">
+                    Time
+                    <strong>
+
+                        ${escapeHTML(
+                            formatTime(
+                                data.start_time
+                            )
+                        )}
+
+                        ${
+                            data.end_time
+                            ? ` – ${escapeHTML(
+                                formatTime(
+                                    data.end_time
+                                )
+                            )}`
+                            : ""
+                        }
+
+                    </strong>
+                </div>
+
+
+                <div class="summary-item">
+                    Venue
+                    <strong>
+                        ${escapeHTML(venue)}
+                    </strong>
+                </div>
+
+
+                <div class="summary-item">
+                    Training Fee
+                    <strong>
+                        ${escapeHTML(price)}
+                    </strong>
+                </div>
+
+            </div>
+
+        `;
+
+
+        /*
+         * Show registration card.
+         */
+
+        loading.style.display =
+            "none";
+
+        card.style.display =
+            "block";
+
+
+    }catch(error){
+
+        console.error(
+            "LOAD SESSION ERROR:",
+            error
+        );
+
+
+        loading.innerHTML = `
+
+            <div class="loading">
+
+                <h2>
+                    Unable to load training session
+                </h2>
+
+                <p
+                    style="
+                        margin-top:8px;
+                        color:#687984
+                    "
+                >
+                    ${escapeHTML(
+                        error.message ||
+                        "An unexpected error occurred."
+                    )}
+                </p>
+
+                <p style="margin-top:18px">
+
+                    <a
+                        href="training-calendar.html"
+                        style="
+                            color:#07985a;
+                            font-weight:800;
+                            text-decoration:none
+                        "
+                    >
+                        ← Return to Training Calendar
+                    </a>
+
+                </p>
+
+            </div>
+
+        `;
+
+    }
+
 }
 
-supabaseClient=window.supabaseClient;
 
-const sessionId=getSessionId();
-
-if(!sessionId){
-throw new Error("No training session was selected.");
-}
-
-const{
-data,
-error
-}=await supabaseClient
-.from("training_sessions")
-.select("*")
-.eq("id",sessionId)
-.eq("published",true)
-.maybeSingle();
-
-if(error)throw error;
-
-if(!data){
-throw new Error("The selected training session could not be found.");
-}
-
-if(
-["cancelled","postponed"].includes(
-String(data.status||"").toLowerCase()
-)
-){
-throw new Error("This training session is no longer available.");
-}
-
-sessionData=data;
-
-const venue=
-data.venue||
-data.location||
-"MEI Group Training Centre";
-
-const price=
-Number(data.price||0)>0
-?`${data.currency||"KES"} ${Number(data.price).toLocaleString("en-KE")}`
-:"Contact MEI Group";
-
-document.getElementById("sessionSummary").innerHTML=`
-
-<h2>
-${escapeHTML(data.session_title)}
-</h2>
-
-<div class="summary-grid">
-
-<div class="summary-item">
-Date
-<strong>
-${escapeHTML(formatDate(data.session_date))}
-</strong>
-</div>
-
-<div class="summary-item">
-Time
-<strong>
-${escapeHTML(formatTime(data.start_time))}
-${
-data.end_time
-?` – ${escapeHTML(formatTime(data.end_time))}`
-:""
-}
-</strong>
-</div>
-
-<div class="summary-item">
-Venue
-<strong>
-${escapeHTML(venue)}
-</strong>
-</div>
-
-<div class="summary-item">
-Training Fee
-<strong>
-${escapeHTML(price)}
-</strong>
-</div>
-
-</div>
-
-`;
-
-loading.style.display="none";
-card.style.display="block";
-
-}catch(error){
-
-loading.innerHTML=`
-
-<div class="loading">
-
-<h2>Unable to load training session</h2>
-
-<p style="margin-top:8px">
-${escapeHTML(error.message)}
-</p>
-
-<p style="margin-top:18px">
-<a href="training-calendar.html">
-← Return to Training Calendar
-</a>
-</p>
-
-</div>
-
-`;
-
-}
-
-}
+/* =========================================================
+   SUBMIT REGISTRATION
+   ========================================================= */
 
 async function submitRegistration(event){
 
-event.preventDefault();
+    event.preventDefault();
 
-const button=document.getElementById("submitButton");
 
-button.disabled=true;
-button.textContent="Submitting...";
+    if(!supabaseClient){
 
-try{
+        showMessage(
+            "error",
+            "Supabase is not connected. Please refresh the page and try again."
+        );
 
-const form=new FormData(event.target);
+        return;
 
-const fullName=form.get("full_name").trim();
-const email=form.get("email").trim().toLowerCase();
-const phone=form.get("phone").trim();
+    }
 
-if(!fullName||!email||!phone){
-throw new Error("Please complete all required fields.");
+
+    if(!sessionData){
+
+        showMessage(
+            "error",
+            "Training session information is not available."
+        );
+
+        return;
+
+    }
+
+
+    const button =
+        document.getElementById(
+            "submitButton"
+        );
+
+
+    button.disabled = true;
+
+    button.textContent =
+        "Submitting...";
+
+
+    try{
+
+        const form =
+            new FormData(
+                event.target
+            );
+
+
+        const fullName =
+            String(
+                form.get("full_name") || ""
+            ).trim();
+
+
+        const email =
+            String(
+                form.get("email") || ""
+            ).trim()
+            .toLowerCase();
+
+
+        const phone =
+            String(
+                form.get("phone") || ""
+            ).trim();
+
+
+        if(
+            !fullName ||
+            !email ||
+            !phone
+        ){
+
+            throw new Error(
+                "Please complete all required fields."
+            );
+
+        }
+
+
+        /* =================================================
+           CHECK DUPLICATE EMAIL
+           ================================================= */
+
+        const {
+            data:existing,
+            error:existingError
+        } = await supabaseClient
+
+            .from("training_registrations")
+
+            .select(
+                "id,registration_number"
+            )
+
+            .eq(
+                "session_id",
+                sessionData.id
+            )
+
+            .eq(
+                "email",
+                email
+            )
+
+            .not(
+                "registration_status",
+                "eq",
+                "cancelled"
+            )
+
+            .maybeSingle();
+
+
+        if(existingError){
+
+            console.error(
+                "DUPLICATE CHECK ERROR:",
+                existingError
+            );
+
+            throw existingError;
+
+        }
+
+
+        if(existing){
+
+            throw new Error(
+                `This email is already registered for this session. Registration number: ${
+                    existing.registration_number ||
+                    "already registered"
+                }`
+            );
+
+        }
+
+
+        /* =================================================
+           CHECK CAPACITY
+           ================================================= */
+
+        const {
+            count,
+            error:countError
+        } = await supabaseClient
+
+            .from("training_registrations")
+
+            .select(
+                "id",
+                {
+                    count:"exact",
+                    head:true
+                }
+            )
+
+            .eq(
+                "session_id",
+                sessionData.id
+            )
+
+            .in(
+                "registration_status",
+                [
+                    "registered",
+                    "confirmed",
+                    "completed"
+                ]
+            );
+
+
+        if(countError){
+
+            console.error(
+                "CAPACITY CHECK ERROR:",
+                countError
+            );
+
+            throw countError;
+
+        }
+
+
+        if(
+            sessionData.capacity &&
+            Number(count || 0) >=
+            Number(sessionData.capacity)
+        ){
+
+            throw new Error(
+                "This training session is currently full."
+            );
+
+        }
+
+
+        /* =================================================
+           REGISTRATION NUMBER
+           ================================================= */
+
+        const year =
+            new Date().getFullYear();
+
+
+        const randomPart =
+            Math.floor(
+                100000 +
+                Math.random() * 900000
+            );
+
+
+        const registrationNumber =
+            `MEI-TRN-${year}-${randomPart}`;
+
+
+        /* =================================================
+           PAYMENT
+           ================================================= */
+
+        const amountDue =
+            Number(
+                sessionData.price || 0
+            );
+
+
+        const amountPaid = 0;
+
+
+        const paymentStatus =
+            amountDue <= 0
+                ? "paid"
+                : "unpaid";
+
+
+        /* =================================================
+           INSERT
+           ================================================= */
+
+        const payload = {
+
+            session_id:
+                sessionData.id,
+
+            registration_number:
+                registrationNumber,
+
+            full_name:
+                fullName,
+
+            email:
+                email,
+
+            phone:
+                phone,
+
+            organization:
+                String(
+                    form.get("organization") || ""
+                ).trim() || null,
+
+            job_title:
+                String(
+                    form.get("job_title") || ""
+                ).trim() || null,
+
+            participant_type:
+                form.get(
+                    "participant_type"
+                ) ||
+                "individual",
+
+            amount_due:
+                amountDue,
+
+            amount_paid:
+                amountPaid,
+
+            payment_status:
+                paymentStatus,
+
+            registration_status:
+                "registered",
+
+            notes:
+                String(
+                    form.get("notes") || ""
+                ).trim() || null
+
+        };
+
+
+        console.log(
+            "Registration payload:",
+            payload
+        );
+
+
+        const {
+            data,
+            error
+        } = await supabaseClient
+
+            .from("training_registrations")
+
+            .insert(payload)
+
+            .select()
+
+            .single();
+
+
+        if(error){
+
+            console.error(
+                "REGISTRATION INSERT ERROR:",
+                error
+            );
+
+            throw error;
+
+        }
+
+
+        /* =================================================
+           SUCCESS
+           ================================================= */
+
+        showMessage(
+            "success",
+            `Registration successful. Your registration number is ${
+                data.registration_number ||
+                registrationNumber
+            }. MEI Group will contact you with the next steps.`
+        );
+
+
+        event.target.reset();
+
+
+        button.textContent =
+            "Registration Completed";
+
+
+    }catch(error){
+
+        console.error(
+            "REGISTRATION ERROR:",
+            error
+        );
+
+
+        showMessage(
+            "error",
+            error.message ||
+            "Registration failed. Please try again."
+        );
+
+
+        button.disabled = false;
+
+        button.textContent =
+            "Complete Registration";
+
+    }
+
 }
 
-const{
-data:existing,
-error:existingError
-}=await supabaseClient
-.from("training_registrations")
-.select("id,registration_number")
-.eq("session_id",sessionData.id)
-.eq("email",email)
-.not("registration_status","eq","cancelled")
-.maybeSingle();
 
-if(existingError)throw existingError;
+/* =========================================================
+   INITIALIZE PAGE
+   ========================================================= */
 
-if(existing){
+document.addEventListener(
+    "DOMContentLoaded",
+    function(){
 
-throw new Error(
-`This email is already registered for this session. Registration number: ${existing.registration_number||"already registered"}`
+        document
+            .getElementById(
+                "registrationForm"
+            )
+            .addEventListener(
+                "submit",
+                submitRegistration
+            );
+
+
+        loadSession();
+
+    }
 );
-
-}
-
-const{
-count,
-error:countError
-}=await supabaseClient
-.from("training_registrations")
-.select("id",{count:"exact",head:true})
-.eq("session_id",sessionData.id)
-.in(
-"registration_status",
-["registered","confirmed","completed"]
-);
-
-if(countError)throw countError;
-
-if(
-sessionData.capacity&&
-Number(count||0)>=Number(sessionData.capacity)
-){
-
-throw new Error(
-"This training session is currently full."
-);
-
-}
-
-const year=new Date().getFullYear();
-
-const registrationNumber=
-`MEI-TRN-${year}-${Date.now().toString().slice(-6)}`;
-
-const amountDue=
-Number(sessionData.price||0);
-
-const amountPaid=0;
-
-const paymentStatus=
-amountDue<=0
-?"paid"
-:"unpaid";
-
-const payload={
-
-session_id:sessionData.id,
-
-registration_number:registrationNumber,
-
-full_name:fullName,
-
-email:email,
-
-phone:phone,
-
-organization:
-form.get("organization")?.trim()||null,
-
-job_title:
-form.get("job_title")?.trim()||null,
-
-participant_type:
-form.get("participant_type")||"individual",
-
-amount_due:amountDue,
-
-amount_paid:amountPaid,
-
-payment_status:paymentStatus,
-
-registration_status:"registered",
-
-notes:
-form.get("notes")?.trim()||null
-
-};
-
-const{
-data,
-error
-}=await supabaseClient
-.from("training_registrations")
-.insert(payload)
-.select()
-.single();
-
-if(error)throw error;
-
-showMessage(
-"success",
-`Registration successful. Your registration number is ${data.registration_number||registrationNumber}. MEI Group will contact you with the next steps.`
-);
-
-event.target.reset();
-
-button.textContent="Registration Completed";
-
-}catch(error){
-
-console.error("REGISTRATION ERROR:",error);
-
-showMessage(
-"error",
-error.message||"Registration failed. Please try again."
-);
-
-button.disabled=false;
-button.textContent="Complete Registration";
-
-}
-
-}
-
-document.addEventListener("DOMContentLoaded",()=>{
-
-document
-.getElementById("registrationForm")
-.addEventListener("submit",submitRegistration);
-
-loadSession();
-
-});
 
 </script>
 
