@@ -581,18 +581,23 @@
             color: var(--primary);
             font-weight: 600;
         }
+        .service-card .btn-group {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: auto;
+        }
         .service-card .btn-learn {
             display: inline-flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
             background: var(--primary);
             color: white;
-            padding: 12px 28px;
+            padding: 11px 22px;
             border-radius: var(--radius-full);
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.85rem;
             transition: all 0.3s ease;
-            align-self: flex-start;
             border: none;
             cursor: pointer;
         }
@@ -601,15 +606,31 @@
             transform: translateX(4px);
             box-shadow: 0 8px 24px rgba(37,99,235,0.3);
         }
-        .service-card .btn-learn i { transition: transform 0.3s ease; }
-        .service-card .btn-learn:hover i { transform: translateX(4px); }
+        .service-card .btn-outline {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: var(--primary);
+            padding: 10px 22px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.85rem;
+            border: 1.5px solid var(--primary);
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+        .service-card .btn-outline:hover {
+            background: var(--primary-bg);
+            transform: translateY(-2px);
+        }
 
         /* ============================================================
            CALENDAR PROMO BANNER
            ============================================================ */
         .calendar-promo {
             background: linear-gradient(135deg, var(--secondary), #1a2a4a);
-            padding: 60px 0;
+            padding: 70px 0;
             position: relative;
             overflow: hidden;
         }
@@ -632,7 +653,7 @@
             color: var(--primary-light);
         }
         .calendar-promo-content h2 {
-            font-size: 2.2rem;
+            font-size: 2.4rem;
             font-weight: 800;
             color: white;
             line-height: 1.15;
@@ -650,6 +671,11 @@
             font-size: 1.05rem;
             line-height: 1.7;
             margin-bottom: 24px;
+        }
+        .calendar-promo-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
         }
         .calendar-promo-visual {
             display: grid;
@@ -681,9 +707,160 @@
         }
 
         /* ============================================================
+           FEATURED TRAINING SESSIONS
+           ============================================================ */
+        .featured-section { padding: 100px 0; background: white; }
+        .featured-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+        }
+        .featured-card {
+            background: var(--bg);
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            padding: 28px;
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        .featured-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-lg);
+            border-color: var(--primary);
+        }
+        .featured-card .badge-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 14px;
+        }
+        .featured-card .service-badge {
+            display: inline-block;
+            font-size: 0.65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            padding: 4px 12px;
+            border-radius: 999px;
+            letter-spacing: 0.4px;
+        }
+        .featured-card .service-badge.education  { background: #dbeafe; color: #1d4ed8; }
+        .featured-card .service-badge.roadsafety { background: #fef3c7; color: #b45309; }
+        .featured-card .service-badge.osh        { background: #ede9fe; color: #7c3aed; }
+        .featured-card .status-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background: var(--success);
+            animation: pulse 2s infinite;
+        }
+        .featured-card h4 {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 12px;
+            line-height: 1.35;
+        }
+        .featured-card .meta {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 18px;
+            flex-grow: 1;
+        }
+        .featured-card .meta span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .featured-card .meta i {
+            color: var(--primary);
+            width: 16px;
+            font-size: 0.8rem;
+        }
+        .featured-card .meta .price {
+            color: var(--success);
+            font-weight: 800;
+        }
+        .featured-card .seats-bar {
+            height: 6px;
+            background: var(--border);
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 6px;
+        }
+        .featured-card .seats-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+            border-radius: 999px;
+            transition: width 0.6s ease;
+        }
+        .featured-card .seats-label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            font-weight: 500;
+            margin-bottom: 14px;
+        }
+        .featured-card .btn-register {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--primary);
+            color: white;
+            padding: 12px 24px;
+            border-radius: var(--radius-full);
+            font-weight: 600;
+            font-size: 0.88rem;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto;
+            width: 100%;
+        }
+        .featured-card .btn-register:hover {
+            background: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
+        }
+        .featured-card .btn-register:disabled {
+            background: var(--text-light);
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        .featured-empty {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-secondary);
+        }
+        .featured-empty i {
+            font-size: 3rem;
+            color: var(--text-light);
+            margin-bottom: 12px;
+        }
+        .featured-loading {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 60px 24px;
+            color: var(--text-secondary);
+        }
+        .featured-loading i {
+            font-size: 2rem;
+            color: var(--primary);
+            animation: spin 1s linear infinite;
+            margin-bottom: 12px;
+        }
+        @keyframes spin { to { transform: rotate(360deg); } }
+
+        /* ============================================================
            ABOUT
            ============================================================ */
-        .about-section { padding: 100px 0; background: white; }
+        .about-section { padding: 100px 0; background: var(--bg); }
         .about-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -735,7 +912,7 @@
         /* ============================================================
            PROCESS
            ============================================================ */
-        .process-section { padding: 100px 0; background: var(--bg); }
+        .process-section { padding: 100px 0; background: white; }
         .process-grid {
             display: grid;
             grid-template-columns: repeat(6, 1fr);
@@ -774,14 +951,14 @@
         /* ============================================================
            TESTIMONIALS
            ============================================================ */
-        .testimonials-section { padding: 100px 0; background: white; }
+        .testimonials-section { padding: 100px 0; background: var(--bg); }
         .testimonials-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
         .testimonial-card {
-            background: var(--bg);
+            background: white;
             border-radius: var(--radius);
             padding: 32px;
             border: 1px solid var(--border);
@@ -824,7 +1001,7 @@
         /* ============================================================
            PARTNERS
            ============================================================ */
-        .partners-section { padding: 60px 0; background: var(--bg); }
+        .partners-section { padding: 60px 0; background: white; }
         .partners-grid {
             display: flex;
             justify-content: center;
@@ -845,10 +1022,10 @@
         /* ============================================================
            FAQ
            ============================================================ */
-        .faq-section { padding: 100px 0; background: white; }
+        .faq-section { padding: 100px 0; background: var(--bg); }
         .faq-grid { max-width: 800px; margin: 0 auto; }
         .faq-item {
-            background: var(--bg);
+            background: white;
             border-radius: var(--radius-sm);
             padding: 20px 24px;
             margin-bottom: 12px;
@@ -920,7 +1097,7 @@
         /* ============================================================
            CONTACT FORM
            ============================================================ */
-        .contact-section { padding: 100px 0; background: var(--bg); }
+        .contact-section { padding: 100px 0; background: white; }
         .form-card {
             max-width: 800px;
             margin: 0 auto;
@@ -1130,6 +1307,7 @@
         @media (max-width: 1200px) {
             .hero h1 { font-size: 3rem; }
             .services-grid { grid-template-columns: 1fr 1fr; }
+            .featured-grid { grid-template-columns: 1fr 1fr; }
             .testimonials-grid { grid-template-columns: 1fr 1fr; }
             .process-grid { grid-template-columns: repeat(3, 1fr); }
             .process-step .arrow { display: none; }
@@ -1177,6 +1355,7 @@
 
             .section-title { font-size: 2rem; }
             .services-grid { grid-template-columns: 1fr; }
+            .featured-grid { grid-template-columns: 1fr; }
             .testimonials-grid { grid-template-columns: 1fr; }
             .process-grid { grid-template-columns: 1fr 1fr; }
             .stats-grid { grid-template-columns: 1fr 1fr; }
@@ -1222,8 +1401,8 @@
                 <a href="#about" class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="training-calendar.html" class="nav-link">Calendar</a>
+                <a href="#featured" class="nav-link">Sessions</a>
                 <a href="#testimonials" class="nav-link">Testimonials</a>
-                <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#contact" class="btn-nav">Contact Us</a>
             </div>
         </div>
@@ -1433,9 +1612,14 @@
                         <li>💰 No Cosigner Required education loans</li>
                         <li>Scholarship guidance &amp; financial planning</li>
                     </ul>
-                    <a href="education.html" class="btn-learn">
-                        <i class="fas fa-arrow-right"></i> Learn More &amp; Apply
-                    </a>
+                    <div class="btn-group">
+                        <a href="education.html" class="btn-learn">
+                            <i class="fas fa-arrow-right"></i> Learn More
+                        </a>
+                        <a href="education.html#apply-form" class="btn-outline">
+                            <i class="fas fa-paper-plane"></i> Apply
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Road Safety Training -->
@@ -1447,11 +1631,16 @@
                         <li><strong>Safe to &amp; from School</strong> – Primary &amp; secondary programs</li>
                         <li><strong>Defensive Driving</strong> – Advanced driver training</li>
                         <li><strong>Driver Profiling</strong> – Assessment &amp; behavior analysis</li>
-                        <li>Fleet safety assessments</li>
+                        <li><strong>Fleet Safety</strong> – Transport company audits</li>
                     </ul>
-                    <a href="road-safety.html" class="btn-learn">
-                        <i class="fas fa-arrow-right"></i> Learn More &amp; Apply
-                    </a>
+                    <div class="btn-group">
+                        <a href="road-safety.html" class="btn-learn">
+                            <i class="fas fa-arrow-right"></i> Learn More
+                        </a>
+                        <a href="training-calendar.html" class="btn-outline">
+                            <i class="fas fa-calendar-alt"></i> Book Session
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Occupational Safety & Health -->
@@ -1463,84 +1652,85 @@
                         <li>🩹 <strong>First Aid</strong> – Emergency response &amp; certified first aiders</li>
                         <li>🔥 <strong>Fire &amp; Safety</strong> – Risk assessment, drills &amp; extinguisher use</li>
                         <li>🦺 <strong>OSH</strong> – OSHA 2007 compliance &amp; risk management</li>
-                        <li>Legal compliance &amp; certified training</li>
+                        <li><strong>Workplace Safety</strong> – General hazard identification</li>
                     </ul>
-                    <a href="occupational-safety.html" class="btn-learn">
-                        <i class="fas fa-arrow-right"></i> Learn More &amp; Apply
-                    </a>
+                    <div class="btn-group">
+                        <a href="occupational-safety.html" class="btn-learn">
+                            <i class="fas fa-arrow-right"></i> Learn More
+                        </a>
+                        <a href="training-calendar.html" class="btn-outline">
+                            <i class="fas fa-calendar-alt"></i> Book Session
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
     <!-- ============================================================
-    CALENDAR PROMO BANNER (NEW)
+    CALENDAR PROMO BANNER
     ============================================================ -->
     <section class="calendar-promo">
         <div class="container">
             <div class="calendar-promo-inner">
                 <div class="calendar-promo-content">
                     <span class="section-tag">📅 Training Calendar</span>
-                    <h2>Plan Ahead with Our <span class="highlight">12-Month Schedule</span></h2>
+                    <h2>Book Certified Courses <span class="highlight">On Your Schedule</span></h2>
                     <p>
-                        Browse upcoming intakes, road safety workshops, and OSH certification
-                        courses from <strong style="color:white;">October 2025 through September 2026</strong>.
-                        Find the perfect program and reserve your spot early.
+                        Live sessions from <strong style="color:white;">October 2025 through September 2026</strong>.
+                        Reserve your seat online — First Aid, Fire Safety, OSH, Defensive Driving, Fleet Safety, and more.
                     </p>
-                    <a href="training-calendar.html" class="btn-primary">
-                        <i class="fas fa-calendar-alt"></i> View Full Calendar
-                    </a>
+                    <div class="calendar-promo-actions">
+                        <a href="training-calendar.html" class="btn-primary">
+                            <i class="fas fa-calendar-alt"></i> View Calendar
+                        </a>
+                        <a href="#featured" class="btn-secondary">
+                            <i class="fas fa-star"></i> Featured Sessions
+                        </a>
+                    </div>
                 </div>
                 <div class="calendar-promo-visual">
-                    <div class="cal-month-preview">
-                        <div class="m-name">OCT</div>
-                        <div class="m-emoji">🍂</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">NOV</div>
-                        <div class="m-emoji">🌧️</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">DEC</div>
-                        <div class="m-emoji">🎄</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">JAN</div>
-                        <div class="m-emoji">❄️</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">FEB</div>
-                        <div class="m-emoji">❤️</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">MAR</div>
-                        <div class="m-emoji">🌸</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">APR</div>
-                        <div class="m-emoji">🌷</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">MAY</div>
-                        <div class="m-emoji">🌻</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">JUN</div>
-                        <div class="m-emoji">☀️</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">JUL</div>
-                        <div class="m-emoji">🏖️</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">AUG</div>
-                        <div class="m-emoji">🎒</div>
-                    </div>
-                    <div class="cal-month-preview">
-                        <div class="m-name">SEP</div>
-                        <div class="m-emoji">🍁</div>
-                    </div>
+                    <div class="cal-month-preview"><div class="m-name">OCT</div><div class="m-emoji">🍂</div></div>
+                    <div class="cal-month-preview"><div class="m-name">NOV</div><div class="m-emoji">🌧️</div></div>
+                    <div class="cal-month-preview"><div class="m-name">DEC</div><div class="m-emoji">🎄</div></div>
+                    <div class="cal-month-preview"><div class="m-name">JAN</div><div class="m-emoji">❄️</div></div>
+                    <div class="cal-month-preview"><div class="m-name">FEB</div><div class="m-emoji">❤️</div></div>
+                    <div class="cal-month-preview"><div class="m-name">MAR</div><div class="m-emoji">🌸</div></div>
+                    <div class="cal-month-preview"><div class="m-name">APR</div><div class="m-emoji">🌷</div></div>
+                    <div class="cal-month-preview"><div class="m-name">MAY</div><div class="m-emoji">🌻</div></div>
+                    <div class="cal-month-preview"><div class="m-name">JUN</div><div class="m-emoji">☀️</div></div>
+                    <div class="cal-month-preview"><div class="m-name">JUL</div><div class="m-emoji">🏖️</div></div>
+                    <div class="cal-month-preview"><div class="m-name">AUG</div><div class="m-emoji">🎒</div></div>
+                    <div class="cal-month-preview"><div class="m-name">SEP</div><div class="m-emoji">🍁</div></div>
                 </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    FEATURED TRAINING SESSIONS (Live from Supabase)
+    ============================================================ -->
+    <section class="featured-section" id="featured">
+        <div class="container">
+            <div class="section-center">
+                <span class="section-tag">Featured Sessions</span>
+                <h2 class="section-title">Upcoming <span class="highlight">Training Sessions</span></h2>
+                <p class="section-sub">
+                    Live availability. Reserve your seat in minutes — registration is confirmed by our team.
+                </p>
+            </div>
+
+            <div class="featured-grid" id="featuredGrid">
+                <div class="featured-loading">
+                    <i class="fas fa-spinner"></i>
+                    <p>Loading upcoming sessions...</p>
+                </div>
+            </div>
+
+            <div style="text-align:center;margin-top:36px;">
+                <a href="training-calendar.html" class="btn-primary">
+                    <i class="fas fa-calendar-alt"></i> Browse Full Calendar
+                </a>
             </div>
         </div>
     </section>
@@ -1565,31 +1755,31 @@
                 </div>
                 <div class="process-step animate-on-scroll">
                     <div class="number">2</div>
-                    <h4>Submit Application</h4>
-                    <p>Fill out the form</p>
+                    <h4>Pick a Session</h4>
+                    <p>From the calendar</p>
                     <span class="arrow">→</span>
                 </div>
                 <div class="process-step animate-on-scroll">
                     <div class="number">3</div>
-                    <h4>Consultation</h4>
-                    <p>Speak with experts</p>
+                    <h4>Register Online</h4>
+                    <p>Fill out the form</p>
                     <span class="arrow">→</span>
                 </div>
                 <div class="process-step animate-on-scroll">
                     <div class="number">4</div>
-                    <h4>Document Review</h4>
+                    <h4>Confirmation</h4>
                     <p>We verify everything</p>
                     <span class="arrow">→</span>
                 </div>
                 <div class="process-step animate-on-scroll">
                     <div class="number">5</div>
-                    <h4>Approval</h4>
-                    <p>Get confirmed</p>
+                    <h4>Attend Training</h4>
+                    <p>Get certified</p>
                     <span class="arrow">→</span>
                 </div>
                 <div class="process-step animate-on-scroll">
                     <div class="number">6</div>
-                    <h4>Begin Journey</h4>
+                    <h4>Get Certificate</h4>
                     <p>Start your success</p>
                 </div>
             </div>
@@ -1683,10 +1873,10 @@
             <div class="faq-grid">
                 <div class="faq-item active">
                     <div class="question">
-                        <span>How do I apply for a service?</span>
+                        <span>How do I register for a training session?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Visit the dedicated service page, click "Apply Now", fill out the form, and submit. Our team will respond within 24 hours.</div>
+                    <div class="answer">Visit our <a href="training-calendar.html" style="color:var(--primary);font-weight:600;">Training Calendar</a>, find a session that suits you, and click "Register". Fill out the short form, and our team will confirm your seat within 24 hours.</div>
                 </div>
 
                 <div class="faq-item">
@@ -1710,7 +1900,7 @@
                         <span>What does Occupational Safety &amp; Health training cover?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Our OSH training covers three core courses: First Aid (emergency response and certified first aiders), Fire &amp; Safety (fire risk assessment, drills, and extinguisher use), and OSH (OSHA 2007 compliance and workplace risk management).</div>
+                    <div class="answer">Our OSH training covers First Aid, Fire &amp; Safety, OSH (OSHA 2007 compliance), and Workplace Safety. Each course is certified and industry-recognized.</div>
                 </div>
 
                 <div class="faq-item">
@@ -1718,23 +1908,23 @@
                         <span>What road safety programs do you offer?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">We offer Safe to &amp; from School (primary &amp; secondary programs), Defensive Driving (advanced driver training), Driver Profiling (comprehensive assessment &amp; behavior analysis), and Fleet Safety Assessments.</div>
+                    <div class="answer">We offer Safe to &amp; from School, Defensive Driving, Driver Profiling, and Fleet Safety Assessments. Sessions run monthly throughout the year.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="question">
-                        <span>When do training programs start?</span>
+                        <span>How do I get my certificate after training?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Programs run throughout the year. Check our <a href="training-calendar.html" style="color:var(--primary);font-weight:600;">Training Calendar</a> for the full 12-month schedule, including specific dates for each intake and workshop.</div>
+                    <div class="answer">After successfully completing your training and any required assessment, MEI Group issues a certificate of completion. Certificates are typically issued within 5–7 working days and can be collected in person or sent digitally.</div>
                 </div>
 
                 <div class="faq-item">
                     <div class="question">
-                        <span>How do employers recruit drivers through MEI Group?</span>
+                        <span>Can I register multiple people from my company?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Employers can contact us directly. We conduct thorough screening, background checks, and defensive driving assessments to match you with qualified drivers.</div>
+                    <div class="answer">Yes! For corporate groups, please select "Corporate" as the participant type during registration, or contact us directly at <a href="mailto:info@meipressgroup.com" style="color:var(--primary);font-weight:600;">info@meipressgroup.com</a> for bulk enrollment and group discounts.</div>
                 </div>
             </div>
         </div>
@@ -1749,11 +1939,11 @@
                 <h2>Ready to Build <span class="text-gradient">Your Future?</span></h2>
                 <p>
                     Whether you're pursuing international education, improving workplace safety,
-                    or training your team—MEI Group is here to help you succeed.
+                    or booking your next certification — MEI Group is here to help you succeed.
                 </p>
                 <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
                     <a href="training-calendar.html" class="btn-primary">
-                        <i class="fas fa-calendar-alt"></i> View Training Calendar
+                        <i class="fas fa-calendar-alt"></i> Book a Session
                     </a>
                     <a href="#contact" class="btn-secondary">
                         <i class="fas fa-headset"></i> Talk to an Advisor
@@ -1852,6 +2042,7 @@
                     <a href="education.html">International Education</a>
                     <a href="road-safety.html">Road Safety Training</a>
                     <a href="occupational-safety.html">Occupational Safety &amp; Health</a>
+                    <a href="training-calendar.html">Training Calendar</a>
                 </div>
                 <div class="footer-col">
                     <h4>Contact</h4>
