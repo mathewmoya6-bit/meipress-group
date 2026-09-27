@@ -53,12 +53,17 @@
         })}`;
     }
 
+    // FIX: the CSS defines badge colors as ".status-badge.open",
+    // ".status-badge.paid" etc — two separate classes, plus a ".dot"
+    // child. The old version emitted class="status-badge status-open",
+    // which the CSS never matches, so badges rendered unstyled.
     function statusBadge(status) {
-        const safe = escapeHTML(status || "scheduled");
+        const safe = escapeHTML((status || "scheduled").toLowerCase());
+        const label = (status || "scheduled").replace(/_/g, " ");
 
         return `
-            <span class="status-badge status-${safe}">
-                ${safe.replace(/_/g, " ")}
+            <span class="status-badge ${safe}">
+                <span class="dot"></span> ${escapeHTML(label)}
             </span>
         `;
     }
@@ -122,6 +127,11 @@
     // LOAD SESSIONS
     // --------------------------------------------------
 
+    // FIX: table has 10 columns now (see thead patch below), so
+    // the loading/error rows use colspan="10" to match.
+    const SESSIONS_COLSPAN = 10;
+    const REGISTRATIONS_COLSPAN = 9;
+
     async function loadAdminTrainingSessions() {
 
         console.log("📅 Loading training sessions...");
@@ -135,7 +145,7 @@
 
         table.innerHTML = `
             <tr>
-                <td colspan="10" style="text-align:center;padding:30px;">
+                <td colspan="${SESSIONS_COLSPAN}" style="text-align:center;padding:30px;">
                     Loading training sessions...
                 </td>
             </tr>
@@ -161,7 +171,7 @@
 
                 table.innerHTML = `
                     <tr>
-                        <td colspan="10" style="text-align:center;padding:30px;color:#b91c1c;">
+                        <td colspan="${SESSIONS_COLSPAN}" style="text-align:center;padding:30px;color:#b91c1c;">
                             ${escapeHTML(error.message)}
                         </td>
                     </tr>
@@ -185,7 +195,7 @@
 
             table.innerHTML = `
                 <tr>
-                    <td colspan="10" style="text-align:center;padding:30px;color:#b91c1c;">
+                    <td colspan="${SESSIONS_COLSPAN}" style="text-align:center;padding:30px;color:#b91c1c;">
                         ${escapeHTML(error.message || "Unable to load training sessions.")}
                     </td>
                 </tr>
@@ -197,6 +207,8 @@
     // RENDER TABLE
     // --------------------------------------------------
 
+    // FIX: row cell order now matches the new 10-column thead exactly:
+    // Course | Program | Date | Time | Venue | Trainer | Capacity | Price | Status | Actions
     function renderTrainingSessions() {
 
         const table = document.getElementById("trainingSessionsTable");
@@ -236,7 +248,7 @@
 
             table.innerHTML = `
                 <tr>
-                    <td colspan="10" style="text-align:center;padding:30px;">
+                    <td colspan="${SESSIONS_COLSPAN}" style="text-align:center;padding:30px;">
                         No training sessions found.
                     </td>
                 </tr>
@@ -256,9 +268,7 @@
                 <tr>
 
                     <td>
-                        <strong>
-                            ${escapeHTML(courseName)}
-                        </strong>
+                        <strong>${escapeHTML(courseName)}</strong>
                         ${
                             session.session_title &&
                             session.session_title !== courseName
@@ -267,13 +277,9 @@
                         }
                     </td>
 
-                    <td>
-                        ${escapeHTML(session.service || "-")}
-                    </td>
+                    <td>${escapeHTML(session.service || "-")}</td>
 
-                    <td>
-                        ${formatDate(session.session_date)}
-                    </td>
+                    <td>${formatDate(session.session_date)}</td>
 
                     <td>
                         ${escapeHTML(session.start_time || "-")}
@@ -290,20 +296,11 @@
                         }
                     </td>
 
-                    <td>
-                        ${escapeHTML(session.trainer_name || "-")}
-                    </td>
+                    <td>${escapeHTML(session.trainer_name || "-")}</td>
 
-                    <td>
-                        ${session.capacity ?? "-"}
-                    </td>
+                    <td>${session.capacity ?? "-"}</td>
 
-                    <td>
-                        ${formatMoney(
-                            session.price,
-                            session.currency || "KES"
-                        )}
-                    </td>
+                    <td>${formatMoney(session.price, session.currency || "KES")}</td>
 
                     <td>
                         ${statusBadge(session.status)}
@@ -315,24 +312,13 @@
                     </td>
 
                     <td>
-                        <div style="display:flex;gap:6px;flex-wrap:wrap;">
-
-                            <button
-                                type="button"
-                                class="btn btn-sm"
-                                onclick="editTrainingSession(${session.id})"
-                            >
+                        <div class="action-btns">
+                            <button type="button" class="edit-btn" onclick="editTrainingSession(${session.id})">
                                 Edit
                             </button>
-
-                            <button
-                                type="button"
-                                class="btn btn-sm"
-                                onclick="deleteTrainingSession(${session.id})"
-                            >
+                            <button type="button" class="delete-btn" onclick="deleteTrainingSession(${session.id})">
                                 Delete
                             </button>
-
                         </div>
                     </td>
 
@@ -386,7 +372,10 @@
     }
 
     // --------------------------------------------------
-    // OPEN MODAL
+    // MODAL (open/close) — FIX: use the same classList('active')
+    // pattern the CSS animation/backdrop expects (was style.display
+    // directly before, which skipped the fade-in and had no
+    // click-outside / Escape handling).
     // --------------------------------------------------
 
     function openTrainingModal(id = null) {
@@ -415,73 +404,34 @@
                 return;
             }
 
-            document.getElementById("trainingId").value =
-                session.id;
-
-            document.getElementById("trainingCourse").value =
-                session.course_id || "";
-
-            document.getElementById("trainingService").value =
-                session.service || "";
-
-            document.getElementById("trainingTitle").value =
-                session.session_title || "";
-
-            document.getElementById("trainingDate").value =
-                session.session_date || "";
-
-            document.getElementById("trainingDeadline").value =
-                session.registration_deadline || "";
-
-            document.getElementById("trainingStartTime").value =
-                session.start_time || "";
-
-            document.getElementById("trainingEndTime").value =
-                session.end_time || "";
-
-            document.getElementById("trainingVenue").value =
-                session.venue || "";
-
-            document.getElementById("trainingLocation").value =
-                session.location || "";
-
-            document.getElementById("trainingTrainer").value =
-                session.trainer_name || "";
-
-            document.getElementById("trainingCapacity").value =
-                session.capacity ?? "";
-
-            document.getElementById("trainingPrice").value =
-                session.price ?? "";
-
-            document.getElementById("trainingStatus").value =
-                session.status || "scheduled";
-
-            document.getElementById("trainingDescription").value =
-                session.description || "";
-
-            document.getElementById("trainingNotes").value =
-                session.notes || "";
-
-            document.getElementById("trainingPublished").checked =
-                session.published === true;
+            document.getElementById("trainingId").value = session.id;
+            document.getElementById("trainingCourse").value = session.course_id || "";
+            document.getElementById("trainingService").value = session.service || "";
+            document.getElementById("trainingTitle").value = session.session_title || "";
+            document.getElementById("trainingDate").value = session.session_date || "";
+            document.getElementById("trainingDeadline").value = session.registration_deadline || "";
+            document.getElementById("trainingStartTime").value = session.start_time || "";
+            document.getElementById("trainingEndTime").value = session.end_time || "";
+            document.getElementById("trainingVenue").value = session.venue || "";
+            document.getElementById("trainingLocation").value = session.location || "";
+            document.getElementById("trainingTrainer").value = session.trainer_name || "";
+            document.getElementById("trainingCapacity").value = session.capacity ?? "";
+            document.getElementById("trainingPrice").value = session.price ?? "";
+            document.getElementById("trainingStatus").value = session.status || "scheduled";
+            document.getElementById("trainingDescription").value = session.description || "";
+            document.getElementById("trainingNotes").value = session.notes || "";
+            document.getElementById("trainingPublished").checked = session.published === true;
         }
 
-        modal.style.display = "flex";
+        const message = document.getElementById("trainingFormMessage");
+        if (message) message.textContent = "";
+
+        modal.classList.add("active");
     }
 
-    // --------------------------------------------------
-    // CLOSE MODAL
-    // --------------------------------------------------
-
     function closeTrainingModal() {
-
-        const modal =
-            document.getElementById("trainingModal");
-
-        if (modal) {
-            modal.style.display = "none";
-        }
+        const modal = document.getElementById("trainingModal");
+        if (modal) modal.classList.remove("active");
     }
 
     // --------------------------------------------------
@@ -492,27 +442,16 @@
 
         event.preventDefault();
 
-        const button =
-            document.getElementById("saveTrainingButton");
+        const button = document.getElementById("saveTrainingButton");
+        const message = document.getElementById("trainingFormMessage");
 
-        const message =
-            document.getElementById("trainingFormMessage");
-
-        if (message) {
-            message.textContent = "Saving...";
-        }
-
-        if (button) {
-            button.disabled = true;
-        }
+        if (message) message.textContent = "Saving...";
+        if (button) button.disabled = true;
 
         try {
 
-            const id =
-                document.getElementById("trainingId").value;
-
-            const courseId =
-                document.getElementById("trainingCourse").value;
+            const id = document.getElementById("trainingId").value;
+            const courseId = document.getElementById("trainingCourse").value;
 
             const course =
                 trainingCourses.find(
@@ -520,102 +459,41 @@
                 );
 
             const payload = {
-
-                course_id:
-                    courseId ? Number(courseId) : null,
-
-                service:
-                    document.getElementById("trainingService").value,
-
-                session_title:
-                    document.getElementById("trainingTitle").value.trim(),
-
-                session_date:
-                    document.getElementById("trainingDate").value,
-
-                registration_deadline:
-                    document.getElementById("trainingDeadline").value ||
-                    null,
-
-                start_time:
-                    document.getElementById("trainingStartTime").value ||
-                    null,
-
-                end_time:
-                    document.getElementById("trainingEndTime").value ||
-                    null,
-
-                venue:
-                    document.getElementById("trainingVenue").value.trim(),
-
-                location:
-                    document.getElementById("trainingLocation").value.trim(),
-
-                trainer_name:
-                    document.getElementById("trainingTrainer").value.trim(),
-
-                capacity:
-                    Number(
-                        document.getElementById("trainingCapacity").value
-                    ) || null,
-
-                price:
-                    Number(
-                        document.getElementById("trainingPrice").value
-                    ) || 0,
-
+                course_id: courseId ? Number(courseId) : null,
+                service: document.getElementById("trainingService").value,
+                session_title: document.getElementById("trainingTitle").value.trim(),
+                session_date: document.getElementById("trainingDate").value,
+                registration_deadline: document.getElementById("trainingDeadline").value || null,
+                start_time: document.getElementById("trainingStartTime").value || null,
+                end_time: document.getElementById("trainingEndTime").value || null,
+                venue: document.getElementById("trainingVenue").value.trim(),
+                location: document.getElementById("trainingLocation").value.trim(),
+                trainer_name: document.getElementById("trainingTrainer").value.trim(),
+                capacity: Number(document.getElementById("trainingCapacity").value) || null,
+                price: Number(document.getElementById("trainingPrice").value) || 0,
                 currency: "KES",
-
-                status:
-                    document.getElementById("trainingStatus").value,
-
-                description:
-                    document.getElementById("trainingDescription").value.trim(),
-
-                notes:
-                    document.getElementById("trainingNotes").value.trim(),
-
-                published:
-                    document.getElementById("trainingPublished").checked
+                status: document.getElementById("trainingStatus").value,
+                description: document.getElementById("trainingDescription").value.trim(),
+                notes: document.getElementById("trainingNotes").value.trim(),
+                published: document.getElementById("trainingPublished").checked
             };
 
             if (course) {
-
-                if (!payload.service) {
-                    payload.service = course.service;
-                }
-
-                if (!payload.price) {
-                    payload.price =
-                        Number(course.default_price || 0);
-                }
+                if (!payload.service) payload.service = course.service;
+                if (!payload.price) payload.price = Number(course.default_price || 0);
             }
 
             let result;
 
             if (id) {
-
-                result = await sb
-                    .from("training_sessions")
-                    .update(payload)
-                    .eq("id", id);
-
+                result = await sb.from("training_sessions").update(payload).eq("id", id);
             } else {
-
-                result = await sb
-                    .from("training_sessions")
-                    .insert(payload);
-
+                result = await sb.from("training_sessions").insert(payload);
             }
 
-            if (result.error) {
-                throw result.error;
-            }
+            if (result.error) throw result.error;
 
-            if (message) {
-                message.textContent =
-                    "Training session saved successfully.";
-            }
+            if (message) message.textContent = "Training session saved successfully.";
 
             closeTrainingModal();
 
@@ -626,15 +504,11 @@
             console.error("❌ SAVE TRAINING ERROR:", error);
 
             if (message) {
-                message.textContent =
-                    error.message || "Unable to save training session.";
+                message.textContent = error.message || "Unable to save training session.";
             }
 
         } finally {
-
-            if (button) {
-                button.disabled = false;
-            }
+            if (button) button.disabled = false;
         }
     }
 
@@ -644,9 +518,7 @@
 
     async function deleteTrainingSession(id) {
 
-        if (!confirm("Delete this training session?")) {
-            return;
-        }
+        if (!confirm("Delete this training session?")) return;
 
         try {
 
@@ -655,20 +527,13 @@
                 .delete()
                 .eq("id", id);
 
-            if (error) {
-                throw error;
-            }
+            if (error) throw error;
 
             await loadAdminTrainingSessions();
 
         } catch (error) {
-
             console.error("❌ DELETE TRAINING ERROR:", error);
-
-            alert(
-                error.message ||
-                "Unable to delete training session."
-            );
+            alert(error.message || "Unable to delete training session.");
         }
     }
 
@@ -684,16 +549,19 @@
     // REGISTRATIONS
     // --------------------------------------------------
 
+    // FIX: header has 9 columns (Reg. No, Participant, Email, Phone,
+    // Course, Date, Payment, Status, Actions). The old version only
+    // rendered 8 <td>s and dropped Payment/Status badges + Actions
+    // entirely. Now emits all 9, with badges + a View action.
     async function loadTrainingRegistrations() {
 
-        const table =
-            document.getElementById("trainingRegistrationsTable");
+        const table = document.getElementById("trainingRegistrationsTable");
 
         if (!table) return;
 
         table.innerHTML = `
             <tr>
-                <td colspan="10" style="text-align:center;padding:30px;">
+                <td colspan="${REGISTRATIONS_COLSPAN}" style="text-align:center;padding:30px;">
                     Loading registrations...
                 </td>
             </tr>
@@ -712,14 +580,11 @@
 
         if (error) {
 
-            console.error(
-                "❌ TRAINING REGISTRATIONS ERROR:",
-                error
-            );
+            console.error("❌ TRAINING REGISTRATIONS ERROR:", error);
 
             table.innerHTML = `
                 <tr>
-                    <td colspan="10" style="text-align:center;padding:30px;">
+                    <td colspan="${REGISTRATIONS_COLSPAN}" style="text-align:center;padding:30px;">
                         ${escapeHTML(error.message)}
                     </td>
                 </tr>
@@ -730,25 +595,17 @@
 
         const registrations = data || [];
 
-        const count =
-            document.getElementById("registrationsCount");
+        const count = document.getElementById("registrationsCount");
+        if (count) count.textContent = registrations.length;
 
-        if (count) {
-            count.textContent = registrations.length;
-        }
-
-        const badge =
-            document.getElementById("regBadge");
-
-        if (badge) {
-            badge.textContent = registrations.length;
-        }
+        const badge = document.getElementById("regBadge");
+        if (badge) badge.textContent = registrations.length;
 
         if (!registrations.length) {
 
             table.innerHTML = `
                 <tr>
-                    <td colspan="10" style="text-align:center;padding:30px;">
+                    <td colspan="${REGISTRATIONS_COLSPAN}" style="text-align:center;padding:30px;">
                         No registrations found.
                     </td>
                 </tr>
@@ -757,49 +614,42 @@
             return;
         }
 
-        table.innerHTML = registrations.map(reg => `
+        window.__meiRegistrations = registrations;
 
+        table.innerHTML = registrations.map((reg, idx) => `
             <tr>
-
+                <td>${escapeHTML(reg.registration_number || "-")}</td>
+                <td>${escapeHTML(reg.full_name || "-")}</td>
+                <td>${escapeHTML(reg.email || "-")}</td>
+                <td>${escapeHTML(reg.phone || "-")}</td>
+                <td>${escapeHTML(reg.training_sessions?.session_title || "-")}</td>
+                <td>${formatDate(reg.training_sessions?.session_date)}</td>
+                <td>${statusBadge(reg.payment_status || "unpaid")}</td>
+                <td>${statusBadge(reg.registration_status || "pending")}</td>
                 <td>
-                    ${escapeHTML(reg.registration_number || "-")}
+                    <div class="action-btns">
+                        <button type="button" class="view" onclick="viewTrainingRegistration(${idx})">
+                            <i class="fas fa-eye"></i>
+                        </button>
+                    </div>
                 </td>
-
-                <td>
-                    ${escapeHTML(reg.full_name || "-")}
-                </td>
-
-                <td>
-                    ${escapeHTML(reg.email || "-")}
-                </td>
-
-                <td>
-                    ${escapeHTML(reg.phone || "-")}
-                </td>
-
-                <td>
-                    ${escapeHTML(
-                        reg.training_sessions?.session_title || "-"
-                    )}
-                </td>
-
-                <td>
-                    ${formatDate(
-                        reg.training_sessions?.session_date
-                    )}
-                </td>
-
-                <td>
-                    ${escapeHTML(reg.payment_status || "-")}
-                </td>
-
-                <td>
-                    ${escapeHTML(reg.registration_status || "-")}
-                </td>
-
             </tr>
-
         `).join("");
+    }
+
+    function viewTrainingRegistration(idx) {
+        const reg = (window.__meiRegistrations || [])[idx];
+        if (!reg) return;
+
+        alert(
+            `Registration ${reg.registration_number || ""}\n\n` +
+            `Name: ${reg.full_name || "-"}\n` +
+            `Email: ${reg.email || "-"}\n` +
+            `Phone: ${reg.phone || "-"}\n` +
+            `Course: ${reg.training_sessions?.session_title || "-"}\n` +
+            `Payment: ${reg.payment_status || "-"}\n` +
+            `Status: ${reg.registration_status || "-"}`
+        );
     }
 
     // --------------------------------------------------
@@ -821,46 +671,38 @@
     }
 
     // --------------------------------------------------
-    // FORM EVENT
+    // FORM / MODAL EVENTS
     // --------------------------------------------------
 
     document.addEventListener("DOMContentLoaded", function () {
 
         console.log("📋 admin-training DOM ready.");
 
-        const form =
-            document.getElementById("trainingForm");
+        const form = document.getElementById("trainingForm");
+        if (form) form.addEventListener("submit", saveTrainingSession);
 
-        if (form) {
-            form.addEventListener(
-                "submit",
-                saveTrainingSession
-            );
+        const serviceFilter = document.getElementById("trainingServiceFilter");
+        if (serviceFilter) serviceFilter.addEventListener("change", applyTrainingFilters);
+
+        const statusFilter = document.getElementById("trainingStatusFilter");
+        if (statusFilter) statusFilter.addEventListener("change", applyTrainingFilters);
+
+        // FIX: give trainingModal the same click-outside-to-close and
+        // Escape-to-close behavior the generic #modalOverlay already has.
+        const trainingModal = document.getElementById("trainingModal");
+        if (trainingModal) {
+            trainingModal.addEventListener("click", function (e) {
+                if (e.target === trainingModal) closeTrainingModal();
+            });
         }
-
-        const serviceFilter =
-            document.getElementById("trainingServiceFilter");
-
-        if (serviceFilter) {
-            serviceFilter.addEventListener(
-                "change",
-                applyTrainingFilters
-            );
-        }
-
-        const statusFilter =
-            document.getElementById("trainingStatusFilter");
-
-        if (statusFilter) {
-            statusFilter.addEventListener(
-                "change",
-                applyTrainingFilters
-            );
-        }
+        document.addEventListener("keydown", function (e) {
+            if (e.key === "Escape" && trainingModal?.classList.contains("active")) {
+                closeTrainingModal();
+            }
+        });
 
         loadTrainingCourses();
 
-        // Load immediately if the training section exists.
         if (document.getElementById("trainingSessionsTable")) {
             loadAdminTrainingSessions();
         }
@@ -871,29 +713,15 @@
     // EXPOSE GLOBAL FUNCTIONS
     // --------------------------------------------------
 
-    window.loadAdminTrainingSessions =
-        loadAdminTrainingSessions;
-
-    window.loadTrainingRegistrations =
-        loadTrainingRegistrations;
-
-    window.openTrainingModal =
-        openTrainingModal;
-
-    window.closeTrainingModal =
-        closeTrainingModal;
-
-    window.editTrainingSession =
-        editTrainingSession;
-
-    window.deleteTrainingSession =
-        deleteTrainingSession;
-
-    window.refreshTrainingData =
-        refreshTrainingData;
-
-    window.applyTrainingFilters =
-        applyTrainingFilters;
+    window.loadAdminTrainingSessions = loadAdminTrainingSessions;
+    window.loadTrainingRegistrations = loadTrainingRegistrations;
+    window.openTrainingModal = openTrainingModal;
+    window.closeTrainingModal = closeTrainingModal;
+    window.editTrainingSession = editTrainingSession;
+    window.deleteTrainingSession = deleteTrainingSession;
+    window.viewTrainingRegistration = viewTrainingRegistration;
+    window.refreshTrainingData = refreshTrainingData;
+    window.applyTrainingFilters = applyTrainingFilters;
 
     console.log(
         "✅ admin-training.js loaded. Functions exposed:",
