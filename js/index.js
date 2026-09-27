@@ -1,6 +1,5 @@
 // ============================================================
 // MEI GROUP – HOMEPAGE SCRIPT
-// Loads: contact form + featured training sessions
 // ============================================================
 (function () {
     'use strict';
@@ -14,18 +13,16 @@
         });
     });
 
-    // ========================================================
-    // CONTACT FORM → applications (service = 'General Contact')
-    // ========================================================
+    // CONTACT FORM
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', async function (e) {
             e.preventDefault();
 
-            const submitBtn = document.getElementById('contactSubmitBtn');
+            const submitBtn    = document.getElementById('contactSubmitBtn');
             const alertSuccess = document.getElementById('contactAlert');
-            const alertError = document.getElementById('contactError');
-            const idleHTML = '<i class="fas fa-paper-plane"></i> Send Message';
+            const alertError   = document.getElementById('contactError');
+            const idleHTML     = '<i class="fas fa-paper-plane"></i> Send Message';
 
             const payload = {
                 service:   'General Contact',
@@ -58,17 +55,10 @@
         });
     }
 
-    // ========================================================
-    // FEATURED TRAINING SESSIONS → training_sessions
-    // Uses the training_sessions_full view (with available_seats)
-    // ========================================================
+    // FEATURED SESSIONS
     const grid = document.getElementById('featuredGrid');
     if (!grid) return;
 
-    const SUPABASE_URL = MEI_CONFIG.SUPABASE_URL;
-    const SUPABASE_KEY = MEI_CONFIG.SUPABASE_KEY;
-
-    // Load the next 6 upcoming sessions with status = open or scheduled
     async function loadFeaturedSessions() {
         try {
             const today = new Date().toISOString().split('T')[0];
@@ -82,12 +72,12 @@
                 `&limit=6`;
 
             const res = await fetch(
-                `${SUPABASE_URL}/rest/v1/${query}`,
+                `${MEI_CONFIG.SUPABASE_URL}/rest/v1/${query}`,
                 {
                     method: 'GET',
                     headers: {
-                        'apikey': SUPABASE_KEY,
-                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                        'apikey': MEI_CONFIG.SUPABASE_KEY,
+                        'Authorization': `Bearer ${MEI_CONFIG.SUPABASE_KEY}`
                     }
                 }
             );
@@ -111,6 +101,24 @@
 
             grid.innerHTML = sessions.map(renderSessionCard).join('');
 
+            // Attach register handlers
+            grid.querySelectorAll('.btn-register').forEach(function (btn) {
+                btn.addEventListener('click', function () {
+                    const sessionId = this.dataset.sessionId;
+                    if (!sessionId) return;
+
+                    this.disabled = true;
+                    this.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Opening...';
+
+                    if (window.MEI_DB && MEI_DB.Router) {
+                        MEI_DB.Router.openRegistration(sessionId);
+                    } else {
+                        window.location.href =
+                            `training-registration.html?session_id=${sessionId}`;
+                    }
+                });
+            });
+
         } catch (err) {
             console.error('Failed to load featured sessions:', err);
             grid.innerHTML = `
@@ -130,48 +138,31 @@
         const seatsTotal = Number(s.capacity || 0);
         const seatsTaken = Number(s.registered_count || 0);
         const seatsAvail = Number(s.available_seats || 0);
-        const seatsPct = seatsTotal > 0
+        const seatsPct   = seatsTotal > 0
             ? Math.min(100, Math.round((seatsTaken / seatsTotal) * 100))
             : 0;
-
         const isFull = seatsAvail <= 0;
-        const disabledAttr = isFull ? 'disabled' : '';
-
-        const dateStr = formatDate(s.start_date);
-        const timeStr = formatTimeRange(s.start_time, s.end_time);
-        const priceStr = formatPrice(s.price_kes);
-
-        const venue = escapeHtml(s.venue || 'To be confirmed');
-        const trainer = escapeHtml(s.trainer || 'MEI Group');
 
         return `
             <div class="featured-card">
                 <div class="badge-row">
-                    <span class="service-badge ${serviceKey}">
-                        ${escapeHtml(s.service)}
-                    </span>
-                    <span class="status-dot" title="Available"></span>
+                    <span class="service-badge ${serviceKey}">${escapeHtml(s.service || 'Training')}</span>
+                    <span class="status-dot"></span>
                 </div>
-                <h4>${escapeHtml(s.session_title || s.course_name)}</h4>
+                <h4>${escapeHtml(s.session_title || s.course_name || 'Training Session')}</h4>
                 <div class="meta">
-                    <span><i class="far fa-calendar"></i> ${dateStr}</span>
-                    <span><i class="far fa-clock"></i> ${timeStr}</span>
-                    <span><i class="fas fa-location-dot"></i> ${venue}</span>
-                    <span><i class="fas fa-user-tie"></i> ${trainer}</span>
-                    <span><i class="fas fa-tag"></i> <span class="price">${priceStr}</span></span>
+                    <span><i class="far fa-calendar"></i> ${formatDate(s.start_date)}</span>
+                    <span><i class="far fa-clock"></i> ${formatTimeRange(s.start_time, s.end_time)}</span>
+                    <span><i class="fas fa-location-dot"></i> ${escapeHtml(s.venue || 'TBC')}</span>
+                    <span><i class="fas fa-user-tie"></i> ${escapeHtml(s.trainer || 'MEI Group')}</span>
+                    <span><i class="fas fa-tag"></i> <span class="price">${formatPrice(s.price_kes)}</span></span>
                 </div>
-                <div class="seats-bar">
-                    <div class="seats-fill" style="width:${seatsPct}%"></div>
-                </div>
+                <div class="seats-bar"><div class="seats-fill" style="width:${seatsPct}%"></div></div>
                 <div class="seats-label">
-                    ${isFull
-                        ? 'Session full – waiting list available'
-                        : `${seatsAvail} of ${seatsTotal} seats available`}
+                    ${isFull ? 'Session full' : `${seatsAvail} of ${seatsTotal} seats available`}
                 </div>
-                <button class="btn-register" ${disabledAttr}
-                        onclick="window.location.href='training-registration.html?session=${s.id}'">
-                    <i class="fas fa-user-plus"></i>
-                    ${isFull ? 'Session Full' : 'Register Now'}
+                <button class="btn-register" ${isFull ? 'disabled' : ''} data-session-id="${s.id}">
+                    <i class="fas fa-user-plus"></i> ${isFull ? 'Session Full' : 'Register Now'}
                 </button>
             </div>
         `;
@@ -180,17 +171,15 @@
     function mapServiceKey(service) {
         if (!service) return 'osh';
         const s = service.toLowerCase();
-        if (s.includes('education'))  return 'education';
-        if (s.includes('road'))       return 'roadsafety';
+        if (s.includes('education')) return 'education';
+        if (s.includes('road'))      return 'roadsafety';
         return 'osh';
     }
 
     function formatDate(value) {
         if (!value) return 'TBC';
-        const d = new Date(value + 'T00:00:00');
-        return d.toLocaleDateString('en-KE', {
-            weekday: 'short', day: 'numeric',
-            month: 'short', year: 'numeric'
+        return new Date(value + 'T00:00:00').toLocaleDateString('en-KE', {
+            weekday: 'short', day: 'numeric', month: 'short', year: 'numeric'
         });
     }
 
@@ -208,9 +197,7 @@
     }
 
     function formatPrice(price) {
-        if (price === null || price === undefined || Number(price) === 0) {
-            return 'Contact MEI';
-        }
+        if (!price || Number(price) === 0) return 'Contact MEI';
         return 'KES ' + Number(price).toLocaleString('en-KE');
     }
 
@@ -223,7 +210,6 @@
             .replace(/'/g, '&#39;');
     }
 
-    // Load featured sessions on page ready
     loadFeaturedSessions();
 
     console.log('✅ MEI Group – Homepage loaded');
