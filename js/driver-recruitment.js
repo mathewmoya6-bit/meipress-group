@@ -1,11 +1,14 @@
-/* =========================================================
-   MEI GROUP
-   DRIVER RECRUITMENT & PLACEMENT
+/* ============================================================
+   MEI GROUP - DRIVER RECRUITMENT
    Dynamic Job Seeker / Employer Application
-   ========================================================= */
+   ============================================================ */
 
 (function () {
     "use strict";
+
+    /* ----------------------------------------------------------
+       SUPABASE CONFIG
+       ---------------------------------------------------------- */
 
     const SUPABASE_URL =
         "https://qkchnrrxrewmlvvxuuqe.supabase.co";
@@ -13,90 +16,45 @@
     const SUPABASE_KEY =
         "sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
 
+    let supabaseClient = null;
 
-    /* ---------------------------------------------------------
-       SUPABASE INITIALIZATION
-       --------------------------------------------------------- */
+    function initializeSupabase() {
 
-    let client = window.supabaseClient || null;
-
-    try {
-        if (!client) {
-            if (
-                !window.supabase ||
-                typeof window.supabase.createClient !== "function"
-            ) {
-                throw new Error(
-                    "Supabase library was not loaded."
-                );
-            }
-
-            client = window.supabase.createClient(
-                SUPABASE_URL,
-                SUPABASE_KEY
-            );
-
-            window.supabaseClient = client;
+        if (
+            window.supabaseClient &&
+            typeof window.supabaseClient.from === "function"
+        ) {
+            supabaseClient = window.supabaseClient;
+            return;
         }
-    } catch (error) {
-        console.error(
-            "Supabase initialization error:",
-            error
-        );
+
+        if (
+            window.supabase &&
+            typeof window.supabase.createClient === "function"
+        ) {
+            supabaseClient =
+                window.supabase.createClient(
+                    SUPABASE_URL,
+                    SUPABASE_KEY
+                );
+
+            window.supabaseClient = supabaseClient;
+        }
     }
 
 
-    /* ---------------------------------------------------------
-       DOM
-       --------------------------------------------------------- */
-
-    const form =
-        document.getElementById("driverApplyForm");
-
-    const applicantType =
-        document.getElementById("applicantType");
-
-    const jobSeekerFields =
-        document.getElementById("jobSeekerFields");
-
-    const employerFields =
-        document.getElementById("employerFields");
-
-    const typePlaceholder =
-        document.getElementById("typePlaceholder");
-
-    const submitArea =
-        document.getElementById("submitArea");
-
-    const submitBtn =
-        document.getElementById("submitBtn");
-
-    const formMessage =
-        document.getElementById("formMessage");
-
-
-    if (!form || !applicantType) {
-        console.error(
-            "Driver recruitment form was not found."
-        );
-        return;
-    }
-
-
-    /* ---------------------------------------------------------
+    /* ----------------------------------------------------------
        HELPERS
-       --------------------------------------------------------- */
+       ---------------------------------------------------------- */
+
+    function byId(id) {
+        return document.getElementById(id);
+    }
 
     function getValue(id) {
-        const element = document.getElementById(id);
-
-        if (!element) {
-            return "";
-        }
-
-        return element.value.trim();
+        const element = byId(id);
+        return element ? element.value.trim() : "";
     }
-
 
     function getNumber(id) {
         const value = getValue(id);
@@ -112,757 +70,751 @@
             : null;
     }
 
+    function setRequired(id, required) {
 
-    function getSelectValue(id) {
-        return getValue(id);
+        const element = byId(id);
+
+        if (!element) {
+            return;
+        }
+
+        element.required = required;
     }
 
 
+    /* ----------------------------------------------------------
+       FORM SECTIONS
+       ---------------------------------------------------------- */
+
+    function getJobSeekerSection() {
+
+        return (
+            byId("jobSeekerFields") ||
+            byId("jobSeekerSection") ||
+            byId("job-seeker-fields") ||
+            byId("job-seeker-section")
+        );
+    }
+
+    function getEmployerSection() {
+
+        return (
+            byId("employerFields") ||
+            byId("employerSection") ||
+            byId("employer-fields") ||
+            byId("employer-section")
+        );
+    }
+
+
+    /* ----------------------------------------------------------
+       SHOW / HIDE APPLICANT FORMS
+       ---------------------------------------------------------- */
+
+    function switchApplicantType() {
+
+        const selector =
+            byId("applicantType") ||
+            byId("applicationType") ||
+            byId("applicant_type");
+
+        const jobSeekerSection =
+            getJobSeekerSection();
+
+        const employerSection =
+            getEmployerSection();
+
+        const message =
+            byId("formInstruction") ||
+            byId("selectionMessage") ||
+            byId("formMessage");
+
+        if (!selector) {
+            console.error(
+                "MEI Driver Recruitment: applicant type selector not found."
+            );
+            return;
+        }
+
+        const type = selector.value;
+
+        console.log(
+            "Selected applicant type:",
+            type
+        );
+
+        /* Hide everything first */
+
+        if (jobSeekerSection) {
+            jobSeekerSection.style.display = "none";
+        }
+
+        if (employerSection) {
+            employerSection.style.display = "none";
+        }
+
+        if (message) {
+            message.style.display = "block";
+        }
+
+
+        /* Remove required attributes */
+
+        const jobFields = [
+            "jobFullName",
+            "jobPhone",
+            "jobEmail",
+            "nationality",
+            "currentLocation",
+            "preferredLocation",
+            "licenseClass",
+            "yearsExperience",
+            "currentEmployer",
+            "availability",
+            "internationalPlacement",
+            "passportStatus",
+            "documentsStatus",
+            "vehicleExperience",
+            "jobAdditionalDetails"
+        ];
+
+        const employerFields = [
+            "companyName",
+            "contactPerson",
+            "employerPhone",
+            "employerEmail",
+            "companyLocation",
+            "driversRequired",
+            "requiredLicenseClass",
+            "vehicleType",
+            "minimumExperienceYears",
+            "employmentLocation",
+            "placementScope",
+            "salaryRange",
+            "recruitmentTimeline",
+            "accommodationBenefits",
+            "jobDescription"
+        ];
+
+        jobFields.forEach(function (id) {
+            setRequired(id, false);
+        });
+
+        employerFields.forEach(function (id) {
+            setRequired(id, false);
+        });
+
+
+        /* ------------------------------------------------------
+           JOB SEEKER
+           ------------------------------------------------------ */
+
+        if (
+            type === "Job Seeker" ||
+            type === "job_seeker" ||
+            type === "Job Seeker / Driver"
+        ) {
+
+            if (jobSeekerSection) {
+                jobSeekerSection.style.display = "block";
+            }
+
+            if (message) {
+                message.style.display = "none";
+            }
+
+            setRequired("jobFullName", true);
+            setRequired("jobPhone", true);
+            setRequired("jobEmail", true);
+            setRequired("licenseClass", true);
+            setRequired("yearsExperience", true);
+
+            return;
+        }
+
+
+        /* ------------------------------------------------------
+           EMPLOYER
+           ------------------------------------------------------ */
+
+        if (
+            type === "Employer" ||
+            type === "employer" ||
+            type === "Employer / Company"
+        ) {
+
+            if (employerSection) {
+                employerSection.style.display = "block";
+            }
+
+            if (message) {
+                message.style.display = "none";
+            }
+
+            setRequired("companyName", true);
+            setRequired("contactPerson", true);
+            setRequired("employerPhone", true);
+            setRequired("employerEmail", true);
+            setRequired("driversRequired", true);
+            setRequired("requiredLicenseClass", true);
+
+            return;
+        }
+    }
+
+
+    /* ----------------------------------------------------------
+       VALIDATION
+       ---------------------------------------------------------- */
+
+    function validateJobSeeker() {
+
+        const requiredFields = [
+            ["jobFullName", "Full name"],
+            ["jobPhone", "Phone number"],
+            ["jobEmail", "Email address"],
+            ["licenseClass", "Driving licence class"],
+            ["yearsExperience", "Years of experience"]
+        ];
+
+        for (const item of requiredFields) {
+
+            const value = getValue(item[0]);
+
+            if (!value) {
+
+                alert(
+                    "Please enter your " +
+                    item[1] +
+                    "."
+                );
+
+                const element = byId(item[0]);
+
+                if (element) {
+                    element.focus();
+                }
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    function validateEmployer() {
+
+        const requiredFields = [
+            ["companyName", "Company name"],
+            ["contactPerson", "Contact person"],
+            ["employerPhone", "Phone number"],
+            ["employerEmail", "Email address"],
+            ["driversRequired", "Number of drivers required"],
+            ["requiredLicenseClass", "Required licence class"]
+        ];
+
+        for (const item of requiredFields) {
+
+            const value = getValue(item[0]);
+
+            if (!value) {
+
+                alert(
+                    "Please enter " +
+                    item[1] +
+                    "."
+                );
+
+                const element = byId(item[0]);
+
+                if (element) {
+                    element.focus();
+                }
+
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+
+    /* ----------------------------------------------------------
+       PHONE NORMALIZATION
+       ---------------------------------------------------------- */
+
     function normalizePhone(phone) {
-        let value = String(phone || "")
-            .trim()
-            .replace(/[^\d+]/g, "");
 
-        if (value.startsWith("07")) {
-            value = "+254" + value.substring(1);
+        let value =
+            String(phone || "")
+                .trim()
+                .replace(/[^\d+]/g, "");
+
+        if (
+            value.startsWith("07") &&
+            value.length === 10
+        ) {
+            value =
+                "+254" +
+                value.substring(1);
         }
 
-        if (value.startsWith("01")) {
-            value = "+254" + value.substring(1);
-        }
-
-        if (value.startsWith("254") && !value.startsWith("+")) {
-            value = "+" + value;
+        if (
+            value.startsWith("01") &&
+            value.length === 10
+        ) {
+            value =
+                "+254" +
+                value.substring(1);
         }
 
         return value;
     }
 
 
+    /* ----------------------------------------------------------
+       EMAIL NORMALIZATION
+       ---------------------------------------------------------- */
+
     function normalizeEmail(email) {
+
         return String(email || "")
             .trim()
             .toLowerCase();
     }
 
 
-    function showMessage(type, message) {
-        formMessage.className =
-            "message show " + type;
+    /* ----------------------------------------------------------
+       MESSAGE
+       ---------------------------------------------------------- */
 
-        formMessage.textContent = message;
+    function showMessage(message, type) {
 
-        formMessage.scrollIntoView({
-            behavior: "smooth",
-            block: "nearest"
-        });
+        const element =
+            byId("formMessage") ||
+            byId("submissionMessage") ||
+            byId("successMessage");
+
+        if (!element) {
+            alert(message);
+            return;
+        }
+
+        element.textContent = message;
+
+        element.style.display = "block";
+
+        element.className =
+            "form-message " +
+            (type || "info");
+
+        if (type === "success") {
+            element.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+        }
     }
 
 
-    function clearMessage() {
-        formMessage.className = "message";
-        formMessage.textContent = "";
-    }
+    /* ----------------------------------------------------------
+       SUBMIT APPLICATION
+       ---------------------------------------------------------- */
+
+    async function submitApplication(event) {
+
+        event.preventDefault();
+
+        initializeSupabase();
+
+        if (!supabaseClient) {
+
+            showMessage(
+                "The application system could not connect to Supabase. Please refresh the page and try again.",
+                "error"
+            );
+
+            return;
+        }
+
+        const selector =
+            byId("applicantType") ||
+            byId("applicationType") ||
+            byId("applicant_type");
+
+        if (!selector) {
+            alert("Application type field is missing.");
+            return;
+        }
+
+        const type = selector.value;
 
 
-    function setRequired(ids, required) {
-        ids.forEach(function (id) {
-            const element =
-                document.getElementById(id);
+        /* ------------------------------------------------------
+           JOB SEEKER
+           ------------------------------------------------------ */
 
-            if (element) {
-                element.required = required;
-            }
-        });
-    }
+        if (
+            type === "Job Seeker" ||
+            type === "job_seeker" ||
+            type === "Job Seeker / Driver"
+        ) {
 
-
-    function clearFields(ids) {
-        ids.forEach(function (id) {
-            const element =
-                document.getElementById(id);
-
-            if (!element) {
+            if (!validateJobSeeker()) {
                 return;
             }
 
-            if (element.type === "checkbox") {
-                element.checked = false;
-            } else {
-                element.value = "";
+            const payload = {
+
+                applicant_type: "Job Seeker",
+
+                full_name:
+                    getValue("jobFullName"),
+
+                phone:
+                    normalizePhone(
+                        getValue("jobPhone")
+                    ),
+
+                email:
+                    normalizeEmail(
+                        getValue("jobEmail")
+                    ),
+
+                nationality:
+                    getValue("nationality") || null,
+
+                current_location:
+                    getValue("currentLocation") || null,
+
+                preferred_location:
+                    getValue("preferredLocation") || null,
+
+                license_class:
+                    getValue("licenseClass") || null,
+
+                years_experience:
+                    getNumber("yearsExperience"),
+
+                current_employer:
+                    getValue("currentEmployer") || null,
+
+                vehicle_experience:
+                    getValue("vehicleExperience") || null,
+
+                availability:
+                    getValue("availability") || null,
+
+                international_placement:
+                    getValue("internationalPlacement") || null,
+
+                passport_status:
+                    getValue("passportStatus") || null,
+
+                documents_status:
+                    getValue("documentsStatus") || null,
+
+                additional_details:
+                    getValue("jobAdditionalDetails") || null,
+
+                status: "new",
+
+                source: "website"
+            };
+
+
+            await saveApplication(
+                payload,
+                event.target
+            );
+
+            return;
+        }
+
+
+        /* ------------------------------------------------------
+           EMPLOYER
+           ------------------------------------------------------ */
+
+        if (
+            type === "Employer" ||
+            type === "employer" ||
+            type === "Employer / Company"
+        ) {
+
+            if (!validateEmployer()) {
+                return;
             }
-        });
+
+            const payload = {
+
+                applicant_type: "Employer",
+
+                full_name:
+                    getValue("contactPerson"),
+
+                phone:
+                    normalizePhone(
+                        getValue("employerPhone")
+                    ),
+
+                email:
+                    normalizeEmail(
+                        getValue("employerEmail")
+                    ),
+
+                company_name:
+                    getValue("companyName") || null,
+
+                company_location:
+                    getValue("companyLocation") || null,
+
+                drivers_required:
+                    getNumber("driversRequired"),
+
+                required_license_class:
+                    getValue("requiredLicenseClass") || null,
+
+                vehicle_type:
+                    getValue("vehicleType") || null,
+
+                minimum_experience_years:
+                    getNumber(
+                        "minimumExperienceYears"
+                    ),
+
+                employment_location:
+                    getValue("employmentLocation") || null,
+
+                placement_scope:
+                    getValue("placementScope") || null,
+
+                salary_range:
+                    getValue("salaryRange") || null,
+
+                accommodation_benefits:
+                    getValue("accommodationBenefits") || null,
+
+                job_description:
+                    getValue("jobDescription") || null,
+
+                recruitment_timeline:
+                    getValue("recruitmentTimeline") || null,
+
+                status: "new",
+
+                source: "website"
+            };
+
+
+            await saveApplication(
+                payload,
+                event.target
+            );
+
+            return;
+        }
+
+
+        alert(
+            "Please select whether you are applying as a Job Seeker / Driver or Employer / Company."
+        );
     }
 
 
-    /* ---------------------------------------------------------
-       FIELD GROUPS
-       --------------------------------------------------------- */
+    /* ----------------------------------------------------------
+       SAVE TO SUPABASE
+       ---------------------------------------------------------- */
 
-    const jobSeekerRequiredFields = [
-        "jobFullName",
-        "jobPhone",
-        "jobEmail",
-        "currentLocation",
-        "licenseClass"
-    ];
+    async function saveApplication(
+        payload,
+        form
+    ) {
 
+        const submitButton =
+            form.querySelector(
+                'button[type="submit"]'
+            );
 
-    const employerRequiredFields = [
-        "companyName",
-        "contactPerson",
-        "employerPhone",
-        "employerEmail",
-        "companyLocation",
-        "driversRequired",
-        "requiredLicenseClass",
-        "vehicleType",
-        "employmentLocation",
-        "placementScope",
-        "jobDescription"
-    ];
+        if (submitButton) {
+
+            submitButton.disabled = true;
+
+            submitButton.dataset.originalText =
+                submitButton.textContent;
+
+            submitButton.textContent =
+                "Submitting...";
+        }
 
 
-    const jobSeekerFieldsAll = [
-        "jobFullName",
-        "jobPhone",
-        "jobEmail",
-        "nationality",
-        "currentLocation",
-        "preferredLocation",
-        "licenseClass",
-        "yearsExperience",
-        "currentEmployer",
-        "availability",
-        "internationalPlacement",
-        "passportStatus",
-        "documentsStatus",
-        "vehicleExperience",
-        "jobAdditionalDetails"
-    ];
-
-
-    const employerFieldsAll = [
-        "companyName",
-        "contactPerson",
-        "employerPhone",
-        "employerEmail",
-        "companyLocation",
-        "driversRequired",
-        "requiredLicenseClass",
-        "vehicleType",
-        "minimumExperienceYears",
-        "employmentLocation",
-        "placementScope",
-        "salaryRange",
-        "recruitmentTimeline",
-        "accommodationBenefits",
-        "jobDescription"
-    ];
-
-
-    /* ---------------------------------------------------------
-       SWITCH FORM
-       --------------------------------------------------------- */
-
-    function switchApplicantType() {
-
-        clearMessage();
-
-        const type =
-            applicantType.value;
-
-
-        // Hide everything first
-        jobSeekerFields.classList.add("hidden");
-        employerFields.classList.add("hidden");
-
-        typePlaceholder.style.display = "none";
-        submitArea.style.display = "none";
-
-
-        // Remove required flags from both forms
-        setRequired(
-            jobSeekerRequiredFields,
-            false
+        showMessage(
+            "Submitting your application...",
+            "info"
         );
 
-        setRequired(
-            employerRequiredFields,
-            false
-        );
 
-
-        if (type === "Job Seeker") {
-
-            jobSeekerFields.classList.remove(
-                "hidden"
-            );
-
-            setRequired(
-                jobSeekerRequiredFields,
-                true
-            );
-
-            submitArea.style.display = "block";
-
-        } else if (type === "Employer") {
-
-            employerFields.classList.remove(
-                "hidden"
-            );
-
-            setRequired(
-                employerRequiredFields,
-                true
-            );
-
-            submitArea.style.display = "block";
-
-        } else {
-
-            typePlaceholder.style.display =
-                "block";
-        }
-    }
-
-
-    applicantType.addEventListener(
-        "change",
-        switchApplicantType
-    );
-
-
-    /* ---------------------------------------------------------
-       VALIDATION
-       --------------------------------------------------------- */
-
-    function validateJobSeeker() {
-
-        const name =
-            getValue("jobFullName");
-
-        const phone =
-            getValue("jobPhone");
-
-        const email =
-            getValue("jobEmail");
-
-        const location =
-            getValue("currentLocation");
-
-        const licence =
-            getSelectValue("licenseClass");
-
-
-        if (!name) {
-            return "Please enter your full name.";
-        }
-
-        if (!phone) {
-            return "Please enter your phone number.";
-        }
-
-        if (!email) {
-            return "Please enter your email address.";
-        }
-
-        if (!location) {
-            return "Please enter your current location.";
-        }
-
-        if (!licence) {
-            return "Please select your driving licence class.";
-        }
-
-
-        const normalizedPhone =
-            normalizePhone(phone);
-
-        if (
-            normalizedPhone.length < 10
-        ) {
-            return "Please enter a valid phone number.";
-        }
-
-
-        const normalizedEmail =
-            normalizeEmail(email);
-
-        if (
-            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-                normalizedEmail
-            )
-        ) {
-            return "Please enter a valid email address.";
-        }
-
-
-        return null;
-    }
-
-
-    function validateEmployer() {
-
-        const company =
-            getValue("companyName");
-
-        const contact =
-            getValue("contactPerson");
-
-        const phone =
-            getValue("employerPhone");
-
-        const email =
-            getValue("employerEmail");
-
-        const companyLocation =
-            getValue("companyLocation");
-
-        const driversRequired =
-            getNumber("driversRequired");
-
-        const licence =
-            getSelectValue(
-                "requiredLicenseClass"
-            );
-
-        const vehicle =
-            getValue("vehicleType");
-
-        const employmentLocation =
-            getValue("employmentLocation");
-
-        const placementScope =
-            getSelectValue("placementScope");
-
-        const jobDescription =
-            getValue("jobDescription");
-
-
-        if (!company) {
-            return "Please enter the company name.";
-        }
-
-        if (!contact) {
-            return "Please enter the contact person's name.";
-        }
-
-        if (!phone) {
-            return "Please enter the employer phone number.";
-        }
-
-        if (!email) {
-            return "Please enter the employer email address.";
-        }
-
-        if (!companyLocation) {
-            return "Please enter the company location.";
-        }
-
-        if (
-            driversRequired === null ||
-            driversRequired < 1
-        ) {
-            return "Please enter the number of drivers required.";
-        }
-
-        if (!licence) {
-            return "Please select the required licence class.";
-        }
-
-        if (!vehicle) {
-            return "Please specify the vehicle type.";
-        }
-
-        if (!employmentLocation) {
-            return "Please enter the employment location.";
-        }
-
-        if (!placementScope) {
-            return "Please select the placement scope.";
-        }
-
-        if (!jobDescription) {
-            return "Please provide the job description or driver requirements.";
-        }
-
-
-        const normalizedPhone =
-            normalizePhone(phone);
-
-        if (
-            normalizedPhone.length < 10
-        ) {
-            return "Please enter a valid employer phone number.";
-        }
-
-
-        const normalizedEmail =
-            normalizeEmail(email);
-
-        if (
-            !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(
-                normalizedEmail
-            )
-        ) {
-            return "Please enter a valid employer email address.";
-        }
-
-
-        return null;
-    }
-
-
-    /* ---------------------------------------------------------
-       PAYLOAD BUILDERS
-       --------------------------------------------------------- */
-
-    function buildJobSeekerPayload() {
-
-        return {
-
-            applicant_type: "Job Seeker",
-
-            full_name:
-                getValue("jobFullName"),
-
-            phone:
-                normalizePhone(
-                    getValue("jobPhone")
-                ),
-
-            email:
-                normalizeEmail(
-                    getValue("jobEmail")
-                ),
-
-            nationality:
-                getValue("nationality") || null,
-
-            current_location:
-                getValue("currentLocation") || null,
-
-            preferred_location:
-                getValue("preferredLocation") || null,
-
-            license_class:
-                getSelectValue("licenseClass") || null,
-
-            years_experience:
-                getNumber("yearsExperience"),
-
-            current_employer:
-                getValue("currentEmployer") || null,
-
-            vehicle_experience:
-                getValue("vehicleExperience") || null,
-
-            availability:
-                getSelectValue("availability") || null,
-
-            international_placement:
-                getSelectValue(
-                    "internationalPlacement"
-                ) || null,
-
-            passport_status:
-                getSelectValue(
-                    "passportStatus"
-                ) || null,
-
-            documents_status:
-                getValue("documentsStatus") || null,
-
-            additional_details:
-                getValue(
-                    "jobAdditionalDetails"
-                ) || null,
-
-            status: "new",
-
-            source: "website"
-        };
-    }
-
-
-    function buildEmployerPayload() {
-
-        return {
-
-            applicant_type: "Employer",
-
-            full_name:
-                getValue("contactPerson"),
-
-            phone:
-                normalizePhone(
-                    getValue("employerPhone")
-                ),
-
-            email:
-                normalizeEmail(
-                    getValue("employerEmail")
-                ),
-
-            company_name:
-                getValue("companyName"),
-
-            company_location:
-                getValue("companyLocation"),
-
-            drivers_required:
-                getNumber("driversRequired"),
-
-            required_license_class:
-                getSelectValue(
-                    "requiredLicenseClass"
-                ),
-
-            vehicle_type:
-                getValue("vehicleType"),
-
-            minimum_experience_years:
-                getNumber(
-                    "minimumExperienceYears"
-                ),
-
-            employment_location:
-                getValue(
-                    "employmentLocation"
-                ),
-
-            placement_scope:
-                getSelectValue(
-                    "placementScope"
-                ),
-
-            salary_range:
-                getValue("salaryRange") || null,
-
-            accommodation_benefits:
-                getValue(
-                    "accommodationBenefits"
-                ) || null,
-
-            job_description:
-                getValue("jobDescription"),
-
-            recruitment_timeline:
-                getSelectValue(
-                    "recruitmentTimeline"
-                ) || null,
-
-            status: "new",
-
-            source: "website"
-        };
-    }
-
-
-    /* ---------------------------------------------------------
-       SUBMIT
-       --------------------------------------------------------- */
-
-    form.addEventListener(
-        "submit",
-        async function (event) {
-
-            event.preventDefault();
-
-            clearMessage();
-
-
-            if (!client) {
-
-                showMessage(
-                    "error",
-                    "The application system could not connect to Supabase. Please try again."
-                );
-
-                return;
-            }
-
-
-            const type =
-                applicantType.value;
-
-
-            if (!type) {
-
-                showMessage(
-                    "error",
-                    "Please select whether you are a Job Seeker or Employer."
-                );
-
-                return;
-            }
-
-
-            let validationError = null;
-
-            if (type === "Job Seeker") {
-                validationError =
-                    validateJobSeeker();
-            }
-
-            if (type === "Employer") {
-                validationError =
-                    validateEmployer();
-            }
-
-
-            if (validationError) {
-
-                showMessage(
-                    "error",
-                    validationError
-                );
-
-                return;
-            }
-
-
-            let payload;
-
-            if (type === "Job Seeker") {
-                payload =
-                    buildJobSeekerPayload();
-            } else {
-                payload =
-                    buildEmployerPayload();
-            }
-
-
-            submitBtn.disabled = true;
-
-            submitBtn.textContent =
-                "Submitting Application...";
-
-
-            try {
-
-                const {
-                    data,
-                    error
-                } = await client
+        try {
+
+            /*
+             * IMPORTANT:
+             * Do not use .select() here.
+             *
+             * Public users can INSERT applications,
+             * but they are intentionally not allowed
+             * to SELECT other applications.
+             */
+
+            const { error } =
+                await supabaseClient
                     .from("driver_applications")
-                    .insert(payload)
-                    .select(
-                        "id, application_number"
-                    )
-                    .single();
+                    .insert(payload);
 
 
-                if (error) {
+            if (error) {
 
-                    console.error(
-                        "Supabase application error:",
-                        error
-                    );
-
-                    throw error;
-                }
-
-
-                const applicationNumber =
-                    data &&
-                    data.application_number
-                        ? data.application_number
-                        : "submitted successfully";
-
+                console.error(
+                    "Driver application error:",
+                    error
+                );
 
                 showMessage(
-                    "success",
-                    "Your " +
-                    type.toLowerCase() +
-                    " application has been submitted successfully. " +
-                    "Application Number: " +
-                    applicationNumber +
-                    ". MEI Group recruitment staff will review your information."
+                    "We could not submit your application. " +
+                    error.message,
+                    "error"
                 );
 
-
-                // Reset the form
-                form.reset();
-
-
-                // Hide dynamic sections
-                jobSeekerFields.classList.add(
-                    "hidden"
-                );
-
-                employerFields.classList.add(
-                    "hidden"
-                );
-
-                typePlaceholder.style.display =
-                    "block";
-
-                submitArea.style.display =
-                    "none";
+                return;
+            }
 
 
-                window.scrollTo({
-                    top:
-                        formMessage.getBoundingClientRect()
-                            .top +
-                        window.scrollY -
-                        100,
-                    behavior: "smooth"
-                });
+            /* --------------------------------------------------
+               SUCCESS
+               -------------------------------------------------- */
+
+            showMessage(
+                "Thank you. Your driver recruitment application has been submitted successfully. Our recruitment team will review your information and contact you.",
+                "success"
+            );
 
 
-            } catch (error) {
+            form.reset();
 
-                let message =
-                    "We could not submit your application. Please try again.";
-
-                if (error && error.message) {
-
-                    console.error(
-                        error.message
-                    );
-
-                    if (
-                        error.code === "42501"
-                    ) {
-                        message =
-                            "The application form does not currently have permission to submit. Please contact the MEI administrator.";
-                    } else if (
-                        error.code === "23503"
-                    ) {
-                        message =
-                            "A required database reference is missing. Please contact the MEI administrator.";
-                    } else if (
-                        error.code === "23514"
-                    ) {
-                        message =
-                            "One of the application values is not accepted by the database. Please review the form.";
-                    }
-                }
+            switchApplicantType();
 
 
-                showMessage(
-                    "error",
-                    message
-                );
+        } catch (error) {
 
-            } finally {
+            console.error(error);
 
-                submitBtn.disabled = false;
+            showMessage(
+                "An unexpected error occurred while submitting your application. Please try again.",
+                "error"
+            );
 
-                submitBtn.textContent =
+        } finally {
+
+            if (submitButton) {
+
+                submitButton.disabled = false;
+
+                submitButton.textContent =
+                    submitButton.dataset.originalText ||
                     "Submit Application";
             }
         }
-    );
+    }
 
 
-    /* ---------------------------------------------------------
-       INITIAL STATE
-       --------------------------------------------------------- */
+    /* ----------------------------------------------------------
+       INITIALIZE
+       ---------------------------------------------------------- */
 
-    switchApplicantType();
+    function initializeDriverRecruitment() {
+
+        initializeSupabase();
+
+
+        const selector =
+            byId("applicantType") ||
+            byId("applicationType") ||
+            byId("applicant_type");
+
+
+        if (!selector) {
+
+            console.error(
+                "MEI Driver Recruitment: applicant type selector not found."
+            );
+
+            return;
+        }
+
+
+        /* Dropdown change */
+
+        selector.addEventListener(
+            "change",
+            switchApplicantType
+        );
+
+
+        /* Form submission */
+
+        const form =
+            byId("driverRecruitmentForm") ||
+            byId("driverApplicationForm") ||
+            document.querySelector(
+                "form[data-driver-recruitment]"
+            );
+
+
+        if (form) {
+
+            form.addEventListener(
+                "submit",
+                submitApplication
+            );
+
+        } else {
+
+            console.error(
+                "MEI Driver Recruitment: application form not found."
+            );
+        }
+
+
+        /* Initial state */
+
+        switchApplicantType();
+    }
+
+
+    /* ----------------------------------------------------------
+       MAKE FUNCTION AVAILABLE TO HTML
+       ---------------------------------------------------------- */
+
+    window.switchApplicantType =
+        switchApplicantType;
+
+
+    /* ----------------------------------------------------------
+       START
+       ---------------------------------------------------------- */
+
+    if (
+        document.readyState === "loading"
+    ) {
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            initializeDriverRecruitment
+        );
+
+    } else {
+
+        initializeDriverRecruitment();
+    }
 
 })();
