@@ -2,17 +2,36 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Driver Recruitment & Placement | MEI Group</title>
+    <meta
+        name="viewport"
+        content="width=device-width, initial-scale=1.0"
+    >
+
+    <title>
+        Driver Recruitment | MEI Group
+    </title>
 
     <meta
         name="description"
-        content="MEI Group Driver Recruitment & Placement connects qualified drivers with employment opportunities in Kenya and international markets."
+        content="MEI Group Driver Recruitment connects qualified drivers with employers in Kenya and internationally."
     >
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <meta
+        name="theme-color"
+        content="#071a2b"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.googleapis.com"
+    >
+
+    <link
+        rel="preconnect"
+        href="https://fonts.gstatic.com"
+        crossorigin
+    >
 
     <link
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
@@ -26,21 +45,27 @@
             --mei-green: #18c77a;
             --mei-green-dark: #07985a;
             --mei-green-light: #e4f8ef;
+
             --white: #ffffff;
-            --text: #17212b;
-            --muted: #64748b;
-            --border: #dbe3ea;
-            --light: #f6f9fb;
-            --danger: #dc2626;
-            --success: #15803d;
-            --shadow: 0 15px 45px rgba(7, 26, 43, .10);
-            --radius: 18px;
+            --text: #1b2733;
+            --muted: #657381;
+            --border: #dce5ea;
+            --light: #f5f8fa;
+
+            --danger: #c62828;
+            --danger-bg: #fff0f0;
+
+            --success: #087f4d;
+            --success-bg: #eafaf2;
+
+            --shadow:
+                0 15px 45px rgba(7, 26, 43, 0.10);
+
+            --radius: 14px;
         }
 
         * {
             box-sizing: border-box;
-            margin: 0;
-            padding: 0;
         }
 
         html {
@@ -48,15 +73,16 @@
         }
 
         body {
-            font-family: "Inter", sans-serif;
+            margin: 0;
+            font-family: "Inter", Arial, sans-serif;
+            background: #f7fafb;
             color: var(--text);
-            background: var(--white);
             line-height: 1.6;
         }
 
         a {
-            text-decoration: none;
             color: inherit;
+            text-decoration: none;
         }
 
         button,
@@ -66,23 +92,29 @@
             font: inherit;
         }
 
-        .container {
-            width: min(1180px, calc(100% - 32px));
-            margin: auto;
+        img {
+            max-width: 100%;
+            display: block;
         }
 
-        /* NAVIGATION */
-        .navbar {
+        /* =========================
+           HEADER
+        ========================= */
+
+        header {
+            background: var(--mei-navy);
+            color: var(--white);
             position: sticky;
             top: 0;
             z-index: 1000;
-            background: rgba(7, 26, 43, .97);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(255,255,255,.08);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.12);
         }
 
-        .nav-inner {
-            min-height: 74px;
+        .nav-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 14px 22px;
+
             display: flex;
             align-items: center;
             justify-content: space-between;
@@ -92,45 +124,47 @@
         .brand {
             display: flex;
             align-items: center;
-            gap: 11px;
-            color: white;
+            gap: 12px;
             font-weight: 900;
-            font-size: 1.2rem;
+            font-size: 20px;
+            letter-spacing: -0.4px;
         }
 
         .brand-mark {
-            width: 40px;
-            height: 40px;
-            border-radius: 11px;
+            width: 42px;
+            height: 42px;
+            border-radius: 10px;
             background: var(--mei-green);
-            color: var(--mei-navy);
-            display: grid;
-            place-items: center;
-            font-weight: 900;
-        }
 
-        .nav-links {
             display: flex;
             align-items: center;
-            gap: 22px;
+            justify-content: center;
+
+            color: var(--mei-navy);
+            font-weight: 900;
+            font-size: 20px;
         }
 
-        .nav-links a {
-            color: #dce8ef;
-            font-size: .92rem;
-            font-weight: 600;
-        }
-
-        .nav-links a:hover {
+        .brand-text span {
             color: var(--mei-green);
         }
 
-        .nav-cta {
-            background: var(--mei-green);
-            color: var(--mei-navy) !important;
-            padding: 11px 17px;
-            border-radius: 10px;
-            font-weight: 800 !important;
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+        }
+
+        nav a {
+            color: #dce8ef;
+            font-size: 14px;
+            font-weight: 600;
+            transition: 0.2s ease;
+        }
+
+        nav a:hover,
+        nav a.active {
+            color: var(--mei-green);
         }
 
         .menu-btn {
@@ -138,58 +172,41 @@
             border: 0;
             background: transparent;
             color: white;
-            font-size: 1.6rem;
+            font-size: 28px;
             cursor: pointer;
         }
 
-        /* HERO */
+        /* =========================
+           HERO
+        ========================= */
+
         .hero {
             background:
-                linear-gradient(135deg, rgba(7,26,43,.98), rgba(11,48,74,.96));
+                linear-gradient(
+                    135deg,
+                    rgba(7, 26, 43, 0.98),
+                    rgba(11, 48, 74, 0.96)
+                );
+
             color: white;
-            padding: 90px 0 80px;
-            position: relative;
-            overflow: hidden;
+            padding: 80px 22px;
         }
 
-        .hero::after {
-            content: "";
-            position: absolute;
-            width: 420px;
-            height: 420px;
-            border-radius: 50%;
-            background: rgba(24,199,122,.08);
-            right: -120px;
-            top: -120px;
-        }
+        .hero-container {
+            max-width: 1200px;
+            margin: auto;
 
-        .hero-grid {
-            position: relative;
-            z-index: 1;
             display: grid;
-            grid-template-columns: 1.25fr .75fr;
-            gap: 55px;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 50px;
             align-items: center;
         }
 
-        .eyebrow {
-            display: inline-flex;
-            padding: 7px 12px;
-            border-radius: 100px;
-            background: rgba(24,199,122,.13);
-            color: var(--mei-green);
-            font-size: .78rem;
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: .08em;
-            margin-bottom: 18px;
-        }
-
         .hero h1 {
-            font-size: clamp(2.4rem, 5vw, 4.5rem);
+            margin: 0 0 20px;
+            font-size: clamp(38px, 5vw, 64px);
             line-height: 1.05;
-            margin-bottom: 22px;
-            letter-spacing: -0.04em;
+            letter-spacing: -2px;
         }
 
         .hero h1 span {
@@ -197,28 +214,29 @@
         }
 
         .hero p {
-            max-width: 700px;
-            color: #d6e2e9;
-            font-size: 1.08rem;
-            margin-bottom: 28px;
+            max-width: 680px;
+            color: #d4e1e8;
+            font-size: 18px;
+            margin-bottom: 30px;
         }
 
         .hero-buttons {
             display: flex;
-            gap: 12px;
+            gap: 14px;
             flex-wrap: wrap;
         }
 
         .btn {
+            border: 0;
+            border-radius: 10px;
+            padding: 13px 20px;
+            cursor: pointer;
+            font-weight: 800;
+            transition: 0.2s ease;
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            border: 0;
-            cursor: pointer;
-            border-radius: 11px;
-            padding: 13px 20px;
-            font-weight: 800;
-            transition: .2s ease;
+            gap: 8px;
         }
 
         .btn-primary {
@@ -227,420 +245,397 @@
         }
 
         .btn-primary:hover {
-            background: #24df8a;
+            background: #22dd89;
             transform: translateY(-1px);
         }
 
-        .btn-secondary {
-            border: 1px solid rgba(255,255,255,.22);
+        .btn-outline {
+            border: 1px solid rgba(255, 255, 255, 0.35);
+            background: transparent;
             color: white;
-            background: rgba(255,255,255,.05);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--mei-green);
+            color: var(--mei-green);
         }
 
         .hero-card {
-            background: rgba(255,255,255,.07);
-            border: 1px solid rgba(255,255,255,.12);
-            padding: 28px;
-            border-radius: 22px;
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            padding: 30px;
+            border-radius: 20px;
+            backdrop-filter: blur(8px);
         }
 
         .hero-card h3 {
-            margin-bottom: 16px;
+            margin-top: 0;
+            font-size: 22px;
         }
 
         .hero-card ul {
-            list-style: none;
-            display: grid;
-            gap: 12px;
+            margin: 0;
+            padding-left: 20px;
         }
 
         .hero-card li {
-            display: flex;
-            gap: 10px;
+            margin-bottom: 10px;
             color: #dce8ef;
         }
 
-        .hero-card li::before {
-            content: "✓";
-            color: var(--mei-green);
-            font-weight: 900;
-        }
+        /* =========================
+           GENERAL
+        ========================= */
 
-        /* GENERAL */
-        section {
-            padding: 80px 0;
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 70px 22px;
         }
 
         .section-heading {
-            max-width: 720px;
-            margin-bottom: 40px;
-        }
-
-        .section-heading.center {
-            margin-left: auto;
-            margin-right: auto;
             text-align: center;
+            max-width: 750px;
+            margin: 0 auto 45px;
         }
 
         .section-heading .eyebrow {
-            margin-bottom: 10px;
+            color: var(--mei-green-dark);
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            font-size: 13px;
+            font-weight: 900;
         }
 
         .section-heading h2 {
+            margin: 8px 0 12px;
             color: var(--mei-navy);
-            font-size: clamp(2rem, 4vw, 3rem);
-            line-height: 1.1;
-            margin-bottom: 15px;
+            font-size: clamp(30px, 4vw, 42px);
+            line-height: 1.15;
         }
 
         .section-heading p {
             color: var(--muted);
+            margin: 0;
         }
 
-        /* SERVICES */
-        .services {
-            background: var(--light);
-        }
+        /* =========================
+           SERVICES
+        ========================= */
 
         .service-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+            gap: 22px;
         }
 
         .service-card {
             background: white;
             border: 1px solid var(--border);
-            padding: 28px;
             border-radius: var(--radius);
-            box-shadow: 0 8px 25px rgba(7,26,43,.04);
+            padding: 28px;
+            box-shadow: var(--shadow);
         }
 
         .service-icon {
-            width: 48px;
-            height: 48px;
-            display: grid;
-            place-items: center;
-            border-radius: 13px;
+            width: 52px;
+            height: 52px;
+            border-radius: 12px;
             background: var(--mei-green-light);
             color: var(--mei-green-dark);
-            font-weight: 900;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            font-size: 24px;
             margin-bottom: 18px;
         }
 
         .service-card h3 {
+            margin: 0 0 8px;
             color: var(--mei-navy);
-            margin-bottom: 8px;
         }
 
         .service-card p {
             color: var(--muted);
+            margin: 0;
         }
 
-        /* LICENSES */
-        .license-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
+        /* =========================
+           APPLICATION
+        ========================= */
 
-        .license {
-            padding: 10px 14px;
-            border-radius: 9px;
-            background: var(--mei-green-light);
-            color: var(--mei-navy);
-            border: 1px solid #c8edda;
-            font-weight: 800;
-        }
-
-        /* APPLICATION */
         .application-section {
-            background: #f8fafc;
+            background: var(--light);
         }
 
-        .application-layout {
-            display: grid;
-            grid-template-columns: .72fr 1.28fr;
-            gap: 30px;
-            align-items: start;
-        }
-
-        .application-info {
-            background: var(--mei-navy);
-            color: white;
-            padding: 32px;
-            border-radius: var(--radius);
-            position: sticky;
-            top: 95px;
-        }
-
-        .application-info h2 {
-            margin-bottom: 15px;
-        }
-
-        .application-info p {
-            color: #d4e1e8;
-            margin-bottom: 25px;
-        }
-
-        .info-list {
-            list-style: none;
-            display: grid;
-            gap: 15px;
-        }
-
-        .info-list li {
-            display: flex;
-            gap: 12px;
-            color: #e6eef3;
-        }
-
-        .info-list strong {
-            color: var(--mei-green);
+        .application-wrapper {
+            max-width: 1000px;
+            margin: auto;
         }
 
         .application-card {
             background: white;
             border: 1px solid var(--border);
-            border-radius: var(--radius);
+            border-radius: 18px;
+            padding: 35px;
             box-shadow: var(--shadow);
-            padding: 34px;
         }
 
-        .application-card h2 {
+        .application-intro {
+            text-align: center;
+            margin-bottom: 35px;
+        }
+
+        .application-intro h2 {
             color: var(--mei-navy);
-            margin-bottom: 8px;
+            margin: 0 0 10px;
+            font-size: 34px;
         }
 
-        .form-intro {
+        .application-intro p {
             color: var(--muted);
-            margin-bottom: 25px;
+            margin: 0;
         }
 
-        .form-group {
-            margin-bottom: 18px;
+        /* =========================
+           FORM
+        ========================= */
+
+        .form-section {
+            margin-top: 30px;
+            padding: 30px;
+            background: #fbfdfe;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+        }
+
+        .form-section.hidden {
+            display: none !important;
+        }
+
+        .form-section h3 {
+            margin: 0 0 25px;
+            color: var(--mei-navy);
+            font-size: 24px;
         }
 
         .form-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 20px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group.full-width {
+            grid-column: 1 / -1;
         }
 
         .form-group label {
-            display: block;
-            font-weight: 700;
-            font-size: .9rem;
             margin-bottom: 7px;
             color: var(--mei-navy);
+            font-weight: 700;
+            font-size: 14px;
         }
 
-        .required {
-            color: var(--danger);
-        }
-
-        input,
-        select,
-        textarea {
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
             width: 100%;
-            border: 1px solid var(--border);
+            border: 1px solid #ccd8df;
+            border-radius: 9px;
             background: white;
+            padding: 12px 14px;
             color: var(--text);
-            padding: 12px 13px;
-            border-radius: 10px;
             outline: none;
-            transition: .2s;
+            transition: 0.2s ease;
         }
 
-        input:focus,
-        select:focus,
-        textarea:focus {
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
             border-color: var(--mei-green);
-            box-shadow: 0 0 0 3px rgba(24,199,122,.12);
+            box-shadow: 0 0 0 3px rgba(24, 199, 122, 0.12);
         }
 
-        textarea {
-            min-height: 115px;
+        .form-group textarea {
+            min-height: 110px;
             resize: vertical;
         }
 
-        .form-section {
-            border-top: 1px solid var(--border);
-            margin-top: 26px;
-            padding-top: 26px;
+        .type-selector {
+            max-width: 650px;
+            margin: 0 auto;
         }
 
-        .form-section:first-of-type {
-            border-top: 0;
-            margin-top: 0;
-            padding-top: 0;
-        }
-
-        .form-section-title {
-            color: var(--mei-navy);
-            font-size: 1.15rem;
-            margin-bottom: 18px;
-        }
-
-        .form-section.hidden {
-            display: none;
-        }
-
-        .type-placeholder {
-            padding: 22px;
-            border-radius: 12px;
-            background: var(--mei-green-light);
-            color: var(--mei-navy);
-            border: 1px solid #c8edda;
-            margin-bottom: 22px;
-        }
-
-        .form-note {
-            color: var(--muted);
-            font-size: .83rem;
-            margin-top: 13px;
-        }
-
-        .submit-row {
-            margin-top: 24px;
-        }
-
-        .submit-btn {
-            width: 100%;
-            min-height: 52px;
-            font-size: 1rem;
-        }
-
-        .submit-btn:disabled {
-            opacity: .65;
-            cursor: not-allowed;
-        }
-
-        .message {
-            display: none;
-            padding: 15px 17px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-
-        .message.show {
+        .type-selector label {
             display: block;
-        }
-
-        .message.success {
-            background: #ecfdf3;
-            border: 1px solid #bbf7d0;
-            color: var(--success);
-        }
-
-        .message.error {
-            background: #fef2f2;
-            border: 1px solid #fecaca;
-            color: #b91c1c;
-        }
-
-        /* PROCESS */
-        .process {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 18px;
-        }
-
-        .process-card {
-            padding: 25px;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-        }
-
-        .process-number {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: grid;
-            place-items: center;
-            background: var(--mei-green);
-            color: var(--mei-navy);
-            font-weight: 900;
-            margin-bottom: 16px;
-        }
-
-        .process-card h3 {
+            font-weight: 800;
             color: var(--mei-navy);
             margin-bottom: 8px;
         }
 
-        .process-card p {
-            color: var(--muted);
-            font-size: .92rem;
-        }
-
-        /* FAQ */
-        .faq {
-            max-width: 850px;
-            margin: auto;
-        }
-
-        .faq-item {
-            border-bottom: 1px solid var(--border);
-        }
-
-        .faq-question {
+        .type-selector select {
             width: 100%;
-            background: none;
-            border: 0;
-            padding: 20px 0;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            text-align: left;
-            font-weight: 800;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            background: white;
             color: var(--mei-navy);
+            font-weight: 700;
             cursor: pointer;
         }
 
-        .faq-answer {
-            display: none;
-            padding: 0 0 20px;
+        .type-selector select:focus {
+            outline: none;
+            border-color: var(--mei-green);
+        }
+
+        .type-placeholder {
+            text-align: center;
+            padding: 35px 20px;
+            margin-top: 25px;
+            border: 2px dashed #cbd8df;
+            border-radius: 12px;
             color: var(--muted);
+            background: #fafcfd;
         }
 
-        .faq-item.open .faq-answer {
+        .submit-row {
+            display: flex;
+            justify-content: center;
+            margin-top: 30px;
+        }
+
+        .submit-row .btn {
+            min-width: 230px;
+            padding: 15px 25px;
+            font-size: 15px;
+        }
+
+        .message {
+            display: none;
+            margin-top: 25px;
+            padding: 15px 18px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .message.success {
             display: block;
+            background: var(--success-bg);
+            color: var(--success);
+            border: 1px solid #b9ead2;
         }
 
-        .faq-item.open .faq-question span {
-            transform: rotate(45deg);
+        .message.error {
+            display: block;
+            background: var(--danger-bg);
+            color: var(--danger);
+            border: 1px solid #f0c5c5;
         }
 
-        .faq-question span {
-            transition: .2s;
-            font-size: 1.4rem;
-        }
+        /* =========================
+           PROCESS
+        ========================= */
 
-        /* FOOTER */
-        footer {
-            background: var(--mei-navy);
-            color: #d6e2e9;
-            padding: 55px 0 25px;
-        }
-
-        .footer-grid {
+        .process-grid {
             display: grid;
-            grid-template-columns: 1.5fr 1fr 1fr;
-            gap: 35px;
-            margin-bottom: 40px;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .process-card {
+            text-align: center;
+            padding: 25px;
+        }
+
+        .process-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--mei-green);
+            color: var(--mei-navy);
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 15px;
+            font-weight: 900;
+            font-size: 18px;
+        }
+
+        .process-card h3 {
+            color: var(--mei-navy);
+            margin: 0 0 8px;
+        }
+
+        .process-card p {
+            color: var(--muted);
+            font-size: 14px;
+            margin: 0;
+        }
+
+        /* =========================
+           CTA
+        ========================= */
+
+        .cta {
+            background: var(--mei-navy);
+            color: white;
+            text-align: center;
+        }
+
+        .cta-inner {
+            max-width: 800px;
+            margin: auto;
+            padding: 70px 22px;
+        }
+
+        .cta h2 {
+            margin: 0 0 12px;
+            font-size: 38px;
+        }
+
+        .cta p {
+            color: #d2e0e7;
+            margin-bottom: 25px;
+        }
+
+        /* =========================
+           FOOTER
+        ========================= */
+
+        footer {
+            background: #04111d;
+            color: #c8d5dc;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 45px 22px 25px;
+
+            display: grid;
+            grid-template-columns: 1.3fr 1fr 1fr;
+            gap: 40px;
         }
 
         footer h3 {
             color: white;
-            margin-bottom: 12px;
+            margin-top: 0;
         }
 
         footer p,
         footer a {
-            color: #b9cbd5;
-            font-size: .92rem;
+            font-size: 14px;
+            color: #aebfc8;
         }
 
         footer a:hover {
@@ -648,80 +643,100 @@
         }
 
         .footer-bottom {
-            border-top: 1px solid rgba(255,255,255,.1);
-            padding-top: 20px;
-            text-align: center;
-            color: #8fa7b5;
-            font-size: .84rem;
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px 22px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+            font-size: 13px;
+            color: #8ea0aa;
         }
 
-        /* RESPONSIVE */
-        @media (max-width: 900px) {
-            .hero-grid,
-            .application-layout {
-                grid-template-columns: 1fr;
-            }
+        /* =========================
+           LOADING
+        ========================= */
 
-            .application-info {
-                position: static;
+        .loading {
+            opacity: 0.65;
+            pointer-events: none;
+        }
+
+        /* =========================
+           MOBILE
+        ========================= */
+
+        @media (max-width: 900px) {
+
+            .hero-container {
+                grid-template-columns: 1fr;
             }
 
             .service-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .process {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-grid {
                 grid-template-columns: 1fr 1fr;
             }
-        }
 
-        @media (max-width: 720px) {
-            .menu-btn {
-                display: block;
+            .process-grid {
+                grid-template-columns: 1fr 1fr;
             }
 
-            .nav-links {
+            nav {
                 display: none;
                 position: absolute;
+                top: 70px;
                 left: 0;
                 right: 0;
-                top: 74px;
                 background: var(--mei-navy);
                 padding: 20px;
                 flex-direction: column;
-                align-items: stretch;
+                align-items: flex-start;
+                gap: 18px;
             }
 
-            .nav-links.open {
+            nav.open {
                 display: flex;
             }
 
-            .nav-links a {
-                padding: 9px 0;
+            .menu-btn {
+                display: block;
             }
+        }
+
+        @media (max-width: 650px) {
 
             .hero {
-                padding: 65px 0;
+                padding: 55px 18px;
             }
 
-            .service-grid,
-            .process,
-            .form-grid,
-            .footer-grid {
+            .container {
+                padding: 50px 18px;
+            }
+
+            .application-card {
+                padding: 20px;
+            }
+
+            .form-section {
+                padding: 20px;
+            }
+
+            .form-grid {
                 grid-template-columns: 1fr;
             }
 
-            section {
-                padding: 60px 0;
+            .form-group.full-width {
+                grid-column: auto;
             }
 
-            .application-card,
-            .application-info {
-                padding: 23px;
+            .service-grid,
+            .process-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .footer-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hero h1 {
+                font-size: 42px;
             }
         }
     </style>
@@ -729,209 +744,140 @@
 
 <body>
 
-<!-- NAVIGATION -->
-<nav class="navbar">
-    <div class="container nav-inner">
+<!-- =====================================================
+     HEADER
+===================================================== -->
 
-        <a href="index.html" class="brand">
-            <span class="brand-mark">MEI</span>
-            <span>MEI Group</span>
+<header>
+
+    <div class="nav-container">
+
+        <a
+            href="index.html"
+            class="brand"
+        >
+            <div class="brand-mark">
+                MEI
+            </div>
+
+            <div class="brand-text">
+                MEI <span>GROUP</span>
+            </div>
         </a>
 
         <button
             class="menu-btn"
             id="menuBtn"
             aria-label="Open navigation"
+            type="button"
         >
             ☰
         </button>
 
-        <div class="nav-links" id="navLinks">
-            <a href="index.html">Home</a>
-            <a href="#services">Services</a>
-            <a href="#licenses">Licences</a>
-            <a href="#process">Process</a>
-            <a href="#faq">FAQ</a>
-            <a href="#apply" class="nav-cta">Apply Now</a>
-        </div>
+        <nav id="mainNav">
+
+            <a href="index.html">
+                Home
+            </a>
+
+            <a href="education.html">
+                International Education
+            </a>
+
+            <a href="road-safety.html">
+                Road Safety
+            </a>
+
+            <a href="occupational-safety.html">
+                OSH
+            </a>
+
+            <a
+                href="driver-recruitment.html"
+                class="active"
+            >
+                Driver Recruitment
+            </a>
+
+            <a href="training-calendar.html">
+                Training Calendar
+            </a>
+
+        </nav>
 
     </div>
-</nav>
 
-
-<!-- HERO -->
-<header class="hero">
-    <div class="container hero-grid">
-
-        <div>
-            <div class="eyebrow">MEI Group Driver Recruitment</div>
-
-            <h1>
-                Connecting <span>Drivers</span>
-                With Opportunities
-            </h1>
-
-            <p>
-                MEI Group provides driver recruitment and placement services
-                for qualified drivers and employers seeking reliable,
-                experienced driving professionals.
-            </p>
-
-            <div class="hero-buttons">
-                <a href="#apply" class="btn btn-primary">
-                    Start Application
-                </a>
-
-                <a href="#process" class="btn btn-secondary">
-                    How It Works
-                </a>
-            </div>
-        </div>
-
-        <div class="hero-card">
-            <h3>Our Recruitment Focus</h3>
-
-            <ul>
-                <li>Qualified driver recruitment</li>
-                <li>Employer staffing requirements</li>
-                <li>Local placement opportunities</li>
-                <li>International placement support</li>
-                <li>Driver documentation review</li>
-                <li>Candidate-employer matching</li>
-            </ul>
-        </div>
-
-    </div>
 </header>
 
 
-<!-- SERVICES -->
-<section id="services" class="services">
-    <div class="container">
+<!-- =====================================================
+     HERO
+===================================================== -->
 
-        <div class="section-heading center">
-            <div class="eyebrow">What We Do</div>
+<section class="hero">
 
-            <h2>Driver Recruitment Services</h2>
+    <div class="hero-container">
+
+        <div>
+
+            <h1>
+                Driver
+                <span>Recruitment</span>
+                & Placement
+            </h1>
 
             <p>
-                Our recruitment process is designed to understand the needs
-                of both drivers and employers before matching candidates
-                with suitable opportunities.
+                Connecting qualified professional drivers with
+                employers in Kenya, East Africa and international
+                markets.
             </p>
-        </div>
 
-        <div class="service-grid">
+            <div class="hero-buttons">
 
-            <div class="service-card">
-                <div class="service-icon">01</div>
-                <h3>Driver Registration</h3>
-                <p>
-                    We collect driver qualifications, experience,
-                    availability and placement preferences.
-                </p>
-            </div>
+                <a
+                    href="#application"
+                    class="btn btn-primary"
+                >
+                    Apply Now
+                </a>
 
-            <div class="service-card">
-                <div class="service-icon">02</div>
-                <h3>Employer Recruitment</h3>
-                <p>
-                    Employers can submit their staffing requirements,
-                    vehicle categories and recruitment timelines.
-                </p>
-            </div>
+                <a
+                    href="#how-it-works"
+                    class="btn btn-outline"
+                >
+                    How It Works
+                </a>
 
-            <div class="service-card">
-                <div class="service-icon">03</div>
-                <h3>Placement Support</h3>
-                <p>
-                    We review applications and requirements to facilitate
-                    appropriate candidate-employer matching.
-                </p>
             </div>
 
         </div>
-    </div>
-</section>
 
 
-<!-- LICENSES -->
-<section id="licenses">
-    <div class="container">
+        <div class="hero-card">
 
-        <div class="section-heading">
-            <div class="eyebrow">Driver Categories</div>
+            <h3>
+                Professional Driver Recruitment
+            </h3>
 
-            <h2>Licence Classes & Driver Categories</h2>
-
-            <p>
-                Applications can specify the driver's licence class or
-                the licence class required by an employer.
-            </p>
-        </div>
-
-        <div class="license-list">
-            <span class="license">A2</span>
-            <span class="license">A3</span>
-            <span class="license">B1</span>
-            <span class="license">B2</span>
-            <span class="license">B3</span>
-            <span class="license">C1</span>
-            <span class="license">C</span>
-            <span class="license">CD</span>
-            <span class="license">CE</span>
-            <span class="license">D1</span>
-            <span class="license">D2</span>
-            <span class="license">D3</span>
-            <span class="license">G</span>
-            <span class="license">Other</span>
-        </div>
-
-    </div>
-</section>
-
-
-<!-- APPLICATION -->
-<section id="apply" class="application-section">
-
-    <div class="container application-layout">
-
-        <div class="application-info">
-
-            <div class="eyebrow">Apply With MEI</div>
-
-            <h2>Tell Us What You Need</h2>
-
-            <p>
-                Select whether you are applying as a driver/job seeker or
-                as an employer. The application form will automatically
-                change to collect information relevant to your needs.
-            </p>
-
-            <ul class="info-list">
+            <ul>
 
                 <li>
-                    <strong>✓</strong>
-                    Driver profiles
+                    Qualified and experienced drivers
                 </li>
 
                 <li>
-                    <strong>✓</strong>
-                    Employer requirements
+                    Licence and experience matching
                 </li>
 
                 <li>
-                    <strong>✓</strong>
-                    Local placement
+                    Employer-driver placement
                 </li>
 
                 <li>
-                    <strong>✓</strong>
-                    International placement
+                    Local and international opportunities
                 </li>
 
                 <li>
-                    <strong>✓</strong>
                     Recruitment support
                 </li>
 
@@ -939,902 +885,1980 @@
 
         </div>
 
+    </div>
 
-        <div class="application-card">
+</section>
 
-            <h2>Driver Recruitment Application</h2>
 
-            <p class="form-intro">
-                Complete the appropriate form below. Fields marked
-                <span class="required">*</span> are required.
+<!-- =====================================================
+     SERVICES
+===================================================== -->
+
+<section class="container">
+
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            Our Recruitment Services
+        </div>
+
+        <h2>
+            Connecting Talent With Opportunity
+        </h2>
+
+        <p>
+            MEI Group supports both professional drivers
+            seeking opportunities and employers looking for
+            qualified driving personnel.
+        </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+        <div class="service-card">
+
+            <div class="service-icon">
+                🚘
+            </div>
+
+            <h3>
+                Driver Registration
+            </h3>
+
+            <p>
+                Register your professional profile and allow
+                employers to find drivers matching their
+                requirements.
             </p>
 
-            <div
-                id="formMessage"
-                class="message"
-                role="alert"
-                aria-live="polite"
-            ></div>
+        </div>
 
 
-            <form id="driverApplyForm" novalidate>
+        <div class="service-card">
 
-                <!-- COMMON TYPE -->
-                <div class="form-section">
+            <div class="service-icon">
+                👥
+            </div>
 
-                    <div class="form-group">
+            <h3>
+                Employer Recruitment
+            </h3>
 
-                        <label for="applicantType">
-                            I am applying as
-                            <span class="required">*</span>
-                        </label>
+            <p>
+                Employers can submit driver requirements and
+                receive recruitment and placement support.
+            </p>
 
-                        <select
-                            id="applicantType"
-                            name="applicantType"
-                            required
-                        >
-                            <option value="">
-                                Select application type
-                            </option>
+        </div>
 
-                            <option value="Job Seeker">
-                                Job Seeker / Driver
-                            </option>
 
-                            <option value="Employer">
-                                Employer / Company
-                            </option>
-                        </select>
+        <div class="service-card">
+
+            <div class="service-icon">
+                🌍
+            </div>
+
+            <h3>
+                International Placement
+            </h3>
+
+            <p>
+                Drivers interested in international opportunities
+                can register for consideration where applicable.
+            </p>
+
+        </div>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     APPLICATION
+===================================================== -->
+
+<section
+    class="application-section"
+    id="application"
+>
+
+    <div class="container">
+
+        <div class="application-wrapper">
+
+            <div class="application-card">
+
+                <div class="application-intro">
+
+                    <div class="section-heading">
+
+                        <div class="eyebrow">
+                            Driver Recruitment
+                        </div>
+
+                        <h2>
+                            Submit Your Application
+                        </h2>
+
+                        <p>
+                            Select the option that describes you.
+                            The appropriate application form will
+                            appear automatically.
+                        </p>
 
                     </div>
 
                 </div>
 
 
-                <!-- PLACEHOLDER -->
+                <!-- =========================
+                     APPLICANT TYPE
+                ========================== -->
+
+                <div class="type-selector">
+
+                    <label for="applicantType">
+                        I am applying as *
+                    </label>
+
+                    <select
+                        id="applicantType"
+                        name="applicantType"
+                        required
+                    >
+
+                        <option value="">
+                            Select applicant type
+                        </option>
+
+                        <option value="Job Seeker">
+                            Job Seeker
+                        </option>
+
+                        <option value="Employer">
+                            Employer
+                        </option>
+
+                    </select>
+
+                </div>
+
+
                 <div
                     id="typePlaceholder"
                     class="type-placeholder"
                 >
-                    Please select <strong>Job Seeker / Driver</strong> or
-                    <strong>Employer / Company</strong> above to continue.
+                    Please select whether you are a
+                    <strong>Job Seeker</strong>
+                    or
+                    <strong>Employer</strong>
+                    to continue.
                 </div>
 
 
-                <!-- ============================= -->
-                <!-- JOB SEEKER FORM -->
-                <!-- ============================= -->
+                <!-- =================================================
+                     APPLICATION FORM
+                ================================================== -->
 
-                <div
-                    id="jobSeekerFields"
-                    class="form-section hidden"
+                <form
+                    id="driverApplyForm"
                 >
 
-                    <h3 class="form-section-title">
-                        Driver / Job Seeker Information
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label for="jobFullName">
-                                Full Name
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                id="jobFullName"
-                                name="jobFullName"
-                                placeholder="Enter your full name"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="jobPhone">
-                                Phone Number
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="jobPhone"
-                                name="jobPhone"
-                                placeholder="+254 7XX XXX XXX"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="jobEmail">
-                                Email Address
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="email"
-                                id="jobEmail"
-                                name="jobEmail"
-                                placeholder="you@example.com"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="nationality">
-                                Nationality
-                            </label>
-
-                            <input
-                                type="text"
-                                id="nationality"
-                                name="nationality"
-                                placeholder="e.g. Kenyan"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="currentLocation">
-                                Current Location
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                id="currentLocation"
-                                name="currentLocation"
-                                placeholder="Town / County / Country"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="preferredLocation">
-                                Preferred Placement Location
-                            </label>
-
-                            <input
-                                type="text"
-                                id="preferredLocation"
-                                name="preferredLocation"
-                                placeholder="Where would you prefer to work?"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="licenseClass">
-                                Driving Licence Class
-                                <span class="required">*</span>
-                            </label>
-
-                            <select
-                                id="licenseClass"
-                                name="licenseClass"
-                            >
-                                <option value="">
-                                    Select licence class
-                                </option>
-                                <option value="A2">A2</option>
-                                <option value="A3">A3</option>
-                                <option value="B1">B1</option>
-                                <option value="B2">B2</option>
-                                <option value="B3">B3</option>
-                                <option value="C1">C1</option>
-                                <option value="C">C</option>
-                                <option value="CD">CD</option>
-                                <option value="CE">CE</option>
-                                <option value="D1">D1</option>
-                                <option value="D2">D2</option>
-                                <option value="D3">D3</option>
-                                <option value="G">G</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="yearsExperience">
-                                Years of Driving Experience
-                            </label>
-
-                            <input
-                                type="number"
-                                id="yearsExperience"
-                                name="yearsExperience"
-                                min="0"
-                                max="60"
-                                step="1"
-                                placeholder="e.g. 5"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="currentEmployer">
-                                Current / Previous Employer
-                            </label>
-
-                            <input
-                                type="text"
-                                id="currentEmployer"
-                                name="currentEmployer"
-                                placeholder="Company name"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="availability">
-                                Availability
-                            </label>
-
-                            <select id="availability" name="availability">
-                                <option value="">
-                                    Select availability
-                                </option>
-                                <option value="Immediately">
-                                    Immediately
-                                </option>
-                                <option value="Within 2 weeks">
-                                    Within 2 weeks
-                                </option>
-                                <option value="Within 1 month">
-                                    Within 1 month
-                                </option>
-                                <option value="1-3 months">
-                                    1-3 months
-                                </option>
-                                <option value="Not sure">
-                                    Not sure
-                                </option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="internationalPlacement">
-                                International Placement
-                            </label>
-
-                            <select
-                                id="internationalPlacement"
-                                name="internationalPlacement"
-                            >
-                                <option value="">
-                                    Select
-                                </option>
-                                <option value="Yes">
-                                    Yes
-                                </option>
-                                <option value="No">
-                                    No
-                                </option>
-                                <option value="Either">
-                                    Local or International
-                                </option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="passportStatus">
-                                Passport Status
-                            </label>
-
-                            <select
-                                id="passportStatus"
-                                name="passportStatus"
-                            >
-                                <option value="">
-                                    Select
-                                </option>
-                                <option value="Valid">
-                                    Valid passport
-                                </option>
-                                <option value="Expired">
-                                    Expired passport
-                                </option>
-                                <option value="Applied">
-                                    Applied for passport
-                                </option>
-                                <option value="No Passport">
-                                    No passport
-                                </option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="documentsStatus">
-                                Driver Documents Available
-                            </label>
-
-                            <input
-                                type="text"
-                                id="documentsStatus"
-                                name="documentsStatus"
-                                placeholder="e.g. Licence, PSV, Certificate of Good Conduct"
-                            >
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="vehicleExperience">
-                            Vehicle / Driving Experience
-                        </label>
-
-                        <textarea
-                            id="vehicleExperience"
-                            name="vehicleExperience"
-                            placeholder="Describe the vehicles you have driven and relevant experience."
-                        ></textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="jobAdditionalDetails">
-                            Additional Information
-                        </label>
-
-                        <textarea
-                            id="jobAdditionalDetails"
-                            name="jobAdditionalDetails"
-                            placeholder="Tell us anything else that may help us understand your experience or job preferences."
-                        ></textarea>
-                    </div>
-
-                </div>
-
-
-                <!-- ============================= -->
-                <!-- EMPLOYER FORM -->
-                <!-- ============================= -->
-
-                <div
-                    id="employerFields"
-                    class="form-section hidden"
-                >
-
-                    <h3 class="form-section-title">
-                        Employer / Company Recruitment Requirement
-                    </h3>
-
-                    <div class="form-grid">
-
-                        <div class="form-group">
-                            <label for="companyName">
-                                Company Name
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                id="companyName"
-                                name="companyName"
-                                placeholder="Company / organisation name"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="contactPerson">
-                                Contact Person
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                id="contactPerson"
-                                name="contactPerson"
-                                placeholder="Full name"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="employerPhone">
-                                Phone Number
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="tel"
-                                id="employerPhone"
-                                name="employerPhone"
-                                placeholder="+254 7XX XXX XXX"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="employerEmail">
-                                Email Address
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="email"
-                                id="employerEmail"
-                                name="employerEmail"
-                                placeholder="company@example.com"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="companyLocation">
-                                Company Location
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                id="companyLocation"
-                                name="companyLocation"
-                                placeholder="Town / County / Country"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="driversRequired">
-                                Number of Drivers Required
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="number"
-                                id="driversRequired"
-                                name="driversRequired"
-                                min="1"
-                                max="10000"
-                                step="1"
-                                placeholder="e.g. 5"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="requiredLicenseClass">
-                                Required Licence Class
-                                <span class="required">*</span>
-                            </label>
-
-                            <select
-                                id="requiredLicenseClass"
-                                name="requiredLicenseClass"
-                            >
-                                <option value="">
-                                    Select licence class
-                                </option>
-                                <option value="A2">A2</option>
-                                <option value="A3">A3</option>
-                                <option value="B1">B1</option>
-                                <option value="B2">B2</option>
-                                <option value="B3">B3</option>
-                                <option value="C1">C1</option>
-                                <option value="C">C</option>
-                                <option value="CD">CD</option>
-                                <option value="CE">CE</option>
-                                <option value="D1">D1</option>
-                                <option value="D2">D2</option>
-                                <option value="D3">D3</option>
-                                <option value="G">G</option>
-                                <option value="Other">Other</option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="vehicleType">
-                                Vehicle Type
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                id="vehicleType"
-                                name="vehicleType"
-                                placeholder="e.g. Truck, Bus, PSV, Trailer"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="minimumExperienceYears">
-                                Minimum Experience Required
-                            </label>
-
-                            <input
-                                type="number"
-                                id="minimumExperienceYears"
-                                name="minimumExperienceYears"
-                                min="0"
-                                max="60"
-                                step="1"
-                                placeholder="Years"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="employmentLocation">
-                                Employment Location
-                                <span class="required">*</span>
-                            </label>
-
-                            <input
-                                type="text"
-                                id="employmentLocation"
-                                name="employmentLocation"
-                                placeholder="Where will the driver work?"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="placementScope">
-                                Placement Scope
-                                <span class="required">*</span>
-                            </label>
-
-                            <select
-                                id="placementScope"
-                                name="placementScope"
-                            >
-                                <option value="">
-                                    Select
-                                </option>
-                                <option value="Local">
-                                    Local
-                                </option>
-                                <option value="International">
-                                    International
-                                </option>
-                                <option value="Both">
-                                    Local & International
-                                </option>
-                            </select>
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="salaryRange">
-                                Salary / Pay Range
-                            </label>
-
-                            <input
-                                type="text"
-                                id="salaryRange"
-                                name="salaryRange"
-                                placeholder="e.g. KES 50,000 - 70,000"
-                            >
-                        </div>
-
-
-                        <div class="form-group">
-                            <label for="recruitmentTimeline">
-                                Recruitment Timeline
-                            </label>
-
-                            <select
-                                id="recruitmentTimeline"
-                                name="recruitmentTimeline"
-                            >
-                                <option value="">
-                                    Select
-                                </option>
-                                <option value="Immediately">
-                                    Immediately
-                                </option>
-                                <option value="Within 2 weeks">
-                                    Within 2 weeks
-                                </option>
-                                <option value="Within 1 month">
-                                    Within 1 month
-                                </option>
-                                <option value="1-3 months">
-                                    1-3 months
-                                </option>
-                                <option value="Flexible">
-                                    Flexible
-                                </option>
-                            </select>
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="accommodationBenefits">
-                            Accommodation / Benefits
-                        </label>
-
-                        <textarea
-                            id="accommodationBenefits"
-                            name="accommodationBenefits"
-                            placeholder="Describe accommodation, meals, insurance, allowances or other benefits."
-                        ></textarea>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="jobDescription">
-                            Job Description / Driver Requirements
-                            <span class="required">*</span>
-                        </label>
-
-                        <textarea
-                            id="jobDescription"
-                            name="jobDescription"
-                            placeholder="Describe the role, duties, routes, vehicle and other requirements."
-                        ></textarea>
-                    </div>
-
-                </div>
-
-
-                <!-- SUBMIT -->
-                <div id="submitArea" class="submit-row" style="display:none;">
-
-                    <button
-                        type="submit"
-                        id="submitBtn"
-                        class="btn btn-primary submit-btn"
+                    <!-- =============================================
+                         JOB SEEKER
+                    ============================================== -->
+
+                    <div
+                        id="jobSeekerFields"
+                        class="form-section hidden"
                     >
-                        Submit Application
-                    </button>
 
-                    <p class="form-note">
-                        Submission of an application does not guarantee
-                        employment or placement. MEI Group recruitment staff
-                        will review the information provided.
-                    </p>
+                        <h3>
+                            Job Seeker Details
+                        </h3>
 
-                </div>
 
-            </form>
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="jobFullName">
+                                    Full Name *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="jobFullName"
+                                    name="jobFullName"
+                                    autocomplete="name"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="jobPhone">
+                                    Phone Number *
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="jobPhone"
+                                    name="jobPhone"
+                                    autocomplete="tel"
+                                    placeholder="+254 7XX XXX XXX"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="jobEmail">
+                                    Email Address *
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="jobEmail"
+                                    name="jobEmail"
+                                    autocomplete="email"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="nationality">
+                                    Nationality
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="nationality"
+                                    name="nationality"
+                                    value="Kenyan"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="currentLocation">
+                                    Current Location *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="currentLocation"
+                                    name="currentLocation"
+                                    placeholder="Town / County / Country"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="preferredLocation">
+                                    Preferred Work Location
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="preferredLocation"
+                                    name="preferredLocation"
+                                    placeholder="Kenya / East Africa / International"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="licenseClass">
+                                    Driving Licence Class *
+                                </label>
+
+                                <select
+                                    id="licenseClass"
+                                    name="licenseClass"
+                                >
+
+                                    <option value="">
+                                        Select licence class
+                                    </option>
+
+                                    <option value="A">
+                                        Class A
+                                    </option>
+
+                                    <option value="A1">
+                                        Class A1
+                                    </option>
+
+                                    <option value="B">
+                                        Class B
+                                    </option>
+
+                                    <option value="C">
+                                        Class C
+                                    </option>
+
+                                    <option value="D">
+                                        Class D
+                                    </option>
+
+                                    <option value="E">
+                                        Class E
+                                    </option>
+
+                                    <option value="F">
+                                        Class F
+                                    </option>
+
+                                    <option value="G">
+                                        Class G
+                                    </option>
+
+                                    <option value="Multiple">
+                                        Multiple Classes
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="yearsExperience">
+                                    Years of Driving Experience *
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="yearsExperience"
+                                    name="yearsExperience"
+                                    min="0"
+                                    max="60"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="currentEmployer">
+                                    Current / Previous Employer
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="currentEmployer"
+                                    name="currentEmployer"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="availability">
+                                    Availability
+                                </label>
+
+                                <select
+                                    id="availability"
+                                    name="availability"
+                                >
+
+                                    <option value="">
+                                        Select availability
+                                    </option>
+
+                                    <option value="Immediately">
+                                        Immediately
+                                    </option>
+
+                                    <option value="Within 1 Week">
+                                        Within 1 Week
+                                    </option>
+
+                                    <option value="Within 2 Weeks">
+                                        Within 2 Weeks
+                                    </option>
+
+                                    <option value="Within 1 Month">
+                                        Within 1 Month
+                                    </option>
+
+                                    <option value="Currently Employed">
+                                        Currently Employed
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="internationalPlacement">
+                                    Interested in International Placement?
+                                </label>
+
+                                <select
+                                    id="internationalPlacement"
+                                    name="internationalPlacement"
+                                >
+
+                                    <option value="">
+                                        Select
+                                    </option>
+
+                                    <option value="Yes">
+                                        Yes
+                                    </option>
+
+                                    <option value="No">
+                                        No
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="passportStatus">
+                                    Passport Status
+                                </label>
+
+                                <select
+                                    id="passportStatus"
+                                    name="passportStatus"
+                                >
+
+                                    <option value="">
+                                        Select
+                                    </option>
+
+                                    <option value="Valid Passport">
+                                        Valid Passport
+                                    </option>
+
+                                    <option value="Passport Application in Progress">
+                                        Passport Application in Progress
+                                    </option>
+
+                                    <option value="No Passport">
+                                        No Passport
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="documentsStatus">
+                                    Documents Status
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="documentsStatus"
+                                    name="documentsStatus"
+                                    placeholder="Licence, PSV, certificates, etc."
+                                >
+
+                            </div>
+
+
+                            <div class="form-group full-width">
+
+                                <label for="vehicleExperience">
+                                    Vehicle / Driving Experience
+                                </label>
+
+                                <textarea
+                                    id="vehicleExperience"
+                                    name="vehicleExperience"
+                                    placeholder="Describe the vehicles you have driven and your driving experience."
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="form-group full-width">
+
+                                <label for="jobAdditionalDetails">
+                                    Additional Details
+                                </label>
+
+                                <textarea
+                                    id="jobAdditionalDetails"
+                                    name="jobAdditionalDetails"
+                                    placeholder="Provide any other information relevant to your application."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =============================================
+                         EMPLOYER
+                    ============================================== -->
+
+                    <div
+                        id="employerFields"
+                        class="form-section hidden"
+                    >
+
+                        <h3>
+                            Employer / Company Details
+                        </h3>
+
+
+                        <div class="form-grid">
+
+                            <div class="form-group">
+
+                                <label for="companyName">
+                                    Company Name *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="companyName"
+                                    name="companyName"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="contactPerson">
+                                    Contact Person *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="contactPerson"
+                                    name="contactPerson"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="employerPhone">
+                                    Phone Number *
+                                </label>
+
+                                <input
+                                    type="tel"
+                                    id="employerPhone"
+                                    name="employerPhone"
+                                    placeholder="+254 7XX XXX XXX"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="employerEmail">
+                                    Email Address *
+                                </label>
+
+                                <input
+                                    type="email"
+                                    id="employerEmail"
+                                    name="employerEmail"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="companyLocation">
+                                    Company Location *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="companyLocation"
+                                    name="companyLocation"
+                                    placeholder="Town / County / Country"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="driversRequired">
+                                    Number of Drivers Required *
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="driversRequired"
+                                    name="driversRequired"
+                                    min="1"
+                                    max="10000"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="requiredLicenseClass">
+                                    Required Licence Class *
+                                </label>
+
+                                <select
+                                    id="requiredLicenseClass"
+                                    name="requiredLicenseClass"
+                                >
+
+                                    <option value="">
+                                        Select licence class
+                                    </option>
+
+                                    <option value="A">
+                                        Class A
+                                    </option>
+
+                                    <option value="B">
+                                        Class B
+                                    </option>
+
+                                    <option value="C">
+                                        Class C
+                                    </option>
+
+                                    <option value="D">
+                                        Class D
+                                    </option>
+
+                                    <option value="E">
+                                        Class E
+                                    </option>
+
+                                    <option value="F">
+                                        Class F
+                                    </option>
+
+                                    <option value="G">
+                                        Class G
+                                    </option>
+
+                                    <option value="Multiple">
+                                        Multiple Classes
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="vehicleType">
+                                    Vehicle Type *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="vehicleType"
+                                    name="vehicleType"
+                                    placeholder="Truck, Bus, PSV, Van, etc."
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="minimumExperienceYears">
+                                    Minimum Experience Required
+                                </label>
+
+                                <input
+                                    type="number"
+                                    id="minimumExperienceYears"
+                                    name="minimumExperienceYears"
+                                    min="0"
+                                    max="60"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="employmentLocation">
+                                    Employment Location *
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="employmentLocation"
+                                    name="employmentLocation"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="placementScope">
+                                    Placement Scope *
+                                </label>
+
+                                <select
+                                    id="placementScope"
+                                    name="placementScope"
+                                >
+
+                                    <option value="">
+                                        Select placement scope
+                                    </option>
+
+                                    <option value="Kenya">
+                                        Kenya
+                                    </option>
+
+                                    <option value="East Africa">
+                                        East Africa
+                                    </option>
+
+                                    <option value="International">
+                                        International
+                                    </option>
+
+                                </select>
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="salaryRange">
+                                    Salary Range
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="salaryRange"
+                                    name="salaryRange"
+                                    placeholder="e.g. KES 40,000 - 60,000"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group">
+
+                                <label for="recruitmentTimeline">
+                                    Recruitment Timeline
+                                </label>
+
+                                <input
+                                    type="text"
+                                    id="recruitmentTimeline"
+                                    name="recruitmentTimeline"
+                                    placeholder="Immediately / 2 weeks / 1 month"
+                                >
+
+                            </div>
+
+
+                            <div class="form-group full-width">
+
+                                <label for="accommodationBenefits">
+                                    Accommodation / Benefits
+                                </label>
+
+                                <textarea
+                                    id="accommodationBenefits"
+                                    name="accommodationBenefits"
+                                    placeholder="Describe accommodation, meals, insurance or other benefits."
+                                ></textarea>
+
+                            </div>
+
+
+                            <div class="form-group full-width">
+
+                                <label for="jobDescription">
+                                    Job Description / Requirements *
+                                </label>
+
+                                <textarea
+                                    id="jobDescription"
+                                    name="jobDescription"
+                                    placeholder="Describe the driver position, duties and requirements."
+                                ></textarea>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+
+                    <!-- =============================================
+                         SUBMIT
+                    ============================================== -->
+
+                    <div
+                        id="submitArea"
+                        class="submit-row"
+                        style="display:none;"
+                    >
+
+                        <button
+                            type="submit"
+                            id="submitBtn"
+                            class="btn btn-primary"
+                        >
+                            Submit Application
+                        </button>
+
+                    </div>
+
+
+                    <div
+                        id="formMessage"
+                        class="message"
+                        role="alert"
+                        aria-live="polite"
+                    ></div>
+
+                </form>
+
+            </div>
 
         </div>
 
     </div>
+
 </section>
 
 
-<!-- PROCESS -->
-<section id="process">
-    <div class="container">
+<!-- =====================================================
+     HOW IT WORKS
+===================================================== -->
 
-        <div class="section-heading center">
-            <div class="eyebrow">Our Process</div>
+<section
+    class="container"
+    id="how-it-works"
+>
 
-            <h2>How Driver Recruitment Works</h2>
+    <div class="section-heading">
+
+        <div class="eyebrow">
+            Recruitment Process
+        </div>
+
+        <h2>
+            How It Works
+        </h2>
+
+        <p>
+            A simple process for drivers and employers.
+        </p>
+
+    </div>
+
+
+    <div class="process-grid">
+
+        <div class="process-card">
+
+            <div class="process-number">
+                1
+            </div>
+
+            <h3>
+                Register
+            </h3>
 
             <p>
-                We use the information provided to understand the candidate
-                or employer requirement before proceeding with recruitment
-                and matching activities.
+                Submit your driver or employer application
+                through the online form.
             </p>
-        </div>
-
-
-        <div class="process">
-
-            <div class="process-card">
-                <div class="process-number">1</div>
-                <h3>Apply</h3>
-                <p>
-                    Submit your driver profile or employer requirement.
-                </p>
-            </div>
-
-            <div class="process-card">
-                <div class="process-number">2</div>
-                <h3>Review</h3>
-                <p>
-                    MEI recruitment staff review the information submitted.
-                </p>
-            </div>
-
-            <div class="process-card">
-                <div class="process-number">3</div>
-                <h3>Match</h3>
-                <p>
-                    Suitable candidates and opportunities can be considered
-                    for matching.
-                </p>
-            </div>
-
-            <div class="process-card">
-                <div class="process-number">4</div>
-                <h3>Placement</h3>
-                <p>
-                    Eligible candidates may proceed through the employer's
-                    recruitment process.
-                </p>
-            </div>
 
         </div>
 
-    </div>
-</section>
 
+        <div class="process-card">
 
-<!-- FAQ -->
-<section id="faq" style="background:#f8fafc;">
-    <div class="container">
+            <div class="process-number">
+                2
+            </div>
 
-        <div class="section-heading center">
-            <div class="eyebrow">FAQ</div>
-            <h2>Frequently Asked Questions</h2>
+            <h3>
+                Review
+            </h3>
+
+            <p>
+                MEI reviews the information and recruitment
+                requirements provided.
+            </p>
+
         </div>
 
-        <div class="faq">
 
-            <div class="faq-item">
-                <button class="faq-question">
-                    Can a driver apply without an employer?
-                    <span>+</span>
-                </button>
+        <div class="process-card">
 
-                <div class="faq-answer">
-                    Yes. Select Job Seeker / Driver and submit your
-                    qualifications, experience, availability and placement
-                    preferences.
-                </div>
+            <div class="process-number">
+                3
             </div>
 
+            <h3>
+                Match
+            </h3>
 
-            <div class="faq-item">
-                <button class="faq-question">
-                    Can an employer request several drivers?
-                    <span>+</span>
-                </button>
+            <p>
+                Suitable driver profiles and employer
+                requirements can be matched.
+            </p>
 
-                <div class="faq-answer">
-                    Yes. Employers can specify the number of drivers
-                    required and provide the licence, vehicle, experience
-                    and employment requirements.
-                </div>
+        </div>
+
+
+        <div class="process-card">
+
+            <div class="process-number">
+                4
             </div>
 
+            <h3>
+                Placement
+            </h3>
 
-            <div class="faq-item">
-                <button class="faq-question">
-                    Does submitting the form guarantee placement?
-                    <span>+</span>
-                </button>
-
-                <div class="faq-answer">
-                    No. Applications are subject to review, verification,
-                    availability and the recruitment requirements of the
-                    relevant employer or opportunity.
-                </div>
-            </div>
-
-
-            <div class="faq-item">
-                <button class="faq-question">
-                    Can I apply for international opportunities?
-                    <span>+</span>
-                </button>
-
-                <div class="faq-answer">
-                    Yes. Job seekers can indicate their interest in
-                    international placement and provide passport information.
-                </div>
-            </div>
+            <p>
+                Recruitment and placement processes proceed
+                according to the applicable requirements.
+            </p>
 
         </div>
 
     </div>
+
 </section>
 
 
-<!-- FOOTER -->
+<!-- =====================================================
+     CTA
+===================================================== -->
+
+<section class="cta">
+
+    <div class="cta-inner">
+
+        <h2>
+            Looking for a Driver or a Driving Job?
+        </h2>
+
+        <p>
+            Register your requirements or professional profile
+            with MEI Group.
+        </p>
+
+        <a
+            href="#application"
+            class="btn btn-primary"
+        >
+            Start Application
+        </a>
+
+    </div>
+
+</section>
+
+
+<!-- =====================================================
+     FOOTER
+===================================================== -->
+
 <footer>
-    <div class="container">
 
-        <div class="footer-grid">
+    <div class="footer-container">
 
-            <div>
-                <h3>MEI Group</h3>
+        <div>
 
-                <p>
-                    A division of MEI Press Holdings Ltd providing
-                    education, road safety, occupational safety and
-                    driver recruitment services.
-                </p>
-            </div>
+            <h3>
+                MEI GROUP
+            </h3>
 
-
-            <div>
-                <h3>Recruitment</h3>
-
-                <p>
-                    <a href="#apply">Driver Application</a>
-                </p>
-
-                <p>
-                    <a href="#apply">Employer Recruitment</a>
-                </p>
-
-                <p>
-                    <a href="#process">Recruitment Process</a>
-                </p>
-            </div>
-
-
-            <div>
-                <h3>MEI Group</h3>
-
-                <p>
-                    <a href="index.html">Home</a>
-                </p>
-
-                <p>
-                    <a href="education.html">International Education</a>
-                </p>
-
-                <p>
-                    <a href="road-safety.html">Road Safety Training</a>
-                </p>
-
-                <p>
-                    <a href="occupational-safety.html">OSH Training</a>
-                </p>
-            </div>
+            <p>
+                A division of MEI Press Holdings Ltd providing
+                professional services in international education,
+                road safety, occupational safety and driver
+                recruitment.
+            </p>
 
         </div>
 
 
-        <div class="footer-bottom">
-            © <span id="currentYear"></span>
-            MEI Press Holdings Ltd. All rights reserved.
+        <div>
+
+            <h3>
+                Services
+            </h3>
+
+            <p>
+                <a href="education.html">
+                    International Education
+                </a>
+            </p>
+
+            <p>
+                <a href="road-safety.html">
+                    Road Safety Training
+                </a>
+            </p>
+
+            <p>
+                <a href="occupational-safety.html">
+                    Occupational Safety & Health
+                </a>
+            </p>
+
+            <p>
+                <a href="driver-recruitment.html">
+                    Driver Recruitment
+                </a>
+            </p>
+
+        </div>
+
+
+        <div>
+
+            <h3>
+                Contact
+            </h3>
+
+            <p>
+                MEI Press Holdings Ltd
+            </p>
+
+            <p>
+                Nairobi, Kenya
+            </p>
+
+            <p>
+                <a href="index.html#contact">
+                    Contact MEI Group
+                </a>
+            </p>
+
         </div>
 
     </div>
+
+
+    <div class="footer-bottom">
+
+        ©
+        <span id="currentYear"></span>
+        MEI Press Holdings Ltd. All Rights Reserved.
+
+    </div>
+
 </footer>
 
 
-<!-- SUPABASE -->
+<!-- =====================================================
+     SUPABASE
+===================================================== -->
+
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-<!-- Optional project configuration -->
-<script src="js/config.js"></script>
 
-<!-- Recruitment logic -->
-<script src="js/driver-recruitment.js"></script>
-
+<!-- =====================================================
+     DYNAMIC APPLICATION FORM
+===================================================== -->
 
 <script>
-    document.getElementById("currentYear").textContent =
-        new Date().getFullYear();
 
-    const menuBtn = document.getElementById("menuBtn");
-    const navLinks = document.getElementById("navLinks");
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
 
-    menuBtn.addEventListener("click", function () {
-        navLinks.classList.toggle("open");
-    });
+        /* =========================================
+           SUPABASE
+        ========================================= */
 
-    document.querySelectorAll(".nav-links a").forEach(link => {
-        link.addEventListener("click", function () {
-            navLinks.classList.remove("open");
-        });
-    });
+        const SUPABASE_URL =
+            "https://qkchnrrxrewmlvvxuuqe.supabase.co";
 
-    document.querySelectorAll(".faq-question").forEach(button => {
-        button.addEventListener("click", function () {
-            this.parentElement.classList.toggle("open");
-        });
-    });
+        const SUPABASE_KEY =
+            "sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
+
+        let supabaseClient = null;
+
+        try {
+
+            if (
+                window.supabase &&
+                typeof window.supabase.createClient === "function"
+            ) {
+
+                supabaseClient =
+                    window.supabase.createClient(
+                        SUPABASE_URL,
+                        SUPABASE_KEY
+                    );
+
+                window.supabaseClient =
+                    supabaseClient;
+
+            }
+
+        } catch (error) {
+
+            console.error(
+                "Supabase initialization error:",
+                error
+            );
+
+        }
+
+
+        /* =========================================
+           ELEMENTS
+        ========================================= */
+
+        const applicantType =
+            document.getElementById(
+                "applicantType"
+            );
+
+        const jobSeekerFields =
+            document.getElementById(
+                "jobSeekerFields"
+            );
+
+        const employerFields =
+            document.getElementById(
+                "employerFields"
+            );
+
+        const typePlaceholder =
+            document.getElementById(
+                "typePlaceholder"
+            );
+
+        const submitArea =
+            document.getElementById(
+                "submitArea"
+            );
+
+        const driverApplyForm =
+            document.getElementById(
+                "driverApplyForm"
+            );
+
+        const submitBtn =
+            document.getElementById(
+                "submitBtn"
+            );
+
+        const formMessage =
+            document.getElementById(
+                "formMessage"
+            );
+
+
+        /* =========================================
+           CHECK ELEMENTS
+        ========================================= */
+
+        if (!applicantType) {
+
+            console.error(
+                "MEI ERROR: applicantType not found."
+            );
+
+            return;
+        }
+
+
+        /* =========================================
+           REQUIRED FIELDS
+        ========================================= */
+
+        const jobRequired = [
+            "jobFullName",
+            "jobPhone",
+            "jobEmail",
+            "currentLocation",
+            "licenseClass",
+            "yearsExperience"
+        ];
+
+
+        const employerRequired = [
+            "companyName",
+            "contactPerson",
+            "employerPhone",
+            "employerEmail",
+            "companyLocation",
+            "driversRequired",
+            "requiredLicenseClass",
+            "vehicleType",
+            "employmentLocation",
+            "placementScope",
+            "jobDescription"
+        ];
+
+
+        /* =========================================
+           HELPERS
+        ========================================= */
+
+        function setRequired(
+            ids,
+            required
+        ) {
+
+            ids.forEach(
+                function (id) {
+
+                    const element =
+                        document.getElementById(id);
+
+                    if (element) {
+                        element.required =
+                            required;
+                    }
+
+                }
+            );
+        }
+
+
+        function getValue(id) {
+
+            const element =
+                document.getElementById(id);
+
+            if (!element) {
+                return null;
+            }
+
+            const value =
+                element.value;
+
+            if (
+                typeof value === "string"
+            ) {
+
+                return value.trim();
+
+            }
+
+            return value;
+        }
+
+
+        function getNumber(id) {
+
+            const value =
+                getValue(id);
+
+            if (
+                value === null ||
+                value === ""
+            ) {
+
+                return null;
+
+            }
+
+            const number =
+                Number(value);
+
+            return Number.isFinite(number)
+                ? number
+                : null;
+        }
+
+
+        function normalizePhone(phone) {
+
+            if (!phone) {
+                return "";
+            }
+
+            let value =
+                phone
+                    .replace(/\s+/g, "")
+                    .replace(/-/g, "");
+
+            if (
+                value.startsWith("07") ||
+                value.startsWith("01")
+            ) {
+
+                value =
+                    "+254" +
+                    value.substring(1);
+
+            }
+
+            return value;
+        }
+
+
+        function showMessage(
+            message,
+            type
+        ) {
+
+            formMessage.textContent =
+                message;
+
+            formMessage.className =
+                "message " + type;
+
+            formMessage.scrollIntoView({
+                behavior: "smooth",
+                block: "center"
+            });
+
+        }
+
+
+        function clearMessage() {
+
+            formMessage.textContent =
+                "";
+
+            formMessage.className =
+                "message";
+
+        }
+
+
+        /* =========================================
+           SWITCH FORM
+        ========================================= */
+
+        function switchApplicantType() {
+
+            const type =
+                applicantType.value;
+
+
+            /* Hide both forms */
+
+            jobSeekerFields
+                .classList
+                .add("hidden");
+
+            employerFields
+                .classList
+                .add("hidden");
+
+
+            /* Reset required */
+
+            setRequired(
+                jobRequired,
+                false
+            );
+
+            setRequired(
+                employerRequired,
+                false
+            );
+
+
+            /* Hide submit */
+
+            submitArea.style.display =
+                "none";
+
+
+            /* Clear message */
+
+            clearMessage();
+
+
+            /* ==========================
+               JOB SEEKER
+            =========================== */
+
+            if (
+                type === "Job Seeker"
+            ) {
+
+                jobSeekerFields
+                    .classList
+                    .remove("hidden");
+
+                typePlaceholder.style.display =
+                    "none";
+
+                submitArea.style.display =
+                    "flex";
+
+                setRequired(
+                    jobRequired,
+                    true
+                );
+
+                console.log(
+                    "MEI: Job Seeker form displayed."
+                );
+
+                return;
+            }
+
+
+            /* ==========================
+               EMPLOYER
+            =========================== */
+
+            if (
+                type === "Employer"
+            ) {
+
+                employerFields
+                    .classList
+                    .remove("hidden");
+
+                typePlaceholder.style.display =
+                    "none";
+
+                submitArea.style.display =
+                    "flex";
+
+                setRequired(
+                    employerRequired,
+                    true
+                );
+
+                console.log(
+                    "MEI: Employer form displayed."
+                );
+
+                return;
+            }
+
+
+            /* ==========================
+               NOTHING SELECTED
+            =========================== */
+
+            typePlaceholder.style.display =
+                "block";
+
+        }
+
+
+        /* =========================================
+           SELECT CHANGE
+        ========================================= */
+
+        applicantType.addEventListener(
+            "change",
+            switchApplicantType
+        );
+
+
+        /* =========================================
+           FORM SUBMISSION
+        ========================================= */
+
+        driverApplyForm.addEventListener(
+            "submit",
+            async function (event) {
+
+                event.preventDefault();
+
+                clearMessage();
+
+
+                const type =
+                    applicantType.value;
+
+
+                if (!type) {
+
+                    showMessage(
+                        "Please select whether you are a Job Seeker or Employer.",
+                        "error"
+                    );
+
+                    applicantType.focus();
+
+                    return;
+                }
+
+
+                /* Browser validation */
+
+                if (
+                    !driverApplyForm.checkValidity()
+                ) {
+
+                    driverApplyForm.reportValidity();
+
+                    return;
+                }
+
+
+                /* Disable button */
+
+                submitBtn.disabled =
+                    true;
+
+                submitBtn.classList.add(
+                    "loading"
+                );
+
+                submitBtn.textContent =
+                    "Submitting Application...";
+
+
+                try {
+
+                    let payload;
+
+
+                    /* =================================
+                       JOB SEEKER PAYLOAD
+                    ================================== */
+
+                    if (
+                        type === "Job Seeker"
+                    ) {
+
+                        payload = {
+
+                            applicant_type:
+                                "Job Seeker",
+
+                            full_name:
+                                getValue(
+                                    "jobFullName"
+                                ),
+
+                            phone:
+                                normalizePhone(
+                                    getValue(
+                                        "jobPhone"
+                                    )
+                                ),
+
+                            email:
+                                getValue(
+                                    "jobEmail"
+                                ),
+
+                            nationality:
+                                getValue(
+                                    "nationality"
+                                ),
+
+                            current_location:
+                                getValue(
+                                    "currentLocation"
+                                ),
+
+                            preferred_location:
+                                getValue(
+                                    "preferredLocation"
+                                ),
+
+                            license_class:
+                                getValue(
+                                    "licenseClass"
+                                ),
+
+                            years_experience:
+                                getNumber(
+                                    "yearsExperience"
+                                ),
+
+                            current_employer:
+                                getValue(
+                                    "currentEmployer"
+                                ),
+
+                            availability:
+                                getValue(
+                                    "availability"
+                                ),
+
+                            international_placement:
+                                getValue(
+                                    "internationalPlacement"
+                                ),
+
+                            passport_status:
+                                getValue(
+                                    "passportStatus"
+                                ),
+
+                            documents_status:
+                                getValue(
+                                    "documentsStatus"
+                                ),
+
+                            vehicle_experience:
+                                getValue(
+                                    "vehicleExperience"
+                                ),
+
+                            additional_details:
+                                getValue(
+                                    "jobAdditionalDetails"
+                                ),
+
+                            status:
+                                "new",
+
+                            source:
+                                "website"
+
+                        };
+
+                    }
+
+
+                    /* =================================
+                       EMPLOYER PAYLOAD
+                    ================================== */
+
+                    else {
+
+                        payload = {
+
+                            applicant_type:
+                                "Employer",
+
+                            full_name:
+                                getValue(
+                                    "contactPerson"
+                                ),
+
+                            phone:
+                                normalizePhone(
+                                    getValue(
+                                        "employerPhone"
+                                    )
+                                ),
+
+                            email:
+                                getValue(
+                                    "employerEmail"
+                                ),
+
+                            company_name:
+                                getValue(
+                                    "companyName"
+                                ),
+
+                            company_location:
+                                getValue(
+                                    "companyLocation"
+                                ),
+
+                            drivers_required:
+                                getNumber(
+                                    "driversRequired"
+                                ),
+
+                            required_license_class:
+                                getValue(
+                                    "requiredLicenseClass"
+                                ),
+
+                            vehicle_type:
+                                getValue(
+                                    "vehicleType"
+                                ),
+
+                            minimum_experience_years:
+                                getNumber(
+                                    "minimumExperienceYears"
+                                ),
+
+                            employment_location:
+                                getValue(
+                                    "employmentLocation"
+                                ),
+
+                            placement_scope:
+                                getValue(
+                                    "placementScope"
+                                ),
+
+                            salary_range:
+                                getValue(
+                                    "salaryRange"
+                                ),
+
+                            recruitment_timeline:
+                                getValue(
+                                    "recruitmentTimeline"
+                                ),
+
+                            accommodation_benefits:
+                                getValue(
+                                    "accommodationBenefits"
+                                ),
+
+                            job_description:
+                                getValue(
+                                    "jobDescription"
+                                ),
+
+                            status:
+                                "new",
+
+                            source:
+                                "website"
+
+                        };
+
+                    }
+
+
+                    console.log(
+                        "MEI application payload:",
+                        payload
+                    );
+
+
+                    /* =================================
+                       SUPABASE
+                    ================================== */
+
+                    if (!supabaseClient) {
+
+                        throw new Error(
+                            "Supabase could not be initialized."
+                        );
+
+                    }
+
+
+                    const {
+                        error
+                    } =
+                        await supabaseClient
+                            .from(
+                                "driver_applications"
+                            )
+                            .insert(
+                                payload
+                            );
+
+
+                    if (error) {
+
+                        console.error(
+                            "Supabase error:",
+                            error
+                        );
+
+                        throw error;
+
+                    }
+
+
+                    /* =================================
+                       SUCCESS
+                    ================================== */
+
+                    showMessage(
+                        type === "Job Seeker"
+                            ? "Thank you. Your driver application has been submitted successfully. MEI Group will review your profile and contact you where appropriate."
+                            : "Thank you. Your driver recruitment request has been submitted successfully. MEI Group will review your requirements and contact you.",
+                        "success"
+                    );
+
+
+                    driverApplyForm.reset();
+
+                    applicantType.value =
+                        "";
+
+                    switchApplicantType();
+
+
+                } catch (error) {
+
+                    console.error(
+                        "Application submission failed:",
+                        error
+                    );
+
+
+                    let message =
+                        "We could not submit your application. Please try again.";
+
+
+                    if (
+                        error &&
+                        error.message
+                    ) {
+
+                        message =
+                            error.message;
+
+                    }
+
+
+                    showMessage(
+                        message,
+                        "error"
+                    );
+
+
+                } finally {
+
+                    submitBtn.disabled =
+                        false;
+
+                    submitBtn.classList.remove(
+                        "loading"
+                    );
+
+                    submitBtn.textContent =
+                        "Submit Application";
+
+                }
+
+            }
+        );
+
+
+        /* =========================================
+           INITIAL STATE
+        ========================================= */
+
+        switchApplicantType();
+
+
+        /* =========================================
+           EXPOSE FUNCTION
+        ========================================= */
+
+        window.switchApplicantType =
+            switchApplicantType;
+
+
+        console.log(
+            "MEI Driver Recruitment initialized successfully."
+        );
+
+    }
+);
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+document.addEventListener(
+    "DOMContentLoaded",
+    function () {
+
+        const menuBtn =
+            document.getElementById(
+                "menuBtn"
+            );
+
+        const mainNav =
+            document.getElementById(
+                "mainNav"
+            );
+
+
+        if (
+            menuBtn &&
+            mainNav
+        ) {
+
+            menuBtn.addEventListener(
+                "click",
+                function () {
+
+                    mainNav.classList.toggle(
+                        "open"
+                    );
+
+                }
+            );
+
+
+            mainNav
+                .querySelectorAll("a")
+                .forEach(
+                    function (link) {
+
+                        link.addEventListener(
+                            "click",
+                            function () {
+
+                                mainNav
+                                    .classList
+                                    .remove("open");
+
+                            }
+                        );
+
+                    }
+                );
+
+        }
+
+
+        /* Year */
+
+        const year =
+            document.getElementById(
+                "currentYear"
+            );
+
+        if (year) {
+
+            year.textContent =
+                new Date().getFullYear();
+
+        }
+
+    }
+);
+
 </script>
 
 </body>
