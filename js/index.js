@@ -1,5 +1,6 @@
 // ============================================================
 // MEI GROUP – HOMEPAGE SCRIPT
+// Loads: contact form + featured training sessions
 // ============================================================
 (function () {
     'use strict';
@@ -13,7 +14,9 @@
         });
     });
 
-    // CONTACT FORM → SUPABASE
+    // ========================================================
+    // CONTACT FORM → applications (service = 'General Contact')
+    // ========================================================
     const contactForm = document.getElementById('contactForm');
     if (contactForm) {
         contactForm.addEventListener('submit', async function (e) {
@@ -25,14 +28,13 @@
             const idleHTML = '<i class="fas fa-paper-plane"></i> Send Message';
 
             const payload = {
-                service: 'General Contact',
+                service:   'General Contact',
                 full_name: document.getElementById('contactName').value.trim(),
-                email: document.getElementById('contactEmail').value.trim(),
-                phone: document.getElementById('contactPhone').value.trim(),
-                subject: document.getElementById('contactSubject').value.trim(),
-                message: document.getElementById('contactMessage').value.trim(),
-                status: 'new',
-                created_at: new Date().toISOString()
+                email:     document.getElementById('contactEmail').value.trim(),
+                phone:     document.getElementById('contactPhone').value.trim(),
+                subject:   document.getElementById('contactSubject').value.trim(),
+                message:   document.getElementById('contactMessage').value.trim(),
+                status:    'new'
             };
 
             if (!payload.full_name || !payload.email ||
@@ -55,6 +57,174 @@
             }
         });
     }
+
+    // ========================================================
+    // FEATURED TRAINING SESSIONS → training_sessions
+    // Uses the training_sessions_full view (with available_seats)
+    // ========================================================
+    const grid = document.getElementById('featuredGrid');
+    if (!grid) return;
+
+    const SUPABASE_URL = MEI_CONFIG.SUPABASE_URL;
+    const SUPABASE_KEY = MEI_CONFIG.SUPABASE_KEY;
+
+    // Load the next 6 upcoming sessions with status = open or scheduled
+    async function loadFeaturedSessions() {
+        try {
+            const today = new Date().toISOString().split('T')[0];
+
+            const query =
+                `training_sessions_full?` +
+                `select=*` +
+                `&status=in.(open,scheduled)` +
+                `&start_date=gte.${today}` +
+                `&order=start_date.asc` +
+                `&limit=6`;
+
+            const res = await fetch(
+                `${SUPABASE_URL}/rest/v1/${query}`,
+                {
+                    method: 'GET',
+                    headers: {
+                        'apikey': SUPABASE_KEY,
+                        'Authorization': `Bearer ${SUPABASE_KEY}`
+                    }
+                }
+            );
+
+            if (!res.ok) throw new Error('HTTP ' + res.status);
+
+            const sessions = await res.json();
+
+            if (!Array.isArray(sessions) || sessions.length === 0) {
+                grid.innerHTML = `
+                    <div class="featured-empty">
+                        <i class="fas fa-calendar-times"></i>
+                        <p>No upcoming sessions at the moment. Please check back soon.</p>
+                        <a href="training-calendar.html" class="btn-primary" style="margin-top:16px;">
+                            <i class="fas fa-calendar-alt"></i> View Full Calendar
+                        </a>
+                    </div>
+                `;
+                return;
+            }
+
+            grid.innerHTML = sessions.map(renderSessionCard).join('');
+
+        } catch (err) {
+            console.error('Failed to load featured sessions:', err);
+            grid.innerHTML = `
+                <div class="featured-empty">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <p>Unable to load sessions right now.</p>
+                    <a href="training-calendar.html" class="btn-primary" style="margin-top:16px;">
+                        <i class="fas fa-calendar-alt"></i> View Full Calendar
+                    </a>
+                </div>
+            `;
+        }
+    }
+
+    function renderSessionCard(s) {
+        const serviceKey = mapServiceKey(s.service);
+        const seatsTotal = Number(s.capacity || 0);
+        const seatsTaken = Number(s.registered_count || 0);
+        const seatsAvail = Number(s.available_seats || 0);
+        const seatsPct = seatsTotal > 0
+            ? Math.min(100, Math.round((seatsTaken / seatsTotal) * 100))
+            : 0;
+
+        const isFull = seatsAvail <= 0;
+        const disabledAttr = isFull ? 'disabled' : '';
+
+        const dateStr = formatDate(s.start_date);
+        const timeStr = formatTimeRange(s.start_time, s.end_time);
+        const priceStr = formatPrice(s.price_kes);
+
+        const venue = escapeHtml(s.venue || 'To be confirmed');
+        const trainer = escapeHtml(s.trainer || 'MEI Group');
+
+        return `
+            <div class="featured-card">
+                <div class="badge-row">
+                    <span class="service-badge ${serviceKey}">
+                        ${escapeHtml(s.service)}
+                    </span>
+                    <span class="status-dot" title="Available"></span>
+                </div>
+                <h4>${escapeHtml(s.session_title || s.course_name)}</h4>
+                <div class="meta">
+                    <span><i class="far fa-calendar"></i> ${dateStr}</span>
+                    <span><i class="far fa-clock"></i> ${timeStr}</span>
+                    <span><i class="fas fa-location-dot"></i> ${venue}</span>
+                    <span><i class="fas fa-user-tie"></i> ${trainer}</span>
+                    <span><i class="fas fa-tag"></i> <span class="price">${priceStr}</span></span>
+                </div>
+                <div class="seats-bar">
+                    <div class="seats-fill" style="width:${seatsPct}%"></div>
+                </div>
+                <div class="seats-label">
+                    ${isFull
+                        ? 'Session full – waiting list available'
+                        : `${seatsAvail} of ${seatsTotal} seats available`}
+                </div>
+                <button class="btn-register" ${disabledAttr}
+                        onclick="window.location.href='training-registration.html?session=${s.id}'">
+                    <i class="fas fa-user-plus"></i>
+                    ${isFull ? 'Session Full' : 'Register Now'}
+                </button>
+            </div>
+        `;
+    }
+
+    function mapServiceKey(service) {
+        if (!service) return 'osh';
+        const s = service.toLowerCase();
+        if (s.includes('education'))  return 'education';
+        if (s.includes('road'))       return 'roadsafety';
+        return 'osh';
+    }
+
+    function formatDate(value) {
+        if (!value) return 'TBC';
+        const d = new Date(value + 'T00:00:00');
+        return d.toLocaleDateString('en-KE', {
+            weekday: 'short', day: 'numeric',
+            month: 'short', year: 'numeric'
+        });
+    }
+
+    function formatTimeRange(start, end) {
+        if (!start) return 'TBC';
+        const fmt = (t) => {
+            if (!t) return '';
+            const [h, m] = t.split(':');
+            let hour = parseInt(h, 10);
+            const suffix = hour >= 12 ? 'PM' : 'AM';
+            hour = hour % 12 || 12;
+            return `${hour}:${m || '00'} ${suffix}`;
+        };
+        return end ? `${fmt(start)} – ${fmt(end)}` : fmt(start);
+    }
+
+    function formatPrice(price) {
+        if (price === null || price === undefined || Number(price) === 0) {
+            return 'Contact MEI';
+        }
+        return 'KES ' + Number(price).toLocaleString('en-KE');
+    }
+
+    function escapeHtml(str) {
+        return String(str || '')
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#39;');
+    }
+
+    // Load featured sessions on page ready
+    loadFeaturedSessions();
 
     console.log('✅ MEI Group – Homepage loaded');
 })();
