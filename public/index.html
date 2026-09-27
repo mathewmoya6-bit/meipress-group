@@ -605,6 +605,82 @@
         .service-card .btn-learn:hover i { transform: translateX(4px); }
 
         /* ============================================================
+           CALENDAR PROMO BANNER
+           ============================================================ */
+        .calendar-promo {
+            background: linear-gradient(135deg, var(--secondary), #1a2a4a);
+            padding: 60px 0;
+            position: relative;
+            overflow: hidden;
+        }
+        .calendar-promo::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(ellipse at 70% 50%, rgba(37,99,235,0.15) 0%, transparent 60%);
+        }
+        .calendar-promo-inner {
+            position: relative;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 60px;
+            align-items: center;
+        }
+        .calendar-promo-content .section-tag {
+            background: rgba(37,99,235,0.2);
+            color: var(--primary-light);
+        }
+        .calendar-promo-content h2 {
+            font-size: 2.2rem;
+            font-weight: 800;
+            color: white;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 16px;
+        }
+        .calendar-promo-content h2 .highlight {
+            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .calendar-promo-content p {
+            color: rgba(255,255,255,0.65);
+            font-size: 1.05rem;
+            line-height: 1.7;
+            margin-bottom: 24px;
+        }
+        .calendar-promo-visual {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+        }
+        .cal-month-preview {
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 16px 12px;
+            text-align: center;
+            backdrop-filter: blur(4px);
+            transition: all 0.3s ease;
+        }
+        .cal-month-preview:hover {
+            background: rgba(37,99,235,0.2);
+            border-color: rgba(37,99,235,0.4);
+            transform: translateY(-3px);
+        }
+        .cal-month-preview .m-name {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: white;
+        }
+        .cal-month-preview .m-emoji {
+            font-size: 1.4rem;
+            margin-top: 4px;
+        }
+
+        /* ============================================================
            ABOUT
            ============================================================ */
         .about-section { padding: 100px 0; background: white; }
@@ -1057,6 +1133,7 @@
             .testimonials-grid { grid-template-columns: 1fr 1fr; }
             .process-grid { grid-template-columns: repeat(3, 1fr); }
             .process-step .arrow { display: none; }
+            .calendar-promo-inner { grid-template-columns: 1fr; gap: 40px; }
         }
         @media (max-width: 992px) {
             .hero .container { grid-template-columns: 1fr; text-align: center; }
@@ -1072,6 +1149,7 @@
             .form-card { padding: 32px 24px; }
             .form-card .form-row { grid-template-columns: 1fr; }
             .why-grid { grid-template-columns: 1fr 1fr; }
+            .calendar-promo-content h2 { font-size: 1.8rem; }
         }
         @media (max-width: 768px) {
             .nav-links {
@@ -1107,6 +1185,8 @@
             .about-values { grid-template-columns: 1fr; }
             .cta-box h2 { font-size: 2rem; }
             .form-card { padding: 24px 16px; }
+            .calendar-promo { padding: 40px 0; }
+            .calendar-promo-visual { grid-template-columns: repeat(3, 1fr); }
         }
         @media (max-width: 480px) {
             .hero h1 { font-size: 1.6rem; }
@@ -1116,6 +1196,7 @@
             .section-title { font-size: 1.6rem; }
             .hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
             .process-grid { grid-template-columns: 1fr; }
+            .calendar-promo-visual { grid-template-columns: 1fr 1fr; }
         }
     </style>
 </head>
@@ -1140,6 +1221,7 @@
             <div class="nav-links" id="navLinks">
                 <a href="#about" class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
+                <a href="training-calendar.html" class="nav-link">Calendar</a>
                 <a href="#testimonials" class="nav-link">Testimonials</a>
                 <a href="#faq" class="nav-link">FAQ</a>
                 <a href="#contact" class="btn-nav">Contact Us</a>
@@ -1171,8 +1253,8 @@
                     <a href="#services" class="btn-primary">
                         <i class="fas fa-rocket"></i> Explore Services
                     </a>
-                    <a href="#contact" class="btn-secondary">
-                        <i class="fas fa-phone-alt"></i> Contact Us
+                    <a href="training-calendar.html" class="btn-secondary">
+                        <i class="fas fa-calendar-alt"></i> View Calendar
                     </a>
                 </div>
 
@@ -1324,7 +1406,7 @@
     </section>
 
     <!-- ============================================================
-    SERVICES (Cards → link to dedicated pages)
+    SERVICES
     ============================================================ -->
     <section class="services-section" id="services">
         <div class="container">
@@ -1386,6 +1468,78 @@
                     <a href="occupational-safety.html" class="btn-learn">
                         <i class="fas fa-arrow-right"></i> Learn More &amp; Apply
                     </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ============================================================
+    CALENDAR PROMO BANNER (NEW)
+    ============================================================ -->
+    <section class="calendar-promo">
+        <div class="container">
+            <div class="calendar-promo-inner">
+                <div class="calendar-promo-content">
+                    <span class="section-tag">📅 Training Calendar</span>
+                    <h2>Plan Ahead with Our <span class="highlight">12-Month Schedule</span></h2>
+                    <p>
+                        Browse upcoming intakes, road safety workshops, and OSH certification
+                        courses from <strong style="color:white;">October 2025 through September 2026</strong>.
+                        Find the perfect program and reserve your spot early.
+                    </p>
+                    <a href="training-calendar.html" class="btn-primary">
+                        <i class="fas fa-calendar-alt"></i> View Full Calendar
+                    </a>
+                </div>
+                <div class="calendar-promo-visual">
+                    <div class="cal-month-preview">
+                        <div class="m-name">OCT</div>
+                        <div class="m-emoji">🍂</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">NOV</div>
+                        <div class="m-emoji">🌧️</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">DEC</div>
+                        <div class="m-emoji">🎄</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">JAN</div>
+                        <div class="m-emoji">❄️</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">FEB</div>
+                        <div class="m-emoji">❤️</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">MAR</div>
+                        <div class="m-emoji">🌸</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">APR</div>
+                        <div class="m-emoji">🌷</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">MAY</div>
+                        <div class="m-emoji">🌻</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">JUN</div>
+                        <div class="m-emoji">☀️</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">JUL</div>
+                        <div class="m-emoji">🏖️</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">AUG</div>
+                        <div class="m-emoji">🎒</div>
+                    </div>
+                    <div class="cal-month-preview">
+                        <div class="m-name">SEP</div>
+                        <div class="m-emoji">🍁</div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1569,6 +1723,14 @@
 
                 <div class="faq-item">
                     <div class="question">
+                        <span>When do training programs start?</span>
+                        <i class="fas fa-chevron-down"></i>
+                    </div>
+                    <div class="answer">Programs run throughout the year. Check our <a href="training-calendar.html" style="color:var(--primary);font-weight:600;">Training Calendar</a> for the full 12-month schedule, including specific dates for each intake and workshop.</div>
+                </div>
+
+                <div class="faq-item">
+                    <div class="question">
                         <span>How do employers recruit drivers through MEI Group?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
@@ -1590,8 +1752,8 @@
                     or training your team—MEI Group is here to help you succeed.
                 </p>
                 <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-                    <a href="education.html" class="btn-primary">
-                        <i class="fas fa-graduation-cap"></i> Explore Education
+                    <a href="training-calendar.html" class="btn-primary">
+                        <i class="fas fa-calendar-alt"></i> View Training Calendar
                     </a>
                     <a href="#contact" class="btn-secondary">
                         <i class="fas fa-headset"></i> Talk to an Advisor
@@ -1602,7 +1764,7 @@
     </section>
 
     <!-- ============================================================
-    CONTACT FORM (Supabase)
+    CONTACT FORM
     ============================================================ -->
     <section class="contact-section" id="contact">
         <div class="container">
@@ -1680,6 +1842,7 @@
                     <a href="#hero">Home</a>
                     <a href="#about">About</a>
                     <a href="#services">Services</a>
+                    <a href="training-calendar.html">Training Calendar</a>
                     <a href="#contact">Contact</a>
                     <a href="#" style="margin-top:8px;color:rgba(255,255,255,0.3);font-size:0.75rem;">Privacy Policy</a>
                     <a href="#" style="color:rgba(255,255,255,0.3);font-size:0.75rem;">Terms &amp; Conditions</a>
@@ -1716,7 +1879,7 @@
     </a>
 
     <!-- ============================================================
-    SCRIPTS (external files)
+    SCRIPTS
     ============================================================ -->
     <script src="js/config.js"></script>
     <script src="js/index.js"></script>
