@@ -89,6 +89,67 @@
         }
 
         /* ==================================================
+           HEADER
+        ================================================== */
+
+        header {
+            background: var(--mei-navy);
+            color: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, .12);
+        }
+
+        .header-inner {
+            min-height: 74px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 30px;
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: 900;
+            letter-spacing: .5px;
+        }
+
+        .logo span {
+            color: var(--mei-green);
+        }
+
+        header nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        header nav a {
+            color: #fff;
+            font-size: 14px;
+            font-weight: 700;
+            opacity: .92;
+        }
+
+        header nav a:hover,
+        header nav a.active {
+            color: var(--mei-green);
+            opacity: 1;
+        }
+
+        .menu-btn {
+            display: none;
+            background: transparent;
+            color: white;
+            border: 1px solid rgba(255, 255, 255, .3);
+            border-radius: 8px;
+            padding: 8px 12px;
+            font-size: 20px;
+            cursor: pointer;
+        }
+
+        /* ==================================================
            HERO
         ================================================== */
 
@@ -490,6 +551,66 @@
         }
 
         /* ==================================================
+           OUR TEAM
+        ================================================== */
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .team-card {
+            background: var(--white);
+            border: 1px solid var(--border);
+            border-radius: var(--radius-md);
+            padding: 28px 22px;
+            box-shadow: var(--shadow-sm);
+            text-align: center;
+            transition: 0.25s ease;
+        }
+
+        .team-card:hover {
+            transform: translateY(-6px);
+            box-shadow: var(--shadow-md);
+            border-color: rgba(24, 199, 122, 0.35);
+        }
+
+        .team-avatar {
+            width: 72px;
+            height: 72px;
+            margin: 0 auto 16px;
+            border-radius: 50%;
+            background: var(--mei-green-light);
+            color: var(--mei-green-dark);
+            display: grid;
+            place-items: center;
+            font-size: 22px;
+            font-weight: 900;
+        }
+
+        .team-card h3 {
+            color: var(--mei-navy);
+            font-size: 16px;
+            margin-bottom: 4px;
+        }
+
+        .team-role {
+            display: block;
+            color: var(--mei-green-dark);
+            font-size: 11px;
+            font-weight: 900;
+            text-transform: uppercase;
+            letter-spacing: 0.6px;
+            margin-bottom: 10px;
+        }
+
+        .team-card p {
+            color: var(--muted);
+            font-size: 13px;
+        }
+
+        /* ==================================================
            TRAINING CALENDAR
         ================================================== */
 
@@ -830,16 +951,40 @@
         }
 
         /* ==================================================
-           SHARED BRAND HEADER COMPATIBILITY
+           FOOTER
         ================================================== */
 
-        /*
-         * brand.js injects the main MEI header.
-         * Keep the page content below it.
-         */
+        footer {
+            background: #04121e;
+            color: #b9c8d1;
+            padding: 35px 0;
+        }
 
-        .mei-site-header {
-            margin: 0;
+        .footer-inner {
+            display: flex;
+            justify-content: space-between;
+            gap: 25px;
+            flex-wrap: wrap;
+        }
+
+        .footer-logo {
+            color: white;
+            font-size: 21px;
+            font-weight: 900;
+        }
+
+        .footer-logo span {
+            color: var(--mei-green);
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a:hover {
+            color: var(--mei-green);
         }
 
         /* ==================================================
@@ -849,6 +994,10 @@
         @media (max-width: 1050px) {
 
             .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .team-grid {
                 grid-template-columns: repeat(2, 1fr);
             }
 
@@ -862,6 +1011,29 @@
 
             .hero-card {
                 max-width: 650px;
+            }
+        }
+
+        @media (max-width: 850px) {
+
+            .menu-btn {
+                display: block;
+            }
+
+            header nav {
+                display: none;
+                position: absolute;
+                top: 74px;
+                left: 0;
+                right: 0;
+                background: var(--mei-navy);
+                padding: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            header nav.open {
+                display: flex;
             }
         }
 
@@ -902,6 +1074,7 @@
             }
 
             .service-grid,
+            .team-grid,
             .process-grid {
                 grid-template-columns: 1fr;
             }
@@ -925,8 +1098,40 @@
 <body>
 
 <!-- =====================================================
+     HEADER
+===================================================== -->
+
+<header>
+    <div class="container header-inner">
+
+        <a href="index.html" class="logo">
+            MEI <span>GROUP</span>
+        </a>
+
+        <button
+            class="menu-btn"
+            id="menuBtn"
+            type="button"
+            aria-label="Open menu">
+            ☰
+        </button>
+
+        <nav id="mainNav">
+            <a href="index.html" class="active">Home</a>
+            <a href="education.html">Education</a>
+            <a href="road-safety.html">Road Safety</a>
+            <a href="occupational-safety.html">OSH</a>
+            <a href="driver-recruitment.html">Driver Recruitment</a>
+            <a href="training-calendar.html">Training Calendar</a>
+            <a href="#about">About Us</a>
+        </nav>
+
+    </div>
+</header>
+
+
+<!-- =====================================================
      MAIN CONTENT
-     The shared MEI header is injected by assets/brand.js
 ===================================================== -->
 
 <main>
@@ -1203,7 +1408,7 @@
 
 
     <!-- =================================================
-         ABOUT
+         ABOUT US
     ================================================= -->
 
     <section id="about">
@@ -1213,7 +1418,7 @@
             <div class="about-content">
 
                 <div class="section-label">
-                    About MEI Group
+                    About Us
                 </div>
 
                 <h2>
@@ -1334,6 +1539,124 @@
                         <strong>24/7</strong>
                         <span>Online Enquiry Access</span>
                     </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <!-- =============================================
+             OUR TEAM
+        ============================================== -->
+
+        <div class="container" style="margin-top:80px;">
+
+            <div class="section-header">
+
+                <div class="section-label">
+                    Our Team
+                </div>
+
+                <h2>
+                    The People Behind MEI Group
+                </h2>
+
+                <p>
+                    A dedicated team driving practical training, education
+                    support and recruitment services across Kenya.
+                </p>
+
+            </div>
+
+
+            <div class="team-grid">
+
+                <div class="team-card">
+
+                    <div class="team-avatar">
+                        MD
+                    </div>
+
+                    <h3>
+                        Add Name
+                    </h3>
+
+                    <span class="team-role">
+                        Managing Director
+                    </span>
+
+                    <p>
+                        Oversees strategy and operations across all MEI
+                        Group service areas.
+                    </p>
+
+                </div>
+
+
+                <div class="team-card">
+
+                    <div class="team-avatar">
+                        HT
+                    </div>
+
+                    <h3>
+                        Add Name
+                    </h3>
+
+                    <span class="team-role">
+                        Head of Training
+                    </span>
+
+                    <p>
+                        Leads road safety and occupational safety and
+                        health training programmes.
+                    </p>
+
+                </div>
+
+
+                <div class="team-card">
+
+                    <div class="team-avatar">
+                        RL
+                    </div>
+
+                    <h3>
+                        Add Name
+                    </h3>
+
+                    <span class="team-role">
+                        Recruitment Lead
+                    </span>
+
+                    <p>
+                        Manages driver recruitment, employer matching and
+                        placement services.
+                    </p>
+
+                </div>
+
+
+                <div class="team-card">
+
+                    <div class="team-avatar">
+                        EC
+                    </div>
+
+                    <h3>
+                        Add Name
+                    </h3>
+
+                    <span class="team-role">
+                        Education Coordinator
+                    </span>
+
+                    <p>
+                        Supports students through international education
+                        applications and planning.
+                    </p>
 
                 </div>
 
@@ -2038,6 +2361,59 @@
 
 
 <!-- =====================================================
+     FOOTER
+===================================================== -->
+
+<footer>
+
+    <div class="container footer-inner">
+
+        <div>
+
+            <div class="footer-logo">
+                MEI <span>GROUP</span>
+            </div>
+
+            <p>
+                A division of MEI Press Holdings Ltd.
+            </p>
+
+            <p>
+                Driver Recruitment • Road Safety • OSH •
+                International Education
+            </p>
+
+        </div>
+
+        <div class="footer-links">
+
+            <a href="index.html">Home</a>
+            <a href="education.html">Education</a>
+            <a href="road-safety.html">Road Safety</a>
+            <a href="occupational-safety.html">OSH</a>
+            <a href="driver-recruitment.html">
+                Driver Recruitment
+            </a>
+            <a href="#about">About Us</a>
+
+        </div>
+
+    </div>
+
+    <div class="container"
+         style="margin-top:25px;border-top:1px solid rgba(255,255,255,.1);padding-top:20px;">
+
+        <small>
+            © <span id="footerYear"></span>
+            MEI Press Holdings Ltd. All rights reserved.
+        </small>
+
+    </div>
+
+</footer>
+
+
+<!-- =====================================================
      SUPABASE
 ===================================================== -->
 
@@ -2062,6 +2438,55 @@ const supabaseClient =
     );
 
 window.supabaseClient = supabaseClient;
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+const menuBtn =
+    document.getElementById("menuBtn");
+
+const mainNav =
+    document.getElementById("mainNav");
+
+if (menuBtn && mainNav) {
+
+    menuBtn.addEventListener("click", function() {
+
+        mainNav.classList.toggle("open");
+
+    });
+
+
+    mainNav
+        .querySelectorAll("a")
+        .forEach(link => {
+
+            link.addEventListener("click", function() {
+
+                mainNav.classList.remove("open");
+
+            });
+
+        });
+
+}
+
+
+/* =====================================================
+   FOOTER YEAR
+===================================================== */
+
+const footerYearEl =
+    document.getElementById("footerYear");
+
+if (footerYearEl) {
+
+    footerYearEl.textContent =
+        new Date().getFullYear();
+
+}
 
 
 /* =====================================================
@@ -2250,20 +2675,6 @@ if (contactForm) {
 
 }
 </script>
-
-
-<!-- =====================================================
-     SHARED MEI BRANDING
-     
-     This automatically injects:
-     - favicon
-     - MEI logo
-     - navigation
-     - mobile navigation
-     - footer
-===================================================== -->
-
-<script src="assets/brand.js"></script>
 
 </body>
 </html>
