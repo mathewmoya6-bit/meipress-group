@@ -1,2024 +1,3587 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>MEI Group | Professional Training, International Education & Workplace Safety</title>
-    <meta name="description" content="MEI Group – division of MEI Press Holdings Ltd. Empowering individuals, schools, and businesses through world-class education and workplace safety training." />
-    <meta name="theme-color" content="#0a1628" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <link rel="icon" type="image/x-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏢</text></svg>" />
+```
+<title>MEI Group | Professional Training, International Education & Workplace Safety</title>
 
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,500;0,9..144,600;0,9..144,700;0,9..144,900;1,9..144,600&family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+<meta name="description"
+      content="MEI Group, a division of MEI Press Holdings Ltd., provides international education consultancy, professional training, road safety training, occupational safety and health services in Kenya and beyond.">
 
-    <style>
-        /* ============================================================
-           CSS VARIABLES
-           ============================================================ */
-        :root {
-            --primary: #1e4fd8;
-            --primary-dark: #15379e;
-            --primary-light: #7c9bec;
-            --primary-bg: #eef2fd;
-            --secondary: #0a1628;
-            --secondary-light: #1a2a4a;
-            --accent: #b9862e;
-            --accent-light: #e4b65b;
-            --gold: #b9862e;
-            --success: #10b981;
-            --bg: #f7f7f5;
-            --bg-card: #ffffff;
-            --text: #0a1628;
-            --text-secondary: #4b5670;
-            --text-light: #94a3b8;
-            --border: #e4e4e0;
-            --shadow-sm: 0 1px 2px rgba(10,22,40,0.05);
-            --shadow: 0 4px 24px rgba(10,22,40,0.07);
-            --shadow-lg: 0 16px 40px rgba(10,22,40,0.10);
-            --radius: 12px;
-            --radius-sm: 8px;
-            --radius-full: 9999px;
-            --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            --max-width: 1280px;
-            --font-display: "Fraunces", Georgia, "Times New Roman", serif;
+<meta name="keywords"
+      content="MEI Group, MEI Press Holdings, international education Kenya, study abroad Kenya, road safety training, occupational safety Kenya, OSH training, first aid training, fire safety training, defensive driving">
+
+<meta name="author" content="MEI Press Holdings Ltd.">
+<meta name="robots" content="index, follow">
+<meta name="theme-color" content="#0a1628">
+
+<!-- Canonical -->
+<link rel="canonical" href="https://www.meipressgroup.com/">
+
+<!-- Open Graph -->
+<meta property="og:type" content="website">
+<meta property="og:title" content="MEI Group | Education, Training & Workplace Safety">
+<meta property="og:description"
+      content="Professional training, international education consultancy, road safety and occupational safety services.">
+<meta property="og:url" content="https://www.meipressgroup.com/">
+<meta property="og:site_name" content="MEI Group">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="MEI Group">
+<meta name="twitter:description"
+      content="Professional training, international education and workplace safety solutions.">
+
+<!-- Favicon -->
+<link rel="icon"
+      type="image/svg+xml"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='18' fill='%231e4fd8'/%3E%3Ctext x='50' y='66' text-anchor='middle' font-size='38' font-family='Arial' font-weight='bold' fill='white'%3EMEI%3C/text%3E%3C/svg%3E">
+
+<!-- Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700;9..144,900&family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+      rel="stylesheet">
+
+<!-- Font Awesome -->
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+<style>
+    /* ==========================================================
+       ROOT
+    ========================================================== */
+
+    :root {
+        --primary: #1e4fd8;
+        --primary-dark: #15379e;
+        --primary-light: #7c9bec;
+
+        --secondary: #0a1628;
+        --secondary-light: #1a2a4a;
+
+        --accent: #b9862e;
+        --accent-light: #e4b65b;
+
+        --success: #10b981;
+        --danger: #ef4444;
+
+        --background: #f7f7f5;
+        --surface: #ffffff;
+
+        --text: #0a1628;
+        --text-secondary: #4b5670;
+        --text-muted: #94a3b8;
+
+        --border: #e4e4e0;
+
+        --shadow-sm: 0 1px 2px rgba(10, 22, 40, .05);
+        --shadow: 0 4px 24px rgba(10, 22, 40, .07);
+        --shadow-lg: 0 16px 40px rgba(10, 22, 40, .10);
+
+        --radius: 12px;
+        --radius-sm: 8px;
+        --radius-full: 9999px;
+
+        --max-width: 1280px;
+
+        --font-body: "Inter", Arial, sans-serif;
+        --font-display: "Fraunces", Georgia, serif;
+
+        --transition: .3s ease;
+    }
+
+    /* ==========================================================
+       RESET
+    ========================================================== */
+
+    *,
+    *::before,
+    *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+    }
+
+    html {
+        scroll-behavior: smooth;
+        scroll-padding-top: 90px;
+    }
+
+    body {
+        font-family: var(--font-body);
+        background: var(--background);
+        color: var(--text);
+        line-height: 1.6;
+        -webkit-font-smoothing: antialiased;
+        overflow-x: hidden;
+    }
+
+    body.menu-open {
+        overflow: hidden;
+    }
+
+    img {
+        max-width: 100%;
+        height: auto;
+        display: block;
+    }
+
+    a {
+        color: inherit;
+        text-decoration: none;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+        font: inherit;
+    }
+
+    button {
+        cursor: pointer;
+    }
+
+    ul {
+        list-style: none;
+    }
+
+    :focus-visible {
+        outline: 3px solid var(--accent);
+        outline-offset: 3px;
+    }
+
+    .container {
+        width: min(100% - 40px, var(--max-width));
+        margin-inline: auto;
+    }
+
+    /* ==========================================================
+       TYPOGRAPHY
+    ========================================================== */
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: var(--font-display);
+    }
+
+    .section-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+
+        color: var(--accent);
+        font-family: var(--font-display);
+        font-size: 1rem;
+        font-style: italic;
+        font-weight: 600;
+    }
+
+    .section-tag::before {
+        content: "";
+        width: 26px;
+        height: 2px;
+        background: currentColor;
+    }
+
+    .section-title {
+        margin-bottom: 16px;
+
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        line-height: 1.15;
+        letter-spacing: -.6px;
+    }
+
+    .highlight {
+        color: var(--primary);
+    }
+
+    .text-gradient {
+        background: linear-gradient(
+            135deg,
+            var(--primary),
+            var(--accent)
+        );
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .section-sub {
+        max-width: 650px;
+        margin-bottom: 48px;
+
+        color: var(--text-secondary);
+        font-size: 1.05rem;
+        line-height: 1.75;
+    }
+
+    .section-center {
+        text-align: center;
+    }
+
+    .section-center .section-sub {
+        margin-inline: auto;
+    }
+
+    /* ==========================================================
+       BUTTONS
+    ========================================================== */
+
+    .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+
+        border: 0;
+        border-radius: var(--radius-full);
+
+        font-weight: 700;
+        transition: transform var(--transition),
+                    background var(--transition),
+                    box-shadow var(--transition);
+    }
+
+    .btn-primary {
+        padding: 15px 30px;
+
+        background: linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-dark)
+        );
+
+        color: #fff;
+
+        box-shadow: 0 8px 25px rgba(30, 79, 216, .25);
+    }
+
+    .btn-primary:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 32px rgba(30, 79, 216, .35);
+    }
+
+    .btn-secondary {
+        padding: 15px 30px;
+
+        background: rgba(255,255,255,.06);
+        border: 1px solid rgba(255,255,255,.15);
+
+        color: #fff;
+    }
+
+    .btn-secondary:hover {
+        background: rgba(255,255,255,.12);
+        transform: translateY(-2px);
+    }
+
+    /* ==========================================================
+       NAVIGATION
+    ========================================================== */
+
+    .navbar {
+        position: fixed;
+        inset: 0 0 auto;
+        z-index: 1000;
+
+        padding: 16px 0;
+
+        background: transparent;
+
+        transition:
+            background var(--transition),
+            padding var(--transition),
+            box-shadow var(--transition);
+    }
+
+    .navbar.scrolled {
+        padding: 9px 0;
+
+        background: rgba(255,255,255,.96);
+        backdrop-filter: blur(18px);
+        -webkit-backdrop-filter: blur(18px);
+
+        box-shadow: 0 2px 15px rgba(0,0,0,.06);
+    }
+
+    .nav-container {
+        width: min(100% - 40px, var(--max-width));
+        margin-inline: auto;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .logo {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-shrink: 0;
+    }
+
+    .logo-icon {
+        width: 44px;
+        height: 44px;
+
+        display: grid;
+        place-items: center;
+
+        border-radius: 12px;
+
+        background: linear-gradient(
+            135deg,
+            var(--primary),
+            var(--primary-dark)
+        );
+
+        color: #fff;
+        font-size: 1rem;
+        font-weight: 900;
+
+        box-shadow: 0 5px 18px rgba(30,79,216,.25);
+    }
+
+    .logo-text {
+        display: flex;
+        flex-direction: column;
+        line-height: 1.1;
+    }
+
+    .logo-brand {
+        color: #fff;
+        font-family: var(--font-display);
+        font-size: 1.25rem;
+        font-weight: 700;
+    }
+
+    .logo-brand span {
+        color: var(--primary-light);
+    }
+
+    .logo-sub {
+        margin-top: 3px;
+
+        color: rgba(255,255,255,.5);
+
+        font-size: .53rem;
+        letter-spacing: .8px;
+        text-transform: uppercase;
+    }
+
+    .navbar.scrolled .logo-brand {
+        color: var(--text);
+    }
+
+    .navbar.scrolled .logo-sub {
+        color: var(--text-muted);
+    }
+
+    .nav-links {
+        display: flex;
+        align-items: center;
+        gap: 26px;
+    }
+
+    .nav-link {
+        position: relative;
+
+        color: rgba(255,255,255,.78);
+
+        font-size: .9rem;
+        font-weight: 600;
+    }
+
+    .nav-link::after {
+        content: "";
+
+        position: absolute;
+        left: 0;
+        bottom: -6px;
+
+        width: 0;
+        height: 2px;
+
+        background: var(--primary);
+
+        transition: width var(--transition);
+    }
+
+    .nav-link:hover::after,
+    .nav-link.active::after {
+        width: 100%;
+    }
+
+    .nav-link:hover {
+        color: #fff;
+    }
+
+    .navbar.scrolled .nav-link {
+        color: var(--text-secondary);
+    }
+
+    .navbar.scrolled .nav-link:hover {
+        color: var(--primary);
+    }
+
+    .btn-nav {
+        padding: 10px 22px;
+
+        background: var(--primary);
+        color: #fff !important;
+
+        border-radius: var(--radius-full);
+    }
+
+    .btn-nav:hover {
+        background: var(--primary-dark);
+    }
+
+    .btn-nav::after {
+        display: none;
+    }
+
+    .mobile-menu-btn {
+        display: none;
+
+        border: 0;
+        background: transparent;
+
+        color: #fff;
+        font-size: 1.4rem;
+    }
+
+    .navbar.scrolled .mobile-menu-btn {
+        color: var(--text);
+    }
+
+    /* ==========================================================
+       HERO
+    ========================================================== */
+
+    .hero {
+        position: relative;
+        min-height: 100vh;
+
+        display: flex;
+        align-items: center;
+
+        padding: 140px 0 80px;
+
+        background: var(--secondary);
+        overflow: hidden;
+    }
+
+    .hero::before {
+        content: "";
+
+        position: absolute;
+        inset: 0;
+
+        background:
+            radial-gradient(
+                ellipse at 20% 50%,
+                rgba(30,79,216,.15),
+                transparent 60%
+            ),
+            radial-gradient(
+                ellipse at 80% 20%,
+                rgba(124,58,237,.08),
+                transparent 50%
+            );
+    }
+
+    .hero-grid-layout {
+        position: relative;
+        z-index: 1;
+
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 70px;
+    }
+
+    .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+
+        margin-bottom: 26px;
+        padding: 8px 18px;
+
+        border: 1px solid rgba(30,79,216,.25);
+        border-radius: var(--radius-full);
+
+        background: rgba(30,79,216,.1);
+        color: var(--primary-light);
+
+        font-size: .75rem;
+        font-weight: 700;
+    }
+
+    .hero-badge .dot {
+        width: 8px;
+        height: 8px;
+
+        border-radius: 50%;
+        background: var(--success);
+
+        box-shadow: 0 0 0 5px rgba(16,185,129,.1);
+    }
+
+    .hero h1 {
+        max-width: 720px;
+
+        margin-bottom: 22px;
+
+        color: #fff;
+
+        font-size: clamp(2.4rem, 5vw, 4rem);
+        line-height: 1.08;
+        letter-spacing: -2px;
+    }
+
+    .hero h1 .highlight {
+        background: linear-gradient(
+            135deg,
+            var(--primary-light),
+            var(--accent-light)
+        );
+
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .hero-description {
+        max-width: 590px;
+        margin-bottom: 32px;
+
+        color: rgba(255,255,255,.7);
+        font-size: 1.1rem;
+        line-height: 1.8;
+    }
+
+    .hero-buttons {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    .hero-stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+
+        margin-top: 45px;
+        padding-top: 32px;
+
+        border-top: 1px solid rgba(255,255,255,.08);
+    }
+
+    .hero-stat-number {
+        display: block;
+
+        color: #fff;
+
+        font-size: 1.8rem;
+        font-weight: 800;
+    }
+
+    .hero-stat-label {
+        color: rgba(255,255,255,.5);
+        font-size: .75rem;
+    }
+
+    .hero-visual {
+        position: relative;
+
+        display: grid;
+        place-items: center;
+    }
+
+    .hero-orb {
+        position: absolute;
+
+        border-radius: 50%;
+
+        filter: blur(60px);
+        opacity: .25;
+    }
+
+    .hero-orb.one {
+        width: 280px;
+        height: 280px;
+
+        top: -30px;
+        right: -20px;
+
+        background: var(--primary);
+    }
+
+    .hero-orb.two {
+        width: 180px;
+        height: 180px;
+
+        bottom: -30px;
+        left: -20px;
+
+        background: var(--accent);
+    }
+
+    .hero-icon-grid {
+        position: relative;
+        z-index: 1;
+
+        width: min(100%, 480px);
+
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 15px;
+    }
+
+    .hero-icon-card {
+        aspect-ratio: 1;
+
+        display: grid;
+        place-items: center;
+
+        border: 1px solid rgba(255,255,255,.08);
+        border-radius: var(--radius);
+
+        background: rgba(255,255,255,.035);
+
+        font-size: 2.2rem;
+
+        transition: transform var(--transition),
+                    background var(--transition);
+    }
+
+    .hero-icon-card:hover {
+        transform: scale(1.05);
+        background: rgba(30,79,216,.12);
+    }
+
+    /* ==========================================================
+       COMMON SECTION
+    ========================================================== */
+
+    .section {
+        padding: 90px 0;
+    }
+
+    .section-white {
+        background: var(--surface);
+    }
+
+    /* ==========================================================
+       SERVICE CARDS
+    ========================================================== */
+
+    .service-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .service-card {
+        position: relative;
+
+        display: flex;
+        flex-direction: column;
+
+        min-height: 330px;
+        padding: 34px;
+
+        overflow: hidden;
+
+        border: 1px solid var(--border);
+        border-top: 3px solid var(--primary);
+        border-radius: var(--radius);
+
+        background: var(--background);
+
+        transition: transform var(--transition),
+                    box-shadow var(--transition),
+                    border-color var(--transition);
+    }
+
+    .service-card:hover {
+        transform: translateY(-6px);
+        border-top-color: var(--accent);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .service-icon {
+        margin-bottom: 18px;
+        font-size: 2.7rem;
+    }
+
+    .service-card h3 {
+        margin-bottom: 10px;
+
+        font-size: 1.4rem;
+    }
+
+    .service-card p {
+        flex: 1;
+
+        color: var(--text-secondary);
+        font-size: .94rem;
+    }
+
+    .service-link {
+        display: inline-flex;
+        align-items: center;
+        gap: 9px;
+
+        margin-top: 24px;
+
+        color: var(--primary);
+        font-size: .9rem;
+        font-weight: 700;
+    }
+
+    .service-link i {
+        transition: transform var(--transition);
+    }
+
+    .service-card:hover .service-link i {
+        transform: translateX(5px);
+    }
+
+    /* ==========================================================
+       WHY
+    ========================================================== */
+
+    .why-section {
+        background: var(--background);
+    }
+
+    .why-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 20px;
+    }
+
+    .why-card {
+        padding: 30px 24px;
+
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+
+        background: var(--surface);
+
+        text-align: center;
+
+        transition: transform var(--transition),
+                    box-shadow var(--transition);
+    }
+
+    .why-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow);
+    }
+
+    .why-icon {
+        margin-bottom: 12px;
+        font-size: 2.2rem;
+    }
+
+    .why-card h3 {
+        margin-bottom: 6px;
+
+        font-size: 1.05rem;
+    }
+
+    .why-card p {
+        color: var(--text-secondary);
+        font-size: .88rem;
+    }
+
+    /* ==========================================================
+       STATS
+    ========================================================== */
+
+    .stats-section {
+        padding: 60px 0;
+
+        background: var(--secondary);
+        color: #fff;
+    }
+
+    .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 25px;
+
+        text-align: center;
+    }
+
+    .stat-number {
+        display: block;
+
+        font-size: 2.5rem;
+        font-weight: 800;
+    }
+
+    .stat-label {
+        color: rgba(255,255,255,.5);
+        font-size: .9rem;
+    }
+
+    /* ==========================================================
+       ABOUT
+    ========================================================== */
+
+    .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        align-items: center;
+        gap: 70px;
+    }
+
+    .about-content h2 {
+        margin-bottom: 18px;
+
+        font-size: clamp(2rem, 4vw, 2.5rem);
+    }
+
+    .about-content p {
+        margin-bottom: 15px;
+
+        color: var(--text-secondary);
+        line-height: 1.8;
+    }
+
+    .about-values {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+
+        margin-top: 25px;
+    }
+
+    .about-value {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        font-weight: 600;
+    }
+
+    .about-value i {
+        color: var(--primary);
+    }
+
+    .about-visual {
+        min-height: 400px;
+
+        display: grid;
+        place-items: center;
+
+        border: 1px solid rgba(30,79,216,.08);
+        border-radius: var(--radius);
+
+        background:
+            radial-gradient(
+                circle at 30% 30%,
+                rgba(30,79,216,.08),
+                transparent 60%
+            ),
+            linear-gradient(
+                135deg,
+                #eef2fd,
+                #e0e7ff
+            );
+
+        font-size: 8rem;
+    }
+
+    /* ==========================================================
+       CALENDAR PROMO
+    ========================================================== */
+
+    .calendar-promo {
+        position: relative;
+        overflow: hidden;
+
+        padding: 75px 0;
+
+        background:
+            linear-gradient(
+                135deg,
+                var(--secondary),
+                var(--secondary-light)
+            );
+    }
+
+    .calendar-promo-grid {
+        position: relative;
+        z-index: 1;
+
+        display: grid;
+        grid-template-columns: 1.2fr 1fr;
+        align-items: center;
+        gap: 55px;
+    }
+
+    .calendar-promo h2 {
+        margin-bottom: 16px;
+
+        color: #fff;
+
+        font-size: clamp(2rem, 4vw, 2.6rem);
+        line-height: 1.15;
+    }
+
+    .calendar-promo p {
+        margin-bottom: 25px;
+
+        color: rgba(255,255,255,.65);
+    }
+
+    .calendar-actions {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .month-grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+    }
+
+    .month-card {
+        padding: 15px 8px;
+
+        border: 1px solid rgba(255,255,255,.1);
+        border-radius: 10px;
+
+        background: rgba(255,255,255,.05);
+
+        text-align: center;
+        color: #fff;
+    }
+
+    .month-card strong {
+        display: block;
+        font-size: .8rem;
+    }
+
+    .month-card span {
+        display: block;
+        margin-top: 4px;
+        font-size: 1.2rem;
+    }
+
+    /* ==========================================================
+       FEATURED TRAINING
+    ========================================================== */
+
+    .featured-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .featured-card {
+        display: flex;
+        flex-direction: column;
+
+        padding: 27px;
+
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+
+        background: var(--background);
+
+        transition: transform var(--transition),
+                    box-shadow var(--transition);
+    }
+
+    .featured-card:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-lg);
+    }
+
+    .featured-card h3 {
+        margin: 15px 0;
+
+        font-size: 1.15rem;
+    }
+
+    .featured-meta {
+        display: grid;
+        gap: 8px;
+
+        margin-bottom: 18px;
+
+        color: var(--text-secondary);
+        font-size: .85rem;
+    }
+
+    .featured-meta i {
+        width: 18px;
+        color: var(--primary);
+    }
+
+    .featured-register {
+        width: 100%;
+        margin-top: auto;
+    }
+
+    .featured-loading,
+    .featured-empty {
+        grid-column: 1 / -1;
+
+        padding: 50px 20px;
+
+        color: var(--text-secondary);
+
+        text-align: center;
+    }
+
+    /* ==========================================================
+       PROCESS
+    ========================================================== */
+
+    .process-section {
+        background: var(--surface);
+    }
+
+    .process-grid {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 10px;
+    }
+
+    .process-step {
+        position: relative;
+
+        padding: 20px 10px;
+
+        text-align: center;
+    }
+
+    .process-number {
+        width: 46px;
+        height: 46px;
+
+        display: grid;
+        place-items: center;
+
+        margin: 0 auto 12px;
+
+        border-radius: 50%;
+
+        background: var(--primary);
+        color: #fff;
+
+        font-weight: 800;
+    }
+
+    .process-step h3 {
+        font-size: .9rem;
+    }
+
+    .process-step p {
+        color: var(--text-secondary);
+        font-size: .75rem;
+    }
+
+    .process-arrow {
+        position: absolute;
+
+        top: 42px;
+        right: -7px;
+
+        color: var(--text-muted);
+    }
+
+    /* ==========================================================
+       TESTIMONIALS
+    ========================================================== */
+
+    .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 24px;
+    }
+
+    .testimonial {
+        padding: 30px;
+
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+
+        background: #fff;
+    }
+
+    .testimonial-stars {
+        margin-bottom: 12px;
+        color: var(--gold);
+    }
+
+    .testimonial blockquote {
+        margin-bottom: 18px;
+
+        color: var(--text-secondary);
+
+        font-size: .94rem;
+        font-style: italic;
+        line-height: 1.8;
+    }
+
+    .testimonial-author {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .avatar {
+        width: 42px;
+        height: 42px;
+
+        display: grid;
+        place-items: center;
+
+        border-radius: 50%;
+
+        background: var(--primary-light);
+        color: #fff;
+
+        font-weight: 800;
+    }
+
+    .author-name {
+        font-weight: 700;
+    }
+
+    .author-role {
+        color: var(--text-secondary);
+        font-size: .78rem;
+    }
+
+    /* ==========================================================
+       PARTNERS
+    ========================================================== */
+
+    .partners-grid {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 35px;
+    }
+
+    .partner {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+
+        color: var(--text-secondary);
+        font-weight: 600;
+    }
+
+    .partner i {
+        color: var(--primary);
+        font-size: 1.5rem;
+    }
+
+    /* ==========================================================
+       FAQ
+    ========================================================== */
+
+    .faq-container {
+        max-width: 820px;
+        margin-inline: auto;
+    }
+
+    .faq-item {
+        margin-bottom: 12px;
+
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+
+        background: #fff;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        width: 100%;
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 19px 22px;
+
+        border: 0;
+        background: transparent;
+
+        color: var(--text);
+
+        font-weight: 700;
+        text-align: left;
+    }
+
+    .faq-question i {
+        color: var(--primary);
+        transition: transform var(--transition);
+    }
+
+    .faq-answer {
+        max-height: 0;
+        overflow: hidden;
+
+        padding: 0 22px;
+
+        color: var(--text-secondary);
+
+        transition: max-height .35s ease,
+                    padding .35s ease;
+    }
+
+    .faq-item.active .faq-answer {
+        max-height: 500px;
+        padding: 0 22px 20px;
+    }
+
+    .faq-item.active .faq-question i {
+        transform: rotate(180deg);
+    }
+
+    /* ==========================================================
+       CTA
+    ========================================================== */
+
+    .cta-section {
+        position: relative;
+        overflow: hidden;
+
+        padding: 80px 0;
+
+        background: var(--secondary);
+        color: #fff;
+
+        text-align: center;
+    }
+
+    .cta-content {
+        max-width: 720px;
+        margin-inline: auto;
+    }
+
+    .cta-content h2 {
+        margin-bottom: 16px;
+
+        font-size: clamp(2rem, 4vw, 2.8rem);
+    }
+
+    .cta-content p {
+        margin-bottom: 30px;
+
+        color: rgba(255,255,255,.65);
+    }
+
+    .cta-actions {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 14px;
+    }
+
+    /* ==========================================================
+       CONTACT
+    ========================================================== */
+
+    .contact-section {
+        background: #fff;
+    }
+
+    .contact-card {
+        max-width: 820px;
+        margin-inline: auto;
+
+        padding: 45px;
+
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+
+        background: #fff;
+        box-shadow: var(--shadow);
+    }
+
+    .form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 20px;
+    }
+
+    .form-group {
+        margin-bottom: 18px;
+    }
+
+    .form-group label {
+        display: block;
+
+        margin-bottom: 6px;
+
+        font-size: .88rem;
+        font-weight: 700;
+    }
+
+    .required {
+        color: var(--danger);
+    }
+
+    .form-control {
+        width: 100%;
+
+        padding: 12px 15px;
+
+        border: 1px solid var(--border);
+        border-radius: var(--radius-sm);
+
+        background: var(--background);
+        color: var(--text);
+
+        transition: border-color var(--transition),
+                    box-shadow var(--transition);
+    }
+
+    .form-control:focus {
+        outline: none;
+
+        border-color: var(--primary);
+
+        box-shadow: 0 0 0 4px rgba(30,79,216,.08);
+    }
+
+    textarea.form-control {
+        resize: vertical;
+        min-height: 120px;
+    }
+
+    .alert {
+        display: none;
+
+        margin-bottom: 18px;
+        padding: 14px 18px;
+
+        border-radius: var(--radius-sm);
+
+        font-weight: 600;
+    }
+
+    .alert.show {
+        display: block;
+    }
+
+    .alert-success {
+        background: #d1fae5;
+        border-left: 4px solid var(--success);
+        color: #065f46;
+    }
+
+    .alert-error {
+        background: #fee2e2;
+        border-left: 4px solid var(--danger);
+        color: #991b1b;
+    }
+
+    .form-note {
+        margin-top: 12px;
+
+        color: var(--text-muted);
+        font-size: .78rem;
+    }
+
+    /* ==========================================================
+       FOOTER
+    ========================================================== */
+
+    .footer {
+        padding: 60px 0 25px;
+
+        background: var(--secondary);
+        color: rgba(255,255,255,.5);
+    }
+
+    .footer-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr 1fr 1fr;
+        gap: 45px;
+
+        padding-bottom: 40px;
+
+        border-bottom: 1px solid rgba(255,255,255,.06);
+    }
+
+    .footer h3,
+    .footer h4 {
+        margin-bottom: 12px;
+        color: #fff;
+    }
+
+    .footer-brand p {
+        max-width: 330px;
+
+        font-size: .88rem;
+        line-height: 1.7;
+    }
+
+    .footer-links a {
+        display: block;
+
+        margin-bottom: 8px;
+
+        color: rgba(255,255,255,.42);
+
+        font-size: .84rem;
+    }
+
+    .footer-links a:hover {
+        color: #fff;
+    }
+
+    .footer-contact {
+        display: grid;
+        gap: 9px;
+    }
+
+    .footer-contact a {
+        color: rgba(255,255,255,.42);
+        font-size: .84rem;
+    }
+
+    .footer-contact a:hover {
+        color: #fff;
+    }
+
+    .social-links {
+        display: flex;
+        gap: 9px;
+
+        margin-top: 18px;
+    }
+
+    .social-link {
+        width: 36px;
+        height: 36px;
+
+        display: grid;
+        place-items: center;
+
+        border-radius: 50%;
+
+        background: rgba(255,255,255,.05);
+        color: rgba(255,255,255,.45);
+
+        transition: all var(--transition);
+    }
+
+    .social-link:hover {
+        background: var(--primary);
+        color: #fff;
+        transform: translateY(-2px);
+    }
+
+    .footer-bottom {
+        padding-top: 22px;
+
+        color: rgba(255,255,255,.25);
+
+        font-size: .78rem;
+        text-align: center;
+    }
+
+    /* ==========================================================
+       WHATSAPP
+    ========================================================== */
+
+    .whatsapp-float {
+        position: fixed;
+
+        right: 22px;
+        bottom: 22px;
+        z-index: 900;
+
+        width: 56px;
+        height: 56px;
+
+        display: grid;
+        place-items: center;
+
+        border-radius: 50%;
+
+        background: #25d366;
+        color: #fff;
+
+        font-size: 1.9rem;
+
+        box-shadow: 0 8px 30px rgba(37,211,102,.3);
+
+        transition: transform var(--transition);
+    }
+
+    .whatsapp-float:hover {
+        transform: scale(1.08);
+    }
+
+    /* ==========================================================
+       ANIMATION
+    ========================================================== */
+
+    .animate {
+        opacity: 0;
+        transform: translateY(25px);
+        transition: opacity .7s ease,
+                    transform .7s ease;
+    }
+
+    .animate.visible {
+        opacity: 1;
+        transform: translateY(0);
+    }
+
+    /* ==========================================================
+       RESPONSIVE
+    ========================================================== */
+
+    @media (max-width: 1100px) {
+
+        .hero-grid-layout {
+            gap: 40px;
         }
 
-        /* ============================================================
-           RESET & BASE
-           ============================================================ */
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        html { scroll-behavior: smooth; }
-        body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            overflow-x: hidden;
-        }
-        a { text-decoration: none; color: inherit; }
-        .container { max-width: var(--max-width); margin: 0 auto; padding: 0 32px; }
-        h1, h2, h3,
-        .section-title,
-        .cta-box h2,
-        .calendar-promo-content h2,
-        .about-content h3,
-        .logo-text .brand,
-        .footer-brand h4 {
-            font-family: var(--font-display);
-            font-weight: 600;
-        }
-        a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible {
-            outline: 2px solid var(--accent);
-            outline-offset: 3px;
-        }
-        @media (prefers-reduced-motion: reduce) {
-            *, *::before, *::after {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-                scroll-behavior: auto !important;
-            }
+        .process-grid {
+            grid-template-columns: repeat(3, 1fr);
         }
 
-        /* ============================================================
-           UTILITY
-           ============================================================ */
-        .text-gradient {
-            background: linear-gradient(135deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .section-tag {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-family: var(--font-display);
-            font-style: italic;
-            font-weight: 600;
-            font-size: 1.05rem;
-            color: var(--accent);
-            margin-bottom: 14px;
-        }
-        .section-tag::before {
-            content: '';
-            display: inline-block;
-            width: 26px;
-            height: 2px;
-            background: var(--accent);
-        }
-        .section-title {
-            font-size: 2.6rem;
-            font-weight: 600;
-            line-height: 1.15;
-            letter-spacing: -0.5px;
-            margin-bottom: 16px;
-        }
-        .section-title .highlight { color: var(--primary); }
-        .section-sub {
-            font-size: 1.1rem;
-            color: var(--text-secondary);
-            max-width: 600px;
-            line-height: 1.7;
-        }
-        .section-center { text-align: center; }
-        .section-center .section-sub { margin: 0 auto 48px; }
-
-        .animate-on-scroll {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-        }
-        .animate-on-scroll.visible {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        /* ============================================================
-           ANIMATIONS
-           ============================================================ */
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(40px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        @keyframes float {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-12px); }
-        }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.4; }
-        }
-        @keyframes glow {
-            0%, 100% { box-shadow: 0 0 20px rgba(37,99,235,0.1); }
-            50% { box-shadow: 0 0 40px rgba(37,99,235,0.2); }
-        }
-        @keyframes spin { to { transform: rotate(360deg); } }
-
-        /* ============================================================
-           NAVBAR
-           ============================================================ */
-        .navbar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 1000;
-            padding: 18px 0;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            background: transparent;
-        }
-        .navbar.scrolled {
-            background: rgba(255,255,255,0.96);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-            padding: 10px 0;
-        }
-        .navbar.scrolled .nav-link { color: var(--text); }
-        .navbar.scrolled .nav-link:hover { color: var(--primary); }
-        .navbar.scrolled .logo-text .brand { color: var(--text); }
-        .navbar.scrolled .logo-text .sub { color: var(--text-light); }
-        .navbar.scrolled .mobile-menu-btn { color: var(--text); }
-
-        .nav-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 32px;
-        }
-
-        .logo { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
-        .logo-icon-text {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 900;
-            font-size: 1.1rem;
-            letter-spacing: -0.5px;
-            flex-shrink: 0;
-            transition: transform 0.3s ease;
-            box-shadow: 0 4px 16px rgba(37,99,235,0.25);
-        }
-        .logo-icon-text:hover { transform: scale(1.05); }
-        .logo-text { display: flex; flex-direction: column; line-height: 1.1; }
-        .logo-text .brand {
-            font-weight: 800;
-            font-size: 1.3rem;
-            letter-spacing: -0.5px;
-            color: white;
-            transition: color 0.3s ease;
-        }
-        .logo-text .brand span { color: var(--primary-light); }
-        .logo-text .sub {
-            font-size: 0.55rem;
-            font-weight: 400;
-            color: rgba(255,255,255,0.5);
-            letter-spacing: 0.8px;
-            text-transform: uppercase;
-            transition: color 0.3s ease;
-        }
-
-        .nav-links { display: flex; align-items: center; gap: 28px; }
-        .nav-link {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: rgba(255,255,255,0.75);
-            transition: color 0.3s ease;
-            position: relative;
-        }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -4px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
-        }
-        .nav-link:hover::after { width: 100%; }
-        .nav-link:hover { color: white; }
-        .btn-nav {
-            background: var(--primary);
-            color: white !important;
-            padding: 10px 28px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-        }
-        .btn-nav::after { display: none !important; }
-        .btn-nav:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
-        }
-        .mobile-menu-btn {
+        .process-arrow {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            color: white;
-            cursor: pointer;
-            padding: 4px;
-            transition: color 0.3s ease;
         }
 
-        /* ============================================================
-           HERO
-           ============================================================ */
-        .hero {
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            background: var(--secondary);
-            overflow: hidden;
-            padding: 140px 0 80px;
-        }
-        .hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background:
-                radial-gradient(ellipse at 20% 50%, rgba(37,99,235,0.12) 0%, transparent 60%),
-                radial-gradient(ellipse at 80% 20%, rgba(124,58,237,0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 60% 80%, rgba(37,99,235,0.06) 0%, transparent 40%);
-            z-index: 1;
-        }
-        .hero .container {
-            position: relative;
-            z-index: 2;
-            display: grid;
+        .footer-grid {
             grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
+        }
+    }
+
+    @media (max-width: 900px) {
+
+        .nav-links {
+            position: absolute;
+            top: calc(100% + 8px);
+            left: 20px;
+            right: 20px;
+
+            display: none;
+            flex-direction: column;
+            align-items: stretch;
+
+            padding: 22px;
+
+            border-radius: var(--radius);
+
+            background: #fff;
+            box-shadow: var(--shadow-lg);
         }
 
-        .hero-content { animation: fadeUp 1s ease; }
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(37,99,235,0.12);
-            color: var(--primary-light);
-            padding: 8px 20px;
-            border-radius: var(--radius-full);
-            font-size: 0.75rem;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-            border: 1px solid rgba(37,99,235,0.15);
-            margin-bottom: 28px;
-            animation: glow 3s ease-in-out infinite;
-        }
-        .hero-badge .dot {
-            width: 8px;
-            height: 8px;
-            background: var(--success);
-            border-radius: 50%;
-            animation: pulse 2s infinite;
+        .nav-links.active {
+            display: flex;
         }
 
-        .hero h1 {
-            font-size: 3.8rem;
-            font-weight: 900;
-            line-height: 1.08;
-            letter-spacing: -2px;
-            color: white;
-            margin-bottom: 20px;
+        .nav-link {
+            color: var(--text) !important;
+            padding: 8px 0;
         }
-        .hero h1 .highlight {
-            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .hero p {
-            font-size: 1.15rem;
-            color: rgba(255,255,255,0.7);
-            line-height: 1.8;
-            margin-bottom: 32px;
-            max-width: 560px;
-        }
-        .hero-buttons { display: flex; flex-wrap: wrap; gap: 16px; }
 
-        .btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 12px;
-            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
-            color: white;
-            padding: 18px 40px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: none;
-            cursor: pointer;
-            box-shadow: 0 4px 20px rgba(37,99,235,0.3);
+        .btn-nav {
+            text-align: center;
         }
-        .btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 12px 40px rgba(37,99,235,0.4);
-        }
-        .btn-primary i { transition: transform 0.3s ease; }
-        .btn-primary:hover i { transform: translateX(4px); }
 
-        .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.06);
-            color: white;
-            padding: 18px 36px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.1);
-            cursor: pointer;
+        .mobile-menu-btn {
+            display: block;
         }
-        .btn-secondary:hover {
-            background: rgba(255,255,255,0.12);
-            transform: translateY(-3px);
-            border-color: rgba(255,255,255,0.2);
+
+        .hero-grid-layout {
+            grid-template-columns: 1fr;
+            text-align: center;
+        }
+
+        .hero-description {
+            margin-inline: auto;
+        }
+
+        .hero-buttons {
+            justify-content: center;
         }
 
         .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            margin-top: 48px;
-            padding-top: 40px;
-            border-top: 1px solid rgba(255,255,255,0.06);
+            text-align: center;
         }
-        .hero-stat .number {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: white;
-            display: block;
-            line-height: 1.2;
+
+        .service-grid,
+        .featured-grid,
+        .testimonials-grid {
+            grid-template-columns: 1fr 1fr;
         }
-        .hero-stat .number .plus { color: var(--primary-light); }
-        .hero-stat .label {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.5);
+
+        .why-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+
+        .about-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .calendar-promo-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .stats-grid {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (max-width: 650px) {
+
+        .container,
+        .nav-container {
+            width: min(100% - 30px, var(--max-width));
+        }
+
+        .hero {
+            padding: 120px 0 60px;
+        }
+
+        .hero h1 {
+            letter-spacing: -1px;
+        }
+
+        .hero-stats {
+            grid-template-columns: 1fr 1fr;
         }
 
         .hero-visual {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            animation: fadeUp 1s ease 0.3s both;
-            position: relative;
-        }
-        .hero-visual .orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(60px);
-            opacity: 0.3;
-        }
-        .hero-visual .orb-1 {
-            width: 300px;
-            height: 300px;
-            background: var(--primary);
-            top: -50px;
-            right: -50px;
-            animation: float 8s ease-in-out infinite;
-        }
-        .hero-visual .orb-2 {
-            width: 200px;
-            height: 200px;
-            background: var(--accent);
-            bottom: -30px;
-            left: -30px;
-            animation: float 10s ease-in-out infinite reverse;
-        }
-        .hero-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 16px;
-            width: 100%;
-            max-width: 480px;
-            position: relative;
-            z-index: 1;
-        }
-        .hero-grid-item {
-            aspect-ratio: 1;
-            background: rgba(255,255,255,0.03);
-            border-radius: var(--radius);
-            border: 1px solid rgba(255,255,255,0.06);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2.4rem;
-            transition: all 0.4s ease;
-            animation: float 6s ease-in-out infinite;
-            backdrop-filter: blur(4px);
-        }
-        .hero-grid-item:nth-child(2) { animation-delay: 0.5s; }
-        .hero-grid-item:nth-child(3) { animation-delay: 1s; }
-        .hero-grid-item:nth-child(4) { animation-delay: 1.5s; }
-        .hero-grid-item:nth-child(5) { animation-delay: 2s; }
-        .hero-grid-item:nth-child(6) { animation-delay: 2.5s; }
-        .hero-grid-item:nth-child(7) { animation-delay: 3s; }
-        .hero-grid-item:nth-child(8) { animation-delay: 3.5s; }
-        .hero-grid-item:nth-child(9) { animation-delay: 4s; }
-        .hero-grid-item:hover {
-            background: rgba(37,99,235,0.12);
-            border-color: rgba(37,99,235,0.2);
-            transform: scale(1.08);
-            box-shadow: 0 8px 32px rgba(37,99,235,0.1);
+            display: none;
         }
 
-        /* ============================================================
-           QUICK LINKS (replaces Services section)
-           ============================================================ */
-        .quicklinks-section { padding: 80px 0; background: white; }
-        .quicklinks-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .quicklink-card {
-            display: flex;
-            flex-direction: column;
-            background: var(--bg);
-            border-radius: var(--radius);
-            padding: 40px 32px;
-            border: 1px solid var(--border);
-            border-top: 3px solid var(--primary);
-            transition: all 0.4s ease;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-        .quicklink-card:hover {
-            transform: translateY(-6px);
-            box-shadow: var(--shadow-lg);
-            border-top-color: var(--accent);
-        }
-        .quicklink-card .icon {
-            font-size: 3rem;
-            margin-bottom: 18px;
-            line-height: 1;
-        }
-        .quicklink-card h3 {
-            font-size: 1.5rem;
-            font-weight: 700;
-            margin-bottom: 10px;
-        }
-        .quicklink-card p {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-            margin-bottom: 22px;
-            flex-grow: 1;
-        }
-        .quicklink-card .link-cta {
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 700;
-            font-size: 0.9rem;
-            color: var(--primary);
-            transition: all 0.3s ease;
-        }
-        .quicklink-card .link-cta i {
-            transition: transform 0.3s ease;
-        }
-        .quicklink-card:hover .link-cta {
-            color: var(--accent);
-        }
-        .quicklink-card:hover .link-cta i {
-            transform: translateX(6px);
-        }
-        .quicklink-card::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            right: 0;
-            height: 0;
-            background: linear-gradient(135deg, rgba(37,99,235,0.03), rgba(185,134,46,0.03));
-            transition: height 0.4s ease;
-        }
-        .quicklink-card:hover::after { height: 100%; }
-        .quicklink-card > * { position: relative; z-index: 1; }
-
-        /* ============================================================
-           WHY CHOOSE US
-           ============================================================ */
-        .why-section { background: var(--bg); padding: 80px 0; }
-        .why-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .why-card {
-            text-align: center;
-            padding: 32px 24px;
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            transition: all 0.4s ease;
-            background: var(--bg-card);
-        }
-        .why-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        .why-card .icon { font-size: 2.4rem; margin-bottom: 12px; }
-        .why-card h4 { font-weight: 700; margin-bottom: 4px; }
-        .why-card p { font-size: 0.9rem; color: var(--text-secondary); }
-
-        /* ============================================================
-           STATS SECTION
-           ============================================================ */
-        .stats-section {
-            background: var(--secondary);
-            padding: 60px 0;
-            color: white;
-        }
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 32px;
-            text-align: center;
-        }
-        .stat-item .number {
-            font-size: 2.6rem;
-            font-weight: 800;
-            display: block;
-            line-height: 1.1;
-        }
-        .stat-item .label {
-            font-size: 0.95rem;
-            color: rgba(255,255,255,0.5);
-            margin-top: 4px;
-        }
-
-        /* ============================================================
-           CALENDAR PROMO BANNER
-           ============================================================ */
-        .calendar-promo {
-            background: linear-gradient(135deg, var(--secondary), #1a2a4a);
-            padding: 70px 0;
-            position: relative;
-            overflow: hidden;
-        }
-        .calendar-promo::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 70% 50%, rgba(37,99,235,0.15) 0%, transparent 60%);
-        }
-        .calendar-promo-inner {
-            position: relative;
-            z-index: 1;
-            display: grid;
-            grid-template-columns: 1.3fr 1fr;
-            gap: 60px;
-            align-items: center;
-        }
-        .calendar-promo-content .section-tag { color: var(--accent-light); }
-        .calendar-promo-content .section-tag::before { background: var(--accent-light); }
-        .calendar-promo-content h2 {
-            font-size: 2.4rem;
-            font-weight: 800;
-            color: white;
-            line-height: 1.15;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
-        }
-        .calendar-promo-content h2 .highlight {
-            background: linear-gradient(135deg, var(--primary-light), var(--accent-light));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .calendar-promo-content p {
-            color: rgba(255,255,255,0.65);
-            font-size: 1.05rem;
-            line-height: 1.7;
-            margin-bottom: 24px;
-        }
-        .calendar-promo-actions {
-            display: flex;
-            gap: 12px;
-            flex-wrap: wrap;
-        }
-        .calendar-promo-visual {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 12px;
-        }
-        .cal-month-preview {
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.1);
-            border-radius: 12px;
-            padding: 16px 12px;
-            text-align: center;
-            backdrop-filter: blur(4px);
-            transition: all 0.3s ease;
-        }
-        .cal-month-preview:hover {
-            background: rgba(37,99,235,0.2);
-            border-color: rgba(37,99,235,0.4);
-            transform: translateY(-3px);
-        }
-        .cal-month-preview .m-name {
-            font-size: 0.85rem;
-            font-weight: 700;
-            color: white;
-        }
-        .cal-month-preview .m-emoji {
-            font-size: 1.4rem;
-            margin-top: 4px;
-        }
-
-        /* ============================================================
-           FEATURED TRAINING SESSIONS
-           ============================================================ */
-        .featured-section { padding: 100px 0; background: white; }
-        .featured-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .featured-card {
-            background: var(--bg);
-            border-radius: var(--radius);
-            border: 1px solid var(--border);
-            padding: 28px;
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-        }
-        .featured-card:hover {
-            transform: translateY(-3px);
-            box-shadow: var(--shadow-lg);
-        }
-        .featured-card .badge-row {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 14px;
-        }
-        .featured-card .service-badge {
-            display: inline-block;
-            font-size: 0.65rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            padding: 4px 12px;
-            border-radius: 999px;
-            letter-spacing: 0.4px;
-        }
-        .featured-card .service-badge.education  { background: #dbeafe; color: #1d4ed8; }
-        .featured-card .service-badge.roadsafety { background: #fef3c7; color: #b45309; }
-        .featured-card .service-badge.osh        { background: #ede9fe; color: #7c3aed; }
-        .featured-card .status-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-            background: var(--success);
-            animation: pulse 2s infinite;
-        }
-        .featured-card h4 {
-            font-size: 1.15rem;
-            font-weight: 700;
-            margin-bottom: 12px;
-            line-height: 1.35;
-        }
-        .featured-card .meta {
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            font-size: 0.85rem;
-            color: var(--text-secondary);
-            margin-bottom: 18px;
-            flex-grow: 1;
-        }
-        .featured-card .meta span {
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .featured-card .meta i {
-            color: var(--primary);
-            width: 16px;
-            font-size: 0.8rem;
-        }
-        .featured-card .meta .price {
-            color: var(--success);
-            font-weight: 800;
-        }
-        .featured-card .seats-bar {
-            height: 6px;
-            background: var(--border);
-            border-radius: 999px;
-            overflow: hidden;
-            margin-bottom: 6px;
-        }
-        .featured-card .seats-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--accent));
-            border-radius: 999px;
-            transition: width 0.6s ease;
-        }
-        .featured-card .seats-label {
-            font-size: 0.7rem;
-            color: var(--text-light);
-            font-weight: 500;
-            margin-bottom: 14px;
-        }
-        .featured-card .btn-register {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 8px;
-            background: var(--primary);
-            color: white;
-            padding: 12px 24px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 0.88rem;
-            border: none;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin-top: auto;
-            width: 100%;
-        }
-        .featured-card .btn-register:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.3);
-        }
-        .featured-card .btn-register:disabled {
-            background: var(--text-light);
-            cursor: not-allowed;
-            transform: none;
-            box-shadow: none;
-        }
-        .featured-empty {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 24px;
-            color: var(--text-secondary);
-        }
-        .featured-empty i {
-            font-size: 3rem;
-            color: var(--text-light);
-            margin-bottom: 12px;
-        }
-        .featured-loading {
-            grid-column: 1 / -1;
-            text-align: center;
-            padding: 60px 24px;
-            color: var(--text-secondary);
-        }
-        .featured-loading i {
-            font-size: 2rem;
-            color: var(--primary);
-            animation: spin 1s linear infinite;
-            margin-bottom: 12px;
-        }
-
-        /* ============================================================
-           ABOUT
-           ============================================================ */
-        .about-section { padding: 100px 0; background: var(--bg); }
-        .about-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 80px;
-            align-items: center;
-        }
-        .about-content h3 {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 16px;
-        }
-        .about-content p {
-            color: var(--text-secondary);
-            margin-bottom: 16px;
-            line-height: 1.8;
-        }
-        .about-values {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-            margin-top: 24px;
-        }
-        .about-value {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-weight: 500;
-        }
-        .about-value i { color: var(--primary); }
-        .about-image {
-            background: linear-gradient(135deg, var(--primary-bg), #e0e7ff);
-            border-radius: var(--radius);
-            padding: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 8rem;
-            border: 1px solid rgba(37,99,235,0.06);
-            position: relative;
-            overflow: hidden;
-        }
-        .about-image::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(circle at 30% 40%, rgba(37,99,235,0.05) 0%, transparent 60%);
-        }
-
-        /* ============================================================
-           PROCESS
-           ============================================================ */
-        .process-section { padding: 100px 0; background: white; }
-        .process-grid {
-            display: grid;
-            grid-template-columns: repeat(6, 1fr);
-            gap: 16px;
-        }
-        .process-step {
-            text-align: center;
-            padding: 24px 16px;
-            position: relative;
-        }
-        .process-step .number {
-            width: 48px;
-            height: 48px;
-            background: var(--primary);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 800;
-            font-size: 1rem;
-            margin: 0 auto 12px;
-        }
-        .process-step .arrow {
-            position: absolute;
-            right: -12px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--text-light);
-            font-size: 1.2rem;
-        }
-        .process-step:last-child .arrow { display: none; }
-        .process-step h4 { font-weight: 600; font-size: 0.85rem; margin-bottom: 2px; }
-        .process-step p { font-size: 0.75rem; color: var(--text-secondary); }
-
-        /* ============================================================
-           TESTIMONIALS
-           ============================================================ */
-        .testimonials-section { padding: 100px 0; background: var(--bg); }
+        .service-grid,
+        .featured-grid,
+        .why-grid,
         .testimonials-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 24px;
-        }
-        .testimonial-card {
-            background: white;
-            border-radius: var(--radius);
-            padding: 32px;
-            border: 1px solid var(--border);
-            transition: all 0.4s ease;
-        }
-        .testimonial-card:hover {
-            box-shadow: var(--shadow-lg);
-            transform: translateY(-3px);
-        }
-        .testimonial-card .stars { color: var(--gold); margin-bottom: 12px; }
-        .testimonial-card blockquote {
-            font-size: 0.95rem;
-            color: var(--text-secondary);
-            line-height: 1.8;
-            font-style: italic;
-            margin-bottom: 16px;
-        }
-        .testimonial-card .author {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-        }
-        .testimonial-card .author .avatar {
-            width: 44px;
-            height: 44px;
-            border-radius: 50%;
-            background: var(--primary-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            color: var(--primary);
-        }
-        .testimonial-card .author .name { font-weight: 600; }
-        .testimonial-card .author .role {
-            font-size: 0.8rem;
-            color: var(--text-secondary);
+            grid-template-columns: 1fr;
         }
 
-        /* ============================================================
-           PARTNERS
-           ============================================================ */
-        .partners-section { padding: 60px 0; background: white; }
-        .partners-grid {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 40px;
-        }
-        .partner-item {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            font-weight: 600;
-            color: var(--text-secondary);
-            font-size: 1rem;
-        }
-        .partner-item i { font-size: 1.8rem; color: var(--primary); }
-
-        /* ============================================================
-           FAQ
-           ============================================================ */
-        .faq-section { padding: 100px 0; background: var(--bg); }
-        .faq-grid { max-width: 800px; margin: 0 auto; }
-        .faq-item {
-            background: white;
-            border-radius: var(--radius-sm);
-            padding: 20px 24px;
-            margin-bottom: 12px;
-            border: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.3s ease;
-        }
-        .faq-item:hover { border-color: var(--primary); }
-        .faq-item .question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            font-weight: 600;
-        }
-        .faq-item .question i {
-            color: var(--primary);
-            transition: transform 0.3s ease;
-        }
-        .faq-item .answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-        .faq-item.active .answer {
-            max-height: 400px;
-            padding-top: 16px;
-        }
-        .faq-item.active .question i { transform: rotate(180deg); }
-
-        /* ============================================================
-           CTA
-           ============================================================ */
-        .cta-section {
-            padding: 80px 0;
-            background: var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: radial-gradient(ellipse at 30% 50%, rgba(37,99,235,0.08) 0%, transparent 70%);
-        }
-        .cta-box {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-        .cta-box h2 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            color: white;
-            line-height: 1.1;
-            margin-bottom: 16px;
-        }
-        .cta-box p {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 32px;
-            line-height: 1.7;
-        }
-
-        /* ============================================================
-           CONTACT FORM
-           ============================================================ */
-        .contact-section { padding: 100px 0; background: white; }
-        .form-card {
-            max-width: 800px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            border-radius: var(--radius);
-            padding: 48px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-        }
-        .form-card .form-group { margin-bottom: 18px; }
-        .form-card label {
-            font-weight: 600;
-            font-size: 0.9rem;
-            display: block;
-            margin-bottom: 4px;
-            color: var(--text);
-        }
-        .form-card label .required { color: #ef4444; }
-        .form-card input,
-        .form-card select,
-        .form-card textarea {
-            width: 100%;
-            padding: 12px 16px;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 1rem;
-            background: var(--bg);
-            color: var(--text);
-            transition: all 0.3s ease;
-        }
-        .form-card input:focus,
-        .form-card select:focus,
-        .form-card textarea:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(37,99,235,0.08);
-            background: white;
-        }
-        .form-card .form-row {
-            display: grid;
+        .process-grid {
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .form-card .btn-submit {
-            background: var(--primary);
-            color: white;
-            padding: 14px 40px;
-            border: none;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            margin-top: 8px;
-        }
-        .form-card .btn-submit:hover {
-            background: var(--primary-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(37,99,235,0.25);
-        }
-        .form-card .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-        .form-card .alert-success {
-            background: #d1fae5;
-            color: #065f46;
-            padding: 14px 20px;
-            border-radius: var(--radius-sm);
-            display: none;
-            margin-bottom: 16px;
-            font-weight: 500;
-            border-left: 4px solid var(--success);
-        }
-        .form-card .alert-success.show {
-            display: block;
-            animation: fadeUp 0.4s ease;
-        }
-        .form-card .alert-error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 14px 20px;
-            border-radius: var(--radius-sm);
-            display: none;
-            margin-bottom: 16px;
-            font-weight: 500;
-            border-left: 4px solid #ef4444;
-        }
-        .form-card .alert-error.show {
-            display: block;
-            animation: fadeUp 0.4s ease;
         }
 
-        /* ============================================================
-           FOOTER
-           ============================================================ */
-        .footer {
-            background: var(--secondary);
-            color: rgba(255,255,255,0.5);
-            padding: 60px 0 24px;
-            border-top: 1px solid rgba(255,255,255,0.04);
+        .stats-grid {
+            grid-template-columns: 1fr 1fr;
         }
+
+        .form-row {
+            grid-template-columns: 1fr;
+            gap: 0;
+        }
+
+        .contact-card {
+            padding: 25px 18px;
+        }
+
         .footer-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 48px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.04);
-        }
-        .footer-brand h4 {
-            color: white;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-        .footer-brand h4 span { color: var(--primary-light); }
-        .footer-brand p {
-            max-width: 300px;
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-        .footer-col h4 {
-            color: white;
-            font-weight: 600;
-            font-size: 0.9rem;
-            margin-bottom: 12px;
-        }
-        .footer-col a {
-            display: block;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            transition: color 0.3s ease;
-        }
-        .footer-col a:hover { color: white; }
-        .footer-col .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 8px;
-        }
-        .footer-col .contact-item i { width: 18px; color: var(--primary-light); }
-        .footer-col .hours {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.3);
-            margin-top: 4px;
-        }
-        .social-links { display: flex; gap: 12px; margin-top: 12px; }
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.04);
-            color: rgba(255,255,255,0.3);
-            transition: all 0.3s ease;
-        }
-        .social-links a:hover {
-            background: var(--primary);
-            color: white;
-            transform: translateY(-2px);
-        }
-        .footer-bottom {
-            text-align: center;
-            padding-top: 24px;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.2);
+            grid-template-columns: 1fr;
+            gap: 30px;
         }
 
-        /* ============================================================
-           WHATSAPP FLOAT
-           ============================================================ */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #25d366;
-            color: white;
-            width: 56px;
-            height: 56px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 8px 30px rgba(37,211,102,0.3);
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-        .whatsapp-float:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 40px rgba(37,211,102,0.4);
+        .month-grid {
+            grid-template-columns: repeat(3, 1fr);
         }
 
-        /* ============================================================
-           RESPONSIVE
-           ============================================================ */
-        @media (max-width: 1200px) {
-            .hero h1 { font-size: 3rem; }
-            .quicklinks-grid { grid-template-columns: 1fr 1fr; }
-            .featured-grid { grid-template-columns: 1fr 1fr; }
-            .testimonials-grid { grid-template-columns: 1fr 1fr; }
-            .process-grid { grid-template-columns: repeat(3, 1fr); }
-            .process-step .arrow { display: none; }
-            .calendar-promo-inner { grid-template-columns: 1fr; gap: 40px; }
+        .about-values {
+            grid-template-columns: 1fr;
         }
-        @media (max-width: 992px) {
-            .hero .container { grid-template-columns: 1fr; text-align: center; }
-            .hero p { margin: 0 auto 32px; }
-            .hero-buttons { justify-content: center; }
-            .hero-stats { justify-items: center; }
-            .hero-grid { max-width: 360px; margin: 0 auto; }
-            .hero-visual .orb { display: none; }
-            .about-grid { grid-template-columns: 1fr; gap: 40px; }
-            .stats-grid { grid-template-columns: repeat(2, 1fr); }
-            .footer-grid { grid-template-columns: 1fr 1fr; }
-            .hero h1 { font-size: 2.4rem; }
-            .form-card { padding: 32px 24px; }
-            .form-card .form-row { grid-template-columns: 1fr; }
-            .why-grid { grid-template-columns: 1fr 1fr; }
-            .calendar-promo-content h2 { font-size: 1.8rem; }
-        }
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                background: white;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                padding: 24px;
-                box-shadow: var(--shadow-lg);
-                gap: 16px;
-                border-radius: 0 0 var(--radius) var(--radius);
-            }
-            .nav-links.active { display: flex; }
-            .nav-link { color: var(--text) !important; }
-            .mobile-menu-btn { display: block; }
-            .container { padding: 0 20px; }
+    }
 
-            .hero { padding: 120px 0 60px; }
-            .hero h1 { font-size: 2rem; letter-spacing: -1px; }
-            .hero-stats { grid-template-columns: repeat(2, 1fr); gap: 20px; }
-            .hero-stat .number { font-size: 1.6rem; }
+    @media (max-width: 450px) {
 
-            .section-title { font-size: 2rem; }
-            .quicklinks-grid { grid-template-columns: 1fr; }
-            .featured-grid { grid-template-columns: 1fr; }
-            .testimonials-grid { grid-template-columns: 1fr; }
-            .process-grid { grid-template-columns: 1fr 1fr; }
-            .stats-grid { grid-template-columns: 1fr 1fr; }
-            .footer-grid { grid-template-columns: 1fr; gap: 32px; }
-            .why-grid { grid-template-columns: 1fr; }
-            .about-values { grid-template-columns: 1fr; }
-            .cta-box h2 { font-size: 2rem; }
-            .form-card { padding: 24px 16px; }
-            .calendar-promo { padding: 40px 0; }
-            .calendar-promo-visual { grid-template-columns: repeat(3, 1fr); }
+        .hero-buttons,
+        .calendar-actions,
+        .cta-actions {
+            flex-direction: column;
         }
-        @media (max-width: 480px) {
-            .hero h1 { font-size: 1.6rem; }
-            .hero-buttons { flex-direction: column; align-items: center; }
-            .btn-primary, .btn-secondary { width: 100%; justify-content: center; }
-            .stats-grid { grid-template-columns: 1fr; }
-            .section-title { font-size: 1.6rem; }
-            .hero-stats { grid-template-columns: 1fr 1fr; gap: 12px; }
-            .process-grid { grid-template-columns: 1fr; }
-            .calendar-promo-visual { grid-template-columns: 1fr 1fr; }
+
+        .btn {
+            width: 100%;
         }
-    </style>
+
+        .hero-stats {
+            gap: 12px;
+        }
+
+        .hero-stat-number {
+            font-size: 1.5rem;
+        }
+
+        .process-grid {
+            grid-template-columns: 1fr;
+        }
+
+        .month-grid {
+            grid-template-columns: 1fr 1fr;
+        }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+
+        *,
+        *::before,
+        *::after {
+            scroll-behavior: auto !important;
+            animation-duration: .01ms !important;
+            animation-iteration-count: 1 !important;
+            transition-duration: .01ms !important;
+        }
+    }
+</style>
+```
+
 </head>
+
 <body>
 
-    <!-- ============================================================
-    NAVBAR
-    ============================================================ -->
-    <nav class="navbar" id="navbar">
-        <div class="nav-container">
-            <a href="index.html" class="logo">
-                <div class="logo-icon-text">MEI</div>
-                <div class="logo-text">
-                    <span class="brand">MEI <span>Group</span></span>
-                    <span class="sub">division of MEI Press Holdings Ltd.</span>
-                </div>
+<!-- ==========================================================
+     NAVIGATION
+========================================================== -->
+
+<header>
+    <nav class="navbar" id="navbar" aria-label="Main navigation">
+
+```
+    <div class="nav-container">
+
+        <a href="index.html"
+           class="logo"
+           aria-label="MEI Group home">
+
+            <div class="logo-icon" aria-hidden="true">MEI</div>
+
+            <div class="logo-text">
+                <span class="logo-brand">
+                    MEI <span>Group</span>
+                </span>
+
+                <span class="logo-sub">
+                    Division of MEI Press Holdings Ltd.
+                </span>
+            </div>
+
+        </a>
+
+        <button
+            type="button"
+            class="mobile-menu-btn"
+            id="mobileMenuBtn"
+            aria-label="Open navigation menu"
+            aria-expanded="false"
+            aria-controls="navLinks">
+
+            <i class="fas fa-bars" aria-hidden="true"></i>
+
+        </button>
+
+        <div class="nav-links" id="navLinks">
+
+            <a href="#about" class="nav-link">About</a>
+
+            <a href="education.html" class="nav-link">
+                Education
             </a>
 
-            <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
-                <i class="fas fa-bars"></i>
+            <a href="road-safety.html" class="nav-link">
+                Road Safety
+            </a>
+
+            <a href="occupational-safety.html" class="nav-link">
+                OSH
+            </a>
+
+            <a href="training-calendar.html" class="nav-link">
+                Calendar
+            </a>
+
+            <a href="#contact" class="btn-nav">
+                Contact Us
+            </a>
+
+        </div>
+
+    </div>
+
+</nav>
+```
+
+</header>
+
+<main>
+
+<!-- ==========================================================
+     HERO
+========================================================== -->
+
+<section class="hero" id="home">
+
+```
+<div class="container hero-grid-layout">
+
+    <div>
+
+        <div class="hero-badge">
+            <span class="dot" aria-hidden="true"></span>
+            Professional Education &amp; Training Solutions
+        </div>
+
+        <h1>
+            Professional Training,
+            <span class="highlight">
+                International Education
+            </span>
+            &amp; Workplace Safety
+        </h1>
+
+        <p class="hero-description">
+            MEI Group supports individuals, schools, businesses and
+            organizations through professional training, international
+            education consultancy, road safety and occupational safety
+            solutions.
+        </p>
+
+        <div class="hero-buttons">
+
+            <a href="training-calendar.html"
+               class="btn btn-primary">
+
+                <i class="fas fa-calendar-alt"
+                   aria-hidden="true"></i>
+
+                View Training Calendar
+
+            </a>
+
+            <a href="#contact"
+               class="btn btn-secondary">
+
+                <i class="fas fa-headset"
+                   aria-hidden="true"></i>
+
+                Contact Us
+
+            </a>
+
+        </div>
+
+        <div class="hero-stats">
+
+            <div>
+                <span class="hero-stat-number">12+</span>
+                <span class="hero-stat-label">
+                    Years Experience
+                </span>
+            </div>
+
+            <div>
+                <span class="hero-stat-number">100+</span>
+                <span class="hero-stat-label">
+                    Professionals Trained
+                </span>
+            </div>
+
+            <div>
+                <span class="hero-stat-number">50+</span>
+                <span class="hero-stat-label">
+                    Partner Institutions
+                </span>
+            </div>
+
+            <div>
+                <span class="hero-stat-number">95%</span>
+                <span class="hero-stat-label">
+                    Client Satisfaction
+                </span>
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="hero-visual" aria-hidden="true">
+
+        <div class="hero-orb one"></div>
+        <div class="hero-orb two"></div>
+
+        <div class="hero-icon-grid">
+
+            <div class="hero-icon-card">🎓</div>
+            <div class="hero-icon-card">🚸</div>
+            <div class="hero-icon-card">🏭</div>
+            <div class="hero-icon-card">🚗</div>
+            <div class="hero-icon-card">🌍</div>
+            <div class="hero-icon-card">📊</div>
+            <div class="hero-icon-card">💼</div>
+            <div class="hero-icon-card">🏆</div>
+            <div class="hero-icon-card">⭐</div>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     SERVICES
+========================================================== -->
+
+<section class="section section-white" id="services">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            Our Services
+        </span>
+
+        <h2 class="section-title">
+            Professional Solutions for
+            <span class="highlight">People &amp; Organizations</span>
+        </h2>
+
+        <p class="section-sub">
+            Explore our core service areas and find the solution
+            that meets your needs.
+        </p>
+
+    </div>
+
+
+    <div class="service-grid">
+
+        <a href="education.html"
+           class="service-card animate">
+
+            <div class="service-icon">🎓</div>
+
+            <h3>International Education</h3>
+
+            <p>
+                Study abroad consultancy, university applications,
+                admissions support and education guidance.
+            </p>
+
+            <span class="service-link">
+                Explore Education
+                <i class="fas fa-arrow-right"></i>
+            </span>
+
+        </a>
+
+
+        <a href="road-safety.html"
+           class="service-card animate">
+
+            <div class="service-icon">🚸</div>
+
+            <h3>Road Safety Training</h3>
+
+            <p>
+                Professional road safety education for drivers,
+                schools, transport companies and organizations.
+            </p>
+
+            <span class="service-link">
+                Explore Road Safety
+                <i class="fas fa-arrow-right"></i>
+            </span>
+
+        </a>
+
+
+        <a href="occupational-safety.html"
+           class="service-card animate">
+
+            <div class="service-icon">🏭</div>
+
+            <h3>Occupational Safety &amp; Health</h3>
+
+            <p>
+                Practical workplace safety training covering
+                First Aid, Fire Safety, OSH and related programs.
+            </p>
+
+            <span class="service-link">
+                Explore OSH
+                <i class="fas fa-arrow-right"></i>
+            </span>
+
+        </a>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     WHY MEI
+========================================================== -->
+
+<section class="section why-section">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            Why MEI Group
+        </span>
+
+        <h2 class="section-title">
+            Professional Support
+            <span class="highlight">From Start to Finish</span>
+        </h2>
+
+        <p class="section-sub">
+            We focus on practical solutions, professional guidance
+            and dependable client support.
+        </p>
+
+    </div>
+
+
+    <div class="why-grid">
+
+        <article class="why-card animate">
+            <div class="why-icon">👨‍🏫</div>
+            <h3>Experienced Team</h3>
+            <p>
+                Professional experience across education,
+                training and safety services.
+            </p>
+        </article>
+
+        <article class="why-card animate">
+            <div class="why-icon">🤝</div>
+            <h3>End-to-End Support</h3>
+            <p>
+                Support from consultation through completion
+                of your selected service.
+            </p>
+        </article>
+
+        <article class="why-card animate">
+            <div class="why-icon">🌍</div>
+            <h3>Local &amp; Global</h3>
+            <p>
+                Services and opportunities connecting Kenya
+                with international destinations.
+            </p>
+        </article>
+
+        <article class="why-card animate">
+            <div class="why-icon">✅</div>
+            <h3>Practical Training</h3>
+            <p>
+                Industry-focused programs designed around
+                real-world applications.
+            </p>
+        </article>
+
+        <article class="why-card animate">
+            <div class="why-icon">🎯</div>
+            <h3>Personalized Guidance</h3>
+            <p>
+                Solutions tailored to your goals,
+                requirements and circumstances.
+            </p>
+        </article>
+
+        <article class="why-card animate">
+            <div class="why-icon">⭐</div>
+            <h3>Professional Standards</h3>
+            <p>
+                We emphasize quality, integrity,
+                professionalism and responsible service.
+            </p>
+        </article>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     STATS
+========================================================== -->
+
+<section class="stats-section">
+
+```
+<div class="container">
+
+    <div class="stats-grid">
+
+        <div class="animate">
+            <span class="stat-number">12+</span>
+            <span class="stat-label">Years Experience</span>
+        </div>
+
+        <div class="animate">
+            <span class="stat-number">100+</span>
+            <span class="stat-label">Professionals Trained</span>
+        </div>
+
+        <div class="animate">
+            <span class="stat-number">50+</span>
+            <span class="stat-label">Partner Institutions</span>
+        </div>
+
+        <div class="animate">
+            <span class="stat-number">95%</span>
+            <span class="stat-label">Client Satisfaction</span>
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     ABOUT
+========================================================== -->
+
+<section class="section" id="about">
+
+```
+<div class="container about-grid">
+
+    <div class="about-content animate">
+
+        <span class="section-tag">
+            About MEI Group
+        </span>
+
+        <h2>
+            Empowering People.
+            <span class="text-gradient">
+                Building Careers.
+            </span>
+        </h2>
+
+        <p>
+            <strong>Who We Are:</strong>
+            MEI Group is a division of MEI Press Holdings Ltd.,
+            providing international education consultancy,
+            professional training, workplace safety and related
+            professional services.
+        </p>
+
+        <p>
+            <strong>Our Mission:</strong>
+            To connect people and organizations with practical
+            education, training and professional opportunities.
+        </p>
+
+        <p>
+            <strong>Our Vision:</strong>
+            To provide trusted professional education and training
+            solutions in Kenya and internationally.
+        </p>
+
+        <div class="about-values">
+
+            <span class="about-value">
+                <i class="fas fa-check-circle"></i>
+                Excellence
+            </span>
+
+            <span class="about-value">
+                <i class="fas fa-check-circle"></i>
+                Integrity
+            </span>
+
+            <span class="about-value">
+                <i class="fas fa-check-circle"></i>
+                Innovation
+            </span>
+
+            <span class="about-value">
+                <i class="fas fa-check-circle"></i>
+                Professionalism
+            </span>
+
+        </div>
+
+    </div>
+
+
+    <div class="about-visual animate"
+         aria-hidden="true">
+
+        🏢
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     TRAINING CALENDAR PROMOTION
+========================================================== -->
+
+<section class="calendar-promo">
+
+```
+<div class="container calendar-promo-grid">
+
+    <div>
+
+        <span class="section-tag"
+              style="color:var(--accent-light);">
+            Training Calendar
+        </span>
+
+        <h2>
+            Book Professional Training
+            <span class="text-gradient">
+                On Your Schedule
+            </span>
+        </h2>
+
+        <p>
+            Browse available training sessions and register
+            for courses including First Aid, Fire Safety,
+            Occupational Safety, Defensive Driving and
+            Fleet Safety.
+        </p>
+
+        <div class="calendar-actions">
+
+            <a href="training-calendar.html"
+               class="btn btn-primary">
+
+                <i class="fas fa-calendar-alt"></i>
+                View Calendar
+
+            </a>
+
+            <a href="training-registration.html"
+               class="btn btn-secondary">
+
+                <i class="fas fa-user-plus"></i>
+                Register Now
+
+            </a>
+
+        </div>
+
+    </div>
+
+
+    <div class="month-grid"
+         aria-hidden="true">
+
+        <div class="month-card">
+            <strong>JAN</strong>
+            <span>📅</span>
+        </div>
+
+        <div class="month-card">
+            <strong>FEB</strong>
+            <span>📚</span>
+        </div>
+
+        <div class="month-card">
+            <strong>MAR</strong>
+            <span>🌸</span>
+        </div>
+
+        <div class="month-card">
+            <strong>APR</strong>
+            <span>🌷</span>
+        </div>
+
+        <div class="month-card">
+            <strong>MAY</strong>
+            <span>🎓</span>
+        </div>
+
+        <div class="month-card">
+            <strong>JUN</strong>
+            <span>☀️</span>
+        </div>
+
+        <div class="month-card">
+            <strong>JUL</strong>
+            <span>🚗</span>
+        </div>
+
+        <div class="month-card">
+            <strong>AUG</strong>
+            <span>🏭</span>
+        </div>
+
+        <div class="month-card">
+            <strong>SEP</strong>
+            <span>⭐</span>
+        </div>
+
+        <div class="month-card">
+            <strong>OCT</strong>
+            <span>📖</span>
+        </div>
+
+        <div class="month-card">
+            <strong>NOV</strong>
+            <span>🦺</span>
+        </div>
+
+        <div class="month-card">
+            <strong>DEC</strong>
+            <span>🏆</span>
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     FEATURED TRAINING
+========================================================== -->
+
+<section class="section section-white"
+         id="featured">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            Featured Sessions
+        </span>
+
+        <h2 class="section-title">
+            Upcoming
+            <span class="highlight">
+                Training Sessions
+            </span>
+        </h2>
+
+        <p class="section-sub">
+            Browse upcoming training opportunities and
+            reserve your place.
+        </p>
+
+    </div>
+
+
+    <div class="featured-grid"
+         id="featuredGrid">
+
+        <div class="featured-loading">
+            <i class="fas fa-spinner fa-spin"></i>
+            <p>Loading upcoming sessions...</p>
+        </div>
+
+    </div>
+
+
+    <div style="text-align:center;margin-top:35px;">
+
+        <a href="training-calendar.html"
+           class="btn btn-primary">
+
+            <i class="fas fa-calendar-alt"></i>
+            Browse Full Calendar
+
+        </a>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PROCESS
+========================================================== -->
+
+<section class="section process-section">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            How It Works
+        </span>
+
+        <h2 class="section-title">
+            Your Journey
+            <span class="highlight">
+                Starts Here
+            </span>
+        </h2>
+
+        <p class="section-sub">
+            Six simple steps to get started with MEI Group.
+        </p>
+
+    </div>
+
+
+    <div class="process-grid">
+
+        <div class="process-step animate">
+            <div class="process-number">1</div>
+            <h3>Choose a Service</h3>
+            <p>Select your service</p>
+            <span class="process-arrow">→</span>
+        </div>
+
+        <div class="process-step animate">
+            <div class="process-number">2</div>
+            <h3>Select a Session</h3>
+            <p>Choose your date</p>
+            <span class="process-arrow">→</span>
+        </div>
+
+        <div class="process-step animate">
+            <div class="process-number">3</div>
+            <h3>Register</h3>
+            <p>Complete the form</p>
+            <span class="process-arrow">→</span>
+        </div>
+
+        <div class="process-step animate">
+            <div class="process-number">4</div>
+            <h3>Confirmation</h3>
+            <p>We verify details</p>
+            <span class="process-arrow">→</span>
+        </div>
+
+        <div class="process-step animate">
+            <div class="process-number">5</div>
+            <h3>Attend Training</h3>
+            <p>Complete your course</p>
+            <span class="process-arrow">→</span>
+        </div>
+
+        <div class="process-step animate">
+            <div class="process-number">6</div>
+            <h3>Certificate</h3>
+            <p>Receive certification</p>
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     TESTIMONIALS
+========================================================== -->
+
+<section class="section">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            Client Feedback
+        </span>
+
+        <h2 class="section-title">
+            What Our
+            <span class="highlight">
+                Clients Say
+            </span>
+        </h2>
+
+        <p class="section-sub">
+            Feedback from clients and participants who have
+            interacted with our services.
+        </p>
+
+    </div>
+
+
+    <div class="testimonials-grid">
+
+        <article class="testimonial animate">
+
+            <div class="testimonial-stars"
+                 aria-label="5 out of 5 stars">
+
+                ★★★★★
+
+            </div>
+
+            <blockquote>
+                "MEI Group provided helpful guidance throughout
+                my international education application process."
+            </blockquote>
+
+            <div class="testimonial-author">
+
+                <div class="avatar">JM</div>
+
+                <div>
+                    <div class="author-name">
+                        Jane Mwangi
+                    </div>
+
+                    <div class="author-role">
+                        Student
+                    </div>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="testimonial animate">
+
+            <div class="testimonial-stars"
+                 aria-label="5 out of 5 stars">
+
+                ★★★★★
+
+            </div>
+
+            <blockquote>
+                "The road safety training provided practical
+                guidance that our drivers could apply immediately."
+            </blockquote>
+
+            <div class="testimonial-author">
+
+                <div class="avatar">PK</div>
+
+                <div>
+                    <div class="author-name">
+                        Peter Kariuki
+                    </div>
+
+                    <div class="author-role">
+                        Operations Manager
+                    </div>
+                </div>
+
+            </div>
+
+        </article>
+
+
+        <article class="testimonial animate">
+
+            <div class="testimonial-stars"
+                 aria-label="5 out of 5 stars">
+
+                ★★★★★
+
+            </div>
+
+            <blockquote>
+                "The workplace safety training was practical,
+                structured and relevant to our team."
+            </blockquote>
+
+            <div class="testimonial-author">
+
+                <div class="avatar">SO</div>
+
+                <div>
+                    <div class="author-name">
+                        Samuel Odhiambo
+                    </div>
+
+                    <div class="author-role">
+                        Safety Professional
+                    </div>
+                </div>
+
+            </div>
+
+        </article>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     PARTNERS
+========================================================== -->
+
+<section class="section section-white">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            Our Network
+        </span>
+
+        <h2 class="section-title">
+            Trusted
+            <span class="highlight">
+                Partners
+            </span>
+        </h2>
+
+        <p class="section-sub">
+            We work with institutions, organizations and
+            professional networks across different sectors.
+        </p>
+
+    </div>
+
+
+    <div class="partners-grid">
+
+        <span class="partner">
+            <i class="fas fa-university"></i>
+            Partner Universities
+        </span>
+
+        <span class="partner">
+            <i class="fas fa-building"></i>
+            Corporate Partners
+        </span>
+
+        <span class="partner">
+            <i class="fas fa-graduation-cap"></i>
+            Education Networks
+        </span>
+
+        <span class="partner">
+            <i class="fas fa-truck"></i>
+            Transport Companies
+        </span>
+
+        <span class="partner">
+            <i class="fas fa-industry"></i>
+            Industry Partners
+        </span>
+
+        <span class="partner">
+            <i class="fas fa-globe"></i>
+            International Networks
+        </span>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     FAQ
+========================================================== -->
+
+<section class="section">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            FAQ
+        </span>
+
+        <h2 class="section-title">
+            Frequently Asked
+            <span class="highlight">
+                Questions
+            </span>
+        </h2>
+
+        <p class="section-sub">
+            Find answers to common questions about our services.
+        </p>
+
+    </div>
+
+
+    <div class="faq-container">
+
+
+        <div class="faq-item active">
+
+            <button class="faq-question"
+                    type="button"
+                    aria-expanded="true">
+
+                <span>
+                    How do I register for a training session?
+                </span>
+
+                <i class="fas fa-chevron-down"></i>
+
             </button>
-            <div class="nav-links" id="navLinks">
-                <a href="#about" class="nav-link">About</a>
-                <a href="education.html" class="nav-link">Education</a>
-                <a href="road-safety.html" class="nav-link">Road Safety</a>
-                <a href="occupational-safety.html" class="nav-link">OSH</a>
-                <a href="training-calendar.html" class="nav-link">Calendar</a>
-                <a href="#contact" class="btn-nav">Contact Us</a>
+
+            <div class="faq-answer">
+
+                Visit our
+                <a href="training-calendar.html"
+                   style="color:var(--primary);font-weight:700;">
+                    Training Calendar
+                </a>,
+                select a suitable session and proceed to registration.
+
             </div>
+
         </div>
-    </nav>
 
-    <!-- ============================================================
-    HERO
-    ============================================================ -->
-    <section class="hero" id="hero">
-        <div class="container">
-            <div class="hero-content">
-                <div class="hero-badge">
-                    <span class="dot"></span>
-                    Empowering individuals &amp; organizations worldwide
-                </div>
-                <h1>
-                    Professional Training,<br />
-                    <span class="highlight">International Education</span><br />
-                    &amp; Workplace Safety
-                </h1>
-                <p>
-                    Empowering individuals, schools, businesses, and organizations through world-class
-                    education, workplace safety training, and professional consultancy services.
-                </p>
-                <div class="hero-buttons">
-                    <a href="training-calendar.html" class="btn-primary">
-                        <i class="fas fa-calendar-alt"></i> View Training Calendar
-                    </a>
-                    <a href="#contact" class="btn-secondary">
-                        <i class="fas fa-phone-alt"></i> Contact Us
-                    </a>
-                </div>
 
-                <div class="hero-stats">
-                    <div class="hero-stat">
-                        <span class="number">12<span class="plus">+</span></span>
-                        <span class="label">Years of Experience</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="number">100<span class="plus">+</span></span>
-                        <span class="label">Professionals Trained</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="number">50<span class="plus">+</span></span>
-                        <span class="label">Partner Institutions</span>
-                    </div>
-                    <div class="hero-stat">
-                        <span class="number">95<span class="plus">%</span></span>
-                        <span class="label">Client Satisfaction</span>
-                    </div>
-                </div>
+        <div class="faq-item">
+
+            <button class="faq-question"
+                    type="button"
+                    aria-expanded="false">
+
+                <span>
+                    Which countries do you support for international education?
+                </span>
+
+                <i class="fas fa-chevron-down"></i>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Our education consultancy supports applications
+                to international study destinations. Contact our
+                education team for current destination and
+                institution options.
+
             </div>
 
-            <div class="hero-visual">
-                <div class="orb orb-1"></div>
-                <div class="orb orb-2"></div>
-                <div class="hero-grid">
-                    <div class="hero-grid-item">🎓</div>
-                    <div class="hero-grid-item">🚸</div>
-                    <div class="hero-grid-item">🏭</div>
-                    <div class="hero-grid-item">🚗</div>
-                    <div class="hero-grid-item">🌍</div>
-                    <div class="hero-grid-item">📊</div>
-                    <div class="hero-grid-item">💼</div>
-                    <div class="hero-grid-item">🏆</div>
-                    <div class="hero-grid-item">⭐</div>
-                </div>
-            </div>
         </div>
-    </section>
 
-    <!-- ============================================================
-    QUICK LINKS (replaces Services section)
-    ============================================================ -->
-    <section class="quicklinks-section" id="services">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">Explore Our Services</span>
-                <h2 class="section-title">Where Would You Like to <span class="highlight">Go?</span></h2>
-                <p class="section-sub">
-                    Choose a service below to learn more and apply or register.
-                </p>
+
+        <div class="faq-item">
+
+            <button class="faq-question"
+                    type="button"
+                    aria-expanded="false">
+
+                <span>
+                    Do you provide guidance on education financing?
+                </span>
+
+                <i class="fas fa-chevron-down"></i>
+
+            </button>
+
+            <div class="faq-answer">
+
+                We can provide guidance on available education
+                financing and scholarship options, subject to
+                eligibility and the requirements of the relevant
+                financing provider.
+
             </div>
 
-            <div class="quicklinks-grid">
-                <!-- International Education -->
-                <a href="education.html" class="quicklink-card animate-on-scroll">
-                    <div class="icon">🎓</div>
-                    <h3>International Education</h3>
-                    <p>Expert study abroad consultancy, admissions support, and visa guidance.</p>
-                    <span class="link-cta">
-                        Explore Education <i class="fas fa-arrow-right"></i>
-                    </span>
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question"
+                    type="button"
+                    aria-expanded="false">
+
+                <span>
+                    What does OSH training cover?
+                </span>
+
+                <i class="fas fa-chevron-down"></i>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Programs may include First Aid, Fire Safety,
+                Occupational Safety and Health, workplace safety
+                and related professional training.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question"
+                    type="button"
+                    aria-expanded="false">
+
+                <span>
+                    What road safety programs do you offer?
+                </span>
+
+                <i class="fas fa-chevron-down"></i>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Our road safety services include defensive driving,
+                driver-focused safety programs, fleet safety and
+                road safety education.
+
+            </div>
+
+        </div>
+
+
+        <div class="faq-item">
+
+            <button class="faq-question"
+                    type="button"
+                    aria-expanded="false">
+
+                <span>
+                    Can companies register multiple employees?
+                </span>
+
+                <i class="fas fa-chevron-down"></i>
+
+            </button>
+
+            <div class="faq-answer">
+
+                Yes. Companies and organizations can contact us
+                for group registration and corporate training
+                arrangements.
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     CTA
+========================================================== -->
+
+<section class="cta-section">
+
+```
+<div class="container">
+
+    <div class="cta-content">
+
+        <h2>
+            Ready to Build
+            <span class="text-gradient">
+                Your Future?
+            </span>
+        </h2>
+
+        <p>
+            Whether you are pursuing international education,
+            improving workplace safety or looking for professional
+            training, MEI Group can help you take the next step.
+        </p>
+
+        <div class="cta-actions">
+
+            <a href="training-registration.html"
+               class="btn btn-primary">
+
+                <i class="fas fa-user-plus"></i>
+                Register for Training
+
+            </a>
+
+            <a href="#contact"
+               class="btn btn-secondary">
+
+                <i class="fas fa-headset"></i>
+                Talk to an Advisor
+
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+<!-- ==========================================================
+     CONTACT
+========================================================== -->
+
+<section class="section contact-section"
+         id="contact">
+
+```
+<div class="container">
+
+    <div class="section-center">
+
+        <span class="section-tag">
+            Contact MEI Group
+        </span>
+
+        <h2 class="section-title">
+            Get in
+            <span class="highlight">
+                Touch
+            </span>
+        </h2>
+
+        <p class="section-sub">
+            Have a question or need professional assistance?
+            Send us a message and our team will respond.
+        </p>
+
+    </div>
+
+
+    <div class="contact-card">
+
+        <div class="alert alert-success"
+             id="contactAlert"
+             role="status"
+             aria-live="polite">
+
+            Your message has been sent successfully.
+            We will be in touch.
+
+        </div>
+
+
+        <div class="alert alert-error"
+             id="contactError"
+             role="alert">
+
+            Something went wrong. Please try again or contact
+            us directly.
+
+        </div>
+
+
+        <form id="contactForm"
+              novalidate>
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="contactName">
+                        Full Name
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="contactName"
+                        name="name"
+                        class="form-control"
+                        autocomplete="name"
+                        placeholder="John Doe"
+                        required>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="contactEmail">
+                        Email Address
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="email"
+                        id="contactEmail"
+                        name="email"
+                        class="form-control"
+                        autocomplete="email"
+                        placeholder="john@example.com"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-row">
+
+                <div class="form-group">
+
+                    <label for="contactPhone">
+                        Phone Number
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="contactPhone"
+                        name="phone"
+                        class="form-control"
+                        autocomplete="tel"
+                        placeholder="+254 700 000 000">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label for="contactSubject">
+                        Subject
+                        <span class="required">*</span>
+                    </label>
+
+                    <input
+                        type="text"
+                        id="contactSubject"
+                        name="subject"
+                        class="form-control"
+                        placeholder="How can we help?"
+                        required>
+
+                </div>
+
+            </div>
+
+
+            <div class="form-group">
+
+                <label for="contactMessage">
+                    Message
+                    <span class="required">*</span>
+                </label>
+
+                <textarea
+                    id="contactMessage"
+                    name="message"
+                    class="form-control"
+                    rows="5"
+                    placeholder="Tell us about your inquiry..."
+                    required></textarea>
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="btn btn-primary"
+                id="contactSubmitBtn">
+
+                <i class="fas fa-paper-plane"></i>
+                Send Message
+
+            </button>
+
+
+            <p class="form-note">
+                <i class="fas fa-lock"></i>
+                Your information is handled securely.
+            </p>
+
+        </form>
+
+    </div>
+
+</div>
+```
+
+</section>
+
+</main>
+
+<!-- ==========================================================
+     FOOTER
+========================================================== -->
+
+<footer class="footer">
+
+```
+<div class="container">
+
+    <div class="footer-grid">
+
+        <div class="footer-brand">
+
+            <h3>
+                MEI <span style="color:var(--primary-light);">
+                    Group
+                </span>
+            </h3>
+
+            <p>
+                A division of MEI Press Holdings Ltd.
+                Professional training, international education,
+                road safety and workplace safety solutions.
+            </p>
+
+            <div class="social-links">
+
+                <a href="#"
+                   class="social-link"
+                   aria-label="Facebook">
+                    <i class="fab fa-facebook-f"></i>
                 </a>
 
-                <!-- Road Safety Training -->
-                <a href="road-safety.html" class="quicklink-card animate-on-scroll">
-                    <div class="icon">🚸</div>
-                    <h3>Road Safety Training</h3>
-                    <p>Professional safety education for schools, transport, and institutions.</p>
-                    <span class="link-cta">
-                        Explore Road Safety <i class="fas fa-arrow-right"></i>
-                    </span>
+                <a href="#"
+                   class="social-link"
+                   aria-label="Twitter">
+                    <i class="fab fa-twitter"></i>
                 </a>
 
-                <!-- Occupational Safety & Health -->
-                <a href="occupational-safety.html" class="quicklink-card animate-on-scroll">
-                    <div class="icon">🏭</div>
-                    <h3>Occupational Safety &amp; Health</h3>
-                    <p>Comprehensive workplace safety training that protects employees and ensures compliance.</p>
-                    <span class="link-cta">
-                        Explore OSH <i class="fas fa-arrow-right"></i>
-                    </span>
+                <a href="#"
+                   class="social-link"
+                   aria-label="Instagram">
+                    <i class="fab fa-instagram"></i>
                 </a>
-            </div>
-        </div>
-    </section>
 
-    <!-- ============================================================
-    WHY CHOOSE US
-    ============================================================ -->
-    <section class="why-section" id="why">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">Why Choose Us</span>
-                <h2 class="section-title">Why <span class="highlight">MEI Group?</span></h2>
-                <p class="section-sub">We deliver professional services with integrity, expertise, and a commitment to your success.</p>
-            </div>
-
-            <div class="why-grid">
-                <div class="why-card animate-on-scroll">
-                    <div class="icon">👨‍🏫</div>
-                    <h4>Professional &amp; Experienced Team</h4>
-                    <p>Our team brings years of industry experience and professional expertise to every client engagement.</p>
-                </div>
-                <div class="why-card animate-on-scroll">
-                    <div class="icon">🤝</div>
-                    <h4>End-to-End Client Support</h4>
-                    <p>We provide comprehensive support from initial consultation through to successful completion.</p>
-                </div>
-                <div class="why-card animate-on-scroll">
-                    <div class="icon">🌍</div>
-                    <h4>Local &amp; International Opportunities</h4>
-                    <p>We connect clients with opportunities locally in Kenya and internationally across the globe.</p>
-                </div>
-                <div class="why-card animate-on-scroll">
-                    <div class="icon">✅</div>
-                    <h4>Trusted Training Solutions</h4>
-                    <p>Our training programs are industry-focused, practical, and designed for real-world application.</p>
-                </div>
-                <div class="why-card animate-on-scroll">
-                    <div class="icon">🎯</div>
-                    <h4>Personalized Guidance</h4>
-                    <p>We tailor our services to meet your specific needs, goals, and circumstances.</p>
-                </div>
-                <div class="why-card animate-on-scroll">
-                    <div class="icon">⭐</div>
-                    <h4>Quality, Integrity &amp; Professionalism</h4>
-                    <p>These core values guide everything we do, ensuring the highest standards of service.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    STATS SECTION
-    ============================================================ -->
-    <section class="stats-section" id="stats">
-        <div class="container">
-            <div class="stats-grid">
-                <div class="stat-item animate-on-scroll">
-                    <span class="number">12+</span>
-                    <span class="label">Years of Experience</span>
-                </div>
-                <div class="stat-item animate-on-scroll">
-                    <span class="number">100+</span>
-                    <span class="label">Professionals Trained</span>
-                </div>
-                <div class="stat-item animate-on-scroll">
-                    <span class="number">50+</span>
-                    <span class="label">Partner Institutions</span>
-                </div>
-                <div class="stat-item animate-on-scroll">
-                    <span class="number">95%</span>
-                    <span class="label">Client Satisfaction</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    ABOUT US
-    ============================================================ -->
-    <section class="about-section" id="about">
-        <div class="container">
-            <div class="about-grid">
-                <div class="about-content animate-on-scroll">
-                    <span class="section-tag">About Us</span>
-                    <h3>Empowering People. <span class="text-gradient">Building Careers.</span></h3>
-                    <p>
-                        <strong>Who We Are:</strong> MEI Group is a division of MEI Press Holdings Ltd., a trusted
-                        provider of international education consultancy, professional training, workplace safety,
-                        and recruitment solutions in Kenya and worldwide.
-                    </p>
-                    <p>
-                        <strong>Our Mission:</strong> To bridge the gap between talent and opportunity—helping
-                        individuals achieve their dreams and organizations build world-class teams through
-                        quality training, education, and recruitment services.
-                    </p>
-                    <p>
-                        <strong>Our Vision:</strong> To be the leading provider of professional training,
-                        education, and recruitment solutions in Africa and beyond.
-                    </p>
-                    <div class="about-values">
-                        <span class="about-value"><i class="fas fa-check-circle"></i> Excellence</span>
-                        <span class="about-value"><i class="fas fa-check-circle"></i> Integrity</span>
-                        <span class="about-value"><i class="fas fa-check-circle"></i> Innovation</span>
-                        <span class="about-value"><i class="fas fa-check-circle"></i> Global Impact</span>
-                    </div>
-                </div>
-                <div class="about-image animate-on-scroll">
-                    <span style="position:relative;z-index:1;">🏢</span>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    CALENDAR PROMO BANNER
-    ============================================================ -->
-    <section class="calendar-promo">
-        <div class="container">
-            <div class="calendar-promo-inner">
-                <div class="calendar-promo-content">
-                    <span class="section-tag">📅 Training Calendar</span>
-                    <h2>Book Certified Courses <span class="highlight">On Your Schedule</span></h2>
-                    <p>
-                        Live sessions from <strong style="color:white;">October 2025 through September 2026</strong>.
-                        Reserve your seat online — First Aid, Fire Safety, OSH, Defensive Driving, Fleet Safety, and more.
-                    </p>
-                    <div class="calendar-promo-actions">
-                        <a href="training-calendar.html" class="btn-primary">
-                            <i class="fas fa-calendar-alt"></i> View Calendar
-                        </a>
-                        <a href="training-registration.html" class="btn-secondary">
-                            <i class="fas fa-user-plus"></i> Register Now
-                        </a>
-                    </div>
-                </div>
-                <div class="calendar-promo-visual">
-                    <div class="cal-month-preview"><div class="m-name">OCT</div><div class="m-emoji">🍂</div></div>
-                    <div class="cal-month-preview"><div class="m-name">NOV</div><div class="m-emoji">🌧️</div></div>
-                    <div class="cal-month-preview"><div class="m-name">DEC</div><div class="m-emoji">🎄</div></div>
-                    <div class="cal-month-preview"><div class="m-name">JAN</div><div class="m-emoji">❄️</div></div>
-                    <div class="cal-month-preview"><div class="m-name">FEB</div><div class="m-emoji">❤️</div></div>
-                    <div class="cal-month-preview"><div class="m-name">MAR</div><div class="m-emoji">🌸</div></div>
-                    <div class="cal-month-preview"><div class="m-name">APR</div><div class="m-emoji">🌷</div></div>
-                    <div class="cal-month-preview"><div class="m-name">MAY</div><div class="m-emoji">🌻</div></div>
-                    <div class="cal-month-preview"><div class="m-name">JUN</div><div class="m-emoji">☀️</div></div>
-                    <div class="cal-month-preview"><div class="m-name">JUL</div><div class="m-emoji">🏖️</div></div>
-                    <div class="cal-month-preview"><div class="m-name">AUG</div><div class="m-emoji">🎒</div></div>
-                    <div class="cal-month-preview"><div class="m-name">SEP</div><div class="m-emoji">🍁</div></div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- ============================================================
-    FEATURED TRAINING SESSIONS
-    ============================================================ -->
-    <section class="featured-section" id="featured">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">Featured Sessions</span>
-                <h2 class="section-title">Upcoming <span class="highlight">Training Sessions</span></h2>
-                <p class="section-sub">
-                    Live availability. Reserve your seat in minutes — registration is confirmed by our team.
-                </p>
-            </div>
-
-            <div class="featured-grid" id="featuredGrid">
-                <div class="featured-loading">
-                    <i class="fas fa-spinner"></i>
-                    <p>Loading upcoming sessions...</p>
-                </div>
-            </div>
-
-            <div style="text-align:center;margin-top:36px;">
-                <a href="training-calendar.html" class="btn-primary">
-                    <i class="fas fa-calendar-alt"></i> Browse Full Calendar
+                <a href="#"
+                   class="social-link"
+                   aria-label="LinkedIn">
+                    <i class="fab fa-linkedin-in"></i>
                 </a>
+
             </div>
+
         </div>
-    </section>
 
-    <!-- ============================================================
-    PROCESS
-    ============================================================ -->
-    <section class="process-section" id="process">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">How It Works</span>
-                <h2 class="section-title">Your Journey <span class="highlight">Starts Here</span></h2>
-                <p class="section-sub">Six simple steps to get started with MEI Group.</p>
-            </div>
 
-            <div class="process-grid">
-                <div class="process-step animate-on-scroll">
-                    <div class="number">1</div>
-                    <h4>Choose a Service</h4>
-                    <p>Select your service</p>
-                    <span class="arrow">→</span>
-                </div>
-                <div class="process-step animate-on-scroll">
-                    <div class="number">2</div>
-                    <h4>Pick a Session</h4>
-                    <p>From the calendar</p>
-                    <span class="arrow">→</span>
-                </div>
-                <div class="process-step animate-on-scroll">
-                    <div class="number">3</div>
-                    <h4>Register Online</h4>
-                    <p>Fill out the form</p>
-                    <span class="arrow">→</span>
-                </div>
-                <div class="process-step animate-on-scroll">
-                    <div class="number">4</div>
-                    <h4>Confirmation</h4>
-                    <p>We verify everything</p>
-                    <span class="arrow">→</span>
-                </div>
-                <div class="process-step animate-on-scroll">
-                    <div class="number">5</div>
-                    <h4>Attend Training</h4>
-                    <p>Get certified</p>
-                    <span class="arrow">→</span>
-                </div>
-                <div class="process-step animate-on-scroll">
-                    <div class="number">6</div>
-                    <h4>Get Certificate</h4>
-                    <p>Start your success</p>
-                </div>
-            </div>
+        <div class="footer-links">
+
+            <h4>Quick Links</h4>
+
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="training-calendar.html">
+                Training Calendar
+            </a>
+            <a href="#contact">Contact</a>
+
         </div>
-    </section>
 
-    <!-- ============================================================
-    TESTIMONIALS
-    ============================================================ -->
-    <section class="testimonials-section" id="testimonials">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">Testimonials</span>
-                <h2 class="section-title">What Our <span class="highlight">Clients Say</span></h2>
-                <p class="section-sub">Real stories from people who trusted MEI Group.</p>
-            </div>
 
-            <div class="testimonials-grid">
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote>"MEI Group helped me secure admission to a top university in Canada. Their guidance was exceptional every step of the way."</blockquote>
-                    <div class="author">
-                        <div class="avatar">JM</div>
-                        <div>
-                            <div class="name">Jane Mwangi</div>
-                            <div class="role">Student, University of Toronto</div>
-                        </div>
-                    </div>
-                </div>
+        <div class="footer-links">
 
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote>"The road safety programme transformed our company's culture. Accident rates dropped significantly within months."</blockquote>
-                    <div class="author">
-                        <div class="avatar">PK</div>
-                        <div>
-                            <div class="name">Peter Kariuki</div>
-                            <div class="role">Operations Manager, Kariuki Transport</div>
-                        </div>
-                    </div>
-                </div>
+            <h4>Services</h4>
 
-                <div class="testimonial-card animate-on-scroll">
-                    <div class="stars"><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i></div>
-                    <blockquote>"The OSH training from MEI Group helped us achieve full OSHA 2007 compliance. Professional and thorough."</blockquote>
-                    <div class="author">
-                        <div class="avatar">SO</div>
-                        <div>
-                            <div class="name">Samuel Odhiambo</div>
-                            <div class="role">Safety Officer, Manufacturing Ltd</div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            <a href="education.html">
+                International Education
+            </a>
+
+            <a href="road-safety.html">
+                Road Safety Training
+            </a>
+
+            <a href="occupational-safety.html">
+                Occupational Safety &amp; Health
+            </a>
+
         </div>
-    </section>
 
-    <!-- ============================================================
-    PARTNERS
-    ============================================================ -->
-    <section class="partners-section" id="partners">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">Our Partners</span>
-                <h2 class="section-title" style="font-size:2rem;">Trusted <span class="highlight">Partners</span></h2>
-                <p class="section-sub" style="margin:0 auto 40px;">We collaborate with leading institutions and organizations worldwide.</p>
-            </div>
 
-            <div class="partners-grid">
-                <span class="partner-item"><i class="fas fa-university"></i> Partner Universities</span>
-                <span class="partner-item"><i class="fas fa-building"></i> Corporate Partners</span>
-                <span class="partner-item"><i class="fas fa-graduation-cap"></i> Education Agents</span>
-                <span class="partner-item"><i class="fas fa-truck"></i> Transport Companies</span>
-                <span class="partner-item"><i class="fas fa-industry"></i> Industry Partners</span>
-                <span class="partner-item"><i class="fas fa-globe"></i> International Networks</span>
-            </div>
+        <div class="footer-contact">
+
+            <h4>Contact</h4>
+
+            <a href="tel:+254703738707">
+                <i class="fas fa-phone"></i>
+                +254 703 738 707
+            </a>
+
+            <a href="mailto:info@meipressgroup.com">
+                <i class="fas fa-envelope"></i>
+                info@meipressgroup.com
+            </a>
+
+            <a href="https://wa.me/254703738707"
+               target="_blank"
+               rel="noopener noreferrer">
+
+                <i class="fab fa-whatsapp"></i>
+                WhatsApp
+
+            </a>
+
+            <span style="font-size:.78rem;margin-top:8px;">
+                Monday – Friday<br>
+                8:00 AM – 5:00 PM
+            </span>
+
         </div>
-    </section>
 
-    <!-- ============================================================
-    FAQ
-    ============================================================ -->
-    <section class="faq-section" id="faq">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">FAQ</span>
-                <h2 class="section-title">Frequently Asked <span class="highlight">Questions</span></h2>
-                <p class="section-sub">Find answers to the most common questions about our services.</p>
-            </div>
+    </div>
 
-            <div class="faq-grid">
-                <div class="faq-item active">
-                    <div class="question">
-                        <span>How do I register for a training session?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="answer">Visit our <a href="training-calendar.html" style="color:var(--primary);font-weight:600;">Training Calendar</a>, find a session that suits you, and click "Register". You'll be taken to the <a href="training-registration.html" style="color:var(--primary);font-weight:600;">Training Registration</a> page to complete your details.</div>
-                </div>
 
-                <div class="faq-item">
-                    <div class="question">
-                        <span>Which countries do you support for international education?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="answer">We support applications to the USA, Canada, Australia, UK, Germany, and many other countries through our 50+ university partnerships. <a href="education.html" style="color:var(--primary);font-weight:600;">Learn more →</a></div>
-                </div>
+    <div class="footer-bottom">
 
-                <div class="faq-item">
-                    <div class="question">
-                        <span>Do you offer education loans or financial support?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="answer">Yes! We provide guidance on education loans <strong style="color:var(--primary);">with no cosigner required</strong>, scholarships, and financial planning through our partner institutions.</div>
-                </div>
+        &copy;
+        <span id="currentYear"></span>
+        MEI Press Holdings Ltd.
+        All rights reserved.
 
-                <div class="faq-item">
-                    <div class="question">
-                        <span>What does Occupational Safety &amp; Health training cover?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="answer">Our OSH training covers First Aid, Fire &amp; Safety, OSH (OSHA 2007 compliance), and Workplace Safety. <a href="occupational-safety.html" style="color:var(--primary);font-weight:600;">Learn more →</a></div>
-                </div>
+    </div>
 
-                <div class="faq-item">
-                    <div class="question">
-                        <span>What road safety programs do you offer?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="answer">We offer Safe to &amp; from School, Defensive Driving, Driver Profiling, and Fleet Safety Assessments. <a href="road-safety.html" style="color:var(--primary);font-weight:600;">Learn more →</a></div>
-                </div>
+</div>
+```
 
-                <div class="faq-item">
-                    <div class="question">
-                        <span>How do I get my certificate after training?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="answer">After successfully completing your training and any required assessment, MEI Group issues a certificate of completion. Certificates are typically issued within 5–7 working days.</div>
-                </div>
+</footer>
 
-                <div class="faq-item">
-                    <div class="question">
-                        <span>Can I register multiple people from my company?</span>
-                        <i class="fas fa-chevron-down"></i>
-                    </div>
-                    <div class="answer">Yes! For corporate groups, please select "Corporate" as the participant type during <a href="training-registration.html" style="color:var(--primary);font-weight:600;">registration</a>, or contact us directly at <a href="mailto:info@meipressgroup.com" style="color:var(--primary);font-weight:600;">info@meipressgroup.com</a> for bulk enrollment and group discounts.</div>
-                </div>
-            </div>
-        </div>
-    </section>
+<!-- ==========================================================
+     WHATSAPP
+========================================================== -->
 
-    <!-- ============================================================
-    CTA
-    ============================================================ -->
-    <section class="cta-section" id="cta">
-        <div class="container">
-            <div class="cta-box">
-                <h2>Ready to Build <span class="text-gradient">Your Future?</span></h2>
-                <p>
-                    Whether you're pursuing international education, improving workplace safety,
-                    or booking your next certification — MEI Group is here to help you succeed.
-                </p>
-                <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-                    <a href="training-registration.html" class="btn-primary">
-                        <i class="fas fa-user-plus"></i> Register for Training
-                    </a>
-                    <a href="#contact" class="btn-secondary">
-                        <i class="fas fa-headset"></i> Talk to an Advisor
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+<a href="https://wa.me/254703738707"
+class="whatsapp-float"
+target="_blank"
+rel="noopener noreferrer"
+aria-label="Contact MEI Group on WhatsApp">
 
-    <!-- ============================================================
-    CONTACT FORM
-    ============================================================ -->
-    <section class="contact-section" id="contact">
-        <div class="container">
-            <div class="section-center">
-                <span class="section-tag">Contact</span>
-                <h2 class="section-title" style="font-size:2rem;">Get in <span class="highlight">Touch</span></h2>
-                <p style="color:var(--text-secondary);margin-bottom:32px;">Have questions? Reach out to our team and we'll get back to you within 24 hours.</p>
-            </div>
+```
+<i class="fab fa-whatsapp"></i>
+```
 
-            <div class="form-card">
-                <div class="alert-success" id="contactAlert">
-                    ✅ Your message has been sent. We'll be in touch soon!
-                </div>
-                <div class="alert-error" id="contactError">
-                    ❌ Something went wrong. Please try again or contact us directly.
-                </div>
+</a>
 
-                <form id="contactForm">
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contactName">Full Name <span class="required">*</span></label>
-                            <input type="text" id="contactName" placeholder="John Doe" required />
-                        </div>
-                        <div class="form-group">
-                            <label for="contactEmail">Email Address <span class="required">*</span></label>
-                            <input type="email" id="contactEmail" placeholder="john@example.com" required />
-                        </div>
-                    </div>
+<!-- ==========================================================
+     JAVASCRIPT / EXISTING APPLICATION FILES
+========================================================== -->
 
-                    <div class="form-row">
-                        <div class="form-group">
-                            <label for="contactPhone">Phone Number</label>
-                            <input type="tel" id="contactPhone" placeholder="+254 700 000 000" />
-                        </div>
-                        <div class="form-group">
-                            <label for="contactSubject">Subject <span class="required">*</span></label>
-                            <input type="text" id="contactSubject" placeholder="How can we help you?" required />
-                        </div>
-                    </div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-                    <div class="form-group">
-                        <label for="contactMessage">Message <span class="required">*</span></label>
-                        <textarea id="contactMessage" placeholder="Tell us about your inquiry..." rows="4" required></textarea>
-                    </div>
+<script src="js/config.js"></script>
 
-                    <button type="submit" class="btn-submit" id="contactSubmitBtn">
-                        <i class="fas fa-paper-plane"></i> Send Message
-                    </button>
-                    <p style="margin-top:12px; font-size:0.8rem; color:var(--text-light);">
-                        <i class="fas fa-lock" style="margin-right:6px;"></i> Your information is secure.
-                    </p>
-                </form>
-            </div>
-        </div>
-    </section>
+<script src="js/supabase.js"></script>
 
-    <!-- ============================================================
-    FOOTER
-    ============================================================ -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-grid">
-                <div class="footer-brand">
-                    <h4>MEI <span>Group</span></h4>
-                    <p>division of MEI Press Holdings Ltd. Empowering people, building careers, driving innovation.</p>
-                    <div class="social-links">
-                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
-                    </div>
-                </div>
-                <div class="footer-col">
-                    <h4>Quick Links</h4>
-                    <a href="#hero">Home</a>
-                    <a href="#about">About</a>
-                    <a href="training-calendar.html">Training Calendar</a>
-                    <a href="#contact">Contact</a>
-                    <a href="#" style="margin-top:8px;color:rgba(255,255,255,0.3);font-size:0.75rem;">Privacy Policy</a>
-                    <a href="#" style="color:rgba(255,255,255,0.3);font-size:0.75rem;">Terms &amp; Conditions</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Services</h4>
-                    <a href="education.html">International Education</a>
-                    <a href="road-safety.html">Road Safety Training</a>
-                    <a href="occupational-safety.html">Occupational Safety &amp; Health</a>
-                </div>
-                <div class="footer-col">
-                    <h4>Contact</h4>
-                    <div class="contact-item"><i class="fas fa-phone-alt"></i> <a href="tel:+254703738707">+254 703 738 707</a></div>
-                    <div class="contact-item"><i class="fas fa-envelope"></i> <a href="mailto:info@meipressgroup.com">info@meipressgroup.com</a></div>
-                    <div class="contact-item"><i class="fab fa-whatsapp"></i> <a href="https://wa.me/254703738707">WhatsApp</a></div>
-                    <div class="hours">
-                        <strong style="color:rgba(255,255,255,0.5);">Business Hours</strong><br>
-                        Monday–Friday<br>
-                        8:00 AM – 5:00 PM
-                    </div>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                &copy; 2025 MEI Press Holdings Ltd. All rights reserved.
-            </div>
-        </div>
-    </footer>
+<script src="js/index.js"></script>
 
-    <!-- ============================================================
-    WHATSAPP FLOAT
-    ============================================================ -->
-    <a href="https://wa.me/254703738707" class="whatsapp-float" target="_blank" rel="noopener" aria-label="Contact us on WhatsApp">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+<script>
+/* ==========================================================
+   STANDARD PAGE UI
+========================================================== */
 
-    <!-- ============================================================
-    SCRIPTS
-    ============================================================ -->
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="js/config.js"></script>
-    <script src="js/supabase.js"></script>
-    <script src="js/index.js"></script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const navbar = document.getElementById("navbar");
+    const mobileMenuBtn = document.getElementById("mobileMenuBtn");
+    const navLinks = document.getElementById("navLinks");
+    const currentYear = document.getElementById("currentYear");
+
+
+    /* ----------------------------------------------------------
+       CURRENT YEAR
+    ---------------------------------------------------------- */
+
+    if (currentYear) {
+        currentYear.textContent = new Date().getFullYear();
+    }
+
+
+    /* ----------------------------------------------------------
+       NAVBAR SCROLL
+    ---------------------------------------------------------- */
+
+    const updateNavbar = () => {
+
+        if (window.scrollY > 30) {
+            navbar.classList.add("scrolled");
+        } else {
+            navbar.classList.remove("scrolled");
+        }
+
+    };
+
+    updateNavbar();
+
+    window.addEventListener(
+        "scroll",
+        updateNavbar,
+        { passive: true }
+    );
+
+
+    /* ----------------------------------------------------------
+       MOBILE MENU
+    ---------------------------------------------------------- */
+
+    if (mobileMenuBtn && navLinks) {
+
+        mobileMenuBtn.addEventListener("click", () => {
+
+            const isOpen =
+                navLinks.classList.toggle("active");
+
+            mobileMenuBtn.setAttribute(
+                "aria-expanded",
+                String(isOpen)
+            );
+
+            mobileMenuBtn.setAttribute(
+                "aria-label",
+                isOpen
+                    ? "Close navigation menu"
+                    : "Open navigation menu"
+            );
+
+            document.body.classList.toggle(
+                "menu-open",
+                isOpen
+            );
+
+            const icon =
+                mobileMenuBtn.querySelector("i");
+
+            if (icon) {
+
+                icon.className =
+                    isOpen
+                        ? "fas fa-times"
+                        : "fas fa-bars";
+
+            }
+
+        });
+
+
+        navLinks.querySelectorAll("a").forEach(link => {
+
+            link.addEventListener("click", () => {
+
+                navLinks.classList.remove("active");
+
+                mobileMenuBtn.setAttribute(
+                    "aria-expanded",
+                    "false"
+                );
+
+                mobileMenuBtn.setAttribute(
+                    "aria-label",
+                    "Open navigation menu"
+                );
+
+                document.body.classList.remove(
+                    "menu-open"
+                );
+
+                const icon =
+                    mobileMenuBtn.querySelector("i");
+
+                if (icon) {
+                    icon.className = "fas fa-bars";
+                }
+
+            });
+
+        });
+
+    }
+
+
+    /* ----------------------------------------------------------
+       FAQ
+    ---------------------------------------------------------- */
+
+    document
+        .querySelectorAll(".faq-question")
+        .forEach(button => {
+
+            button.addEventListener("click", () => {
+
+                const item =
+                    button.closest(".faq-item");
+
+                const isActive =
+                    item.classList.contains("active");
+
+
+                document
+                    .querySelectorAll(".faq-item")
+                    .forEach(otherItem => {
+
+                        otherItem.classList.remove("active");
+
+                        const otherButton =
+                            otherItem.querySelector(
+                                ".faq-question"
+                            );
+
+                        if (otherButton) {
+                            otherButton.setAttribute(
+                                "aria-expanded",
+                                "false"
+                            );
+                        }
+
+                    });
+
+
+                if (!isActive) {
+
+                    item.classList.add("active");
+
+                    button.setAttribute(
+                        "aria-expanded",
+                        "true"
+                    );
+
+                }
+
+            });
+
+        });
+
+
+    /* ----------------------------------------------------------
+       SCROLL ANIMATIONS
+    ---------------------------------------------------------- */
+
+    const animatedElements =
+        document.querySelectorAll(".animate");
+
+
+    if ("IntersectionObserver" in window) {
+
+        const observer =
+            new IntersectionObserver(
+                entries => {
+
+                    entries.forEach(entry => {
+
+                        if (entry.isIntersecting) {
+
+                            entry.target.classList.add(
+                                "visible"
+                            );
+
+                            observer.unobserve(
+                                entry.target
+                            );
+
+                        }
+
+                    });
+
+                },
+                {
+                    threshold: .12
+                }
+            );
+
+
+        animatedElements.forEach(element => {
+            observer.observe(element);
+        });
+
+    } else {
+
+        animatedElements.forEach(element => {
+            element.classList.add("visible");
+        });
+
+    }
+
+
+    /* ----------------------------------------------------------
+       CLOSE MENU WITH ESC
+    ---------------------------------------------------------- */
+
+    document.addEventListener("keydown", event => {
+
+        if (
+            event.key === "Escape" &&
+            navLinks &&
+            navLinks.classList.contains("active")
+        ) {
+
+            navLinks.classList.remove("active");
+
+            mobileMenuBtn.setAttribute(
+                "aria-expanded",
+                "false"
+            );
+
+            document.body.classList.remove(
+                "menu-open"
+            );
+
+            const icon =
+                mobileMenuBtn.querySelector("i");
+
+            if (icon) {
+                icon.className = "fas fa-bars";
+            }
+
+        }
+
+    });
+
+});
+</script>
+
 </body>
 </html>
