@@ -569,13 +569,18 @@
                     </div>
                     <div class="table-wrapper">
                         <table>
+                            <!-- FIX: column order/count now matches admin-training.js's
+                                 renderTrainingSessions() row output exactly (10 columns:
+                                 Course, Program, Date, Time, Venue, Trainer, Capacity,
+                                 Price, Status, Actions). Previously this header listed
+                                 8 columns in a different order than the rendered rows. -->
                             <thead><tr>
-                                <th>Date</th><th>Course</th><th>Program</th><th>Venue</th>
-                                <th>Capacity</th><th>Status</th><th>Published</th>
-                                <th style="width:140px;">Actions</th>
+                                <th>Course</th><th>Program</th><th>Date</th><th>Time</th>
+                                <th>Venue</th><th>Trainer</th><th>Capacity</th><th>Price</th>
+                                <th>Status</th><th style="width:140px;">Actions</th>
                             </tr></thead>
                             <tbody id="trainingSessionsTable">
-                                <tr><td colspan="8" style="text-align:center;padding:30px;color:var(--text-secondary);">Loading training sessions...</td></tr>
+                                <tr><td colspan="10" style="text-align:center;padding:30px;color:var(--text-secondary);">Loading training sessions...</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -1085,6 +1090,10 @@
             document.getElementById('modalOverlay').classList.add('active');
         }
 
+        // Expose showModal so other scripts (e.g. admin-training.js) can
+        // reuse the same detail-view modal pattern if needed.
+        window.showModal = showModal;
+
         window.closeModal = function() {
             document.getElementById('modalOverlay').classList.remove('active');
         };
@@ -1196,6 +1205,6 @@
     </script>
 
     <!-- TRAINING MODULE -->
-   <script src="js/admin-training.js?v=20260927-3"></script>
+   <script src="js/admin-training.js?v=20260927-4"></script>
 </body>
 </html>
