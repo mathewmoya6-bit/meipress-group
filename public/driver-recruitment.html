@@ -1,80 +1,46 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <title>Driver Recruitment & Placement | MEI Group</title>
 
     <meta
         name="description"
-        content="MEI Group connects qualified drivers of all license classes with trusted employers locally in Kenya and internationally."
-    />
+        content="MEI Group Driver Recruitment & Placement connects qualified drivers with employment opportunities in Kenya and international markets."
+    >
 
-    <meta name="theme-color" content="#071a2b" />
-
-    <link
-        rel="icon"
-        type="image/svg+xml"
-        href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23071a2b'/><text x='50' y='67' text-anchor='middle' font-size='38' font-family='Arial' font-weight='bold' fill='%2318c77a'>MEI</text></svg>"
-    />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
     <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
         rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;400;500;600;700;800;900&display=swap"
-        rel="stylesheet"
-    />
+    >
 
     <style>
         :root {
-            --primary: #18c77a;
-            --primary-dark: #07985a;
-            --primary-light: #5be0a5;
-            --primary-bg: #e4f8ef;
-
-            --secondary: #071a2b;
-            --secondary-light: #0b304a;
-
-            --accent: #18c77a;
-            --accent-light: #7ce8b5;
-
-            --gold: #f5b942;
-            --success: #10b981;
-            --danger: #ef4444;
-
-            --bg: #f4f7f9;
-            --bg-card: #ffffff;
-
-            --text: #071a2b;
-            --text-secondary: #475569;
-            --text-light: #94a3b8;
-
-            --border: #e2e8f0;
-
-            --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
-            --shadow: 0 4px 24px rgba(0,0,0,0.06);
-            --shadow-lg: 0 20px 60px rgba(0,0,0,0.10);
-
-            --radius: 16px;
-            --radius-sm: 8px;
-            --radius-full: 9999px;
-
-            --transition: 0.3s ease;
-
-            --max-width: 1280px;
+            --mei-navy: #071a2b;
+            --mei-navy-2: #0b304a;
+            --mei-green: #18c77a;
+            --mei-green-dark: #07985a;
+            --mei-green-light: #e4f8ef;
+            --white: #ffffff;
+            --text: #17212b;
+            --muted: #64748b;
+            --border: #dbe3ea;
+            --light: #f6f9fb;
+            --danger: #dc2626;
+            --success: #15803d;
+            --shadow: 0 15px 45px rgba(7, 26, 43, .10);
+            --radius: 18px;
         }
 
         * {
+            box-sizing: border-box;
             margin: 0;
             padding: 0;
-            box-sizing: border-box;
         }
 
         html {
@@ -82,12 +48,10 @@
         }
 
         body {
-            font-family: "Inter", -apple-system, BlinkMacSystemFont, sans-serif;
-            background: var(--bg);
+            font-family: "Inter", sans-serif;
             color: var(--text);
+            background: var(--white);
             line-height: 1.6;
-            -webkit-font-smoothing: antialiased;
-            overflow-x: hidden;
         }
 
         a {
@@ -99,945 +63,615 @@
         input,
         select,
         textarea {
-            font-family: inherit;
+            font: inherit;
         }
 
         .container {
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 32px;
+            width: min(1180px, calc(100% - 32px));
+            margin: auto;
         }
 
-        /* =========================
-           TYPOGRAPHY
-        ========================= */
-
-        .text-gradient {
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-light)
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-
-        .section-tag {
-            display: inline-block;
-            font-size: 0.7rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            color: var(--primary-dark);
-            background: var(--primary-bg);
-            padding: 5px 16px;
-            border-radius: var(--radius-full);
-            margin-bottom: 12px;
-        }
-
-        .section-title {
-            font-size: 2.4rem;
-            font-weight: 800;
-            line-height: 1.1;
-            letter-spacing: -1px;
-            margin-bottom: 16px;
-        }
-
-        .section-title .highlight {
-            color: var(--primary-dark);
-        }
-
-        .section-sub {
-            font-size: 1.05rem;
-            color: var(--text-secondary);
-            max-width: 640px;
-            line-height: 1.7;
-        }
-
-        .section-center {
-            text-align: center;
-        }
-
-        .section-center .section-sub {
-            margin: 0 auto 40px;
-        }
-
-        /* =========================
-           NAVBAR
-        ========================= */
-
+        /* NAVIGATION */
         .navbar {
-            position: fixed;
+            position: sticky;
             top: 0;
-            left: 0;
-            right: 0;
             z-index: 1000;
-            padding: 10px 0;
-            background: rgba(255,255,255,0.97);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+            background: rgba(7, 26, 43, .97);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,.08);
         }
 
-        .nav-container {
+        .nav-inner {
+            min-height: 74px;
             display: flex;
+            align-items: center;
             justify-content: space-between;
-            align-items: center;
-            max-width: var(--max-width);
-            margin: 0 auto;
-            padding: 0 32px;
+            gap: 25px;
         }
 
-        .logo {
+        .brand {
             display: flex;
             align-items: center;
-            gap: 12px;
-            flex-shrink: 0;
-        }
-
-        .logo-icon-text {
-            width: 44px;
-            height: 44px;
-            background: linear-gradient(
-                135deg,
-                var(--secondary),
-                var(--secondary-light)
-            );
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: var(--primary);
+            gap: 11px;
+            color: white;
             font-weight: 900;
-            font-size: 1rem;
-            letter-spacing: -0.5px;
-            box-shadow: 0 4px 16px rgba(7,26,43,0.20);
+            font-size: 1.2rem;
         }
 
-        .logo-text {
-            display: flex;
-            flex-direction: column;
-            line-height: 1.1;
-        }
-
-        .logo-text .brand {
-            font-weight: 800;
-            font-size: 1.3rem;
-            letter-spacing: -0.5px;
-            color: var(--text);
-        }
-
-        .logo-text .brand span {
-            color: var(--primary-dark);
-        }
-
-        .logo-text .sub {
-            font-size: 0.55rem;
-            font-weight: 500;
-            color: var(--text-light);
-            letter-spacing: 0.7px;
-            text-transform: uppercase;
+        .brand-mark {
+            width: 40px;
+            height: 40px;
+            border-radius: 11px;
+            background: var(--mei-green);
+            color: var(--mei-navy);
+            display: grid;
+            place-items: center;
+            font-weight: 900;
         }
 
         .nav-links {
             display: flex;
             align-items: center;
-            gap: 30px;
+            gap: 22px;
         }
 
-        .nav-link {
-            font-size: 0.9rem;
-            font-weight: 500;
-            color: var(--text-secondary);
-            transition: color 0.3s ease;
-            position: relative;
+        .nav-links a {
+            color: #dce8ef;
+            font-size: .92rem;
+            font-weight: 600;
         }
 
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: var(--primary);
-            transition: width 0.3s ease;
+        .nav-links a:hover {
+            color: var(--mei-green);
         }
 
-        .nav-link:hover {
-            color: var(--text);
+        .nav-cta {
+            background: var(--mei-green);
+            color: var(--mei-navy) !important;
+            padding: 11px 17px;
+            border-radius: 10px;
+            font-weight: 800 !important;
         }
 
-        .nav-link:hover::after {
-            width: 100%;
-        }
-
-        .btn-nav {
-            background: var(--primary);
-            color: var(--secondary) !important;
-            padding: 10px 28px;
-            border-radius: var(--radius-full);
-            font-weight: 700;
-            font-size: 0.85rem;
-            transition: all 0.3s ease;
-        }
-
-        .btn-nav:hover {
-            background: var(--primary-dark);
-            color: white !important;
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(24,199,122,0.30);
-        }
-
-        .mobile-menu-btn {
+        .menu-btn {
             display: none;
-            background: none;
-            border: none;
-            font-size: 1.4rem;
-            color: var(--text);
+            border: 0;
+            background: transparent;
+            color: white;
+            font-size: 1.6rem;
             cursor: pointer;
-            padding: 4px;
         }
 
-        /* =========================
-           HERO
-        ========================= */
-
-        .page-hero {
-            position: relative;
-            background: var(--secondary);
-            overflow: hidden;
-            padding: 150px 0 70px;
-        }
-
-        .page-hero::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-
+        /* HERO */
+        .hero {
             background:
-                radial-gradient(
-                    ellipse at 15% 25%,
-                    rgba(24,199,122,0.18) 0%,
-                    transparent 55%
-                ),
-                radial-gradient(
-                    ellipse at 85% 70%,
-                    rgba(24,199,122,0.08) 0%,
-                    transparent 50%
-                );
+                linear-gradient(135deg, rgba(7,26,43,.98), rgba(11,48,74,.96));
+            color: white;
+            padding: 90px 0 80px;
+            position: relative;
+            overflow: hidden;
         }
 
-        .page-hero::after {
-            content: '';
+        .hero::after {
+            content: "";
             position: absolute;
             width: 420px;
             height: 420px;
-            right: -180px;
-            top: -180px;
-            border: 1px solid rgba(24,199,122,0.12);
             border-radius: 50%;
-            box-shadow:
-                0 0 0 50px rgba(24,199,122,0.03),
-                0 0 0 100px rgba(24,199,122,0.02);
+            background: rgba(24,199,122,.08);
+            right: -120px;
+            top: -120px;
         }
 
-        .page-hero .container {
+        .hero-grid {
             position: relative;
-            z-index: 2;
-        }
-
-        .breadcrumb {
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.5);
-            margin-bottom: 20px;
-        }
-
-        .breadcrumb a {
-            color: rgba(255,255,255,0.75);
-        }
-
-        .breadcrumb a:hover {
-            color: var(--primary);
-        }
-
-        .page-hero-icon {
-            width: 72px;
-            height: 72px;
-            display: flex;
+            z-index: 1;
+            display: grid;
+            grid-template-columns: 1.25fr .75fr;
+            gap: 55px;
             align-items: center;
-            justify-content: center;
-            background: rgba(24,199,122,0.10);
-            border: 1px solid rgba(24,199,122,0.25);
-            border-radius: 20px;
-            font-size: 2.6rem;
-            margin-bottom: 20px;
         }
 
-        .page-hero h1 {
-            font-size: 2.7rem;
-            font-weight: 900;
-            line-height: 1.12;
-            letter-spacing: -1.5px;
-            color: white;
-            margin-bottom: 16px;
-            max-width: 760px;
+        .eyebrow {
+            display: inline-flex;
+            padding: 7px 12px;
+            border-radius: 100px;
+            background: rgba(24,199,122,.13);
+            color: var(--mei-green);
+            font-size: .78rem;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: .08em;
+            margin-bottom: 18px;
         }
 
-        .page-hero h1 .highlight {
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-light)
-            );
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+        .hero h1 {
+            font-size: clamp(2.4rem, 5vw, 4.5rem);
+            line-height: 1.05;
+            margin-bottom: 22px;
+            letter-spacing: -0.04em;
         }
 
-        .page-hero p {
-            font-size: 1.1rem;
-            color: rgba(255,255,255,0.70);
-            line-height: 1.8;
-            max-width: 650px;
-            margin-bottom: 32px;
+        .hero h1 span {
+            color: var(--mei-green);
         }
 
-        .page-hero-buttons {
+        .hero p {
+            max-width: 700px;
+            color: #d6e2e9;
+            font-size: 1.08rem;
+            margin-bottom: 28px;
+        }
+
+        .hero-buttons {
             display: flex;
+            gap: 12px;
             flex-wrap: wrap;
-            gap: 16px;
         }
 
-        /* =========================
-           BUTTONS
-        ========================= */
-
-        .btn-primary {
+        .btn {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            gap: 12px;
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-dark)
-            );
-            color: var(--secondary);
-            padding: 15px 34px;
-            border-radius: var(--radius-full);
-            font-weight: 700;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: none;
+            border: 0;
             cursor: pointer;
-            box-shadow: 0 4px 20px rgba(24,199,122,0.25);
+            border-radius: 11px;
+            padding: 13px 20px;
+            font-weight: 800;
+            transition: .2s ease;
+        }
+
+        .btn-primary {
+            background: var(--mei-green);
+            color: var(--mei-navy);
         }
 
         .btn-primary:hover {
-            transform: translateY(-3px);
-            color: white;
-            box-shadow: 0 12px 40px rgba(24,199,122,0.35);
+            background: #24df8a;
+            transform: translateY(-1px);
         }
 
         .btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,.22);
             color: white;
-            padding: 15px 32px;
-            border-radius: var(--radius-full);
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255,255,255,0.16);
-            cursor: pointer;
+            background: rgba(255,255,255,.05);
         }
 
-        .btn-secondary:hover {
-            background: rgba(24,199,122,0.10);
-            border-color: rgba(24,199,122,0.40);
-            transform: translateY(-3px);
-        }
-
-        /* =========================
-           CONTENT
-        ========================= */
-
-        .content-section {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .content-section.alt {
-            background: var(--bg);
-        }
-
-        .detail-grid {
-            display: grid;
-            grid-template-columns: 1.3fr 1fr;
-            gap: 56px;
-            align-items: start;
-        }
-
-        .detail-main h2 {
-            font-size: 1.6rem;
-            font-weight: 750;
-            margin: 32px 0 14px;
-        }
-
-        .detail-main h2:first-child {
-            margin-top: 0;
-        }
-
-        .detail-main p {
-            color: var(--text-secondary);
-            line-height: 1.8;
-            margin-bottom: 14px;
-        }
-
-        .detail-main ul {
-            list-style: none;
-            padding: 0;
-            margin: 4px 0 4px;
-        }
-
-        .detail-main ul li {
-            padding: 8px 0 8px 28px;
-            position: relative;
-            color: var(--text-secondary);
-            line-height: 1.6;
-        }
-
-        .detail-main ul li::before {
-            content: '✓';
-            position: absolute;
-            left: 0;
-            top: 8px;
-            width: 20px;
-            height: 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: var(--primary-bg);
-            color: var(--primary-dark);
-            border-radius: 50%;
-            font-size: 0.65rem;
-            font-weight: 900;
-        }
-
-        .detail-main ul li strong {
-            color: var(--text);
-        }
-
-        /* =========================
-           SIDEBAR
-        ========================= */
-
-        .side-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
+        .hero-card {
+            background: rgba(255,255,255,.07);
+            border: 1px solid rgba(255,255,255,.12);
             padding: 28px;
-            margin-bottom: 20px;
-            box-shadow: var(--shadow-sm);
+            border-radius: 22px;
         }
 
-        .side-card h4 {
-            font-size: 1rem;
-            font-weight: 750;
-            margin-bottom: 12px;
-        }
-
-        .side-card .side-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 12px;
-            padding: 8px 0;
-            font-size: 0.9rem;
-            color: var(--text-secondary);
-        }
-
-        .side-card .side-item i {
-            color: var(--primary-dark);
-            margin-top: 3px;
-            width: 18px;
-        }
-
-        .side-card .btn-primary,
-        .side-card .btn-secondary {
-            width: 100%;
-            justify-content: center;
-        }
-
-        .side-card .btn-secondary {
-            color: var(--text);
-            background: var(--bg);
-            border: 1.5px solid var(--border);
-            margin-top: 10px;
-        }
-
-        .side-card .btn-secondary:hover {
-            border-color: var(--primary);
-            color: var(--primary-dark);
-            background: var(--primary-bg);
-        }
-
-        /* =========================
-           BADGES
-        ========================= */
-
-        .badge-group {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 7px;
-            margin: 14px 0 6px;
-        }
-
-        .badge-group .badge {
-            display: inline-block;
-            font-size: 0.62rem;
-            font-weight: 750;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-            padding: 5px 12px;
-            border-radius: 20px;
-        }
-
-        .badge.legal {
-            background: #e4f8ef;
-            color: #087a49;
-        }
-
-        .badge.safety {
-            background: #dff7eb;
-            color: #087a49;
-        }
-
-        .badge.health {
-            background: #fef3c7;
-            color: #a16207;
-        }
-
-        .badge.training {
-            background: #e8f0f5;
-            color: var(--secondary);
-        }
-
-        /* =========================
-           LICENSE GRID
-        ========================= */
-
-        .license-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 12px;
-            margin: 18px 0 8px;
-        }
-
-        .license-item {
-            background: var(--bg);
-            border-radius: var(--radius-sm);
-            padding: 13px 10px;
-            text-align: center;
-            border: 1px solid var(--border);
-            transition: all 0.3s ease;
-        }
-
-        .license-item:hover {
-            border-color: var(--primary);
-            background: var(--primary-bg);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow-sm);
-        }
-
-        .license-item .code {
-            font-weight: 800;
-            font-size: 1.05rem;
-            color: var(--primary-dark);
-            display: block;
-        }
-
-        .license-item .name {
-            font-size: 0.65rem;
-            color: var(--text-secondary);
-            line-height: 1.35;
-        }
-
-        /* =========================
-           APPLICATION FORM
-        ========================= */
-
-        .apply-form-card {
-            max-width: 700px;
-            margin: 0 auto;
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-            padding: 40px;
-            box-shadow: var(--shadow);
-        }
-
-        .apply-form-card .form-group {
+        .hero-card h3 {
             margin-bottom: 16px;
         }
 
-        .apply-form-card label {
-            font-weight: 650;
-            font-size: 0.88rem;
+        .hero-card ul {
+            list-style: none;
+            display: grid;
+            gap: 12px;
+        }
+
+        .hero-card li {
+            display: flex;
+            gap: 10px;
+            color: #dce8ef;
+        }
+
+        .hero-card li::before {
+            content: "✓";
+            color: var(--mei-green);
+            font-weight: 900;
+        }
+
+        /* GENERAL */
+        section {
+            padding: 80px 0;
+        }
+
+        .section-heading {
+            max-width: 720px;
+            margin-bottom: 40px;
+        }
+
+        .section-heading.center {
+            margin-left: auto;
+            margin-right: auto;
+            text-align: center;
+        }
+
+        .section-heading .eyebrow {
+            margin-bottom: 10px;
+        }
+
+        .section-heading h2 {
+            color: var(--mei-navy);
+            font-size: clamp(2rem, 4vw, 3rem);
+            line-height: 1.1;
+            margin-bottom: 15px;
+        }
+
+        .section-heading p {
+            color: var(--muted);
+        }
+
+        /* SERVICES */
+        .services {
+            background: var(--light);
+        }
+
+        .service-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+
+        .service-card {
+            background: white;
+            border: 1px solid var(--border);
+            padding: 28px;
+            border-radius: var(--radius);
+            box-shadow: 0 8px 25px rgba(7,26,43,.04);
+        }
+
+        .service-icon {
+            width: 48px;
+            height: 48px;
+            display: grid;
+            place-items: center;
+            border-radius: 13px;
+            background: var(--mei-green-light);
+            color: var(--mei-green-dark);
+            font-weight: 900;
+            margin-bottom: 18px;
+        }
+
+        .service-card h3 {
+            color: var(--mei-navy);
+            margin-bottom: 8px;
+        }
+
+        .service-card p {
+            color: var(--muted);
+        }
+
+        /* LICENSES */
+        .license-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .license {
+            padding: 10px 14px;
+            border-radius: 9px;
+            background: var(--mei-green-light);
+            color: var(--mei-navy);
+            border: 1px solid #c8edda;
+            font-weight: 800;
+        }
+
+        /* APPLICATION */
+        .application-section {
+            background: #f8fafc;
+        }
+
+        .application-layout {
+            display: grid;
+            grid-template-columns: .72fr 1.28fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .application-info {
+            background: var(--mei-navy);
+            color: white;
+            padding: 32px;
+            border-radius: var(--radius);
+            position: sticky;
+            top: 95px;
+        }
+
+        .application-info h2 {
+            margin-bottom: 15px;
+        }
+
+        .application-info p {
+            color: #d4e1e8;
+            margin-bottom: 25px;
+        }
+
+        .info-list {
+            list-style: none;
+            display: grid;
+            gap: 15px;
+        }
+
+        .info-list li {
+            display: flex;
+            gap: 12px;
+            color: #e6eef3;
+        }
+
+        .info-list strong {
+            color: var(--mei-green);
+        }
+
+        .application-card {
+            background: white;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 34px;
+        }
+
+        .application-card h2 {
+            color: var(--mei-navy);
+            margin-bottom: 8px;
+        }
+
+        .form-intro {
+            color: var(--muted);
+            margin-bottom: 25px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 18px;
+        }
+
+        .form-group label {
             display: block;
-            margin-bottom: 6px;
+            font-weight: 700;
+            font-size: .9rem;
+            margin-bottom: 7px;
+            color: var(--mei-navy);
         }
 
         .required {
             color: var(--danger);
         }
 
-        .apply-form-card input,
-        .apply-form-card select,
-        .apply-form-card textarea {
+        input,
+        select,
+        textarea {
             width: 100%;
-            padding: 12px 14px;
-            border: 1.5px solid var(--border);
-            border-radius: var(--radius-sm);
-            font-family: inherit;
-            font-size: 0.95rem;
-            background: var(--bg);
-            color: var(--text);
-            transition: all 0.2s ease;
-        }
-
-        .apply-form-card input:focus,
-        .apply-form-card select:focus,
-        .apply-form-card textarea:focus {
-            outline: none;
-            border-color: var(--primary);
+            border: 1px solid var(--border);
             background: white;
-            box-shadow: 0 0 0 3px rgba(24,199,122,0.12);
+            color: var(--text);
+            padding: 12px 13px;
+            border-radius: 10px;
+            outline: none;
+            transition: .2s;
         }
 
-        .apply-form-card textarea {
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--mei-green);
+            box-shadow: 0 0 0 3px rgba(24,199,122,.12);
+        }
+
+        textarea {
+            min-height: 115px;
             resize: vertical;
-            min-height: 90px;
         }
 
-        .apply-form-card .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 16px;
+        .form-section {
+            border-top: 1px solid var(--border);
+            margin-top: 26px;
+            padding-top: 26px;
         }
 
-        .apply-form-card .btn-submit {
-            background: linear-gradient(
-                135deg,
-                var(--primary),
-                var(--primary-dark)
-            );
-            color: var(--secondary);
-            padding: 13px 32px;
-            border: none;
-            border-radius: var(--radius-full);
-            font-weight: 750;
-            font-size: 0.95rem;
-            cursor: pointer;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.2s ease;
-            margin-top: 4px;
+        .form-section:first-of-type {
+            border-top: 0;
+            margin-top: 0;
+            padding-top: 0;
         }
 
-        .apply-form-card .btn-submit:hover {
-            color: white;
-            transform: translateY(-1px);
-            box-shadow: 0 8px 25px rgba(24,199,122,0.25);
+        .form-section-title {
+            color: var(--mei-navy);
+            font-size: 1.15rem;
+            margin-bottom: 18px;
         }
 
-        .apply-form-card .btn-submit:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-            transform: none;
-        }
-
-        .form-alert {
+        .form-section.hidden {
             display: none;
-            padding: 14px 16px;
-            border-radius: var(--radius-sm);
-            font-size: 0.88rem;
-            font-weight: 500;
-            margin-bottom: 16px;
         }
 
-        .form-alert.show {
+        .type-placeholder {
+            padding: 22px;
+            border-radius: 12px;
+            background: var(--mei-green-light);
+            color: var(--mei-navy);
+            border: 1px solid #c8edda;
+            margin-bottom: 22px;
+        }
+
+        .form-note {
+            color: var(--muted);
+            font-size: .83rem;
+            margin-top: 13px;
+        }
+
+        .submit-row {
+            margin-top: 24px;
+        }
+
+        .submit-btn {
+            width: 100%;
+            min-height: 52px;
+            font-size: 1rem;
+        }
+
+        .submit-btn:disabled {
+            opacity: .65;
+            cursor: not-allowed;
+        }
+
+        .message {
+            display: none;
+            padding: 15px 17px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .message.show {
             display: block;
         }
 
-        .form-alert.success {
-            background: #dff7eb;
-            color: #065f46;
-            border-left: 4px solid var(--success);
+        .message.success {
+            background: #ecfdf3;
+            border: 1px solid #bbf7d0;
+            color: var(--success);
         }
 
-        .form-alert.error {
-            background: #fee2e2;
-            color: #991b1b;
-            border-left: 4px solid var(--danger);
+        .message.error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #b91c1c;
         }
 
-        /* =========================
-           FAQ
-        ========================= */
-
-        .faq-section {
-            padding: 80px 0;
-            background: var(--bg);
+        /* PROCESS */
+        .process {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 18px;
         }
 
-        .faq-grid {
-            max-width: 760px;
-            margin: 0 auto;
-        }
-
-        .faq-item {
-            background: white;
-            border-radius: var(--radius-sm);
-            padding: 20px 24px;
-            margin-bottom: 12px;
+        .process-card {
+            padding: 25px;
             border: 1px solid var(--border);
-            cursor: pointer;
-            transition: all 0.3s ease;
+            border-radius: var(--radius);
         }
 
-        .faq-item:hover {
-            border-color: var(--primary);
-        }
-
-        .faq-item .question {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 20px;
-            font-weight: 650;
-        }
-
-        .faq-item .question i {
-            color: var(--primary-dark);
-            transition: transform 0.3s ease;
-            flex-shrink: 0;
-        }
-
-        .faq-item .answer {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.4s ease;
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            line-height: 1.7;
-        }
-
-        .faq-item.active .answer {
-            max-height: 400px;
-            padding-top: 16px;
-        }
-
-        .faq-item.active .question i {
-            transform: rotate(180deg);
-        }
-
-        /* =========================
-           CTA
-        ========================= */
-
-        .cta-section {
-            padding: 80px 0;
-            background: var(--secondary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .cta-section::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-
-            background:
-                radial-gradient(
-                    ellipse at 30% 50%,
-                    rgba(24,199,122,0.12) 0%,
-                    transparent 65%
-                );
-        }
-
-        .cta-box {
-            position: relative;
-            z-index: 1;
-            text-align: center;
-            max-width: 700px;
-            margin: 0 auto;
-        }
-
-        .cta-box h2 {
-            font-size: 2.2rem;
-            font-weight: 800;
-            color: white;
-            line-height: 1.15;
+        .process-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: var(--mei-green);
+            color: var(--mei-navy);
+            font-weight: 900;
             margin-bottom: 16px;
         }
 
-        .cta-box p {
-            font-size: 1.05rem;
-            color: rgba(255,255,255,0.6);
-            margin-bottom: 28px;
-            line-height: 1.7;
+        .process-card h3 {
+            color: var(--mei-navy);
+            margin-bottom: 8px;
         }
 
-        /* =========================
-           FOOTER
-        ========================= */
+        .process-card p {
+            color: var(--muted);
+            font-size: .92rem;
+        }
 
-        .footer {
-            background: var(--secondary);
-            color: rgba(255,255,255,0.5);
-            padding: 60px 0 24px;
-            border-top: 1px solid rgba(255,255,255,0.05);
+        /* FAQ */
+        .faq {
+            max-width: 850px;
+            margin: auto;
+        }
+
+        .faq-item {
+            border-bottom: 1px solid var(--border);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: 0;
+            padding: 20px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            text-align: left;
+            font-weight: 800;
+            color: var(--mei-navy);
+            cursor: pointer;
+        }
+
+        .faq-answer {
+            display: none;
+            padding: 0 0 20px;
+            color: var(--muted);
+        }
+
+        .faq-item.open .faq-answer {
+            display: block;
+        }
+
+        .faq-item.open .faq-question span {
+            transform: rotate(45deg);
+        }
+
+        .faq-question span {
+            transition: .2s;
+            font-size: 1.4rem;
+        }
+
+        /* FOOTER */
+        footer {
+            background: var(--mei-navy);
+            color: #d6e2e9;
+            padding: 55px 0 25px;
         }
 
         .footer-grid {
             display: grid;
-            grid-template-columns: 2fr 1fr 1fr 1fr;
-            gap: 48px;
-            padding-bottom: 40px;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
+            grid-template-columns: 1.5fr 1fr 1fr;
+            gap: 35px;
+            margin-bottom: 40px;
         }
 
-        .footer-brand h4 {
+        footer h3 {
             color: white;
-            font-size: 1.2rem;
-            font-weight: 700;
-            margin-bottom: 8px;
-        }
-
-        .footer-brand h4 span {
-            color: var(--primary);
-        }
-
-        .footer-brand p {
-            max-width: 320px;
-            font-size: 0.9rem;
-            line-height: 1.7;
-        }
-
-        .footer-col h4 {
-            color: white;
-            font-weight: 650;
-            font-size: 0.9rem;
             margin-bottom: 12px;
         }
 
-        .footer-col a {
-            display: block;
-            color: rgba(255,255,255,0.4);
-            font-size: 0.85rem;
-            margin-bottom: 8px;
-            transition: color 0.3s ease;
+        footer p,
+        footer a {
+            color: #b9cbd5;
+            font-size: .92rem;
         }
 
-        .footer-col a:hover {
-            color: var(--primary);
-        }
-
-        .footer-col .contact-item {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 0.85rem;
-            color: rgba(255,255,255,0.4);
-            margin-bottom: 8px;
-        }
-
-        .footer-col .contact-item i {
-            width: 18px;
-            color: var(--primary);
-        }
-
-        .footer-col .hours {
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.3);
-            margin-top: 8px;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 12px;
-            margin-top: 14px;
-        }
-
-        .social-links a {
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            width: 38px;
-            height: 38px;
-            border-radius: 50%;
-            background: rgba(255,255,255,0.04);
-            color: rgba(255,255,255,0.3);
-            transition: all 0.3s ease;
-        }
-
-        .social-links a:hover {
-            background: var(--primary);
-            color: var(--secondary);
-            transform: translateY(-2px);
+        footer a:hover {
+            color: var(--mei-green);
         }
 
         .footer-bottom {
+            border-top: 1px solid rgba(255,255,255,.1);
+            padding-top: 20px;
             text-align: center;
-            padding-top: 24px;
-            font-size: 0.8rem;
-            color: rgba(255,255,255,0.25);
+            color: #8fa7b5;
+            font-size: .84rem;
         }
 
-        /* =========================
-           WHATSAPP
-        ========================= */
-
-        .whatsapp-float {
-            position: fixed;
-            bottom: 24px;
-            right: 24px;
-            background: #25d366;
-            color: white;
-            width: 58px;
-            height: 58px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 2rem;
-            box-shadow: 0 8px 30px rgba(37,211,102,0.3);
-            transition: all 0.3s ease;
-            z-index: 999;
-        }
-
-        .whatsapp-float:hover {
-            transform: scale(1.08);
-            box-shadow: 0 12px 40px rgba(37,211,102,0.4);
-        }
-
-        /* =========================
-           RESPONSIVE
-        ========================= */
-
-        @media (max-width: 1100px) {
-            .nav-links {
-                gap: 20px;
+        /* RESPONSIVE */
+        @media (max-width: 900px) {
+            .hero-grid,
+            .application-layout {
+                grid-template-columns: 1fr;
             }
 
-            .license-grid {
-                grid-template-columns: repeat(3, 1fr);
+            .application-info {
+                position: static;
+            }
+
+            .service-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .process {
+                grid-template-columns: repeat(2, 1fr);
             }
 
             .footer-grid {
@@ -1045,114 +679,49 @@
             }
         }
 
-        @media (max-width: 992px) {
-            .detail-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .page-hero h1 {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-                flex-direction: column;
-                align-items: stretch;
-                background: white;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                right: 0;
-                padding: 24px;
-                box-shadow: var(--shadow-lg);
-                gap: 16px;
-                border-radius: 0 0 var(--radius) var(--radius);
-            }
-
-            .nav-links.active {
-                display: flex;
-            }
-
-            .mobile-menu-btn {
+        @media (max-width: 720px) {
+            .menu-btn {
                 display: block;
             }
 
-            .container {
-                padding: 0 20px;
-            }
-
-            .nav-container {
-                padding: 0 20px;
-            }
-
-            .page-hero {
-                padding: 130px 0 52px;
-            }
-
-            .page-hero h1 {
-                font-size: 1.8rem;
-                letter-spacing: -1px;
-            }
-
-            .page-hero p {
-                font-size: 1rem;
-            }
-
-            .section-title {
-                font-size: 1.8rem;
-            }
-
-            .license-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .footer-grid {
-                grid-template-columns: 1fr;
-                gap: 32px;
-            }
-
-            .cta-box h2 {
-                font-size: 1.8rem;
-            }
-        }
-
-        @media (max-width: 600px) {
-            .apply-form-card {
-                padding: 24px 20px;
-            }
-
-            .apply-form-card .form-row {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .page-hero h1 {
-                font-size: 1.55rem;
-            }
-
-            .page-hero-buttons {
+            .nav-links {
+                display: none;
+                position: absolute;
+                left: 0;
+                right: 0;
+                top: 74px;
+                background: var(--mei-navy);
+                padding: 20px;
                 flex-direction: column;
                 align-items: stretch;
             }
 
-            .btn-primary,
-            .btn-secondary {
-                width: 100%;
+            .nav-links.open {
+                display: flex;
             }
 
-            .license-grid {
-                grid-template-columns: repeat(2, 1fr);
+            .nav-links a {
+                padding: 9px 0;
             }
 
-            .whatsapp-float {
-                width: 52px;
-                height: 52px;
-                font-size: 1.7rem;
-                right: 18px;
-                bottom: 18px;
+            .hero {
+                padding: 65px 0;
+            }
+
+            .service-grid,
+            .process,
+            .form-grid,
+            .footer-grid {
+                grid-template-columns: 1fr;
+            }
+
+            section {
+                padding: 60px 0;
+            }
+
+            .application-card,
+            .application-info {
+                padding: 23px;
             }
         }
     </style>
@@ -1160,1107 +729,1112 @@
 
 <body>
 
-<!-- =========================
-     NAVIGATION
-========================= -->
+<!-- NAVIGATION -->
+<nav class="navbar">
+    <div class="container nav-inner">
 
-<nav class="navbar" id="navbar">
-    <div class="nav-container">
-
-        <a href="index.html" class="logo">
-
-            <div class="logo-icon-text">
-                MEI
-            </div>
-
-            <div class="logo-text">
-                <span class="brand">
-                    MEI <span>Group</span>
-                </span>
-
-                <span class="sub">
-                    Division of MEI Press Holdings Ltd.
-                </span>
-            </div>
-
+        <a href="index.html" class="brand">
+            <span class="brand-mark">MEI</span>
+            <span>MEI Group</span>
         </a>
 
         <button
-            class="mobile-menu-btn"
-            id="mobileMenuBtn"
-            aria-label="Toggle navigation menu"
-            type="button"
+            class="menu-btn"
+            id="menuBtn"
+            aria-label="Open navigation"
         >
-            <i class="fas fa-bars"></i>
+            ☰
         </button>
 
         <div class="nav-links" id="navLinks">
-
-            <a href="index.html#about" class="nav-link">
-                About
-            </a>
-
-            <a href="index.html#services" class="nav-link">
-                Services
-            </a>
-
-            <a href="index.html#testimonials" class="nav-link">
-                Testimonials
-            </a>
-
-            <a href="index.html#faq" class="nav-link">
-                FAQ
-            </a>
-
-            <a href="#apply-form" class="btn-nav">
-                Apply Now
-            </a>
-
+            <a href="index.html">Home</a>
+            <a href="#services">Services</a>
+            <a href="#licenses">Licences</a>
+            <a href="#process">Process</a>
+            <a href="#faq">FAQ</a>
+            <a href="#apply" class="nav-cta">Apply Now</a>
         </div>
 
     </div>
 </nav>
 
 
-<!-- =========================
-     HERO
-========================= -->
-
-<section class="page-hero">
-
-    <div class="container">
-
-        <div class="breadcrumb">
-            <a href="index.html">Home</a>
-            /
-            <a href="index.html#services">Services</a>
-            /
-            Driver Recruitment &amp; Placement
-        </div>
-
-        <div class="page-hero-icon">
-            🚛
-        </div>
-
-        <h1>
-            Driver Recruitment &amp;
-            <span class="highlight">Placement</span>
-        </h1>
-
-        <p>
-            Connecting qualified drivers with trusted employers across
-            Kenya and international markets. We support recruitment for
-            multiple driver license classes, from motorcycles to heavy
-            trucks and buses.
-        </p>
-
-        <div class="page-hero-buttons">
-
-            <a href="#apply-form" class="btn-primary">
-                <i class="fas fa-paper-plane"></i>
-                Apply Now
-            </a>
-
-            <a href="index.html#contact" class="btn-secondary">
-                <i class="fas fa-headset"></i>
-                Book Consultation
-            </a>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     MAIN CONTENT
-========================= -->
-
-<section class="content-section">
-
-    <div class="container">
-
-        <div class="detail-grid">
-
-            <div class="detail-main">
-
-                <div class="badge-group">
-
-                    <span class="badge safety">
-                        Local Placement
-                    </span>
-
-                    <span class="badge training">
-                        International Placement
-                    </span>
-
-                    <span class="badge legal">
-                        License Verification
-                    </span>
-
-                    <span class="badge health">
-                        Background Checks
-                    </span>
-
-                </div>
-
-
-                <h2>
-                    License classes we support
-                </h2>
-
-                <div class="license-grid">
-
-                    <div class="license-item">
-                        <span class="code">A2</span>
-                        <span class="name">Light Motorcycle</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">A3</span>
-                        <span class="name">Three Wheeler / TukTuk</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">B1</span>
-                        <span class="name">Light Vehicle – Automatic</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">B2</span>
-                        <span class="name">Light Vehicle – Manual</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">B3</span>
-                        <span class="name">Professional Driver</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">C1</span>
-                        <span class="name">Light Truck</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">C</span>
-                        <span class="name">Heavy Truck</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">CD</span>
-                        <span class="name">Heavy Truck + Hazmat</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">CE</span>
-                        <span class="name">Heavy Truck + Trailer</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">D1</span>
-                        <span class="name">14-Seater Vehicle</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">D2</span>
-                        <span class="name">33-Seater Bus</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">D3</span>
-                        <span class="name">55–63-Seater Bus</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">G</span>
-                        <span class="name">Industrial / Agricultural</span>
-                    </div>
-
-                    <div class="license-item">
-                        <span class="code">1–12</span>
-                        <span class="name">All Supported Classes</span>
-                    </div>
-
-                </div>
-
-
-                <h2>
-                    For job seekers
-                </h2>
-
-                <ul>
-
-                    <li>
-                        CV preparation and interview coaching
-                    </li>
-
-                    <li>
-                        License verification and documentation support
-                    </li>
-
-                    <li>
-                        Local and international placement support
-                    </li>
-
-                    <li>
-                        Guidance on employer and recruitment requirements
-                    </li>
-
-                </ul>
-
-
-                <h2>
-                    For employers
-                </h2>
-
-                <ul>
-
-                    <li>
-                        Driver screening and background checks
-                    </li>
-
-                    <li>
-                        License and documentation verification
-                    </li>
-
-                    <li>
-                        Defensive driving assessment
-                    </li>
-
-                    <li>
-                        Recruitment and placement support
-                    </li>
-
-                </ul>
-
-
-                <h2>
-                    Where we place drivers
-                </h2>
-
-                <ul>
-
-                    <li>
-                        <strong>Kenya:</strong>
-                        Nairobi, Mombasa, Kisumu, Nakuru, Eldoret
-                        and other locations.
-                    </li>
-
-                    <li>
-                        <strong>International:</strong>
-                        Middle East, Europe and other markets,
-                        subject to employer and regulatory requirements.
-                    </li>
-
-                </ul>
-
-            </div>
-
-
-            <!-- SIDEBAR -->
-
-            <div class="detail-side">
-
-                <div class="side-card">
-
-                    <h4>
-                        Ready to get started?
-                    </h4>
-
-                    <div class="side-item">
-                        <i class="fas fa-check"></i>
-                        Free initial consultation
-                    </div>
-
-                    <div class="side-item">
-                        <i class="fas fa-clock"></i>
-                        Response within 24 hours
-                    </div>
-
-                    <div class="side-item">
-                        <i class="fas fa-user-shield"></i>
-                        Dedicated recruitment support
-                    </div>
-
-                    <a
-                        href="#apply-form"
-                        class="btn-primary"
-                        style="margin-top:16px;"
-                    >
-                        <i class="fas fa-paper-plane"></i>
-                        Apply Now
-                    </a>
-
-                    <a
-                        href="index.html#contact"
-                        class="btn-secondary"
-                    >
-                        <i class="fas fa-headset"></i>
-                        Talk to an Advisor
-                    </a>
-
-                </div>
-
-
-                <div class="side-card">
-
-                    <h4>
-                        Contact MEI Group
-                    </h4>
-
-                    <div class="side-item">
-                        <i class="fas fa-phone-alt"></i>
-                        <a href="tel:+254703738707">
-                            +254 703 738 707
-                        </a>
-                    </div>
-
-                    <div class="side-item">
-                        <i class="fas fa-envelope"></i>
-                        <a href="mailto:info@meipressgroup.com">
-                            info@meipressgroup.com
-                        </a>
-                    </div>
-
-                    <div class="side-item">
-                        <i class="fab fa-whatsapp"></i>
-                        <a
-                            href="https://wa.me/254703738707"
-                            target="_blank"
-                            rel="noopener"
-                        >
-                            Chat on WhatsApp
-                        </a>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     APPLICATION FORM
-========================= -->
-
-<section class="content-section alt" id="apply-form">
-
-    <div class="container">
-
-        <div class="section-center">
-
-            <span class="section-tag">
-                Apply Now
-            </span>
-
-            <h2 class="section-title">
-                Start your
-                <span class="highlight">application</span>
-            </h2>
-
-            <p class="section-sub">
-                Tell us whether you're looking for a driver placement
-                or hiring drivers. Our recruitment team will review
-                your request and follow up.
+<!-- HERO -->
+<header class="hero">
+    <div class="container hero-grid">
+
+        <div>
+            <div class="eyebrow">MEI Group Driver Recruitment</div>
+
+            <h1>
+                Connecting <span>Drivers</span>
+                With Opportunities
+            </h1>
+
+            <p>
+                MEI Group provides driver recruitment and placement services
+                for qualified drivers and employers seeking reliable,
+                experienced driving professionals.
             </p>
 
+            <div class="hero-buttons">
+                <a href="#apply" class="btn btn-primary">
+                    Start Application
+                </a>
+
+                <a href="#process" class="btn btn-secondary">
+                    How It Works
+                </a>
+            </div>
+        </div>
+
+        <div class="hero-card">
+            <h3>Our Recruitment Focus</h3>
+
+            <ul>
+                <li>Qualified driver recruitment</li>
+                <li>Employer staffing requirements</li>
+                <li>Local placement opportunities</li>
+                <li>International placement support</li>
+                <li>Driver documentation review</li>
+                <li>Candidate-employer matching</li>
+            </ul>
+        </div>
+
+    </div>
+</header>
+
+
+<!-- SERVICES -->
+<section id="services" class="services">
+    <div class="container">
+
+        <div class="section-heading center">
+            <div class="eyebrow">What We Do</div>
+
+            <h2>Driver Recruitment Services</h2>
+
+            <p>
+                Our recruitment process is designed to understand the needs
+                of both drivers and employers before matching candidates
+                with suitable opportunities.
+            </p>
+        </div>
+
+        <div class="service-grid">
+
+            <div class="service-card">
+                <div class="service-icon">01</div>
+                <h3>Driver Registration</h3>
+                <p>
+                    We collect driver qualifications, experience,
+                    availability and placement preferences.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">02</div>
+                <h3>Employer Recruitment</h3>
+                <p>
+                    Employers can submit their staffing requirements,
+                    vehicle categories and recruitment timelines.
+                </p>
+            </div>
+
+            <div class="service-card">
+                <div class="service-icon">03</div>
+                <h3>Placement Support</h3>
+                <p>
+                    We review applications and requirements to facilitate
+                    appropriate candidate-employer matching.
+                </p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+<!-- LICENSES -->
+<section id="licenses">
+    <div class="container">
+
+        <div class="section-heading">
+            <div class="eyebrow">Driver Categories</div>
+
+            <h2>Licence Classes & Driver Categories</h2>
+
+            <p>
+                Applications can specify the driver's licence class or
+                the licence class required by an employer.
+            </p>
+        </div>
+
+        <div class="license-list">
+            <span class="license">A2</span>
+            <span class="license">A3</span>
+            <span class="license">B1</span>
+            <span class="license">B2</span>
+            <span class="license">B3</span>
+            <span class="license">C1</span>
+            <span class="license">C</span>
+            <span class="license">CD</span>
+            <span class="license">CE</span>
+            <span class="license">D1</span>
+            <span class="license">D2</span>
+            <span class="license">D3</span>
+            <span class="license">G</span>
+            <span class="license">Other</span>
+        </div>
+
+    </div>
+</section>
+
+
+<!-- APPLICATION -->
+<section id="apply" class="application-section">
+
+    <div class="container application-layout">
+
+        <div class="application-info">
+
+            <div class="eyebrow">Apply With MEI</div>
+
+            <h2>Tell Us What You Need</h2>
+
+            <p>
+                Select whether you are applying as a driver/job seeker or
+                as an employer. The application form will automatically
+                change to collect information relevant to your needs.
+            </p>
+
+            <ul class="info-list">
+
+                <li>
+                    <strong>✓</strong>
+                    Driver profiles
+                </li>
+
+                <li>
+                    <strong>✓</strong>
+                    Employer requirements
+                </li>
+
+                <li>
+                    <strong>✓</strong>
+                    Local placement
+                </li>
+
+                <li>
+                    <strong>✓</strong>
+                    International placement
+                </li>
+
+                <li>
+                    <strong>✓</strong>
+                    Recruitment support
+                </li>
+
+            </ul>
+
         </div>
 
 
-        <div class="apply-form-card">
+        <div class="application-card">
+
+            <h2>Driver Recruitment Application</h2>
+
+            <p class="form-intro">
+                Complete the appropriate form below. Fields marked
+                <span class="required">*</span> are required.
+            </p>
 
             <div
-                class="form-alert success"
-                id="driverFormSuccess"
+                id="formMessage"
+                class="message"
                 role="alert"
-            >
-                <i class="fas fa-check-circle"></i>
-                Application received. Our team will be in touch within
-                24 hours.
-            </div>
-
-            <div
-                class="form-alert error"
-                id="driverFormError"
-                role="alert"
-            >
-                <i class="fas fa-exclamation-circle"></i>
-                Something went wrong. Please try again or contact us
-                directly on WhatsApp.
-            </div>
+                aria-live="polite"
+            ></div>
 
 
             <form id="driverApplyForm" novalidate>
 
-                <div class="form-group">
-
-                    <label for="applicantType">
-                        I am a
-                        <span class="required">*</span>
-                    </label>
-
-                    <select
-                        id="applicantType"
-                        name="applicantType"
-                        required
-                    >
-
-                        <option value="">
-                            Select one
-                        </option>
-
-                        <option value="Job Seeker">
-                            Job seeker looking for placement
-                        </option>
-
-                        <option value="Employer">
-                            Employer looking for drivers
-                        </option>
-
-                    </select>
-
-                </div>
-
-
-                <div class="form-row">
+                <!-- COMMON TYPE -->
+                <div class="form-section">
 
                     <div class="form-group">
 
-                        <label for="applicantName">
-                            Full Name
+                        <label for="applicantType">
+                            I am applying as
                             <span class="required">*</span>
                         </label>
 
-                        <input
-                            type="text"
-                            id="applicantName"
-                            name="full_name"
-                            placeholder="Jane Doe"
-                            autocomplete="name"
-                            minlength="2"
+                        <select
+                            id="applicantType"
+                            name="applicantType"
                             required
-                        />
+                        >
+                            <option value="">
+                                Select application type
+                            </option>
 
-                    </div>
+                            <option value="Job Seeker">
+                                Job Seeker / Driver
+                            </option>
 
-
-                    <div class="form-group">
-
-                        <label for="applicantPhone">
-                            Phone Number
-                            <span class="required">*</span>
-                        </label>
-
-                        <input
-                            type="tel"
-                            id="applicantPhone"
-                            name="phone"
-                            placeholder="+254 700 000 000"
-                            autocomplete="tel"
-                            required
-                        />
+                            <option value="Employer">
+                                Employer / Company
+                            </option>
+                        </select>
 
                     </div>
 
                 </div>
 
 
-                <div class="form-group">
-
-                    <label for="applicantEmail">
-                        Email Address
-                        <span class="required">*</span>
-                    </label>
-
-                    <input
-                        type="email"
-                        id="applicantEmail"
-                        name="email"
-                        placeholder="jane@example.com"
-                        autocomplete="email"
-                        required
-                    />
-
-                </div>
-
-
-                <div class="form-row">
-
-                    <div class="form-group">
-
-                        <label for="applicantLicense">
-                            License Class
-                        </label>
-
-                        <input
-                            type="text"
-                            id="applicantLicense"
-                            name="license_class"
-                            placeholder="e.g. B2, CE, D2"
-                        />
-
-                    </div>
-
-
-                    <div class="form-group">
-
-                        <label for="applicantRegion">
-                            Region / Company
-                        </label>
-
-                        <input
-                            type="text"
-                            id="applicantRegion"
-                            name="region_company"
-                            placeholder="e.g. Nairobi or company name"
-                        />
-
-                    </div>
-
-                </div>
-
-
-                <div class="form-group">
-
-                    <label for="applicantMessage">
-                        Additional Details
-                    </label>
-
-                    <textarea
-                        id="applicantMessage"
-                        name="additional_details"
-                        rows="4"
-                        placeholder="Years of experience, number of drivers needed, preferred routes, current employer, etc."
-                    ></textarea>
-
-                </div>
-
-
-                <button
-                    type="submit"
-                    class="btn-submit"
-                    id="driverSubmitBtn"
+                <!-- PLACEHOLDER -->
+                <div
+                    id="typePlaceholder"
+                    class="type-placeholder"
                 >
-                    <i class="fas fa-paper-plane"></i>
-                    Submit Application
-                </button>
+                    Please select <strong>Job Seeker / Driver</strong> or
+                    <strong>Employer / Company</strong> above to continue.
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- JOB SEEKER FORM -->
+                <!-- ============================= -->
+
+                <div
+                    id="jobSeekerFields"
+                    class="form-section hidden"
+                >
+
+                    <h3 class="form-section-title">
+                        Driver / Job Seeker Information
+                    </h3>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="jobFullName">
+                                Full Name
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="jobFullName"
+                                name="jobFullName"
+                                placeholder="Enter your full name"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="jobPhone">
+                                Phone Number
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="jobPhone"
+                                name="jobPhone"
+                                placeholder="+254 7XX XXX XXX"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="jobEmail">
+                                Email Address
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="email"
+                                id="jobEmail"
+                                name="jobEmail"
+                                placeholder="you@example.com"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="nationality">
+                                Nationality
+                            </label>
+
+                            <input
+                                type="text"
+                                id="nationality"
+                                name="nationality"
+                                placeholder="e.g. Kenyan"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="currentLocation">
+                                Current Location
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="currentLocation"
+                                name="currentLocation"
+                                placeholder="Town / County / Country"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="preferredLocation">
+                                Preferred Placement Location
+                            </label>
+
+                            <input
+                                type="text"
+                                id="preferredLocation"
+                                name="preferredLocation"
+                                placeholder="Where would you prefer to work?"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="licenseClass">
+                                Driving Licence Class
+                                <span class="required">*</span>
+                            </label>
+
+                            <select
+                                id="licenseClass"
+                                name="licenseClass"
+                            >
+                                <option value="">
+                                    Select licence class
+                                </option>
+                                <option value="A2">A2</option>
+                                <option value="A3">A3</option>
+                                <option value="B1">B1</option>
+                                <option value="B2">B2</option>
+                                <option value="B3">B3</option>
+                                <option value="C1">C1</option>
+                                <option value="C">C</option>
+                                <option value="CD">CD</option>
+                                <option value="CE">CE</option>
+                                <option value="D1">D1</option>
+                                <option value="D2">D2</option>
+                                <option value="D3">D3</option>
+                                <option value="G">G</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="yearsExperience">
+                                Years of Driving Experience
+                            </label>
+
+                            <input
+                                type="number"
+                                id="yearsExperience"
+                                name="yearsExperience"
+                                min="0"
+                                max="60"
+                                step="1"
+                                placeholder="e.g. 5"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="currentEmployer">
+                                Current / Previous Employer
+                            </label>
+
+                            <input
+                                type="text"
+                                id="currentEmployer"
+                                name="currentEmployer"
+                                placeholder="Company name"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="availability">
+                                Availability
+                            </label>
+
+                            <select id="availability" name="availability">
+                                <option value="">
+                                    Select availability
+                                </option>
+                                <option value="Immediately">
+                                    Immediately
+                                </option>
+                                <option value="Within 2 weeks">
+                                    Within 2 weeks
+                                </option>
+                                <option value="Within 1 month">
+                                    Within 1 month
+                                </option>
+                                <option value="1-3 months">
+                                    1-3 months
+                                </option>
+                                <option value="Not sure">
+                                    Not sure
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="internationalPlacement">
+                                International Placement
+                            </label>
+
+                            <select
+                                id="internationalPlacement"
+                                name="internationalPlacement"
+                            >
+                                <option value="">
+                                    Select
+                                </option>
+                                <option value="Yes">
+                                    Yes
+                                </option>
+                                <option value="No">
+                                    No
+                                </option>
+                                <option value="Either">
+                                    Local or International
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="passportStatus">
+                                Passport Status
+                            </label>
+
+                            <select
+                                id="passportStatus"
+                                name="passportStatus"
+                            >
+                                <option value="">
+                                    Select
+                                </option>
+                                <option value="Valid">
+                                    Valid passport
+                                </option>
+                                <option value="Expired">
+                                    Expired passport
+                                </option>
+                                <option value="Applied">
+                                    Applied for passport
+                                </option>
+                                <option value="No Passport">
+                                    No passport
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="documentsStatus">
+                                Driver Documents Available
+                            </label>
+
+                            <input
+                                type="text"
+                                id="documentsStatus"
+                                name="documentsStatus"
+                                placeholder="e.g. Licence, PSV, Certificate of Good Conduct"
+                            >
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="vehicleExperience">
+                            Vehicle / Driving Experience
+                        </label>
+
+                        <textarea
+                            id="vehicleExperience"
+                            name="vehicleExperience"
+                            placeholder="Describe the vehicles you have driven and relevant experience."
+                        ></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="jobAdditionalDetails">
+                            Additional Information
+                        </label>
+
+                        <textarea
+                            id="jobAdditionalDetails"
+                            name="jobAdditionalDetails"
+                            placeholder="Tell us anything else that may help us understand your experience or job preferences."
+                        ></textarea>
+                    </div>
+
+                </div>
+
+
+                <!-- ============================= -->
+                <!-- EMPLOYER FORM -->
+                <!-- ============================= -->
+
+                <div
+                    id="employerFields"
+                    class="form-section hidden"
+                >
+
+                    <h3 class="form-section-title">
+                        Employer / Company Recruitment Requirement
+                    </h3>
+
+                    <div class="form-grid">
+
+                        <div class="form-group">
+                            <label for="companyName">
+                                Company Name
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="companyName"
+                                name="companyName"
+                                placeholder="Company / organisation name"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="contactPerson">
+                                Contact Person
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="contactPerson"
+                                name="contactPerson"
+                                placeholder="Full name"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="employerPhone">
+                                Phone Number
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="tel"
+                                id="employerPhone"
+                                name="employerPhone"
+                                placeholder="+254 7XX XXX XXX"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="employerEmail">
+                                Email Address
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="email"
+                                id="employerEmail"
+                                name="employerEmail"
+                                placeholder="company@example.com"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="companyLocation">
+                                Company Location
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="companyLocation"
+                                name="companyLocation"
+                                placeholder="Town / County / Country"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="driversRequired">
+                                Number of Drivers Required
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="number"
+                                id="driversRequired"
+                                name="driversRequired"
+                                min="1"
+                                max="10000"
+                                step="1"
+                                placeholder="e.g. 5"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="requiredLicenseClass">
+                                Required Licence Class
+                                <span class="required">*</span>
+                            </label>
+
+                            <select
+                                id="requiredLicenseClass"
+                                name="requiredLicenseClass"
+                            >
+                                <option value="">
+                                    Select licence class
+                                </option>
+                                <option value="A2">A2</option>
+                                <option value="A3">A3</option>
+                                <option value="B1">B1</option>
+                                <option value="B2">B2</option>
+                                <option value="B3">B3</option>
+                                <option value="C1">C1</option>
+                                <option value="C">C</option>
+                                <option value="CD">CD</option>
+                                <option value="CE">CE</option>
+                                <option value="D1">D1</option>
+                                <option value="D2">D2</option>
+                                <option value="D3">D3</option>
+                                <option value="G">G</option>
+                                <option value="Other">Other</option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="vehicleType">
+                                Vehicle Type
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="vehicleType"
+                                name="vehicleType"
+                                placeholder="e.g. Truck, Bus, PSV, Trailer"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="minimumExperienceYears">
+                                Minimum Experience Required
+                            </label>
+
+                            <input
+                                type="number"
+                                id="minimumExperienceYears"
+                                name="minimumExperienceYears"
+                                min="0"
+                                max="60"
+                                step="1"
+                                placeholder="Years"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="employmentLocation">
+                                Employment Location
+                                <span class="required">*</span>
+                            </label>
+
+                            <input
+                                type="text"
+                                id="employmentLocation"
+                                name="employmentLocation"
+                                placeholder="Where will the driver work?"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="placementScope">
+                                Placement Scope
+                                <span class="required">*</span>
+                            </label>
+
+                            <select
+                                id="placementScope"
+                                name="placementScope"
+                            >
+                                <option value="">
+                                    Select
+                                </option>
+                                <option value="Local">
+                                    Local
+                                </option>
+                                <option value="International">
+                                    International
+                                </option>
+                                <option value="Both">
+                                    Local & International
+                                </option>
+                            </select>
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="salaryRange">
+                                Salary / Pay Range
+                            </label>
+
+                            <input
+                                type="text"
+                                id="salaryRange"
+                                name="salaryRange"
+                                placeholder="e.g. KES 50,000 - 70,000"
+                            >
+                        </div>
+
+
+                        <div class="form-group">
+                            <label for="recruitmentTimeline">
+                                Recruitment Timeline
+                            </label>
+
+                            <select
+                                id="recruitmentTimeline"
+                                name="recruitmentTimeline"
+                            >
+                                <option value="">
+                                    Select
+                                </option>
+                                <option value="Immediately">
+                                    Immediately
+                                </option>
+                                <option value="Within 2 weeks">
+                                    Within 2 weeks
+                                </option>
+                                <option value="Within 1 month">
+                                    Within 1 month
+                                </option>
+                                <option value="1-3 months">
+                                    1-3 months
+                                </option>
+                                <option value="Flexible">
+                                    Flexible
+                                </option>
+                            </select>
+                        </div>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="accommodationBenefits">
+                            Accommodation / Benefits
+                        </label>
+
+                        <textarea
+                            id="accommodationBenefits"
+                            name="accommodationBenefits"
+                            placeholder="Describe accommodation, meals, insurance, allowances or other benefits."
+                        ></textarea>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="jobDescription">
+                            Job Description / Driver Requirements
+                            <span class="required">*</span>
+                        </label>
+
+                        <textarea
+                            id="jobDescription"
+                            name="jobDescription"
+                            placeholder="Describe the role, duties, routes, vehicle and other requirements."
+                        ></textarea>
+                    </div>
+
+                </div>
+
+
+                <!-- SUBMIT -->
+                <div id="submitArea" class="submit-row" style="display:none;">
+
+                    <button
+                        type="submit"
+                        id="submitBtn"
+                        class="btn btn-primary submit-btn"
+                    >
+                        Submit Application
+                    </button>
+
+                    <p class="form-note">
+                        Submission of an application does not guarantee
+                        employment or placement. MEI Group recruitment staff
+                        will review the information provided.
+                    </p>
+
+                </div>
 
             </form>
 
         </div>
 
     </div>
-
 </section>
 
 
-<!-- =========================
-     FAQ
-========================= -->
-
-<section class="faq-section">
-
+<!-- PROCESS -->
+<section id="process">
     <div class="container">
 
-        <div class="section-center">
+        <div class="section-heading center">
+            <div class="eyebrow">Our Process</div>
 
-            <span class="section-tag">
-                FAQ
-            </span>
-
-            <h2 class="section-title">
-                Common
-                <span class="highlight">Questions</span>
-            </h2>
-
-        </div>
-
-
-        <div class="faq-grid">
-
-            <div class="faq-item">
-
-                <div class="question">
-                    <span>
-                        How do employers recruit drivers through MEI Group?
-                    </span>
-
-                    <i class="fas fa-chevron-down"></i>
-                </div>
-
-                <div class="answer">
-                    Employers can submit an application through this
-                    page or contact MEI Group directly. Recruitment may
-                    include candidate screening, documentation
-                    verification and relevant assessments.
-                </div>
-
-            </div>
-
-
-            <div class="faq-item">
-
-                <div class="question">
-
-                    <span>
-                        What driver license classes do you support?
-                    </span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </div>
-
-                <div class="answer">
-                    We support a broad range of driver categories,
-                    including motorcycle, light vehicle, professional,
-                    truck, trailer, bus and industrial/agricultural
-                    categories. Requirements may vary depending on
-                    the employer and destination.
-                </div>
-
-            </div>
-
-
-            <div class="faq-item">
-
-                <div class="question">
-
-                    <span>
-                        Do you place drivers internationally?
-                    </span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </div>
-
-                <div class="answer">
-                    MEI Group supports local and international
-                    recruitment opportunities. International placement
-                    is subject to employer requirements, immigration
-                    rules, licensing requirements and applicable
-                    regulations in the destination country.
-                </div>
-
-            </div>
-
-
-            <div class="faq-item">
-
-                <div class="question">
-
-                    <span>
-                        Can companies submit driver requirements?
-                    </span>
-
-                    <i class="fas fa-chevron-down"></i>
-
-                </div>
-
-                <div class="answer">
-                    Yes. Employers can select "Employer" in the
-                    application form and provide their company,
-                    location and driver requirements.
-                </div>
-
-            </div>
-
-        </div>
-
-    </div>
-
-</section>
-
-
-<!-- =========================
-     CTA
-========================= -->
-
-<section class="cta-section">
-
-    <div class="container">
-
-        <div class="cta-box">
-
-            <h2>
-                Find your next
-                <span class="text-gradient">
-                    driver or opportunity
-                </span>
-            </h2>
+            <h2>How Driver Recruitment Works</h2>
 
             <p>
-                Whether you're hiring drivers or looking for a
-                placement opportunity, submit your requirements and
-                our recruitment team will review your application.
+                We use the information provided to understand the candidate
+                or employer requirement before proceeding with recruitment
+                and matching activities.
             </p>
+        </div>
 
-            <div
-                style="
-                    display:flex;
-                    justify-content:center;
-                    gap:16px;
-                    flex-wrap:wrap;
-                "
-            >
 
-                <a
-                    href="#apply-form"
-                    class="btn-primary"
-                >
-                    <i class="fas fa-rocket"></i>
-                    Apply Now
-                </a>
+        <div class="process">
 
-                <a
-                    href="index.html#contact"
-                    class="btn-secondary"
-                >
-                    <i class="fas fa-headset"></i>
-                    Talk to an Advisor
-                </a>
+            <div class="process-card">
+                <div class="process-number">1</div>
+                <h3>Apply</h3>
+                <p>
+                    Submit your driver profile or employer requirement.
+                </p>
+            </div>
 
+            <div class="process-card">
+                <div class="process-number">2</div>
+                <h3>Review</h3>
+                <p>
+                    MEI recruitment staff review the information submitted.
+                </p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-number">3</div>
+                <h3>Match</h3>
+                <p>
+                    Suitable candidates and opportunities can be considered
+                    for matching.
+                </p>
+            </div>
+
+            <div class="process-card">
+                <div class="process-number">4</div>
+                <h3>Placement</h3>
+                <p>
+                    Eligible candidates may proceed through the employer's
+                    recruitment process.
+                </p>
             </div>
 
         </div>
 
     </div>
-
 </section>
 
 
-<!-- =========================
-     FOOTER
-========================= -->
+<!-- FAQ -->
+<section id="faq" style="background:#f8fafc;">
+    <div class="container">
 
-<footer class="footer">
+        <div class="section-heading center">
+            <div class="eyebrow">FAQ</div>
+            <h2>Frequently Asked Questions</h2>
+        </div>
 
+        <div class="faq">
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can a driver apply without an employer?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    Yes. Select Job Seeker / Driver and submit your
+                    qualifications, experience, availability and placement
+                    preferences.
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can an employer request several drivers?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    Yes. Employers can specify the number of drivers
+                    required and provide the licence, vehicle, experience
+                    and employment requirements.
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Does submitting the form guarantee placement?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    No. Applications are subject to review, verification,
+                    availability and the recruitment requirements of the
+                    relevant employer or opportunity.
+                </div>
+            </div>
+
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Can I apply for international opportunities?
+                    <span>+</span>
+                </button>
+
+                <div class="faq-answer">
+                    Yes. Job seekers can indicate their interest in
+                    international placement and provide passport information.
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</section>
+
+
+<!-- FOOTER -->
+<footer>
     <div class="container">
 
         <div class="footer-grid">
 
-            <div class="footer-brand">
-
-                <h4>
-                    MEI <span>Group</span>
-                </h4>
+            <div>
+                <h3>MEI Group</h3>
 
                 <p>
-                    Division of MEI Press Holdings Ltd.
-                    Empowering people, building careers,
-                    driving innovation.
+                    A division of MEI Press Holdings Ltd providing
+                    education, road safety, occupational safety and
+                    driver recruitment services.
+                </p>
+            </div>
+
+
+            <div>
+                <h3>Recruitment</h3>
+
+                <p>
+                    <a href="#apply">Driver Application</a>
                 </p>
 
-                <div class="social-links">
+                <p>
+                    <a href="#apply">Employer Recruitment</a>
+                </p>
 
-                    <a href="#" aria-label="Facebook">
-                        <i class="fab fa-facebook-f"></i>
-                    </a>
-
-                    <a href="#" aria-label="Twitter">
-                        <i class="fab fa-twitter"></i>
-                    </a>
-
-                    <a href="#" aria-label="Instagram">
-                        <i class="fab fa-instagram"></i>
-                    </a>
-
-                    <a href="#" aria-label="LinkedIn">
-                        <i class="fab fa-linkedin-in"></i>
-                    </a>
-
-                </div>
-
+                <p>
+                    <a href="#process">Recruitment Process</a>
+                </p>
             </div>
 
 
-            <div class="footer-col">
+            <div>
+                <h3>MEI Group</h3>
 
-                <h4>
-                    Quick Links
-                </h4>
+                <p>
+                    <a href="index.html">Home</a>
+                </p>
 
-                <a href="index.html">
-                    Home
-                </a>
+                <p>
+                    <a href="education.html">International Education</a>
+                </p>
 
-                <a href="index.html#about">
-                    About
-                </a>
+                <p>
+                    <a href="road-safety.html">Road Safety Training</a>
+                </p>
 
-                <a href="index.html#services">
-                    Services
-                </a>
-
-                <a href="#apply-form">
-                    Apply
-                </a>
-
-                <a href="index.html#contact">
-                    Contact
-                </a>
-
-            </div>
-
-
-            <div class="footer-col">
-
-                <h4>
-                    Services
-                </h4>
-
-                <a href="education.html">
-                    International Education
-                </a>
-
-                <a href="driver-recruitment.html">
-                    Driver Recruitment
-                </a>
-
-                <a href="road-safety.html">
-                    Road Safety Training
-                </a>
-
-                <a href="occupational-safety.html">
-                    Occupational Safety &amp; Health
-                </a>
-
-            </div>
-
-
-            <div class="footer-col">
-
-                <h4>
-                    Contact
-                </h4>
-
-                <div class="contact-item">
-                    <i class="fas fa-phone-alt"></i>
-
-                    <a href="tel:+254703738707">
-                        +254 703 738 707
-                    </a>
-                </div>
-
-                <div class="contact-item">
-                    <i class="fas fa-envelope"></i>
-
-                    <a href="mailto:info@meipressgroup.com">
-                        info@meipressgroup.com
-                    </a>
-                </div>
-
-                <div class="contact-item">
-                    <i class="fab fa-whatsapp"></i>
-
-                    <a
-                        href="https://wa.me/254703738707"
-                        target="_blank"
-                        rel="noopener"
-                    >
-                        WhatsApp
-                    </a>
-                </div>
-
-                <div class="hours">
-
-                    <strong style="color:rgba(255,255,255,0.5);">
-                        Business Hours
-                    </strong>
-
-                    <br />
-
-                    Monday–Friday
-                    <br />
-
-                    8:00 AM – 5:00 PM
-
-                </div>
-
+                <p>
+                    <a href="occupational-safety.html">OSH Training</a>
+                </p>
             </div>
 
         </div>
 
 
         <div class="footer-bottom">
-
-            &copy;
-            <span id="currentYear"></span>
-            MEI Press Holdings Ltd.
-            All rights reserved.
-
+            © <span id="currentYear"></span>
+            MEI Press Holdings Ltd. All rights reserved.
         </div>
 
     </div>
-
 </footer>
 
 
-<!-- =========================
-     WHATSAPP
-========================= -->
-
-<a
-    href="https://wa.me/254703738707"
-    class="whatsapp-float"
-    target="_blank"
-    rel="noopener"
-    aria-label="Contact MEI Group on WhatsApp"
->
-    <i class="fab fa-whatsapp"></i>
-</a>
-
-
-<!-- =========================
-     SUPABASE
-========================= -->
-
+<!-- SUPABASE -->
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<!-- Optional project configuration -->
 <script src="js/config.js"></script>
 
+<!-- Recruitment logic -->
 <script src="js/driver-recruitment.js"></script>
 
 
-<!-- =========================
-     PAGE JAVASCRIPT
-========================= -->
-
 <script>
-(function () {
+    document.getElementById("currentYear").textContent =
+        new Date().getFullYear();
 
-    "use strict";
-
-    /* =========================
-       CURRENT YEAR
-    ========================= */
-
-    const yearElement = document.getElementById("currentYear");
-
-    if (yearElement) {
-        yearElement.textContent = new Date().getFullYear();
-    }
-
-
-    /* =========================
-       MOBILE NAVIGATION
-    ========================= */
-
-    const menuBtn = document.getElementById("mobileMenuBtn");
+    const menuBtn = document.getElementById("menuBtn");
     const navLinks = document.getElementById("navLinks");
 
-    if (menuBtn && navLinks) {
-
-        menuBtn.addEventListener("click", function (event) {
-
-            event.stopPropagation();
-
-            navLinks.classList.toggle("active");
-
-            const isOpen = navLinks.classList.contains("active");
-
-            this.innerHTML = isOpen
-                ? '<i class="fas fa-times"></i>'
-                : '<i class="fas fa-bars"></i>';
-
-        });
-
-
-        document.addEventListener("click", function (event) {
-
-            if (
-                navLinks.classList.contains("active") &&
-                !event.target.closest(".navbar")
-            ) {
-
-                navLinks.classList.remove("active");
-
-                menuBtn.innerHTML =
-                    '<i class="fas fa-bars"></i>';
-
-            }
-
-        });
-
-
-        navLinks.querySelectorAll("a").forEach(function (link) {
-
-            link.addEventListener("click", function () {
-
-                navLinks.classList.remove("active");
-
-                menuBtn.innerHTML =
-                    '<i class="fas fa-bars"></i>';
-
-            });
-
-        });
-
-    }
-
-
-    /* =========================
-       FAQ ACCORDION
-    ========================= */
-
-    document.querySelectorAll(".faq-item").forEach(function (item) {
-
-        item.addEventListener("click", function () {
-
-            const wasActive =
-                this.classList.contains("active");
-
-            document
-                .querySelectorAll(".faq-item")
-                .forEach(function (faq) {
-                    faq.classList.remove("active");
-                });
-
-            if (!wasActive) {
-                this.classList.add("active");
-            }
-
-        });
-
+    menuBtn.addEventListener("click", function () {
+        navLinks.classList.toggle("open");
     });
 
-
-    /* =========================
-       SMOOTH APPLY SCROLL
-    ========================= */
-
-    document.querySelectorAll('a[href="#apply-form"]').forEach(function (link) {
-
+    document.querySelectorAll(".nav-links a").forEach(link => {
         link.addEventListener("click", function () {
-
-            const formSection =
-                document.getElementById("apply-form");
-
-            if (formSection) {
-
-                setTimeout(function () {
-
-                    const firstField =
-                        document.getElementById("applicantType");
-
-                    if (firstField) {
-                        firstField.focus();
-                    }
-
-                }, 500);
-
-            }
-
+            navLinks.classList.remove("open");
         });
-
     });
 
-})();
+    document.querySelectorAll(".faq-question").forEach(button => {
+        button.addEventListener("click", function () {
+            this.parentElement.classList.toggle("open");
+        });
+    });
 </script>
 
 </body>
