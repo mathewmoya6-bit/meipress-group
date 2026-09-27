@@ -2,650 +2,2087 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
 <title>Training Calendar | MEI Group</title>
-<meta name="description" content="MEI Group training calendar for Road Safety and Occupational Safety & Health training.">
+
+<meta name="description"
+      content="MEI Group training calendar for International Education, Road Safety, Occupational Safety & Health, and Driver Recruitment programmes.">
+
 <meta name="theme-color" content="#071a2b">
 
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,Helvetica,sans-serif;background:#f4f7f9;color:#17212b;line-height:1.6}
-a{text-decoration:none;color:inherit}
-.container{width:min(1180px,92%);margin:auto}
-header{background:#071a2b;color:#fff;position:sticky;top:0;z-index:1000;box-shadow:0 3px 15px rgba(0,0,0,.15)}
-.nav{min-height:72px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-size:22px;font-weight:800;letter-spacing:.5px}
-.logo span{color:#18c77a}
-nav{display:flex;gap:22px;align-items:center}
-nav a{color:#fff;font-size:14px;font-weight:600;opacity:.9}
-nav a:hover{color:#18c77a}
-.hero{background:linear-gradient(135deg,#071a2b,#0b304a);color:#fff;padding:70px 0 65px}
-.hero-content{max-width:850px}
-.badge{display:inline-block;background:rgba(24,199,122,.15);border:1px solid rgba(24,199,122,.45);color:#45e39a;padding:7px 14px;border-radius:30px;font-size:13px;font-weight:700;margin-bottom:18px}
-.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.1;margin-bottom:18px}
-.hero p{font-size:18px;max-width:760px;color:#d7e4eb}
-.controls{padding:28px 0 10px}
-.filter-bar{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
-.filter-btn{border:1px solid #d7e0e6;background:#fff;padding:10px 17px;border-radius:8px;cursor:pointer;font-weight:700;font-size:14px;color:#263642}
-.filter-btn:hover,.filter-btn.active{background:#071a2b;border-color:#071a2b;color:#fff}
-.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;margin:25px 0 35px}
-.stat{background:#fff;border-radius:12px;padding:22px;border:1px solid #e1e8ed;box-shadow:0 4px 15px rgba(7,26,43,.05)}
-.stat-number{font-size:30px;font-weight:800;color:#071a2b}
-.stat-label{font-size:13px;color:#687984;margin-top:3px}
-.calendar{padding-bottom:60px}
-.month{margin-bottom:34px}
-.month-title{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:15px;padding-bottom:10px;border-bottom:2px solid #dce5ea}
-.month-title h2{font-size:25px;color:#071a2b}
-.month-title span{font-size:13px;font-weight:700;color:#657783}
-.sessions{display:grid;grid-template-columns:repeat(2,1fr);gap:18px}
-.session{background:#fff;border:1px solid #dfe7ec;border-radius:14px;overflow:hidden;box-shadow:0 5px 20px rgba(7,26,43,.06);display:flex;flex-direction:column}
-.session-top{padding:18px 20px;background:#f8fafb;border-bottom:1px solid #e4ebef}
-.session-type{display:inline-block;font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.6px;color:#087f50;background:#e4f8ef;padding:5px 9px;border-radius:20px;margin-bottom:10px}
-.session h3{font-size:20px;line-height:1.3;color:#071a2b}
-.session-body{padding:18px 20px;flex:1}
-.info{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:15px}
-.info-item{font-size:13px;color:#657783}
-.info-item strong{display:block;color:#263642;font-size:14px;margin-top:2px}
-.description{font-size:14px;color:#5e6e77;margin-bottom:16px}
-.session-footer{padding:15px 20px;border-top:1px solid #e7edf0;display:flex;align-items:center;justify-content:space-between;gap:12px}
-.price{font-weight:800;color:#071a2b}
-.register-btn{display:inline-block;background:#12b96f;color:#fff;padding:10px 17px;border-radius:8px;font-weight:800;font-size:13px}
-.register-btn:hover{background:#07985a}
-.status-note{font-size:13px;font-weight:700;color:#8b2424;text-transform:capitalize}
-.empty-state{background:#fff;border:1px solid #dfe7ec;border-radius:14px;padding:35px;text-align:center;color:#61727c;grid-column:1/-1}
-.empty-state strong{display:block;font-size:18px;color:#071a2b;margin-bottom:7px}
-.loading{background:#fff;border:1px solid #dfe7ec;border-radius:14px;padding:45px;text-align:center;color:#61727c}
-.error-box{background:#fff1f1;border:1px solid #dfaaaa;color:#8b2424;border-radius:12px;padding:22px;margin-bottom:25px;display:none}
-.error-box strong{display:block;font-size:18px;margin-bottom:8px}
-.debug{margin-top:12px;padding:12px;background:#fff;border:1px solid #ead0d0;border-radius:7px;font-family:monospace;font-size:12px;word-break:break-word}
-footer{background:#071a2b;color:#c8d5dc;padding:45px 0}
-.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:35px}
-footer h3{color:#fff;margin-bottom:12px}
-footer p,footer a{font-size:14px;margin-bottom:7px}
-footer a:hover{color:#18c77a}
-.copyright{border-top:1px solid rgba(255,255,255,.1);margin-top:30px;padding-top:20px;font-size:13px;color:#8da0aa}
+
+/* =========================================================
+   MEI GROUP DESIGN SYSTEM
+========================================================= */
+
+:root{
+    --mei-navy:#071a2b;
+    --mei-navy-2:#0b304a;
+    --mei-green:#18c77a;
+    --mei-green-dark:#07985a;
+    --mei-green-light:#e4f8ef;
+
+    --white:#ffffff;
+    --bg:#f4f7f9;
+
+    --text:#17212b;
+    --text-dark:#263642;
+    --muted:#657783;
+    --muted-light:#8da0aa;
+
+    --border:#dfe7ec;
+    --border-light:#e7edf0;
+
+    --danger:#8b2424;
+    --danger-bg:#fff1f1;
+
+    --shadow-sm:0 4px 15px rgba(7,26,43,.05);
+    --shadow-md:0 6px 24px rgba(7,26,43,.08);
+    --shadow-lg:0 12px 35px rgba(7,26,43,.12);
+
+    --radius-sm:8px;
+    --radius-md:12px;
+    --radius-lg:16px;
+
+    --container:1180px;
+}
+
+/* =========================================================
+   RESET
+========================================================= */
+
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:"Inter",Arial,Helvetica,sans-serif;
+    background:var(--bg);
+    color:var(--text);
+    line-height:1.6;
+}
+
+a{
+    text-decoration:none;
+    color:inherit;
+}
+
+button{
+    font-family:inherit;
+}
+
+/* =========================================================
+   CONTAINER
+========================================================= */
+
+.container{
+    width:min(var(--container),92%);
+    margin:auto;
+}
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+header{
+    background:var(--mei-navy);
+    color:var(--white);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    box-shadow:0 3px 18px rgba(0,0,0,.16);
+}
+
+.nav{
+    min-height:74px;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:25px;
+}
+
+.logo{
+    display:inline-flex;
+    align-items:center;
+    gap:3px;
+    font-size:22px;
+    font-weight:900;
+    letter-spacing:.4px;
+    white-space:nowrap;
+}
+
+.logo span{
+    color:var(--mei-green);
+}
+
+nav{
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:22px;
+}
+
+nav a{
+    position:relative;
+    color:var(--white);
+    font-size:13px;
+    font-weight:700;
+    opacity:.92;
+    padding:27px 0;
+    transition:.25s ease;
+}
+
+nav a::after{
+    content:"";
+    position:absolute;
+    left:0;
+    right:0;
+    bottom:19px;
+    height:2px;
+    background:var(--mei-green);
+    transform:scaleX(0);
+    transform-origin:center;
+    transition:.25s ease;
+}
+
+nav a:hover,
+nav a.active{
+    color:var(--mei-green);
+    opacity:1;
+}
+
+nav a:hover::after,
+nav a.active::after{
+    transform:scaleX(1);
+}
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero{
+    position:relative;
+    overflow:hidden;
+    background:
+        radial-gradient(
+            circle at 85% 20%,
+            rgba(24,199,122,.12),
+            transparent 30%
+        ),
+        linear-gradient(
+            135deg,
+            var(--mei-navy),
+            var(--mei-navy-2)
+        );
+    color:var(--white);
+    padding:78px 0 72px;
+}
+
+.hero::after{
+    content:"";
+    position:absolute;
+    width:360px;
+    height:360px;
+    border:1px solid rgba(24,199,122,.12);
+    border-radius:50%;
+    right:-140px;
+    top:-170px;
+}
+
+.hero-content{
+    position:relative;
+    z-index:1;
+    max-width:850px;
+}
+
+.badge{
+    display:inline-flex;
+    align-items:center;
+    background:rgba(24,199,122,.13);
+    border:1px solid rgba(24,199,122,.42);
+    color:#45e39a;
+    padding:8px 15px;
+    border-radius:30px;
+    font-size:12px;
+    font-weight:800;
+    letter-spacing:.3px;
+    margin-bottom:20px;
+}
+
+.hero h1{
+    font-size:clamp(36px,5vw,58px);
+    line-height:1.08;
+    font-weight:900;
+    letter-spacing:-1.5px;
+    margin-bottom:18px;
+}
+
+.hero p{
+    font-size:18px;
+    max-width:780px;
+    color:#d7e4eb;
+}
+
+/* =========================================================
+   CONTROLS
+========================================================= */
+
+.controls{
+    padding:32px 0 12px;
+}
+
+.filter-bar{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+    align-items:center;
+}
+
+.filter-btn{
+    border:1px solid var(--border);
+    background:var(--white);
+    padding:11px 17px;
+    border-radius:var(--radius-sm);
+    cursor:pointer;
+    font-weight:800;
+    font-size:13px;
+    color:var(--text-dark);
+    transition:.25s ease;
+}
+
+.filter-btn:hover{
+    border-color:var(--mei-green);
+    color:var(--mei-green-dark);
+    transform:translateY(-1px);
+}
+
+.filter-btn.active{
+    background:var(--mei-navy);
+    border-color:var(--mei-navy);
+    color:var(--white);
+}
+
+.filter-btn.pdf-btn{
+    background:var(--mei-green);
+    border-color:var(--mei-green);
+    color:var(--white);
+    margin-left:auto;
+}
+
+.filter-btn.pdf-btn:hover{
+    background:var(--mei-green-dark);
+    border-color:var(--mei-green-dark);
+    color:var(--white);
+}
+
+/* =========================================================
+   STATS
+========================================================= */
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:16px;
+    margin:25px 0 38px;
+}
+
+.stat{
+    position:relative;
+    background:var(--white);
+    border-radius:var(--radius-md);
+    padding:23px;
+    border:1px solid var(--border);
+    box-shadow:var(--shadow-sm);
+    overflow:hidden;
+}
+
+.stat::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:0;
+    bottom:0;
+    width:4px;
+    background:var(--mei-green);
+}
+
+.stat-number{
+    font-size:31px;
+    line-height:1.1;
+    font-weight:900;
+    color:var(--mei-navy);
+}
+
+.stat-label{
+    font-size:12px;
+    font-weight:600;
+    color:var(--muted);
+    margin-top:6px;
+}
+
+/* =========================================================
+   CALENDAR
+========================================================= */
+
+.calendar{
+    padding-bottom:70px;
+}
+
+.month{
+    margin-bottom:38px;
+}
+
+.month-title{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:15px;
+    margin-bottom:18px;
+    padding-bottom:11px;
+    border-bottom:2px solid #dce5ea;
+}
+
+.month-title h2{
+    font-size:25px;
+    font-weight:800;
+    color:var(--mei-navy);
+}
+
+.month-title span{
+    font-size:12px;
+    font-weight:800;
+    color:var(--muted);
+    background:var(--white);
+    border:1px solid var(--border);
+    padding:6px 10px;
+    border-radius:20px;
+}
+
+.sessions{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:20px;
+}
+
+/* =========================================================
+   SESSION CARD
+========================================================= */
+
+.session{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    overflow:hidden;
+    box-shadow:var(--shadow-sm);
+    display:flex;
+    flex-direction:column;
+    transition:
+        transform .25s ease,
+        box-shadow .25s ease,
+        border-color .25s ease;
+}
+
+.session:hover{
+    transform:translateY(-3px);
+    border-color:rgba(24,199,122,.4);
+    box-shadow:var(--shadow-md);
+}
+
+.session-top{
+    padding:21px 22px;
+    background:
+        linear-gradient(
+            135deg,
+            #f8fafb,
+            #f2f7f6
+        );
+    border-bottom:1px solid var(--border-light);
+}
+
+.session-type{
+    display:inline-flex;
+    align-items:center;
+    font-size:10px;
+    font-weight:900;
+    text-transform:uppercase;
+    letter-spacing:.7px;
+    color:#087f50;
+    background:var(--mei-green-light);
+    padding:6px 10px;
+    border-radius:20px;
+    margin-bottom:11px;
+}
+
+.session h3{
+    font-size:20px;
+    line-height:1.35;
+    font-weight:800;
+    color:var(--mei-navy);
+}
+
+.session-body{
+    padding:20px 22px;
+    flex:1;
+}
+
+.info{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:15px;
+    margin-bottom:17px;
+}
+
+.info-item{
+    font-size:12px;
+    color:var(--muted);
+}
+
+.info-item strong{
+    display:block;
+    color:var(--text-dark);
+    font-size:13px;
+    font-weight:700;
+    margin-top:3px;
+}
+
+.description{
+    font-size:13px;
+    color:#5e6e77;
+    margin-bottom:5px;
+}
+
+.session-footer{
+    padding:16px 22px;
+    border-top:1px solid var(--border-light);
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    gap:12px;
+    background:#fcfdfd;
+}
+
+.price{
+    font-weight:900;
+    color:var(--mei-navy);
+    font-size:14px;
+}
+
+.register-btn{
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    background:var(--mei-green);
+    color:var(--white);
+    padding:10px 17px;
+    border-radius:var(--radius-sm);
+    font-weight:800;
+    font-size:12px;
+    transition:.25s ease;
+}
+
+.register-btn:hover{
+    background:var(--mei-green-dark);
+    transform:translateY(-1px);
+}
+
+.status-note{
+    font-size:11px;
+    font-weight:900;
+    color:var(--danger);
+    background:var(--danger-bg);
+    padding:7px 10px;
+    border-radius:20px;
+    text-transform:capitalize;
+}
+
+/* =========================================================
+   STATES
+========================================================= */
+
+.empty-state{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:40px;
+    text-align:center;
+    color:#61727c;
+    grid-column:1/-1;
+}
+
+.empty-state strong{
+    display:block;
+    font-size:19px;
+    font-weight:800;
+    color:var(--mei-navy);
+    margin-bottom:7px;
+}
+
+.loading{
+    background:var(--white);
+    border:1px solid var(--border);
+    border-radius:var(--radius-lg);
+    padding:50px;
+    text-align:center;
+    color:#61727c;
+}
+
+.loading::before{
+    content:"";
+    display:block;
+    width:30px;
+    height:30px;
+    border:3px solid #dce8e3;
+    border-top-color:var(--mei-green);
+    border-radius:50%;
+    margin:0 auto 14px;
+    animation:spin .8s linear infinite;
+}
+
+@keyframes spin{
+    to{
+        transform:rotate(360deg);
+    }
+}
+
+.error-box{
+    background:var(--danger-bg);
+    border:1px solid #dfaaaa;
+    color:var(--danger);
+    border-radius:var(--radius-md);
+    padding:22px;
+    margin-bottom:25px;
+    display:none;
+}
+
+.error-box strong{
+    display:block;
+    font-size:18px;
+    margin-bottom:8px;
+}
+
+.debug{
+    margin-top:12px;
+    padding:12px;
+    background:var(--white);
+    border:1px solid #ead0d0;
+    border-radius:7px;
+    font-family:monospace;
+    font-size:11px;
+    word-break:break-word;
+}
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+footer{
+    background:var(--mei-navy);
+    color:#c8d5dc;
+    padding:50px 0 25px;
+}
+
+.footer-grid{
+    display:grid;
+    grid-template-columns:2fr 1fr 1fr;
+    gap:40px;
+}
+
+footer h3{
+    color:var(--white);
+    font-size:16px;
+    font-weight:800;
+    margin-bottom:14px;
+}
+
+footer h3 span{
+    color:var(--mei-green);
+}
+
+footer p,
+footer a{
+    font-size:13px;
+    margin-bottom:8px;
+}
+
+footer a{
+    transition:.2s ease;
+}
+
+footer a:hover{
+    color:var(--mei-green);
+}
+
+.footer-brand{
+    max-width:430px;
+}
+
+.footer-brand .tagline{
+    color:var(--mei-green);
+    font-weight:700;
+    margin-top:12px;
+}
+
+.copyright{
+    border-top:1px solid rgba(255,255,255,.1);
+    margin-top:35px;
+    padding-top:20px;
+    font-size:12px;
+    color:var(--muted-light);
+    display:flex;
+    justify-content:space-between;
+    gap:15px;
+}
+
+/* =========================================================
+   MOBILE
+========================================================= */
+
+@media(max-width:1050px){
+
+    nav{
+        gap:15px;
+    }
+
+    nav a{
+        font-size:12px;
+    }
+
+    .stats{
+        grid-template-columns:repeat(2,1fr);
+    }
+}
+
 @media(max-width:800px){
-nav{display:none}
-.stats{grid-template-columns:repeat(2,1fr)}
-.sessions{grid-template-columns:1fr}
-.footer-grid{grid-template-columns:1fr}
+
+    .nav{
+        min-height:68px;
+    }
+
+    nav{
+        display:none;
+    }
+
+    .logo{
+        font-size:21px;
+    }
+
+    .hero{
+        padding:60px 0 55px;
+    }
+
+    .hero h1{
+        font-size:42px;
+    }
+
+    .sessions{
+        grid-template-columns:1fr;
+    }
+
+    .footer-grid{
+        grid-template-columns:1fr;
+        gap:28px;
+    }
+
+    .copyright{
+        flex-direction:column;
+    }
 }
-@media(max-width:500px){
-.stats{grid-template-columns:1fr 1fr}
-.info{grid-template-columns:1fr}
-.hero{padding:50px 0}
-.session-footer{align-items:flex-start;flex-direction:column}
-.register-btn{width:100%;text-align:center}
+
+@media(max-width:600px){
+
+    .container{
+        width:min(94%,var(--container));
+    }
+
+    .hero{
+        padding:50px 0;
+    }
+
+    .hero h1{
+        font-size:36px;
+        letter-spacing:-1px;
+    }
+
+    .hero p{
+        font-size:15px;
+    }
+
+    .controls{
+        padding-top:25px;
+    }
+
+    .filter-bar{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
+    .filter-btn{
+        width:100%;
+    }
+
+    .filter-btn.pdf-btn{
+        margin-left:0;
+        grid-column:1/-1;
+    }
+
+    .stats{
+        grid-template-columns:1fr 1fr;
+        gap:10px;
+    }
+
+    .stat{
+        padding:18px;
+    }
+
+    .stat-number{
+        font-size:25px;
+    }
+
+    .month-title{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .info{
+        grid-template-columns:1fr;
+        gap:10px;
+    }
+
+    .session-footer{
+        align-items:flex-start;
+        flex-direction:column;
+    }
+
+    .register-btn{
+        width:100%;
+    }
 }
+
+@media(max-width:380px){
+
+    .filter-bar{
+        grid-template-columns:1fr;
+    }
+
+    .filter-btn.pdf-btn{
+        grid-column:auto;
+    }
+
+    .stats{
+        grid-template-columns:1fr;
+    }
+}
+
+/* =========================================================
+   PRINT
+========================================================= */
+
 @media print{
-header,.controls,footer{display:none}
-.hero{padding:25px;color:#000;background:#fff}
-.session{break-inside:avoid}
+
+    header,
+    .controls,
+    footer{
+        display:none !important;
+    }
+
+    body{
+        background:#fff;
+    }
+
+    .hero{
+        padding:25px 0;
+        color:#000;
+        background:#fff;
+    }
+
+    .hero h1{
+        color:#071a2b;
+    }
+
+    .hero p{
+        color:#333;
+    }
+
+    .session{
+        break-inside:avoid;
+        box-shadow:none;
+        margin-bottom:15px;
+    }
+
+    .register-btn,
+    .status-note{
+        display:none;
+    }
+
 }
+
 </style>
 </head>
 
 <body>
 
+<!-- =======================================================
+     HEADER
+======================================================= -->
+
 <header>
+
 <div class="container nav">
-<a href="index.html" class="logo">MEI <span>GROUP</span></a>
+
+<a href="index.html" class="logo">
+    MEI <span>GROUP</span>
+</a>
 
 <nav>
+
 <a href="index.html">Home</a>
-<a href="education.html">Education</a>
-<a href="road-safety.html">Road Safety</a>
-<a href="occupational-safety.html">OSH</a>
-<a href="training-calendar.html">Training Calendar</a>
-<a href="admin.html">Admin</a>
+
+<a href="education.html">
+    Education
+</a>
+
+<a href="road-safety.html">
+    Road Safety
+</a>
+
+<a href="occupational-safety.html">
+    OSH
+</a>
+
+<a href="driver-recruitment.html">
+    Driver Recruitment
+</a>
+
+<a href="training-calendar.html" class="active">
+    Training Calendar
+</a>
+
+<a href="admin.html">
+    Admin
+</a>
+
 </nav>
+
 </div>
+
 </header>
 
+
+<!-- =======================================================
+     HERO
+======================================================= -->
+
 <section class="hero">
+
 <div class="container hero-content">
-<div class="badge">MEI GROUP TRAINING PROGRAMME</div>
-<h1>Training Calendar</h1>
-<p>Choose a programme, select an available training session, and register directly online.</p>
+
+<div class="badge">
+    MEI GROUP TRAINING PROGRAMME
 </div>
+
+<h1>
+    Training Calendar
+</h1>
+
+<p>
+    Explore upcoming MEI Group programmes in International Education,
+    Road Safety, Occupational Safety & Health, and Driver Recruitment.
+    Choose an available session and register online.
+</p>
+
+</div>
+
 </section>
+
+
+<!-- =======================================================
+     MAIN
+======================================================= -->
 
 <main class="container">
 
+
+<!-- FILTERS -->
+
 <section class="controls">
+
 <div class="filter-bar">
-<button class="filter-btn active" data-filter="all">All Programs</button>
-<button class="filter-btn" data-filter="education">Education</button>
-<button class="filter-btn" data-filter="roadsafety">Road Safety</button>
-<button class="filter-btn" data-filter="osh">OSH</button>
-<button class="filter-btn" id="downloadPdf">Download PDF</button>
+
+<button
+    class="filter-btn active"
+    data-filter="all">
+    All Programs
+</button>
+
+<button
+    class="filter-btn"
+    data-filter="education">
+    Education
+</button>
+
+<button
+    class="filter-btn"
+    data-filter="roadsafety">
+    Road Safety
+</button>
+
+<button
+    class="filter-btn"
+    data-filter="osh">
+    OSH
+</button>
+
+<button
+    class="filter-btn"
+    data-filter="driver">
+    Driver Recruitment
+</button>
+
+<button
+    class="filter-btn pdf-btn"
+    id="downloadPdf">
+    Download / Print PDF
+</button>
+
 </div>
+
 </section>
+
+
+<!-- =======================================================
+     STATS
+======================================================= -->
 
 <section class="stats">
 
 <div class="stat">
-<div class="stat-number" id="monthCount">0</div>
-<div class="stat-label">Training Months</div>
+
+<div
+    class="stat-number"
+    id="monthCount">
+    0
 </div>
 
-<div class="stat">
-<div class="stat-number" id="roadCount">0</div>
-<div class="stat-label">Road Safety Sessions</div>
+<div class="stat-label">
+    Training Months
 </div>
 
-<div class="stat">
-<div class="stat-number" id="oshCount">0</div>
-<div class="stat-label">OSH Sessions</div>
 </div>
 
+
 <div class="stat">
-<div class="stat-number" id="totalCount">0</div>
-<div class="stat-label">Total Sessions</div>
+
+<div
+    class="stat-number"
+    id="roadCount">
+    0
+</div>
+
+<div class="stat-label">
+    Road Safety Sessions
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div
+    class="stat-number"
+    id="oshCount">
+    0
+</div>
+
+<div class="stat-label">
+    OSH Sessions
+</div>
+
+</div>
+
+
+<div class="stat">
+
+<div
+    class="stat-number"
+    id="totalCount">
+    0
+</div>
+
+<div class="stat-label">
+    Total Sessions
+</div>
+
 </div>
 
 </section>
 
-<div id="errorBox" class="error-box"></div>
+
+<!-- ERROR -->
+
+<div
+    id="errorBox"
+    class="error-box">
+</div>
+
+
+<!-- CALENDAR -->
 
 <section class="calendar">
-<div id="calendarGrid" class="loading">
-Connecting to MEI training database...
+
+<div
+    id="calendarGrid"
+    class="loading">
+
+    Connecting to MEI training database...
+
 </div>
+
 </section>
 
 </main>
 
+
+<!-- =======================================================
+     FOOTER
+======================================================= -->
+
 <footer>
+
 <div class="container">
 
 <div class="footer-grid">
 
-<div>
-<h3>MEI Group</h3>
-<p>Professional training, road safety, occupational safety and international education services.</p>
-<p>Practice. Learn. Improve. Stay Safe.</p>
-</div>
 
-<div>
-<h3>Training</h3>
-<p><a href="road-safety.html">Road Safety</a></p>
-<p><a href="occupational-safety.html">Occupational Safety & Health</a></p>
-<p><a href="training-calendar.html">Training Calendar</a></p>
-</div>
-
-<div>
-<h3>Contact</h3>
-<p>📞 +254 703 738 707</p>
-<p>✉ info@meipressgroup.com</p>
-<p>WhatsApp available</p>
-</div>
-
-</div>
-
-<div class="copyright">
-© 2026 MEI Group. All rights reserved.
-</div>
-
-</div>
-</footer>
-
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-
-<script>
-const MEI_SUPABASE_URL="https://qkchnrrxrewmlvvxuuqe.supabase.co";
-const MEI_SUPABASE_KEY="sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
-
-let supabaseClient=null;
-let dbSessions=[];
-let activeFilter="all";
-
-function escapeHTML(value){
-return String(value??"")
-.replace(/&/g,"&amp;")
-.replace(/</g,"&lt;")
-.replace(/>/g,"&gt;")
-.replace(/"/g,"&quot;")
-.replace(/'/g,"&#039;");
-}
-
-function showError(title,message){
-
-const box=document.getElementById("errorBox");
-
-box.style.display="block";
-
-box.innerHTML=`
-<strong>${escapeHTML(title)}</strong>
-<div>${escapeHTML(message)}</div>
-<div class="debug">Supabase URL: ${escapeHTML(MEI_SUPABASE_URL)}</div>
-`;
-
-document.getElementById("calendarGrid").innerHTML=`
-<div class="empty-state">
-<strong>Training calendar could not load.</strong>
-<p>${escapeHTML(message)}</p>
-</div>
-`;
-}
-
-function programType(service){
-
-const s=String(service||"").toLowerCase();
-
-if(s.includes("road"))return"roadsafety";
-
-if(
-s.includes("occupational")||
-s.includes("osh")
-)return"osh";
-
-return"education";
-}
-
-function programLabel(service){
-
-const type=programType(service);
-
-if(type==="roadsafety")return"Road Safety";
-
-if(type==="osh")return"Occupational Safety & Health";
-
-return"Education";
-}
-
-function formatDate(date){
-
-if(!date)return"";
-
-return new Date(`${date}T00:00:00`)
-.toLocaleDateString("en-KE",{
-weekday:"short",
-day:"numeric",
-month:"short",
-year:"numeric"
-});
-}
-
-function formatMonth(date){
-
-return new Date(`${date}T00:00:00`)
-.toLocaleDateString("en-KE",{
-month:"long",
-year:"numeric"
-});
-}
-
-function formatTime(time){
-
-if(!time)return"";
-
-const p=time.split(":");
-const h=parseInt(p[0],10);
-const m=p[1]||"00";
-const suffix=h>=12?"PM":"AM";
-const hour=h%12||12;
-
-return`${hour}:${m} ${suffix}`;
-}
-
-function formatPrice(price,currency){
-
-if(price===null||price===undefined||price===""){
-return"Contact us";
-}
-
-const n=Number(price);
-
-if(!Number.isFinite(n)||n<=0){
-return"Contact us";
-}
-
-return`${currency||"KES"} ${n.toLocaleString("en-KE")}`;
-}
-
-// FIX: capacity now formatted consistently as "N places" instead of a
-// bare number, matching the js/training-calendar.js version.
-function formatCapacity(capacity){
-
-if(!capacity){
-return"Contact us";
-}
-
-return`${capacity} places`;
-}
-
-function updateStats(){
-
-const sessions=dbSessions;
-
-const months=new Set(
-sessions
-.filter(s=>s.session_date)
-.map(s=>s.session_date.substring(0,7))
-);
-
-const road=sessions.filter(
-s=>programType(s.service)==="roadsafety"
-).length;
-
-const osh=sessions.filter(
-s=>programType(s.service)==="osh"
-).length;
-
-document.getElementById("monthCount").textContent=months.size;
-document.getElementById("roadCount").textContent=road;
-document.getElementById("oshCount").textContent=osh;
-document.getElementById("totalCount").textContent=sessions.length;
-}
-
-function renderSession(session){
-
-const type=programType(session.service);
-
-const label=programLabel(session.service);
-
-const venue=
-session.venue||
-session.location||
-"MEI Group Training Centre";
-
-const time=[
-formatTime(session.start_time),
-formatTime(session.end_time)
-].filter(Boolean).join(" – ");
-
-const price=formatPrice(
-session.price,
-session.currency
-);
-
-// FIX: this status check was missing, so every session (including
-// ones already completed, in progress, cancelled or postponed)
-// rendered a live "Register Now" button. Now closed sessions show
-// their status instead, matching js/training-calendar.js's behavior.
-const status=String(session.status||"open").toLowerCase();
-
-const isClosed=[
-"cancelled",
-"postponed",
-"completed",
-"in_progress"
-].includes(status);
-
-const registerUrl=`register.html?session_id=${encodeURIComponent(session.id)}`;
-
-return`
-<article class="session">
-
-<div class="session-top">
-
-<div class="session-type">
-${escapeHTML(label)}
-</div>
+<div class="footer-brand">
 
 <h3>
-${escapeHTML(session.session_title||"Training Session")}
+    MEI <span>GROUP</span>
 </h3>
 
-</div>
+<p>
+    Professional training, international education,
+    road safety, occupational safety and driver
+    recruitment solutions.
+</p>
 
-<div class="session-body">
-
-<div class="info">
-
-<div class="info-item">
-Date
-<strong>${escapeHTML(formatDate(session.session_date))}</strong>
-</div>
-
-<div class="info-item">
-Time
-<strong>${escapeHTML(time||"Full Day")}</strong>
-</div>
-
-<div class="info-item">
-Venue
-<strong>${escapeHTML(venue)}</strong>
-</div>
-
-<div class="info-item">
-Capacity
-<strong>${escapeHTML(formatCapacity(session.capacity))}</strong>
-</div>
+<p class="tagline">
+    Practice. Learn. Improve. Stay Safe.
+</p>
 
 </div>
 
-${
-session.description
-?`<div class="description">${escapeHTML(session.description)}</div>`
-:""
-}
+
+<div>
+
+<h3>
+    Services
+</h3>
+
+<p>
+    <a href="education.html">
+        International Education
+    </a>
+</p>
+
+<p>
+    <a href="road-safety.html">
+        Road Safety
+    </a>
+</p>
+
+<p>
+    <a href="occupational-safety.html">
+        Occupational Safety & Health
+    </a>
+</p>
+
+<p>
+    <a href="driver-recruitment.html">
+        Driver Recruitment
+    </a>
+</p>
+
+<p>
+    <a href="training-calendar.html">
+        Training Calendar
+    </a>
+</p>
 
 </div>
 
-<div class="session-footer">
 
-<div class="price">
-${escapeHTML(price)}
+<div>
+
+<h3>
+    Contact
+</h3>
+
+<p>
+    📞 +254 703 738 707
+</p>
+
+<p>
+    ✉ info@meipressgroup.com
+</p>
+
+<p>
+    WhatsApp available
+</p>
+
+<p>
+    Kenya
+</p>
+
 </div>
 
-${
-isClosed
-?`<span class="status-note">${escapeHTML(status.replace("_"," "))}</span>`
-:`<a class="register-btn" href="${registerUrl}">Register Now</a>`
-}
 
 </div>
 
-</article>
-`;
-}
 
-function renderCalendar(){
-
-const grid=document.getElementById("calendarGrid");
-
-let sessions=dbSessions;
-
-if(activeFilter!=="all"){
-
-sessions=sessions.filter(
-s=>programType(s.service)===activeFilter
-);
-
-}
-
-if(!sessions.length){
-
-grid.innerHTML=`
-<div class="empty-state">
-<strong>No training sessions found.</strong>
-<p>No published sessions are currently available for this programme.</p>
-</div>
-`;
-
-return;
-}
-
-const groups={};
-
-sessions.forEach(session=>{
-
-if(!session.session_date)return;
-
-const month=session.session_date.substring(0,7);
-
-if(!groups[month]){
-groups[month]=[];
-}
-
-groups[month].push(session);
-
-});
-
-let html="";
-
-Object.keys(groups)
-.sort()
-.forEach(month=>{
-
-const list=groups[month];
-
-html+=`
-<div class="month">
-
-<div class="month-title">
-
-<h2>
-${escapeHTML(formatMonth(`${month}-01`))}
-</h2>
+<div class="copyright">
 
 <span>
-${list.length} ${list.length===1?"session":"sessions"}
+    © <span id="currentYear">2026</span> MEI Group.
+    All rights reserved.
+</span>
+
+<span>
+    MEI Press Holdings Ltd.
 </span>
 
 </div>
 
-<div class="sessions">
-`;
-
-list.forEach(session=>{
-html+=renderSession(session);
-});
-
-html+=`
 </div>
-</div>
-`;
 
-});
+</footer>
 
-grid.innerHTML=html;
+
+<!-- =======================================================
+     SUPABASE
+======================================================= -->
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+
+<script>
+
+/* =========================================================
+   SUPABASE CONFIGURATION
+========================================================= */
+
+const MEI_SUPABASE_URL =
+    "https://qkchnrrxrewmlvvxuuqe.supabase.co";
+
+const MEI_SUPABASE_KEY =
+    "sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
+
+
+let supabaseClient = null;
+
+let dbSessions = [];
+
+let activeFilter = "all";
+
+
+/* =========================================================
+   HELPERS
+========================================================= */
+
+function escapeHTML(value){
+
+    return String(value ?? "")
+        .replace(/&/g,"&amp;")
+        .replace(/</g,"&lt;")
+        .replace(/>/g,"&gt;")
+        .replace(/"/g,"&quot;")
+        .replace(/'/g,"&#039;");
+
 }
+
+
+/* =========================================================
+   ERROR
+========================================================= */
+
+function showError(title,message){
+
+    const box =
+        document.getElementById("errorBox");
+
+    box.style.display = "block";
+
+    box.innerHTML = `
+        <strong>${escapeHTML(title)}</strong>
+
+        <div>
+            ${escapeHTML(message)}
+        </div>
+
+        <div class="debug">
+            Supabase URL:
+            ${escapeHTML(MEI_SUPABASE_URL)}
+        </div>
+    `;
+
+
+    document.getElementById("calendarGrid").innerHTML = `
+
+        <div class="empty-state">
+
+            <strong>
+                Training calendar could not load.
+            </strong>
+
+            <p>
+                ${escapeHTML(message)}
+            </p>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =========================================================
+   PROGRAM TYPE
+========================================================= */
+
+function programType(service){
+
+    const s =
+        String(service || "").toLowerCase();
+
+
+    if(
+        s.includes("road")
+    ){
+        return "roadsafety";
+    }
+
+
+    if(
+        s.includes("occupational") ||
+        s.includes("osh")
+    ){
+        return "osh";
+    }
+
+
+    if(
+        s.includes("driver") ||
+        s.includes("recruitment")
+    ){
+        return "driver";
+    }
+
+
+    return "education";
+
+}
+
+
+/* =========================================================
+   PROGRAM LABEL
+========================================================= */
+
+function programLabel(service){
+
+    const type =
+        programType(service);
+
+
+    if(type === "roadsafety"){
+        return "Road Safety";
+    }
+
+
+    if(type === "osh"){
+        return "Occupational Safety & Health";
+    }
+
+
+    if(type === "driver"){
+        return "Driver Recruitment";
+    }
+
+
+    return "International Education";
+
+}
+
+
+/* =========================================================
+   DATE
+========================================================= */
+
+function formatDate(date){
+
+    if(!date){
+        return "";
+    }
+
+
+    return new Date(`${date}T00:00:00`)
+        .toLocaleDateString(
+            "en-KE",
+            {
+                weekday:"short",
+                day:"numeric",
+                month:"short",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   MONTH
+========================================================= */
+
+function formatMonth(date){
+
+    return new Date(`${date}T00:00:00`)
+        .toLocaleDateString(
+            "en-KE",
+            {
+                month:"long",
+                year:"numeric"
+            }
+        );
+
+}
+
+
+/* =========================================================
+   TIME
+========================================================= */
+
+function formatTime(time){
+
+    if(!time){
+        return "";
+    }
+
+
+    const p =
+        time.split(":");
+
+
+    const h =
+        parseInt(p[0],10);
+
+
+    const m =
+        p[1] || "00";
+
+
+    const suffix =
+        h >= 12 ? "PM" : "AM";
+
+
+    const hour =
+        h % 12 || 12;
+
+
+    return `${hour}:${m} ${suffix}`;
+
+}
+
+
+/* =========================================================
+   PRICE
+========================================================= */
+
+function formatPrice(price,currency){
+
+    if(
+        price === null ||
+        price === undefined ||
+        price === ""
+    ){
+        return "Contact us";
+    }
+
+
+    const n =
+        Number(price);
+
+
+    if(
+        !Number.isFinite(n) ||
+        n <= 0
+    ){
+        return "Contact us";
+    }
+
+
+    return `${
+        currency || "KES"
+    } ${n.toLocaleString("en-KE")}`;
+
+}
+
+
+/* =========================================================
+   CAPACITY
+========================================================= */
+
+function formatCapacity(capacity){
+
+    if(!capacity){
+        return "Contact us";
+    }
+
+
+    return `${capacity} places`;
+
+}
+
+
+/* =========================================================
+   STATS
+========================================================= */
+
+function updateStats(){
+
+    const sessions =
+        dbSessions;
+
+
+    const months =
+        new Set(
+            sessions
+                .filter(
+                    s => s.session_date
+                )
+                .map(
+                    s =>
+                    s.session_date.substring(0,7)
+                )
+        );
+
+
+    const road =
+        sessions.filter(
+            s =>
+            programType(s.service)
+            === "roadsafety"
+        ).length;
+
+
+    const osh =
+        sessions.filter(
+            s =>
+            programType(s.service)
+            === "osh"
+        ).length;
+
+
+    document.getElementById(
+        "monthCount"
+    ).textContent =
+        months.size;
+
+
+    document.getElementById(
+        "roadCount"
+    ).textContent =
+        road;
+
+
+    document.getElementById(
+        "oshCount"
+    ).textContent =
+        osh;
+
+
+    document.getElementById(
+        "totalCount"
+    ).textContent =
+        sessions.length;
+
+}
+
+
+/* =========================================================
+   RENDER SESSION
+========================================================= */
+
+function renderSession(session){
+
+    const type =
+        programType(session.service);
+
+
+    const label =
+        programLabel(session.service);
+
+
+    const venue =
+        session.venue ||
+        session.location ||
+        "MEI Group Training Centre";
+
+
+    const time = [
+        formatTime(session.start_time),
+        formatTime(session.end_time)
+    ]
+    .filter(Boolean)
+    .join(" – ");
+
+
+    const price =
+        formatPrice(
+            session.price,
+            session.currency
+        );
+
+
+    const status =
+        String(
+            session.status || "open"
+        ).toLowerCase();
+
+
+    const isClosed = [
+        "cancelled",
+        "postponed",
+        "completed",
+        "in_progress"
+    ].includes(status);
+
+
+    const registerUrl =
+        `register.html?session_id=${
+            encodeURIComponent(session.id)
+        }`;
+
+
+    return `
+
+    <article class="session">
+
+
+        <div class="session-top">
+
+            <div class="session-type">
+                ${escapeHTML(label)}
+            </div>
+
+            <h3>
+                ${escapeHTML(
+                    session.session_title ||
+                    "Training Session"
+                )}
+            </h3>
+
+        </div>
+
+
+        <div class="session-body">
+
+
+            <div class="info">
+
+
+                <div class="info-item">
+
+                    Date
+
+                    <strong>
+                        ${escapeHTML(
+                            formatDate(
+                                session.session_date
+                            )
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    Time
+
+                    <strong>
+                        ${escapeHTML(
+                            time || "Full Day"
+                        )}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    Venue
+
+                    <strong>
+                        ${escapeHTML(venue)}
+                    </strong>
+
+                </div>
+
+
+                <div class="info-item">
+
+                    Capacity
+
+                    <strong>
+                        ${escapeHTML(
+                            formatCapacity(
+                                session.capacity
+                            )
+                        )}
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+
+            ${
+                session.description
+                ?
+                `<div class="description">
+                    ${escapeHTML(
+                        session.description
+                    )}
+                </div>`
+                :
+                ""
+            }
+
+
+        </div>
+
+
+        <div class="session-footer">
+
+
+            <div class="price">
+                ${escapeHTML(price)}
+            </div>
+
+
+            ${
+                isClosed
+
+                ?
+
+                `<span class="status-note">
+                    ${escapeHTML(
+                        status.replace("_"," ")
+                    )}
+                </span>`
+
+                :
+
+                `<a
+                    class="register-btn"
+                    href="${registerUrl}">
+                    Register Now
+                </a>`
+            }
+
+
+        </div>
+
+
+    </article>
+
+    `;
+
+}
+
+
+/* =========================================================
+   RENDER CALENDAR
+========================================================= */
+
+function renderCalendar(){
+
+    const grid =
+        document.getElementById(
+            "calendarGrid"
+        );
+
+
+    let sessions =
+        dbSessions;
+
+
+    if(activeFilter !== "all"){
+
+        sessions =
+            sessions.filter(
+                s =>
+                programType(s.service)
+                === activeFilter
+            );
+
+    }
+
+
+    if(!sessions.length){
+
+        grid.innerHTML = `
+
+            <div class="empty-state">
+
+                <strong>
+                    No training sessions found.
+                </strong>
+
+                <p>
+                    No published sessions are
+                    currently available for
+                    this programme.
+                </p>
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    const groups = {};
+
+
+    sessions.forEach(session => {
+
+        if(!session.session_date){
+            return;
+        }
+
+
+        const month =
+            session.session_date.substring(0,7);
+
+
+        if(!groups[month]){
+            groups[month] = [];
+        }
+
+
+        groups[month].push(session);
+
+    });
+
+
+    let html = "";
+
+
+    Object.keys(groups)
+        .sort()
+        .forEach(month => {
+
+
+            const list =
+                groups[month];
+
+
+            html += `
+
+            <div class="month">
+
+
+                <div class="month-title">
+
+                    <h2>
+                        ${escapeHTML(
+                            formatMonth(
+                                `${month}-01`
+                            )
+                        )}
+                    </h2>
+
+                    <span>
+                        ${list.length}
+                        ${
+                            list.length === 1
+                            ? "session"
+                            : "sessions"
+                        }
+                    </span>
+
+                </div>
+
+
+                <div class="sessions">
+            `;
+
+
+            list.forEach(session => {
+
+                html +=
+                    renderSession(session);
+
+            });
+
+
+            html += `
+
+                </div>
+
+            </div>
+
+            `;
+
+        });
+
+
+    grid.innerHTML =
+        html;
+
+}
+
+
+/* =========================================================
+   FILTERS
+========================================================= */
 
 function initialiseFilters(){
 
-document
-.querySelectorAll(".filter-btn[data-filter]")
-.forEach(button=>{
+    document
+        .querySelectorAll(
+            ".filter-btn[data-filter]"
+        )
+        .forEach(button => {
 
-button.addEventListener("click",()=>{
 
-document
-.querySelectorAll(".filter-btn[data-filter]")
-.forEach(b=>b.classList.remove("active"));
+            button.addEventListener(
+                "click",
+                () => {
 
-button.classList.add("active");
 
-activeFilter=button.dataset.filter;
+                    document
+                        .querySelectorAll(
+                            ".filter-btn[data-filter]"
+                        )
+                        .forEach(
+                            b =>
+                            b.classList
+                                .remove("active")
+                        );
 
-renderCalendar();
 
-});
+                    button.classList
+                        .add("active");
 
-});
 
-document
-.getElementById("downloadPdf")
-.addEventListener("click",()=>{
-window.print();
-});
+                    activeFilter =
+                        button.dataset.filter;
+
+
+                    renderCalendar();
+
+                }
+            );
+
+        });
+
+
+    document
+        .getElementById("downloadPdf")
+        .addEventListener(
+            "click",
+            () => {
+                window.print();
+            }
+        );
 
 }
+
+
+/* =========================================================
+   LOAD TRAINING SESSIONS
+========================================================= */
 
 async function loadTrainingSessions(){
 
-try{
+    try{
 
-document.getElementById("calendarGrid").innerHTML=`
-<div class="loading">
-Connecting to Supabase...
-</div>
-`;
 
-if(typeof supabase==="undefined"){
+        document.getElementById(
+            "calendarGrid"
+        ).innerHTML = `
 
-throw new Error(
-"Supabase JavaScript library failed to load."
-);
+            <div class="loading">
+                Connecting to Supabase...
+            </div>
+
+        `;
+
+
+        if(
+            typeof supabase ===
+            "undefined"
+        ){
+
+            throw new Error(
+                "Supabase JavaScript library failed to load."
+            );
+
+        }
+
+
+        supabaseClient =
+            supabase.createClient(
+                MEI_SUPABASE_URL,
+                MEI_SUPABASE_KEY
+            );
+
+
+        console.log(
+            "MEI Supabase client created."
+        );
+
+
+        const result =
+            await supabaseClient
+                .from("training_sessions")
+                .select("*")
+                .eq("published",true)
+                .order(
+                    "session_date",
+                    {
+                        ascending:true
+                    }
+                )
+                .order(
+                    "start_time",
+                    {
+                        ascending:true
+                    }
+                );
+
+
+        console.log(
+            "Supabase result:",
+            result
+        );
+
+
+        if(result.error){
+
+            throw new Error(
+                `${
+                    result.error.message
+                } (code: ${
+                    result.error.code ||
+                    "unknown"
+                })`
+            );
+
+        }
+
+
+        dbSessions =
+            (result.data || [])
+            .filter(session => {
+
+                const status =
+                    String(
+                        session.status || ""
+                    ).toLowerCase();
+
+
+                return ![
+                    "cancelled",
+                    "postponed"
+                ].includes(status);
+
+            });
+
+
+        console.log(
+            "Published training sessions:",
+            dbSessions.length
+        );
+
+
+        updateStats();
+
+        renderCalendar();
+
+
+    }catch(error){
+
+
+        console.error(
+            "MEI TRAINING CALENDAR ERROR:",
+            error
+        );
+
+
+        showError(
+            "Supabase connection error",
+            error.message ||
+            "Unknown error"
+        );
+
+    }
 
 }
 
-supabaseClient=supabase.createClient(
-MEI_SUPABASE_URL,
-MEI_SUPABASE_KEY
-);
 
-console.log("Supabase client created.");
-console.log("Project:",MEI_SUPABASE_URL);
+/* =========================================================
+   CURRENT YEAR
+========================================================= */
 
-const result=await supabaseClient
-.from("training_sessions")
-.select("*")
-.eq("published",true)
-.order("session_date",{ascending:true})
-.order("start_time",{ascending:true});
+function setCurrentYear(){
 
-console.log("Supabase result:",result);
+    const year =
+        document.getElementById(
+            "currentYear"
+        );
 
-if(result.error){
 
-throw new Error(
-`${result.error.message} (code: ${result.error.code||"unknown"})`
-);
+    if(year){
+        year.textContent =
+            new Date().getFullYear();
+    }
 
 }
 
-dbSessions=(result.data||[])
-.filter(session=>{
 
-const status=String(
-session.status||""
-).toLowerCase();
-
-return!(
-status==="cancelled"||
-status==="postponed"
-);
-
-});
-
-console.log(
-"Published training sessions:",
-dbSessions.length
-);
-
-updateStats();
-
-renderCalendar();
-
-}catch(error){
-
-console.error(
-"MEI TRAINING CALENDAR ERROR:",
-error
-);
-
-showError(
-"Supabase connection error",
-error.message||"Unknown error"
-);
-
-}
-
-}
+/* =========================================================
+   START
+========================================================= */
 
 document.addEventListener(
-"DOMContentLoaded",
-()=>{
+    "DOMContentLoaded",
+    () => {
 
-initialiseFilters();
+        setCurrentYear();
 
-loadTrainingSessions();
+        initialiseFilters();
 
-}
+        loadTrainingSessions();
+
+    }
 );
+
 </script>
 
 </body>
