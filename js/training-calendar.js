@@ -1,754 +1,243 @@
-// ============================================================
-// MEI GROUP – TRAINING CALENDAR
-// 12-month schedule: October 2025 → September 2026
-// ============================================================
-
-const CALENDAR_DATA = [
-
-    // ============================================================
-    // OCTOBER 2025
-    // ============================================================
-    {
-        month: 'October',
-        year: '2025',
-        emoji: '🍂',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Fall Intake – Final Applications',
-                desc: 'USA & Canada Fall 2025 late admissions',
-                tag: 'Intake',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Safe to & from School – Cohort 1',
-                desc: 'Primary & secondary school programs',
-                tag: 'Workshop',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'First Aid Certification',
-                desc: '3-day CPR & emergency response course',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // NOVEMBER 2025
-    // ============================================================
-    {
-        month: 'November',
-        year: '2025',
-        emoji: '🌧️',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Spring 2026 Applications Open',
-                desc: 'USA, Canada, Australia, UK intakes',
-                tag: 'Intake',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Defensive Driving – Corporate',
-                desc: 'Advanced driver training for fleets',
-                tag: 'Corporate',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'Fire & Safety Training',
-                desc: 'Fire risk assessment, drills & extinguisher use',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // DECEMBER 2025
-    // ============================================================
-    {
-        month: 'December',
-        year: '2025',
-        emoji: '🎄',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Spring 2026 Visa Prep',
-                desc: 'Mock visa interviews & document review',
-                tag: 'Visa',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Driver Profiling – Q4',
-                desc: 'Assessment & behavior analysis',
-                tag: 'Assessment',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'OSH (OSHA 2007) – Compliance',
-                desc: 'End-of-year regulatory training',
-                tag: 'Compliance',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // JANUARY 2026
-    // ============================================================
-    {
-        month: 'January',
-        year: '2026',
-        emoji: '❄️',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Spring 2026 Intake Begins',
-                desc: 'Students depart to USA, Canada, Australia',
-                tag: 'Intake',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Safe to & from School – Cohort 2',
-                desc: 'New school term launches',
-                tag: 'Workshop',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'First Aid Certification',
-                desc: 'New year, new safety skills',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // FEBRUARY 2026
-    // ============================================================
-    {
-        month: 'February',
-        year: '2026',
-        emoji: '❤️',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Fall 2026 Applications Open',
-                desc: 'Early-bird applications for USA/Canada',
-                tag: 'Intake',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Defensive Driving – Open',
-                desc: 'Individual driver certification',
-                tag: 'Workshop',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'Fire & Safety Training',
-                desc: 'Practical fire drills + extinguisher use',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // MARCH 2026
-    // ============================================================
-    {
-        month: 'March',
-        year: '2026',
-        emoji: '🌸',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Scholarship Guidance Week',
-                desc: 'Free consultations & financial planning',
-                tag: 'Support',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Fleet Safety Assessment',
-                desc: 'Transport company audits',
-                tag: 'Assessment',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'OSH (OSHA 2007) – Certification',
-                desc: 'Compliance for new organizations',
-                tag: 'Compliance',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // APRIL 2026
-    // ============================================================
-    {
-        month: 'April',
-        year: '2026',
-        emoji: '🌷',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Fall 2026 Priority Deadline',
-                desc: 'USA Ivy League + Canada U15',
-                tag: 'Deadline',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Safe to & from School – Cohort 3',
-                desc: 'April school holiday sessions',
-                tag: 'Workshop',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'First Aid Recertification',
-                desc: 'Renewal course for past participants',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // MAY 2026
-    // ============================================================
-    {
-        month: 'May',
-        year: '2026',
-        emoji: '🌻',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Summer 2026 Intake',
-                desc: 'Short courses & summer programs',
-                tag: 'Intake',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Driver Profiling – Q2',
-                desc: 'Mid-year fleet assessments',
-                tag: 'Assessment',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'Fire & Safety Training',
-                desc: 'Corporate group sessions',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // JUNE 2026
-    // ============================================================
-    {
-        month: 'June',
-        year: '2026',
-        emoji: '☀️',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Visa Interview Prep – Fall',
-                desc: 'For Fall 2026 applicants',
-                tag: 'Visa',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Defensive Driving – Corporate',
-                desc: 'Nairobi & Mombasa cohorts',
-                tag: 'Corporate',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'OSH (OSHA 2007) – Compliance',
-                desc: 'Mid-year regulatory refresher',
-                tag: 'Compliance',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // JULY 2026
-    // ============================================================
-    {
-        month: 'July',
-        year: '2026',
-        emoji: '🏖️',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Fall 2026 Final Deadline',
-                desc: 'Last chance for Fall admissions',
-                tag: 'Deadline',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Safe to & from School – Cohort 4',
-                desc: 'Pre-term safety workshops',
-                tag: 'Workshop',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'First Aid Certification',
-                desc: 'Holiday intensive course',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // AUGUST 2026
-    // ============================================================
-    {
-        month: 'August',
-        year: '2026',
-        emoji: '🎒',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Fall 2026 Pre-Departure',
-                desc: 'Travel, accommodation & orientation',
-                tag: 'Support',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Back-to-School Safety Drive',
-                desc: 'Nationwide school campaigns',
-                tag: 'Workshop',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'Fire & Safety Training',
-                desc: 'Q3 corporate cohorts',
-                tag: 'Certification',
-                register: true
-            }
-        ]
-    },
-
-    // ============================================================
-    // SEPTEMBER 2026
-    // ============================================================
-    {
-        month: 'September',
-        year: '2026',
-        emoji: '🍁',
-        current: false,
-
-        programs: [
-            {
-                type: 'education',
-                title: 'Fall 2026 Intake Departs',
-                desc: 'Students fly to their destinations',
-                tag: 'Intake',
-                register: false
-            },
-            {
-                type: 'roadsafety',
-                title: 'Driver Profiling – Q3',
-                desc: 'End-of-quarter assessments',
-                tag: 'Assessment',
-                register: true
-            },
-            {
-                type: 'osh',
-                title: 'OSH (OSHA 2007) – Certification',
-                desc: 'Q3 compliance training',
-                tag: 'Compliance',
-                register: true
-            }
-        ]
-    }
+const CALENDAR_DATA=[
+{month:"October",year:2025,programs:[
+{type:"education",title:"International Education – Spring Intake",desc:"Applications and counselling for international study opportunities.",tag:"Education"},
+{type:"roadsafety",title:"Road Safety Awareness",desc:"Practical road safety awareness and responsible road-user behaviour.",tag:"Road Safety"},
+{type:"osh",title:"First Aid Training",desc:"Workplace first aid awareness and emergency response.",tag:"OSH"}]},
+{month:"November",year:2025,programs:[
+{type:"education",title:"International Education – Applications",desc:"Application support, admissions guidance and document preparation.",tag:"Education"},
+{type:"roadsafety",title:"Defensive Driving Training",desc:"Hazard perception, defensive driving and accident prevention.",tag:"Road Safety"},
+{type:"osh",title:"Fire Safety Training",desc:"Fire prevention, emergency response and evacuation procedures.",tag:"OSH"}]},
+{month:"December",year:2025,programs:[
+{type:"education",title:"International Education – January Intake",desc:"Final application support and January intake preparation.",tag:"Education"},
+{type:"roadsafety",title:"Fleet Safety Management",desc:"Fleet risk management, driver monitoring and vehicle safety.",tag:"Road Safety"},
+{type:"osh",title:"Occupational Safety & Health",desc:"Workplace safety, risk assessment and OSH awareness.",tag:"OSH"}]},
+{month:"January",year:2026,programs:[
+{type:"education",title:"International Education – New Intake",desc:"Study-abroad counselling and admissions support.",tag:"Education"},
+{type:"roadsafety",title:"Road Safety Awareness",desc:"Road safety awareness and risk prevention.",tag:"Road Safety"},
+{type:"osh",title:"First Aid Training",desc:"First aid procedures and emergency response.",tag:"OSH"}]},
+{month:"February",year:2026,programs:[
+{type:"education",title:"International Education – Applications",desc:"University applications and student counselling.",tag:"Education"},
+{type:"roadsafety",title:"Defensive Driving Training",desc:"Defensive driving techniques and hazard management.",tag:"Road Safety"},
+{type:"osh",title:"Fire Safety Training",desc:"Fire prevention and workplace emergency procedures.",tag:"OSH"}]},
+{month:"March",year:2026,programs:[
+{type:"education",title:"International Education – Intake Planning",desc:"Admissions and study-abroad planning.",tag:"Education"},
+{type:"roadsafety",title:"Fleet Safety Management",desc:"Fleet safety policies and driver risk management.",tag:"Road Safety"},
+{type:"osh",title:"Occupational Safety & Health",desc:"Workplace OSH awareness and risk assessment.",tag:"OSH"}]},
+{month:"April",year:2026,programs:[
+{type:"education",title:"International Education – Counselling",desc:"International education counselling and application support.",tag:"Education"},
+{type:"roadsafety",title:"Road Safety Awareness",desc:"Road safety awareness and accident prevention.",tag:"Road Safety"},
+{type:"osh",title:"First Aid Training",desc:"First aid and workplace emergency response.",tag:"OSH"}]},
+{month:"May",year:2026,programs:[
+{type:"education",title:"International Education – Applications",desc:"University application and admissions support.",tag:"Education"},
+{type:"roadsafety",title:"Defensive Driving Training",desc:"Defensive driving and hazard perception.",tag:"Road Safety"},
+{type:"osh",title:"Fire Safety Training",desc:"Fire prevention, evacuation and emergency response.",tag:"OSH"}]},
+{month:"June",year:2026,programs:[
+{type:"education",title:"International Education – Intake",desc:"Study-abroad applications and student guidance.",tag:"Education"},
+{type:"roadsafety",title:"Fleet Safety Management",desc:"Fleet risk management and driver safety.",tag:"Road Safety"},
+{type:"osh",title:"Occupational Safety & Health",desc:"Occupational safety, health and workplace risk management.",tag:"OSH"}]},
+{month:"July",year:2026,programs:[
+{type:"education",title:"International Education – Counselling",desc:"International education and admissions counselling.",tag:"Education"},
+{type:"roadsafety",title:"Road Safety Awareness",desc:"Road safety awareness and responsible road use.",tag:"Road Safety"},
+{type:"osh",title:"First Aid Training",desc:"First aid awareness and emergency response.",tag:"OSH"}]},
+{month:"August",year:2026,programs:[
+{type:"education",title:"International Education – Applications",desc:"University applications and admissions guidance.",tag:"Education"},
+{type:"roadsafety",title:"Defensive Driving Training",desc:"Defensive driving and accident prevention.",tag:"Road Safety"},
+{type:"osh",title:"Fire Safety Training",desc:"Fire safety awareness and emergency procedures.",tag:"OSH"}]},
+{month:"September",year:2026,programs:[
+{type:"education",title:"International Education – Intake Planning",desc:"Study-abroad admissions and application preparation.",tag:"Education"},
+{type:"roadsafety",title:"Fleet Safety Management",desc:"Fleet safety management and driver risk control.",tag:"Road Safety"},
+{type:"osh",title:"Occupational Safety & Health",desc:"Workplace OSH awareness and compliance.",tag:"OSH"}]}
 ];
 
+let activeFilter="all";
+let dbSessions=[];
 
-// ============================================================
-// CALENDAR STATE
-// ============================================================
-
-let activeFilter = 'all';
-
-
-// ============================================================
-// ESCAPE HTML
-// Prevents accidental HTML injection from calendar data
-// ============================================================
-
-function escapeHTML(value) {
-
-    if (value === null || value === undefined) {
-        return '';
-    }
-
-    return String(value)
-        .replace(/&/g, '&amp;')
-        .replace(/</g, '&lt;')
-        .replace(/>/g, '&gt;')
-        .replace(/"/g, '&quot;')
-        .replace(/'/g, '&#039;');
+function escapeHTML(value){
+return String(value??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
 }
 
-
-// ============================================================
-// CREATE REGISTER URL
-// ============================================================
-
-function getRegisterURL(month, program) {
-
-    const params = new URLSearchParams();
-
-    params.set('month', month.month);
-    params.set('year', month.year);
-    params.set('title', program.title);
-    params.set('type', program.type);
-    params.set('tag', program.tag);
-
-    return `register.html?${params.toString()}`;
+function getProgramIcon(type){
+return type==="roadsafety"?"🚗":type==="osh"?"🦺":"🎓";
 }
 
-
-// ============================================================
-// PROGRAM ICON
-// ============================================================
-
-function getProgramIcon(type) {
-
-    if (type === 'education') {
-        return '🎓';
-    }
-
-    if (type === 'roadsafety') {
-        return '🚸';
-    }
-
-    if (type === 'osh') {
-        return '🏭';
-    }
-
-    return '📚';
+function formatDate(date){
+if(!date)return"";
+return new Date(date+"T00:00:00").toLocaleDateString("en-KE",{day:"numeric",month:"short",year:"numeric"});
 }
 
-
-// ============================================================
-// RENDER PROGRAM
-// ============================================================
-
-function renderProgram(program, month) {
-
-    const icon = getProgramIcon(program.type);
-
-    let registerHTML = '';
-
-    /*
-     * Education entries are information/intake items
-     * for now, so only Road Safety and OSH have
-     * training registration buttons.
-     */
-
-    if (program.register === true) {
-
-        const registerURL = getRegisterURL(month, program);
-
-        registerHTML = `
-            <a
-                href="${registerURL}"
-                class="register-btn"
-                aria-label="Register for ${escapeHTML(program.title)}"
-            >
-                <span>Register</span>
-                <span>→</span>
-            </a>
-        `;
-    }
-
-    return `
-        <div class="program ${escapeHTML(program.type)}">
-
-            <div class="icon-wrap">
-                ${icon}
-            </div>
-
-            <div class="program-content">
-
-                <div class="program-title">
-                    ${escapeHTML(program.title)}
-                </div>
-
-                <div class="program-desc">
-                    ${escapeHTML(program.desc)}
-                </div>
-
-                <div class="program-bottom">
-
-                    <span class="program-tag">
-                        ${escapeHTML(program.tag)}
-                    </span>
-
-                    ${registerHTML}
-
-                </div>
-
-            </div>
-
-        </div>
-    `;
+function formatTime(time){
+if(!time)return"";
+return new Date("2000-01-01T"+time).toLocaleTimeString("en-KE",{hour:"numeric",minute:"2-digit"});
 }
 
-
-// ============================================================
-// RENDER CALENDAR
-// ============================================================
-
-function renderCalendar() {
-
-    const grid = document.getElementById('calendarGrid');
-
-    if (!grid) {
-        return;
-    }
-
-    grid.innerHTML = '';
-
-    CALENDAR_DATA.forEach(function (month) {
-
-        const visiblePrograms = month.programs.filter(function (program) {
-
-            return (
-                activeFilter === 'all' ||
-                program.type === activeFilter
-            );
-
-        });
-
-        if (visiblePrograms.length === 0) {
-            return;
-        }
-
-        const card = document.createElement('div');
-
-        card.className =
-            'month-card' +
-            (month.current ? ' current' : '');
-
-        let programsHTML = '';
-
-        visiblePrograms.forEach(function (program) {
-
-            programsHTML += renderProgram(
-                program,
-                month
-            );
-
-        });
-
-        card.innerHTML = `
-
-            <div class="month-header">
-
-                ${
-                    month.current
-                        ? '<span class="badge-now">Now</span>'
-                        : ''
-                }
-
-                <div>
-
-                    <div class="month-name">
-                        ${escapeHTML(month.month)}
-                    </div>
-
-                    <div class="month-year">
-                        ${escapeHTML(month.year)}
-                    </div>
-
-                </div>
-
-                <div class="month-emoji">
-                    ${month.emoji}
-                </div>
-
-            </div>
-
-            <div class="month-body">
-
-                ${programsHTML}
-
-            </div>
-        `;
-
-        grid.appendChild(card);
-
-    });
-
-
-    // ========================================================
-    // EMPTY STATE
-    // ========================================================
-
-    if (grid.children.length === 0) {
-
-        grid.innerHTML = `
-
-            <div
-                style="
-                    grid-column:1 / -1;
-                    text-align:center;
-                    padding:60px 20px;
-                    color:var(--text-secondary);
-                "
-            >
-
-                <i
-                    class="fas fa-calendar-times"
-                    style="
-                        font-size:3rem;
-                        color:var(--text-light);
-                        margin-bottom:12px;
-                    "
-                ></i>
-
-                <p>
-                    No programs found for this filter.
-                </p>
-
-            </div>
-        `;
-    }
+function getSessionType(service){
+return service==="Road Safety Training"?"roadsafety":"osh";
 }
 
-
-// ============================================================
-// FILTERS
-// ============================================================
-
-function initializeFilters() {
-
-    document
-        .querySelectorAll('.filter-btn')
-        .forEach(function (button) {
-
-            button.addEventListener('click', function () {
-
-                document
-                    .querySelectorAll('.filter-btn')
-                    .forEach(function (btn) {
-
-                        btn.classList.remove('active');
-
-                    });
-
-                this.classList.add('active');
-
-                activeFilter =
-                    this.dataset.filter || 'all';
-
-                renderCalendar();
-
-            });
-
-        });
-
+function updateHighlights(){
+const road=dbSessions.filter(s=>getSessionType(s.service)==="roadsafety").length;
+const osh=dbSessions.filter(s=>getSessionType(s.service)==="osh").length;
+const months=new Set(dbSessions.map(s=>s.session_date?.substring(0,7))).size;
+const monthCount=document.getElementById("monthCount");
+const roadCount=document.getElementById("roadCount");
+const oshCount=document.getElementById("oshCount");
+const totalCount=document.getElementById("totalCount");
+if(monthCount)monthCount.textContent=months||0;
+if(roadCount)roadCount.textContent=road;
+if(oshCount)oshCount.textContent=osh;
+if(totalCount)totalCount.textContent=dbSessions.length;
 }
 
-
-// ============================================================
-// DOWNLOAD / PRINT PDF
-// ============================================================
-
-function initializeDownload() {
-
-    const downloadButton =
-        document.getElementById('downloadBtn');
-
-    if (!downloadButton) {
-        return;
-    }
-
-    downloadButton.addEventListener(
-        'click',
-        function () {
-
-            window.print();
-
-        }
-    );
+function renderDBSession(session){
+const type=getSessionType(session.service);
+const price=Number(session.price||0);
+const registerURL=`register.html?session_id=${encodeURIComponent(session.id)}`;
+return `<div class="program ${type}" data-type="${type}">
+<div class="program-icon">${getProgramIcon(type)}</div>
+<div class="program-content">
+<div class="program-tag">${escapeHTML(type==="roadsafety"?"Road Safety":"OSH")}</div>
+<h3>${escapeHTML(session.session_title)}</h3>
+<p>${escapeHTML(session.description||"Professional training programme.")}</p>
+<div class="program-meta">
+<span>📅 ${formatDate(session.session_date)}</span>
+<span>🕐 ${formatTime(session.start_time)}${session.end_time?" – "+formatTime(session.end_time):""}</span>
+<span>📍 ${escapeHTML(session.venue||session.location||"MEI Group")}</span>
+<span>👥 ${session.capacity||"Open"} places</span>
+${price>0?`<span>💰 KES ${price.toLocaleString()}</span>`:"<span>💰 Contact MEI Group</span>"}
+</div>
+<div class="program-bottom">
+<span class="program-status">${escapeHTML(session.status||"open")}</span>
+<a class="register-btn" href="${registerURL}">Register</a>
+</div>
+</div>
+</div>`;
 }
 
+function renderStaticProgram(program){
+return `<div class="program ${program.type}" data-type="${program.type}">
+<div class="program-icon">${getProgramIcon(program.type)}</div>
+<div class="program-content">
+<div class="program-tag">${escapeHTML(program.tag)}</div>
+<h3>${escapeHTML(program.title)}</h3>
+<p>${escapeHTML(program.desc)}</p>
+<div class="program-bottom">
+<span class="program-status">Information</span>
+${program.type==="education"?'<a class="register-btn" href="education.html">Learn More</a>':""}
+</div>
+</div>
+</div>`;
+}
 
-// ============================================================
-// INITIALIZE
-// ============================================================
+function renderCalendar(){
+const grid=document.getElementById("calendarGrid");
+if(!grid)return;
 
-document.addEventListener(
-    'DOMContentLoaded',
-    function () {
+let html="";
+const grouped={};
 
-        if (typeof meiInitCommon === 'function') {
-            meiInitCommon();
-        }
+dbSessions.forEach(session=>{
+const date=new Date(session.session_date+"T00:00:00");
+const key=`${date.getFullYear()}-${String(date.getMonth()+1).padStart(2,"0")}`;
+if(!grouped[key]){
+grouped[key]={
+month:date.toLocaleString("en-US",{month:"long"}),
+year:date.getFullYear(),
+sessions:[]
+};
+}
+grouped[key].sessions.push(session);
+});
 
-        initializeFilters();
+Object.values(grouped).forEach(group=>{
+const sessions=group.sessions.filter(session=>{
+return activeFilter==="all"||getSessionType(session.service)===activeFilter;
+});
+if(!sessions.length)return;
 
-        initializeDownload();
+html+=`<section class="calendar-month">
+<div class="month-header">
+<h2>${group.month} ${group.year}</h2>
+<span>${sessions.length} session${sessions.length===1?"":"s"}</span>
+</div>
+<div class="program-list">${sessions.map(renderDBSession).join("")}</div>
+</section>`;
+});
 
-        renderCalendar();
+if(activeFilter==="all"||activeFilter==="education"){
+CALENDAR_DATA.forEach(month=>{
+const programs=month.programs.filter(program=>activeFilter==="all"||program.type==="education");
+if(!programs.length)return;
 
-        console.log(
-            '✅ MEI Group – Training Calendar loaded'
-        );
+html+=`<section class="calendar-month">
+<div class="month-header">
+<h2>${month.month} ${month.year}</h2>
+<span>${programs.length} program${programs.length===1?"":"s"}</span>
+</div>
+<div class="program-list">${programs.map(renderStaticProgram).join("")}</div>
+</section>`;
+});
+}
 
-    }
+if(!html)html='<div class="empty-state">No training sessions found for this filter.</div>';
+
+grid.innerHTML=html;
+}
+
+async function loadTrainingSessions(){
+try{
+if(!window.supabaseClient){
+if(window.SUPABASE_URL&&window.SUPABASE_ANON_KEY){
+window.supabaseClient=supabase.createClient(
+window.SUPABASE_URL,
+window.SUPABASE_ANON_KEY
 );
+}
+}
+
+if(!window.supabaseClient)throw new Error("Supabase client unavailable");
+
+const{data,error}=await window.supabaseClient
+.from("public_training_calendar")
+.select("*")
+.order("session_date",{ascending:true})
+.order("start_time",{ascending:true});
+
+if(error)throw error;
+
+dbSessions=data||[];
+updateHighlights();
+renderCalendar();
+}catch(error){
+console.error("Training calendar error:",error);
+dbSessions=[];
+updateHighlights();
+renderCalendar();
+}
+}
+
+function initializeFilters(){
+document.querySelectorAll(".filter-btn").forEach(button=>{
+if(button.id==="downloadPdf")return;
+
+button.addEventListener("click",()=>{
+document.querySelectorAll(".filter-btn").forEach(btn=>btn.classList.remove("active"));
+button.classList.add("active");
+
+const filter=button.dataset.filter||"all";
+activeFilter=filter==="road-safety"?"roadsafety":filter;
+renderCalendar();
+});
+});
+}
+
+function initializeDownload(){
+const button=document.getElementById("downloadPdf");
+if(button)button.addEventListener("click",()=>window.print());
+}
+
+document.addEventListener("DOMContentLoaded",async()=>{
+if(typeof meiInitCommon==="function")meiInitCommon();
+initializeFilters();
+initializeDownload();
+await loadTrainingSessions();
+});
