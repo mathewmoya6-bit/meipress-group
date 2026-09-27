@@ -132,6 +132,30 @@
     const SESSIONS_COLSPAN = 10;
     const REGISTRATIONS_COLSPAN = 9;
 
+    // Shows a persistent on-page diagnostic banner above the training
+    // table, so auth/RLS problems are visible without opening dev tools.
+    function showDiagnostic(html) {
+        let box = document.getElementById("trainingDiagnostic");
+        if (!box) {
+            box = document.createElement("div");
+            box.id = "trainingDiagnostic";
+            box.style.cssText =
+                "margin-bottom:16px;padding:14px 18px;border-radius:10px;" +
+                "background:#fff7ed;border:1px solid #fdba74;color:#7c2d12;" +
+                "font-size:13px;line-height:1.6;white-space:pre-wrap;";
+            const table = document.getElementById("trainingSessionsTable");
+            const container = table?.closest(".table-container");
+            if (container) container.parentNode.insertBefore(box, container);
+        }
+        box.innerHTML = html;
+        box.style.display = html ? "block" : "none";
+    }
+
+    function clearDiagnostic() {
+        const box = document.getElementById("trainingDiagnostic");
+        if (box) box.style.display = "none";
+    }
+
     async function loadAdminTrainingSessions() {
 
         console.log("📅 Loading training sessions...");
@@ -151,9 +175,28 @@
             </tr>
         `;
 
+        // Check the actual auth state this client is running as, since
+        // "logged in" in the UI and "authenticated" to Supabase/RLS are
+        // two different things. This is the #1 diagnostic to see.
+        let authLine = "Auth check failed.";
+        try {
+            const { data: userData, error: userError } = await sb.auth.getUser();
+            if (userError) {
+                authLine = `Auth error: ${userError.message}`;
+            } else if (userData?.user) {
+                authLine = `Authenticated as: ${userData.user.email} (id: ${userData.user.id})`;
+            } else {
+                authLine = "NOT authenticated — Supabase sees this session as anonymous (anon role). " +
+                    "This is almost always why admin-only data doesn't show, even while you appear " +
+                    "'logged in' in the dashboard UI.";
+            }
+        } catch (e) {
+            authLine = `Auth check exception: ${e.message}`;
+        }
+
         try {
 
-            const { data, error } = await sb
+            const { data, error, status, statusText } = await sb
                 .from("training_sessions")
                 .select(`
                     *,
@@ -169,6 +212,13 @@
             if (error) {
                 console.error("❌ TRAINING SESSION ERROR:", error);
 
+                showDiagnostic(
+                    `<strong>Could not load training sessions.</strong>\n${authLine}\n` +
+                    `Supabase error: ${escapeHTML(error.message)}` +
+                    (error.hint ? `\nHint: ${escapeHTML(error.hint)}` : "") +
+                    (error.code ? `\nCode: ${escapeHTML(error.code)}` : "")
+                );
+
                 table.innerHTML = `
                     <tr>
                         <td colspan="${SESSIONS_COLSPAN}" style="text-align:center;padding:30px;color:#b91c1c;">
@@ -183,8 +233,27 @@
             trainingSessions = data || [];
 
             console.log(
-                `✅ ${trainingSessions.length} training sessions loaded.`
+                `✅ Query succeeded (HTTP ${status} ${statusText}). ` +
+                `${trainingSessions.length} training sessions returned.`
             );
+
+            if (trainingSessions.length === 0) {
+                // No error, but nothing came back either. This is the
+                // classic signature of an RLS policy silently filtering
+                // out rows — the request succeeds, it just returns 0
+                // rows because the current role/identity doesn't match
+                // any SELECT policy's condition.
+                showDiagnostic(
+                    `<strong>Query succeeded but returned 0 sessions.</strong>\n${authLine}\n` +
+                    `If sessions exist in the database and appear on the public training calendar, ` +
+                    `this means Row Level Security is filtering them out for this session — ` +
+                    `most likely because this browser session isn't recognized as an admin ` +
+                    `(is_mei_admin() returning false), or the login session expired/never carried ` +
+                    `a valid Supabase auth token.`
+                );
+            } else {
+                clearDiagnostic();
+            }
 
             updateTrainingStats();
             renderTrainingSessions();
@@ -192,6 +261,11 @@
         } catch (error) {
 
             console.error("❌ TRAINING LOAD EXCEPTION:", error);
+
+            showDiagnostic(
+                `<strong>Unexpected error loading training sessions.</strong>\n${authLine}\n` +
+                `${escapeHTML(error.message || "Unknown error")}`
+            );
 
             table.innerHTML = `
                 <tr>
