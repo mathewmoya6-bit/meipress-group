@@ -51,6 +51,7 @@ nav a:hover{color:#18c77a}
 .price{font-weight:800;color:#071a2b}
 .register-btn{display:inline-block;background:#12b96f;color:#fff;padding:10px 17px;border-radius:8px;font-weight:800;font-size:13px}
 .register-btn:hover{background:#07985a}
+.status-note{font-size:13px;font-weight:700;color:#8b2424;text-transform:capitalize}
 .empty-state{background:#fff;border:1px solid #dfe7ec;border-radius:14px;padding:35px;text-align:center;color:#61727c;grid-column:1/-1}
 .empty-state strong{display:block;font-size:18px;color:#071a2b;margin-bottom:7px}
 .loading{background:#fff;border:1px solid #dfe7ec;border-radius:14px;padding:45px;text-align:center;color:#61727c}
@@ -303,6 +304,17 @@ return"Contact us";
 return`${currency||"KES"} ${n.toLocaleString("en-KE")}`;
 }
 
+// FIX: capacity now formatted consistently as "N places" instead of a
+// bare number, matching the js/training-calendar.js version.
+function formatCapacity(capacity){
+
+if(!capacity){
+return"Contact us";
+}
+
+return`${capacity} places`;
+}
+
 function updateStats(){
 
 const sessions=dbSessions;
@@ -348,6 +360,21 @@ session.price,
 session.currency
 );
 
+// FIX: this status check was missing, so every session (including
+// ones already completed, in progress, cancelled or postponed)
+// rendered a live "Register Now" button. Now closed sessions show
+// their status instead, matching js/training-calendar.js's behavior.
+const status=String(session.status||"open").toLowerCase();
+
+const isClosed=[
+"cancelled",
+"postponed",
+"completed",
+"in_progress"
+].includes(status);
+
+const registerUrl=`register.html?session_id=${encodeURIComponent(session.id)}`;
+
 return`
 <article class="session">
 
@@ -384,7 +411,7 @@ Venue
 
 <div class="info-item">
 Capacity
-<strong>${escapeHTML(session.capacity||"Contact us")}</strong>
+<strong>${escapeHTML(formatCapacity(session.capacity))}</strong>
 </div>
 
 </div>
@@ -403,11 +430,11 @@ session.description
 ${escapeHTML(price)}
 </div>
 
-<a
-class="register-btn"
-href="register.html?session_id=${encodeURIComponent(session.id)}">
-Register Now
-</a>
+${
+isClosed
+?`<span class="status-note">${escapeHTML(status.replace("_"," "))}</span>`
+:`<a class="register-btn" href="${registerUrl}">Register Now</a>`
+}
 
 </div>
 
