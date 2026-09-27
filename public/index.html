@@ -129,6 +129,7 @@
             0%, 100% { box-shadow: 0 0 20px rgba(37,99,235,0.1); }
             50% { box-shadow: 0 0 40px rgba(37,99,235,0.2); }
         }
+        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ============================================================
            NAVBAR
@@ -201,7 +202,7 @@
             transition: color 0.3s ease;
         }
 
-        .nav-links { display: flex; align-items: center; gap: 32px; }
+        .nav-links { display: flex; align-items: center; gap: 28px; }
         .nav-link {
             font-size: 0.9rem;
             font-weight: 500;
@@ -855,7 +856,6 @@
             animation: spin 1s linear infinite;
             margin-bottom: 12px;
         }
-        @keyframes spin { to { transform: rotate(360deg); } }
 
         /* ============================================================
            ABOUT
@@ -1401,7 +1401,7 @@
                 <a href="#about" class="nav-link">About</a>
                 <a href="#services" class="nav-link">Services</a>
                 <a href="training-calendar.html" class="nav-link">Calendar</a>
-                <a href="#featured" class="nav-link">Sessions</a>
+                <a href="training-registration.html" class="nav-link">Register</a>
                 <a href="#testimonials" class="nav-link">Testimonials</a>
                 <a href="#contact" class="btn-nav">Contact Us</a>
             </div>
@@ -1429,8 +1429,8 @@
                     education, workplace safety training, and professional consultancy services.
                 </p>
                 <div class="hero-buttons">
-                    <a href="#services" class="btn-primary">
-                        <i class="fas fa-rocket"></i> Explore Services
+                    <a href="training-registration.html" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> Register for Training
                     </a>
                     <a href="training-calendar.html" class="btn-secondary">
                         <i class="fas fa-calendar-alt"></i> View Calendar
@@ -1637,8 +1637,8 @@
                         <a href="road-safety.html" class="btn-learn">
                             <i class="fas fa-arrow-right"></i> Learn More
                         </a>
-                        <a href="training-calendar.html" class="btn-outline">
-                            <i class="fas fa-calendar-alt"></i> Book Session
+                        <a href="training-registration.html" class="btn-outline">
+                            <i class="fas fa-user-plus"></i> Register
                         </a>
                     </div>
                 </div>
@@ -1658,8 +1658,8 @@
                         <a href="occupational-safety.html" class="btn-learn">
                             <i class="fas fa-arrow-right"></i> Learn More
                         </a>
-                        <a href="training-calendar.html" class="btn-outline">
-                            <i class="fas fa-calendar-alt"></i> Book Session
+                        <a href="training-registration.html" class="btn-outline">
+                            <i class="fas fa-user-plus"></i> Register
                         </a>
                     </div>
                 </div>
@@ -1684,8 +1684,8 @@
                         <a href="training-calendar.html" class="btn-primary">
                             <i class="fas fa-calendar-alt"></i> View Calendar
                         </a>
-                        <a href="#featured" class="btn-secondary">
-                            <i class="fas fa-star"></i> Featured Sessions
+                        <a href="training-registration.html" class="btn-secondary">
+                            <i class="fas fa-user-plus"></i> Register Now
                         </a>
                     </div>
                 </div>
@@ -1708,7 +1708,7 @@
     </section>
 
     <!-- ============================================================
-    FEATURED TRAINING SESSIONS (Live from Supabase)
+    FEATURED TRAINING SESSIONS
     ============================================================ -->
     <section class="featured-section" id="featured">
         <div class="container">
@@ -1876,7 +1876,7 @@
                         <span>How do I register for a training session?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Visit our <a href="training-calendar.html" style="color:var(--primary);font-weight:600;">Training Calendar</a>, find a session that suits you, and click "Register". Fill out the short form, and our team will confirm your seat within 24 hours.</div>
+                    <div class="answer">Visit our <a href="training-calendar.html" style="color:var(--primary);font-weight:600;">Training Calendar</a>, find a session that suits you, and click "Register". You'll be taken to the <a href="training-registration.html" style="color:var(--primary);font-weight:600;">Training Registration</a> page to complete your details.</div>
                 </div>
 
                 <div class="faq-item">
@@ -1924,7 +1924,7 @@
                         <span>Can I register multiple people from my company?</span>
                         <i class="fas fa-chevron-down"></i>
                     </div>
-                    <div class="answer">Yes! For corporate groups, please select "Corporate" as the participant type during registration, or contact us directly at <a href="mailto:info@meipressgroup.com" style="color:var(--primary);font-weight:600;">info@meipressgroup.com</a> for bulk enrollment and group discounts.</div>
+                    <div class="answer">Yes! For corporate groups, please select "Corporate" as the participant type during <a href="training-registration.html" style="color:var(--primary);font-weight:600;">registration</a>, or contact us directly at <a href="mailto:info@meipressgroup.com" style="color:var(--primary);font-weight:600;">info@meipressgroup.com</a> for bulk enrollment and group discounts.</div>
                 </div>
             </div>
         </div>
@@ -1942,8 +1942,8 @@
                     or booking your next certification — MEI Group is here to help you succeed.
                 </p>
                 <div style="display:flex;justify-content:center;gap:16px;flex-wrap:wrap;">
-                    <a href="training-calendar.html" class="btn-primary">
-                        <i class="fas fa-calendar-alt"></i> Book a Session
+                    <a href="training-registration.html" class="btn-primary">
+                        <i class="fas fa-user-plus"></i> Register for Training
                     </a>
                     <a href="#contact" class="btn-secondary">
                         <i class="fas fa-headset"></i> Talk to an Advisor
@@ -2033,6 +2033,7 @@
                     <a href="#about">About</a>
                     <a href="#services">Services</a>
                     <a href="training-calendar.html">Training Calendar</a>
+                    <a href="training-registration.html">Register</a>
                     <a href="#contact">Contact</a>
                     <a href="#" style="margin-top:8px;color:rgba(255,255,255,0.3);font-size:0.75rem;">Privacy Policy</a>
                     <a href="#" style="color:rgba(255,255,255,0.3);font-size:0.75rem;">Terms &amp; Conditions</a>
