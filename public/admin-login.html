@@ -1,528 +1,323 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Login | MEI Press Group</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #0b1a2e 0%, #1a3a4f 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-        }
-        .login-container { width: 100%; max-width: 420px; }
-        .login-card {
-            background: white;
-            border-radius: 20px;
-            padding: 48px 40px 40px;
-            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
-            position: relative;
-            overflow: hidden;
-        }
-        .login-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 4px;
-            background: linear-gradient(90deg, #00b4d8, #66d9ff, #00b4d8);
-            background-size: 200% 100%;
-            animation: shimmer 3s ease-in-out infinite;
-        }
-        @keyframes shimmer {
-            0%, 100% { background-position: -200% 0; }
-            50% { background-position: 200% 0; }
-        }
-        .logo { text-align: center; margin-bottom: 32px; }
-        .logo .icon {
-            width: 72px;
-            height: 72px;
-            background: linear-gradient(145deg, #00b4d8, #0077b6);
-            border-radius: 18px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-weight: 800;
-            font-size: 1.8rem;
-            margin-bottom: 12px;
-            box-shadow: 0 8px 24px rgba(0,180,216,0.25);
-        }
-        .logo h1 { font-size: 1.8rem; font-weight: 800; color: #0b1a2e; }
-        .logo h1 span { color: #00b4d8; }
-        .logo p { color: #5a6f87; font-size: 0.95rem; }
-        .form-group { margin-bottom: 18px; }
-        .form-group label {
-            display: block;
-            font-weight: 600;
-            font-size: 0.85rem;
-            margin-bottom: 6px;
-            color: #1f2a3f;
-        }
-        .form-group .input-wrapper { position: relative; }
-        .form-group .input-wrapper i {
-            position: absolute;
-            left: 14px;
-            top: 50%;
-            transform: translateY(-50%);
-            color: #94a3b8;
-        }
-        .form-group .input-wrapper input {
-            width: 100%;
-            padding: 12px 16px 12px 44px;
-            border: 2px solid #e2e8f0;
-            border-radius: 10px;
-            font-family: inherit;
-            font-size: 1rem;
-            transition: 0.2s;
-            background: #fafcff;
-        }
-        .form-group .input-wrapper input:focus {
-            outline: none;
-            border-color: #00b4d8;
-            box-shadow: 0 0 0 4px rgba(0,180,216,0.1);
-            background: white;
-        }
-        .form-group .input-wrapper input.error {
-            border-color: #ef4444;
-            box-shadow: 0 0 0 4px rgba(239,68,68,0.1);
-        }
-        .form-options {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 24px;
-        }
-        .form-options label {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            font-size: 0.9rem;
-            color: #5a6f87;
-            cursor: pointer;
-        }
-        .form-options label input[type="checkbox"] {
-            accent-color: #00b4d8;
-            width: 16px;
-            height: 16px;
-            cursor: pointer;
-        }
-        .form-options a {
-            color: #00b4d8;
-            font-size: 0.9rem;
-            text-decoration: none;
-            font-weight: 500;
-        }
-        .form-options a:hover { text-decoration: underline; }
-        .btn {
-            width: 100%;
-            padding: 14px;
-            border: none;
-            border-radius: 10px;
-            background: linear-gradient(145deg, #00b4d8, #0077b6);
-            color: white;
-            font-weight: 700;
-            font-size: 1rem;
-            cursor: pointer;
-            transition: 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-        .btn:hover:not(:disabled) {
-            transform: translateY(-2px);
-            box-shadow: 0 8px 24px rgba(0,180,216,0.3);
-        }
-        .btn:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
-        .error {
-            background: #fee2e2;
-            color: #991b1b;
-            padding: 12px 16px;
-            border-radius: 10px;
-            display: none;
-            margin-bottom: 16px;
-            border-left: 4px solid #ef4444;
-            font-size: 0.9rem;
-        }
-        .error.show { display: flex; align-items: center; gap: 10px; animation: shake 0.4s ease; }
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-6px); }
-            75% { transform: translateX(6px); }
-        }
-        .footer {
-            text-align: center;
-            margin-top: 20px;
-            padding-top: 20px;
-            border-top: 1px solid #e2e8f0;
-            color: #94a3b8;
-            font-size: 0.85rem;
-        }
-        .footer a { color: #00b4d8; text-decoration: none; font-weight: 600; }
-        .footer a:hover { text-decoration: underline; }
-        .spinner {
-            display: none;
-            width: 20px;
-            height: 20px;
-            border: 2px solid rgba(255,255,255,0.3);
-            border-top-color: white;
-            border-radius: 50%;
-            animation: spin 0.8s linear infinite;
-        }
-        .btn.loading .spinner { display: inline-block; }
-        .btn.loading .btn-text { display: none; }
-        @keyframes spin { to { transform: rotate(360deg); } }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MEI Press Group | Admin Login</title>
+<meta name="description" content="MEI Press Group administration portal">
 
-        .security-badges {
-            display: flex;
-            justify-content: center;
-            gap: 16px;
-            margin-top: 16px;
-            flex-wrap: wrap;
-        }
-        .security-badges .badge {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 0.7rem;
-            color: #64748b;
-            background: #f1f5f9;
-            padding: 4px 12px;
-            border-radius: 20px;
-        }
-        .security-badges .badge i { color: #00b4d8; }
-        .server-status {
-            text-align: center;
-            font-size: 0.75rem;
-            margin-top: 12px;
-            padding: 8px;
-            border-radius: 8px;
-        }
-        .server-status.online { color: #10b981; background: #d1fae5; }
-        .server-status.offline { color: #ef4444; background: #fee2e2; }
-
-        @media (max-width: 480px) {
-            .login-card { padding: 32px 24px; }
-            .logo h1 { font-size: 1.4rem; }
-            .form-options { flex-direction: column; gap: 12px; align-items: flex-start; }
-            .security-badges { gap: 8px; }
-            .security-badges .badge { font-size: 0.6rem; padding: 2px 10px; }
-        }
-    </style>
+<style>
+*{box-sizing:border-box}
+body{
+margin:0;
+min-height:100vh;
+font-family:Inter,Arial,sans-serif;
+background:linear-gradient(135deg,#06111f,#0b1f35);
+display:flex;
+align-items:center;
+justify-content:center;
+padding:20px;
+color:#fff
+}
+.login-card{
+width:100%;
+max-width:430px;
+background:#fff;
+color:#172033;
+border-radius:18px;
+padding:38px;
+box-shadow:0 25px 70px rgba(0,0,0,.35)
+}
+.logo{
+width:64px;
+height:64px;
+border-radius:15px;
+background:#0b1f35;
+display:flex;
+align-items:center;
+justify-content:center;
+font-size:25px;
+font-weight:800;
+color:#9bea00;
+margin-bottom:20px
+}
+h1{
+margin:0 0 8px;
+font-size:25px
+}
+.subtitle{
+margin:0 0 28px;
+color:#667085;
+font-size:14px
+}
+label{
+display:block;
+font-weight:600;
+font-size:14px;
+margin:0 0 7px
+}
+input{
+width:100%;
+padding:13px 14px;
+border:1px solid #d8dee8;
+border-radius:9px;
+font-size:15px;
+outline:none;
+margin-bottom:17px
+}
+input:focus{
+border-color:#0b1f35;
+box-shadow:0 0 0 3px rgba(11,31,53,.08)
+}
+button{
+width:100%;
+border:0;
+border-radius:9px;
+padding:14px;
+background:#0b1f35;
+color:#fff;
+font-size:15px;
+font-weight:700;
+cursor:pointer
+}
+button:hover{
+background:#102c4b
+}
+button:disabled{
+opacity:.6;
+cursor:not-allowed
+}
+.error{
+display:none;
+background:#fff0f0;
+border:1px solid #ffcaca;
+color:#b42318;
+padding:11px 13px;
+border-radius:8px;
+font-size:13px;
+margin-bottom:17px
+}
+.success{
+display:none;
+background:#effaf3;
+border:1px solid #b7ebc6;
+color:#16703b;
+padding:11px 13px;
+border-radius:8px;
+font-size:13px;
+margin-bottom:17px
+}
+.footer{
+text-align:center;
+margin-top:22px;
+font-size:12px;
+color:#98a2b3
+}
+</style>
 </head>
+
 <body>
-    <div class="login-container">
-        <div class="login-card">
-            <div class="logo">
-                <div class="icon">MEI</div>
-                <h1>MEI <span>Admin</span></h1>
-                <p>Secure access to management dashboard</p>
-            </div>
 
-            <div class="error" id="errorMessage">
-                <i class="fas fa-exclamation-circle"></i>
-                <span id="errorText">Invalid credentials</span>
-            </div>
+<div class="login-card">
 
-            <form id="loginForm">
-                <div class="form-group">
-                    <label>Email Address</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-envelope"></i>
-                        <input type="email" id="email" placeholder="admin@mei.com" required autocomplete="username">
-                    </div>
-                </div>
+<div class="logo">MEI</div>
 
-                <div class="form-group">
-                    <label>Password</label>
-                    <div class="input-wrapper">
-                        <i class="fas fa-lock"></i>
-                        <input type="password" id="password" placeholder="Enter your password" required autocomplete="current-password">
-                    </div>
-                </div>
+<h1>MEI Admin Portal</h1>
+<p class="subtitle">Sign in to manage applications, training sessions and registrations.</p>
 
-                <div class="form-options">
-                    <label>
-                        <input type="checkbox" id="remember" checked>
-                        Remember me
-                    </label>
-                    <a href="#" onclick="showForgotPassword()">Forgot password?</a>
-                </div>
+<div id="errorMessage" class="error"></div>
+<div id="successMessage" class="success"></div>
 
-                <button type="submit" class="btn" id="loginBtn">
-                    <span class="spinner"></span>
-                    <span class="btn-text"><i class="fas fa-sign-in-alt"></i> Sign In</span>
-                </button>
-            </form>
+<form id="loginForm">
 
-            <div class="server-status offline" id="serverStatus">
-                <i class="fas fa-circle"></i> Backend server status: <span id="statusText">Checking...</span>
-            </div>
+<label for="email">Email address</label>
+<input
+id="email"
+type="email"
+autocomplete="username"
+placeholder="admin@example.com"
+required
+>
 
-            <div class="security-badges">
-                <span class="badge"><i class="fas fa-lock"></i> Secure Login</span>
-                <span class="badge"><i class="fas fa-shield-alt"></i> SSL Protected</span>
-                <span class="badge"><i class="fas fa-clock"></i> Session Timeout</span>
-            </div>
+<label for="password">Password</label>
+<input
+id="password"
+type="password"
+autocomplete="current-password"
+placeholder="Enter your password"
+required
+>
 
-            <div class="footer">
-                &copy; 2025 <a href="/">MEI Press Group Ltd.</a>
-                <br>
-                <span style="font-size:0.7rem;opacity:0.6;">v2.0.0</span>
-            </div>
-        </div>
-    </div>
+<button id="loginButton" type="submit">
+Sign In
+</button>
 
-    <script>
-        // ============================================================
-        // ADMIN LOGIN - WITH BACKEND CONNECTION CHECK
-        // ============================================================
+</form>
 
-        (function() {
-            'use strict';
+<div class="footer">
+MEI Press Group Administration
+</div>
 
-            // ===== UPDATE THIS LINE WITH YOUR CORRECT PORT =====
-            const API_BASE = 'http://localhost:10000/api';  // ← Changed from 5000 to 10000
-            // =======================================================
+</div>
 
-            const errorMessage = document.getElementById('errorMessage');
-            const errorText = document.getElementById('errorText');
-            const loginBtn = document.getElementById('loginBtn');
-            const loginForm = document.getElementById('loginForm');
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
-            // ===== CHECK SERVER STATUS =====
-            async function checkServerStatus() {
-                const statusEl = document.getElementById('serverStatus');
-                const statusText = document.getElementById('statusText');
-                
-                try {
-                    const response = await fetch('http://localhost:10000/health', {
-                        method: 'GET',
-                        signal: AbortSignal.timeout(3000)
-                    });
-                    
-                    if (response.ok) {
-                        statusEl.className = 'server-status online';
-                        statusText.textContent = 'Online ✓ (Port 10000)';
-                        console.log('✅ Backend server is running on port 10000');
-                    } else {
-                        throw new Error('Server responded with error');
-                    }
-                } catch (error) {
-                    statusEl.className = 'server-status offline';
-                    statusText.textContent = 'Offline ✗ (Start backend with: node server.js)';
-                    console.warn('⚠️ Backend server not running:', error.message);
-                }
-            }
+<script>
+const SUPABASE_URL="https://qkchnrrxrewmlvvxuuqe.supabase.co";
+const SUPABASE_ANON_KEY="sb_publishable_-ki98JwzbWWiVXm7nzAAgQ_5H2qjXz7";
 
-            // Check server status on load
-            checkServerStatus();
+const supabaseClient=supabase.createClient(
+SUPABASE_URL,
+SUPABASE_ANON_KEY
+);
 
-            // ===== FORGOT PASSWORD =====
-            window.showForgotPassword = function() {
-                errorText.textContent = 'Please contact the system administrator to reset your password.';
-                errorMessage.classList.add('show');
-                setTimeout(() => {
-                    errorMessage.classList.remove('show');
-                }, 5000);
-            };
+const form=document.getElementById("loginForm");
+const emailInput=document.getElementById("email");
+const passwordInput=document.getElementById("password");
+const loginButton=document.getElementById("loginButton");
+const errorMessage=document.getElementById("errorMessage");
+const successMessage=document.getElementById("successMessage");
 
-            // ===== LOGIN HANDLER =====
-            loginForm.addEventListener('submit', async function(e) {
-                e.preventDefault();
-                
-                const email = document.getElementById('email').value.trim();
-                const password = document.getElementById('password').value;
-                const remember = document.getElementById('remember').checked;
+function showError(message){
+errorMessage.textContent=message;
+errorMessage.style.display="block";
+successMessage.style.display="none";
+}
 
-                // Reset error
-                errorMessage.classList.remove('show');
-                document.querySelectorAll('.input-wrapper input').forEach(el => el.classList.remove('error'));
+function showSuccess(message){
+successMessage.textContent=message;
+successMessage.style.display="block";
+errorMessage.style.display="none";
+}
 
-                // Validate
-                if (!email || !password) {
-                    errorText.textContent = 'Please fill in all fields';
-                    errorMessage.classList.add('show');
-                    if (!email) document.getElementById('email').classList.add('error');
-                    if (!password) document.getElementById('password').classList.add('error');
-                    return;
-                }
+async function checkExistingSession(){
 
-                if (!email.includes('@')) {
-                    errorText.textContent = 'Please enter a valid email address';
-                    errorMessage.classList.add('show');
-                    document.getElementById('email').classList.add('error');
-                    return;
-                }
+const{
+data:{session}
+}=await supabaseClient.auth.getSession();
 
-                // Show loading
-                loginBtn.classList.add('loading');
-                loginBtn.disabled = true;
+if(!session)return;
 
-                try {
-                    // Try backend API first
-                    console.log('📡 Attempting backend login on port 10000...');
-                    const response = await fetch(`${API_BASE}/auth/login`, {
-                        method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
-                        body: JSON.stringify({ email, password })
-                    });
+const{
+data:user,
+error
+}=await supabaseClient
+.from("admin_users")
+.select("id,email,full_name,role,active")
+.eq("id",session.user.id)
+.maybeSingle();
 
-                    if (response.ok) {
-                        const result = await response.json();
-                        
-                        if (result.success) {
-                            // Login successful - save session
-                            const session = {
-                                email: result.data.user.email,
-                                name: result.data.user.name || 'Admin',
-                                role: result.data.user.role || 'admin',
-                                accessToken: result.data.tokens.accessToken,
-                                refreshToken: result.data.tokens.refreshToken,
-                                loginTime: new Date().toISOString()
-                            };
-                            localStorage.setItem('mei_admin_session', JSON.stringify(session));
-                            
-                            // Show success
-                            const btnText = loginBtn.querySelector('.btn-text');
-                            btnText.innerHTML = '<i class="fas fa-check-circle"></i> Success! Redirecting...';
-                            
-                            setTimeout(() => {
-                                window.location.href = 'admin-dashboard.html';
-                            }, 800);
-                            return;
-                        }
-                    }
+if(error)return;
 
-                    // If backend fails or returns error, try localStorage fallback
-                    console.log('📦 Using localStorage fallback...');
-                    const admins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
-                    
-                    // Check if admin exists
-                    const user = admins.find(a => a.email === email && btoa(password) === a.password);
+if(user&&user.active!==false){
 
-                    if (user) {
-                        const session = {
-                            email: user.email,
-                            name: user.name || 'Admin',
-                            role: user.role || 'admin',
-                            loginTime: new Date().toISOString()
-                        };
-                        localStorage.setItem('mei_admin_session', JSON.stringify(session));
-                        window.location.href = 'admin-dashboard.html';
-                        return;
-                    }
+localStorage.setItem(
+"mei_admin_session",
+JSON.stringify({
+authenticated:true,
+accessToken:session.access_token,
+user:{
+id:session.user.id,
+email:session.user.email,
+full_name:user.full_name,
+role:user.role
+}
+})
+);
 
-                    // Check default admin
-                    if (email === 'admin@mei.com' && password === 'admin123') {
-                        const newAdmin = {
-                            id: Date.now(),
-                            name: 'Administrator',
-                            email: email,
-                            password: btoa(password),
-                            role: 'admin',
-                            created: new Date().toISOString(),
-                            status: 'active'
-                        };
-                        const allAdmins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
-                        allAdmins.push(newAdmin);
-                        localStorage.setItem('mei_admins', JSON.stringify(allAdmins));
-                        
-                        const session = {
-                            email: newAdmin.email,
-                            name: newAdmin.name,
-                            role: newAdmin.role,
-                            loginTime: new Date().toISOString()
-                        };
-                        localStorage.setItem('mei_admin_session', JSON.stringify(session));
-                        window.location.href = 'admin-dashboard.html';
-                        return;
-                    }
+window.location.href="admin.html";
+}
+}
 
-                    // All failed
-                    throw new Error('Invalid credentials');
+form.addEventListener("submit",async e=>{
 
-                } catch (error) {
-                    console.error('Login error:', error);
-                    
-                    // Try localStorage as last resort
-                    try {
-                        const admins = JSON.parse(localStorage.getItem('mei_admins') || '[]');
-                        const user = admins.find(a => a.email === email && btoa(password) === a.password);
-                        
-                        if (user) {
-                            const session = {
-                                email: user.email,
-                                name: user.name || 'Admin',
-                                role: user.role || 'admin',
-                                loginTime: new Date().toISOString()
-                            };
-                            localStorage.setItem('mei_admin_session', JSON.stringify(session));
-                            window.location.href = 'admin-dashboard.html';
-                            return;
-                        }
-                    } catch (fallbackError) {
-                        console.error('Fallback login also failed:', fallbackError);
-                    }
+e.preventDefault();
 
-                    errorText.textContent = 'Invalid email or password. Please try again.';
-                    errorMessage.classList.add('show');
-                    document.getElementById('password').value = '';
-                    document.getElementById('password').focus();
-                }
+errorMessage.style.display="none";
+successMessage.style.display="none";
 
-                loginBtn.classList.remove('loading');
-                loginBtn.disabled = false;
-                
-                const btnText = loginBtn.querySelector('.btn-text');
-                btnText.innerHTML = '<i class="fas fa-sign-in-alt"></i> Sign In';
-            });
+const email=emailInput.value.trim();
+const password=passwordInput.value;
 
-            // ===== ENTER KEY SUPPORT =====
-            document.getElementById('password').addEventListener('keydown', function(e) {
-                if (e.key === 'Enter') {
-                    loginForm.dispatchEvent(new Event('submit'));
-                }
-            });
+loginButton.disabled=true;
+loginButton.textContent="Signing in...";
 
-            // ===== CLEAR ERROR ON INPUT =====
-            document.querySelectorAll('input').forEach(input => {
-                input.addEventListener('input', function() {
-                    this.classList.remove('error');
-                    errorMessage.classList.remove('show');
-                });
-            });
+try{
 
-            // ===== CHECK IF ALREADY LOGGED IN =====
-            const session = localStorage.getItem('mei_admin_session');
-            if (session) {
-                try {
-                    const data = JSON.parse(session);
-                    if (data.accessToken || data.loginTime) {
-                        window.location.href = 'admin-dashboard.html';
-                    }
-                } catch (e) {
-                    localStorage.removeItem('mei_admin_session');
-                }
-            }
+const{
+data,
+error
+}=await supabaseClient.auth.signInWithPassword({
+email,
+password
+});
 
-            console.log('🔐 MEI Press Group Admin Login v2.0');
-            console.log('📧 Demo: admin@mei.com');
-            console.log('🔑 Password: admin123');
-            console.log('💡 Backend URL: http://localhost:10000');
+if(error)throw error;
 
-        })();
-    </script>
+if(!data.session){
+throw new Error("Login succeeded but no authentication session was created.");
+}
+
+const{
+data:adminUser,
+error:adminError
+}=await supabaseClient
+.from("admin_users")
+.select("id,email,full_name,role,active")
+.eq("id",data.user.id)
+.maybeSingle();
+
+if(adminError)throw adminError;
+
+if(!adminUser){
+await supabaseClient.auth.signOut();
+throw new Error("Your account is authenticated but is not registered as an MEI administrator.");
+}
+
+if(adminUser.active===false){
+await supabaseClient.auth.signOut();
+throw new Error("Your MEI administrator account is inactive.");
+}
+
+localStorage.setItem(
+"mei_admin_session",
+JSON.stringify({
+authenticated:true,
+accessToken:data.session.access_token,
+user:{
+id:data.user.id,
+email:data.user.email,
+full_name:adminUser.full_name,
+role:adminUser.role
+}
+})
+);
+
+showSuccess("Login successful. Opening administration dashboard...");
+
+setTimeout(()=>{
+window.location.href="admin.html";
+},500);
+
+}catch(error){
+
+console.error("ADMIN LOGIN ERROR:",error);
+
+let message=error.message||"Unable to sign in.";
+
+if(message.toLowerCase().includes("invalid login credentials")){
+message="Incorrect email or password.";
+}
+
+showError(message);
+
+loginButton.disabled=false;
+loginButton.textContent="Sign In";
+}
+});
+
+checkExistingSession();
+</script>
+
 </body>
 </html>
