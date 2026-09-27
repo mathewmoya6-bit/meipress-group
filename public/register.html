@@ -1,0 +1,2408 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Training Registration | MEI Group</title>
+
+    <meta name="description"
+          content="Register for MEI Group Road Safety and Occupational Safety & Health training programmes.">
+
+    <meta name="theme-color" content="#0a1628">
+
+    <link rel="icon"
+          type="image/svg+xml"
+          href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📋</text></svg>">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap"
+          rel="stylesheet">
+
+    <link rel="stylesheet"
+          href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <style>
+
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --primary-light: #60a5fa;
+
+            --secondary: #0a1628;
+
+            --success: #10b981;
+            --danger: #ef4444;
+            --warning: #f59e0b;
+
+            --bg: #f8fafc;
+            --white: #ffffff;
+
+            --text: #0f172a;
+            --text-secondary: #475569;
+            --text-light: #94a3b8;
+
+            --border: #e2e8f0;
+
+            --shadow: 0 10px 35px rgba(15,23,42,.08);
+            --shadow-lg: 0 25px 70px rgba(15,23,42,.13);
+
+            --radius: 18px;
+            --radius-sm: 10px;
+            --radius-full: 999px;
+
+            --max-width: 1120px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: "Inter", sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        button,
+        input,
+        select,
+        textarea {
+            font-family: inherit;
+        }
+
+        .container {
+            width: 100%;
+            max-width: var(--max-width);
+            margin: auto;
+            padding: 0 25px;
+        }
+
+        /* NAVBAR */
+
+        .navbar {
+            height: 72px;
+
+            background: var(--secondary);
+
+            display: flex;
+            align-items: center;
+
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+
+            box-shadow: 0 2px 15px rgba(0,0,0,.12);
+        }
+
+        .nav-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .logo-icon {
+            width: 42px;
+            height: 42px;
+
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            border-radius: 11px;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-dark)
+            );
+
+            color: white;
+            font-weight: 900;
+        }
+
+        .logo-brand {
+            color: white;
+            font-weight: 800;
+            font-size: 1.2rem;
+        }
+
+        .logo-brand span {
+            color: var(--primary-light);
+        }
+
+        .logo-sub {
+            display: block;
+
+            color: rgba(255,255,255,.45);
+
+            font-size: .52rem;
+
+            letter-spacing: .7px;
+
+            text-transform: uppercase;
+        }
+
+        .back-link {
+            color: rgba(255,255,255,.7);
+
+            font-size: .82rem;
+
+            display: flex;
+            align-items: center;
+
+            gap: 7px;
+
+            transition: .2s;
+        }
+
+        .back-link:hover {
+            color: white;
+        }
+
+        /* PAGE */
+
+        .page {
+            padding: 55px 0 90px;
+        }
+
+        .page-heading {
+            text-align: center;
+
+            margin-bottom: 40px;
+        }
+
+        .badge {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            background: #eff6ff;
+
+            color: var(--primary);
+
+            border-radius: var(--radius-full);
+
+            padding: 6px 15px;
+
+            font-size: .68rem;
+
+            font-weight: 800;
+
+            letter-spacing: .8px;
+
+            text-transform: uppercase;
+
+            margin-bottom: 13px;
+        }
+
+        .page-heading h1 {
+            font-size: clamp(2rem, 5vw, 3rem);
+
+            line-height: 1.1;
+
+            letter-spacing: -1.5px;
+
+            margin-bottom: 12px;
+        }
+
+        .page-heading p {
+            max-width: 650px;
+
+            margin: auto;
+
+            color: var(--text-secondary);
+
+            font-size: .95rem;
+        }
+
+        /* LAYOUT */
+
+        .registration-layout {
+            display: grid;
+
+            grid-template-columns: 360px 1fr;
+
+            gap: 25px;
+
+            align-items: start;
+        }
+
+        /* SESSION CARD */
+
+        .session-panel {
+            background: var(--secondary);
+
+            color: white;
+
+            border-radius: var(--radius);
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow-lg);
+
+            position: sticky;
+
+            top: 95px;
+        }
+
+        .session-panel-header {
+            padding: 25px;
+
+            background:
+                radial-gradient(
+                    circle at 80% 20%,
+                    rgba(37,99,235,.25),
+                    transparent 45%
+                ),
+                var(--secondary);
+        }
+
+        .session-label {
+            font-size: .62rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: 1px;
+
+            color: var(--primary-light);
+
+            font-weight: 800;
+
+            margin-bottom: 8px;
+        }
+
+        .session-panel h2 {
+            font-size: 1.4rem;
+
+            line-height: 1.3;
+        }
+
+        .session-service {
+            color: rgba(255,255,255,.55);
+
+            font-size: .72rem;
+
+            margin-top: 6px;
+        }
+
+        .session-details {
+            padding: 20px 25px 25px;
+        }
+
+        .session-detail {
+            display: flex;
+
+            gap: 12px;
+
+            margin-bottom: 15px;
+
+            font-size: .8rem;
+
+            color: rgba(255,255,255,.7);
+        }
+
+        .session-detail i {
+            width: 18px;
+
+            color: var(--primary-light);
+
+            margin-top: 3px;
+        }
+
+        .session-detail strong {
+            color: white;
+
+            display: block;
+        }
+
+        .session-price {
+            margin-top: 20px;
+
+            padding-top: 18px;
+
+            border-top: 1px solid rgba(255,255,255,.1);
+        }
+
+        .session-price-label {
+            color: rgba(255,255,255,.45);
+
+            font-size: .65rem;
+
+            text-transform: uppercase;
+
+            font-weight: 700;
+        }
+
+        .session-price-value {
+            color: white;
+
+            font-size: 1.45rem;
+
+            font-weight: 900;
+
+            margin-top: 2px;
+        }
+
+        /* FORM */
+
+        .form-card {
+            background: white;
+
+            border: 1px solid var(--border);
+
+            border-radius: var(--radius);
+
+            box-shadow: var(--shadow);
+
+            padding: 32px;
+        }
+
+        .form-header {
+            margin-bottom: 25px;
+
+            padding-bottom: 20px;
+
+            border-bottom: 1px solid var(--border);
+        }
+
+        .form-header h2 {
+            font-size: 1.35rem;
+
+            margin-bottom: 4px;
+        }
+
+        .form-header p {
+            color: var(--text-secondary);
+
+            font-size: .8rem;
+        }
+
+        .form-section {
+            margin-bottom: 28px;
+        }
+
+        .form-section-title {
+            font-size: .75rem;
+
+            text-transform: uppercase;
+
+            letter-spacing: .8px;
+
+            font-weight: 800;
+
+            color: var(--primary);
+
+            margin-bottom: 15px;
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 8px;
+        }
+
+        .form-grid {
+            display: grid;
+
+            grid-template-columns: 1fr 1fr;
+
+            gap: 17px;
+        }
+
+        .form-group {
+            display: flex;
+
+            flex-direction: column;
+
+            gap: 6px;
+        }
+
+        .form-group.full {
+            grid-column: 1 / -1;
+        }
+
+        label {
+            font-size: .76rem;
+
+            font-weight: 700;
+
+            color: var(--text);
+        }
+
+        label .required {
+            color: var(--danger);
+        }
+
+        input,
+        select,
+        textarea {
+            width: 100%;
+
+            border: 1px solid var(--border);
+
+            border-radius: 10px;
+
+            padding: 11px 13px;
+
+            background: #fff;
+
+            color: var(--text);
+
+            outline: none;
+
+            font-size: .82rem;
+
+            transition: .2s;
+        }
+
+        input:focus,
+        select:focus,
+        textarea:focus {
+            border-color: var(--primary);
+
+            box-shadow:
+                0 0 0 3px rgba(37,99,235,.08);
+        }
+
+        textarea {
+            min-height: 100px;
+
+            resize: vertical;
+        }
+
+        .help-text {
+            color: var(--text-light);
+
+            font-size: .65rem;
+        }
+
+        /* ALERT */
+
+        .alert {
+            display: none;
+
+            padding: 13px 15px;
+
+            border-radius: 10px;
+
+            margin-bottom: 20px;
+
+            font-size: .78rem;
+
+            align-items: flex-start;
+
+            gap: 10px;
+        }
+
+        .alert.show {
+            display: flex;
+        }
+
+        .alert.error {
+            background: #fef2f2;
+
+            color: #991b1b;
+
+            border: 1px solid #fecaca;
+        }
+
+        .alert.success {
+            background: #ecfdf5;
+
+            color: #065f46;
+
+            border: 1px solid #a7f3d0;
+        }
+
+        .alert.warning {
+            background: #fffbeb;
+
+            color: #92400e;
+
+            border: 1px solid #fde68a;
+        }
+
+        /* CHECKBOX */
+
+        .terms {
+            display: flex;
+
+            align-items: flex-start;
+
+            gap: 9px;
+
+            margin-top: 5px;
+
+            color: var(--text-secondary);
+
+            font-size: .72rem;
+        }
+
+        .terms input {
+            width: auto;
+
+            margin-top: 3px;
+        }
+
+        /* BUTTON */
+
+        .submit-btn {
+            width: 100%;
+
+            border: none;
+
+            background: linear-gradient(
+                135deg,
+                var(--primary),
+                var(--primary-dark)
+            );
+
+            color: white;
+
+            padding: 14px 20px;
+
+            border-radius: 12px;
+
+            font-size: .88rem;
+
+            font-weight: 800;
+
+            cursor: pointer;
+
+            transition: .25s ease;
+
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            transform: translateY(-2px);
+
+            box-shadow:
+                0 10px 25px rgba(37,99,235,.25);
+        }
+
+        .submit-btn:disabled {
+            opacity: .6;
+
+            cursor: not-allowed;
+
+            transform: none;
+
+            box-shadow: none;
+        }
+
+        /* SUCCESS */
+
+        .success-screen {
+            display: none;
+
+            text-align: center;
+
+            padding: 30px 10px;
+        }
+
+        .success-screen.show {
+            display: block;
+        }
+
+        .success-icon {
+            width: 80px;
+            height: 80px;
+
+            border-radius: 50%;
+
+            background: #d1fae5;
+
+            color: var(--success);
+
+            display: flex;
+
+            align-items: center;
+            justify-content: center;
+
+            margin: 0 auto 20px;
+
+            font-size: 2.2rem;
+        }
+
+        .success-screen h2 {
+            font-size: 1.8rem;
+
+            margin-bottom: 10px;
+        }
+
+        .success-screen p {
+            color: var(--text-secondary);
+
+            max-width: 500px;
+
+            margin: auto auto 20px;
+
+            font-size: .85rem;
+        }
+
+        .registration-number {
+            display: inline-block;
+
+            background: #eff6ff;
+
+            border: 1px solid #bfdbfe;
+
+            color: var(--primary);
+
+            padding: 13px 25px;
+
+            border-radius: 10px;
+
+            font-size: 1.1rem;
+
+            font-weight: 900;
+
+            letter-spacing: 1px;
+
+            margin-bottom: 20px;
+        }
+
+        .success-actions {
+            display: flex;
+
+            justify-content: center;
+
+            gap: 10px;
+
+            flex-wrap: wrap;
+        }
+
+        .success-action {
+            display: inline-flex;
+
+            align-items: center;
+
+            gap: 8px;
+
+            padding: 11px 18px;
+
+            border-radius: var(--radius-full);
+
+            font-size: .75rem;
+
+            font-weight: 800;
+        }
+
+        .success-action.primary {
+            background: var(--primary);
+
+            color: white;
+        }
+
+        .success-action.whatsapp {
+            background: #25d366;
+
+            color: white;
+        }
+
+        /* FOOTER */
+
+        footer {
+            background: var(--secondary);
+
+            color: rgba(255,255,255,.5);
+
+            padding: 30px 0;
+
+            text-align: center;
+
+            font-size: .7rem;
+        }
+
+        /* RESPONSIVE */
+
+        @media(max-width:850px) {
+
+            .registration-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .session-panel {
+                position: static;
+            }
+
+        }
+
+        @media(max-width:600px) {
+
+            .container {
+                padding-left: 17px;
+                padding-right: 17px;
+            }
+
+            .form-card {
+                padding: 22px 18px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-group.full {
+                grid-column: auto;
+            }
+
+            .page {
+                padding-top: 40px;
+            }
+
+            .logo-sub {
+                display: none;
+            }
+
+            .back-link span {
+                display: none;
+            }
+
+        }
+
+    </style>
+</head>
+
+<body>
+
+<!-- =========================
+     NAVBAR
+========================= -->
+
+<nav class="navbar">
+
+    <div class="container nav-inner">
+
+        <a href="index.html" class="logo">
+
+            <div class="logo-icon">
+                MEI
+            </div>
+
+            <div>
+
+                <div class="logo-brand">
+                    MEI <span>Group</span>
+                </div>
+
+                <span class="logo-sub">
+                    Division of MEI Press Holdings Ltd.
+                </span>
+
+            </div>
+
+        </a>
+
+        <a
+            href="training-calendar.html"
+            class="back-link">
+
+            <i class="fas fa-arrow-left"></i>
+
+            <span>
+                Back to Training Calendar
+            </span>
+
+        </a>
+
+    </div>
+
+</nav>
+
+
+<!-- =========================
+     PAGE
+========================= -->
+
+<main class="page">
+
+    <div class="container">
+
+        <div class="page-heading">
+
+            <span class="badge">
+
+                <i class="fas fa-user-plus"></i>
+
+                Training Registration
+
+            </span>
+
+            <h1>
+                Register for Training
+            </h1>
+
+            <p>
+                Complete the form below to reserve your
+                place on the selected MEI Group training
+                session.
+            </p>
+
+        </div>
+
+
+        <div class="registration-layout">
+
+
+            <!-- =========================
+                 SESSION INFORMATION
+            ========================= -->
+
+            <aside class="session-panel">
+
+                <div class="session-panel-header">
+
+                    <div class="session-label">
+                        Selected Training
+                    </div>
+
+                    <h2 id="sessionTitle">
+                        Loading session...
+                    </h2>
+
+                    <div
+                        class="session-service"
+                        id="sessionService">
+                    </div>
+
+                </div>
+
+
+                <div class="session-details">
+
+                    <div class="session-detail">
+
+                        <i class="far fa-calendar"></i>
+
+                        <div>
+
+                            <strong>
+                                Date
+                            </strong>
+
+                            <span id="sessionDate">
+                                Loading...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="session-detail">
+
+                        <i class="far fa-clock"></i>
+
+                        <div>
+
+                            <strong>
+                                Time
+                            </strong>
+
+                            <span id="sessionTime">
+                                Loading...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="session-detail">
+
+                        <i class="fas fa-location-dot"></i>
+
+                        <div>
+
+                            <strong>
+                                Venue
+                            </strong>
+
+                            <span id="sessionVenue">
+                                Loading...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="session-detail">
+
+                        <i class="fas fa-user-tie"></i>
+
+                        <div>
+
+                            <strong>
+                                Trainer
+                            </strong>
+
+                            <span id="sessionTrainer">
+                                Loading...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="session-detail">
+
+                        <i class="fas fa-users"></i>
+
+                        <div>
+
+                            <strong>
+                                Capacity
+                            </strong>
+
+                            <span id="sessionCapacity">
+                                Loading...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="session-detail">
+
+                        <i class="fas fa-calendar-xmark"></i>
+
+                        <div>
+
+                            <strong>
+                                Registration Deadline
+                            </strong>
+
+                            <span id="sessionDeadline">
+                                Loading...
+                            </span>
+
+                        </div>
+
+                    </div>
+
+
+                    <div class="session-price">
+
+                        <div class="session-price-label">
+                            Training Fee
+                        </div>
+
+                        <div
+                            class="session-price-value"
+                            id="sessionPrice">
+                            Contact MEI
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </aside>
+
+
+            <!-- =========================
+                 FORM
+            ========================= -->
+
+            <section class="form-card">
+
+
+                <div
+                    id="formArea">
+
+                    <div class="form-header">
+
+                        <h2>
+                            Participant Information
+                        </h2>
+
+                        <p>
+                            Please provide accurate information
+                            so our team can confirm your registration.
+                        </p>
+
+                    </div>
+
+
+                    <div
+                        id="alert"
+                        class="alert">
+
+                        <i
+                            class="fas fa-circle-info"
+                            id="alertIcon">
+                        </i>
+
+                        <span id="alertMessage">
+                        </span>
+
+                    </div>
+
+
+                    <form id="registrationForm">
+
+
+                        <!-- PERSONAL -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <i class="fas fa-user"></i>
+
+                                Personal Details
+
+                            </div>
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Full Name
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="fullName"
+                                        name="full_name"
+                                        placeholder="Enter your full name"
+                                        required
+                                        autocomplete="name">
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Phone Number
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="tel"
+                                        id="phone"
+                                        name="phone"
+                                        placeholder="e.g. 0712 345 678"
+                                        required
+                                        autocomplete="tel">
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Email Address
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        placeholder="you@example.com"
+                                        required
+                                        autocomplete="email">
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Participant Type
+                                        <span class="required">*</span>
+                                    </label>
+
+                                    <select
+                                        id="participantType"
+                                        name="participant_type"
+                                        required>
+
+                                        <option value="">
+                                            Select participant type
+                                        </option>
+
+                                        <option value="individual">
+                                            Individual
+                                        </option>
+
+                                        <option value="corporate">
+                                            Corporate
+                                        </option>
+
+                                        <option value="organization">
+                                            Organization
+                                        </option>
+
+                                    </select>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- ORGANISATION -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <i class="fas fa-building"></i>
+
+                                Organisation Details
+
+                            </div>
+
+
+                            <div class="form-grid">
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Organisation / Company
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="organization"
+                                        name="organization"
+                                        placeholder="Company or organisation">
+
+                                </div>
+
+
+                                <div class="form-group">
+
+                                    <label>
+                                        Job Title / Position
+                                    </label>
+
+                                    <input
+                                        type="text"
+                                        id="jobTitle"
+                                        name="job_title"
+                                        placeholder="e.g. Safety Officer">
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- NOTES -->
+
+                        <div class="form-section">
+
+                            <div class="form-section-title">
+
+                                <i class="fas fa-message"></i>
+
+                                Additional Information
+
+                            </div>
+
+
+                            <div class="form-grid">
+
+                                <div class="form-group full">
+
+                                    <label>
+                                        Notes / Special Requirements
+                                    </label>
+
+                                    <textarea
+                                        id="notes"
+                                        name="notes"
+                                        placeholder="Tell us anything we should know about your registration...">
+                                    </textarea>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+
+                        <!-- TERMS -->
+
+                        <label class="terms">
+
+                            <input
+                                type="checkbox"
+                                id="terms"
+                                required>
+
+                            <span>
+                                I confirm that the information provided
+                                is accurate and I understand that my
+                                registration is subject to confirmation
+                                by MEI Group.
+                            </span>
+
+                        </label>
+
+
+                        <button
+                            type="submit"
+                            class="submit-btn"
+                            id="submitBtn">
+
+                            <i class="fas fa-paper-plane"></i>
+
+                            Submit Training Registration
+
+                        </button>
+
+
+                    </form>
+
+                </div>
+
+
+                <!-- SUCCESS -->
+
+                <div
+                    class="success-screen"
+                    id="successScreen">
+
+                    <div class="success-icon">
+
+                        <i class="fas fa-check"></i>
+
+                    </div>
+
+                    <h2>
+                        Registration Received
+                    </h2>
+
+                    <p>
+                        Thank you for registering with MEI Group.
+                        Your training registration has been received.
+                        Our team will contact you to confirm your place
+                        and provide payment or attendance instructions.
+                    </p>
+
+                    <div
+                        class="registration-number"
+                        id="registrationNumber">
+
+                        Registration Submitted
+
+                    </div>
+
+                    <div class="success-actions">
+
+                        <a
+                            href="training-calendar.html"
+                            class="success-action primary">
+
+                            <i class="fas fa-calendar"></i>
+
+                            Back to Calendar
+
+                        </a>
+
+                        <a
+                            href="https://wa.me/254703738707"
+                            target="_blank"
+                            class="success-action whatsapp">
+
+                            <i class="fab fa-whatsapp"></i>
+
+                            WhatsApp MEI
+
+                        </a>
+
+                    </div>
+
+                </div>
+
+
+            </section>
+
+        </div>
+
+    </div>
+
+</main>
+
+
+<footer>
+
+    © <span id="year"></span>
+    MEI Press Holdings Ltd.
+    All rights reserved.
+
+</footer>
+
+
+<script src="js/config.js"></script>
+
+<script>
+
+    /*
+     * ==========================================
+     * MEI GROUP TRAINING REGISTRATION
+     * ==========================================
+     *
+     * URL:
+     *
+     * training-registration.html?session=123
+     *
+     * Reads:
+     *
+     * public.public_training_calendar
+     *
+     * Inserts:
+     *
+     * public.training_registrations
+     *
+     */
+
+
+    /* =========================
+       CONFIG
+    ========================= */
+
+    const SUPABASE_URL =
+        window.MEI_CONFIG?.SUPABASE_URL ||
+        window.SUPABASE_URL ||
+        "";
+
+    const SUPABASE_ANON_KEY =
+        window.MEI_CONFIG?.SUPABASE_ANON_KEY ||
+        window.SUPABASE_ANON_KEY ||
+        "";
+
+
+    let supabaseClient = null;
+
+    let selectedSession = null;
+
+
+    /* =========================
+       START
+    ========================= */
+
+    document.addEventListener(
+        "DOMContentLoaded",
+        async () => {
+
+            document.getElementById(
+                "year"
+            ).textContent =
+                new Date().getFullYear();
+
+
+            if (
+                !SUPABASE_URL ||
+                !SUPABASE_ANON_KEY
+            ) {
+
+                showAlert(
+                    "error",
+                    "Supabase configuration is missing. Please check js/config.js."
+                );
+
+                disableForm();
+
+                return;
+
+            }
+
+
+            supabaseClient =
+                window.supabase.createClient(
+                    SUPABASE_URL,
+                    SUPABASE_ANON_KEY
+                );
+
+
+            const params =
+                new URLSearchParams(
+                    window.location.search
+                );
+
+
+            const sessionId =
+                params.get("session");
+
+
+            if (!sessionId) {
+
+                showAlert(
+                    "error",
+                    "No training session was selected. Please return to the training calendar and select a session."
+                );
+
+                disableForm();
+
+                return;
+
+            }
+
+
+            await loadSession(sessionId);
+
+        }
+    );
+
+
+    /* =========================
+       LOAD SESSION
+    ========================= */
+
+    async function loadSession(sessionId) {
+
+        try {
+
+            const { data, error } =
+                await supabaseClient
+
+                    .from("public_training_calendar")
+
+                    .select("*")
+
+                    .eq("id", sessionId)
+
+                    .maybeSingle();
+
+
+            if (error) {
+                throw error;
+            }
+
+
+            if (!data) {
+
+                showAlert(
+                    "error",
+                    "The selected training session could not be found."
+                );
+
+                disableForm();
+
+                return;
+
+            }
+
+
+            selectedSession = data;
+
+
+            displaySession(data);
+
+
+            /*
+             * Check if registration is still possible.
+             */
+
+            await checkSessionAvailability(data);
+
+        }
+
+        catch (error) {
+
+            console.error(error);
+
+            showAlert(
+                "error",
+                "We could not load the selected training session. Please try again."
+            );
+
+            disableForm();
+
+        }
+
+    }
+
+
+    /* =========================
+       DISPLAY SESSION
+    ========================= */
+
+    function displaySession(session) {
+
+        document.getElementById(
+            "sessionTitle"
+        ).textContent =
+            session.session_title ||
+            session.course_name ||
+            "Training Session";
+
+
+        document.getElementById(
+            "sessionService"
+        ).textContent =
+            session.service ||
+            "MEI Group Training";
+
+
+        document.getElementById(
+            "sessionDate"
+        ).textContent =
+            formatDate(
+                session.session_date
+            );
+
+
+        document.getElementById(
+            "sessionTime"
+        ).textContent =
+            formatTimeRange(
+                session.start_time,
+                session.end_time
+            );
+
+
+        document.getElementById(
+            "sessionVenue"
+        ).textContent =
+            session.venue ||
+            session.location ||
+            "Venue to be confirmed";
+
+
+        document.getElementById(
+            "sessionTrainer"
+        ).textContent =
+            session.trainer_name ||
+            "MEI Group";
+
+
+        document.getElementById(
+            "sessionCapacity"
+        ).textContent =
+            session.capacity
+                ? `${session.capacity} participants`
+                : "Contact MEI Group";
+
+
+        document.getElementById(
+            "sessionDeadline"
+        ).textContent =
+            session.registration_deadline
+                ? formatDate(
+                    session.registration_deadline
+                  )
+                : "Contact MEI Group";
+
+
+        document.getElementById(
+            "sessionPrice"
+        ).textContent =
+            formatPrice(
+                session.price,
+                session.currency
+            );
+
+    }
+
+
+    /* =========================
+       AVAILABILITY
+    ========================= */
+
+    async function checkSessionAvailability(session) {
+
+        if (
+            session.status === "cancelled" ||
+            session.status === "postponed"
+        ) {
+
+            showAlert(
+                "warning",
+                `This training session is currently ${session.status}. Registration is not available.`
+            );
+
+            disableForm();
+
+            return false;
+
+        }
+
+
+        if (
+            session.registration_deadline
+        ) {
+
+            const today =
+                new Date();
+
+            today.setHours(
+                0, 0, 0, 0
+            );
+
+
+            const deadline =
+                new Date(
+                    session.registration_deadline +
+                    "T23:59:59"
+                );
+
+
+            if (today > deadline) {
+
+                showAlert(
+                    "warning",
+                    "The registration deadline for this training session has passed."
+                );
+
+                disableForm();
+
+                return false;
+
+            }
+
+        }
+
+
+        /*
+         * Capacity will be checked again immediately
+         * before submission.
+         */
+
+        return true;
+
+    }
+
+
+    /* =========================
+       SUBMIT
+    ========================= */
+
+    document
+        .getElementById("registrationForm")
+        .addEventListener(
+            "submit",
+            async event => {
+
+                event.preventDefault();
+
+
+                if (!selectedSession) {
+
+                    showAlert(
+                        "error",
+                        "Training session information is not available."
+                    );
+
+                    return;
+
+                }
+
+
+                const submitButton =
+                    document.getElementById(
+                        "submitBtn"
+                    );
+
+
+                submitButton.disabled = true;
+
+                submitButton.innerHTML = `
+
+                    <i class="fas fa-circle-notch fa-spin"></i>
+
+                    Checking availability...
+
+                `;
+
+
+                try {
+
+                    /*
+                     * Check capacity before accepting
+                     * registration.
+                     */
+
+                    const available =
+                        await hasCapacity(
+                            selectedSession
+                        );
+
+
+                    if (!available) {
+
+                        showAlert(
+                            "warning",
+                            "This training session is currently full. Please contact MEI Group for the waiting list."
+                        );
+
+                        resetSubmitButton();
+
+                        return;
+
+                    }
+
+
+                    /*
+                     * Check duplicate registration.
+                     */
+
+                    const duplicate =
+                        await checkDuplicate();
+
+
+                    if (duplicate) {
+
+                        showAlert(
+                            "warning",
+                            "You already have a registration for this training session using the details provided."
+                        );
+
+                        resetSubmitButton();
+
+                        return;
+
+                    }
+
+
+                    submitButton.innerHTML = `
+
+                        <i class="fas fa-circle-notch fa-spin"></i>
+
+                        Submitting registration...
+
+                    `;
+
+
+                    const form =
+                        document.getElementById(
+                            "registrationForm"
+                        );
+
+
+                    const formData =
+                        new FormData(form);
+
+
+                    /*
+                     * Registration number is temporarily
+                     * generated in the browser.
+                     *
+                     * We will replace this with a secure
+                     * Supabase function next.
+                     */
+
+                    const registrationNumber =
+                        generateRegistrationNumber();
+
+
+                    const registration = {
+
+                        session_id:
+                            selectedSession.id,
+
+                        full_name:
+                            formData.get(
+                                "full_name"
+                            ).trim(),
+
+                        email:
+                            formData.get(
+                                "email"
+                            ).trim(),
+
+                        phone:
+                            formData.get(
+                                "phone"
+                            ).trim(),
+
+                        organization:
+                            cleanValue(
+                                formData.get(
+                                    "organization"
+                                )
+                            ),
+
+                        job_title:
+                            cleanValue(
+                                formData.get(
+                                    "job_title"
+                                )
+                            ),
+
+                        participant_type:
+                            formData.get(
+                                "participant_type"
+                            ),
+
+                        amount_due:
+                            Number(
+                                selectedSession.price || 0
+                            ),
+
+                        amount_paid:
+                            0,
+
+                        payment_status:
+                            "unpaid",
+
+                        registration_status:
+                            "registered",
+
+                        notes:
+                            cleanValue(
+                                formData.get(
+                                    "notes"
+                                )
+                            ),
+
+                        registration_number:
+                            registrationNumber
+
+                    };
+
+
+                    const { data, error } =
+                        await supabaseClient
+
+                            .from(
+                                "training_registrations"
+                            )
+
+                            .insert(
+                                registration
+                            )
+
+                            .select()
+                            .single();
+
+
+                    if (error) {
+                        throw error;
+                    }
+
+
+                    showSuccess(
+                        data.registration_number ||
+                        registrationNumber
+                    );
+
+
+                }
+
+                catch (error) {
+
+                    console.error(
+                        "Registration error:",
+                        error
+                    );
+
+
+                    let message =
+                        "We could not complete your registration. Please try again.";
+
+
+                    if (
+                        error?.code === "23505"
+                    ) {
+
+                        message =
+                            "A registration with these details already exists for this training session.";
+
+                    }
+
+
+                    showAlert(
+                        "error",
+                        message
+                    );
+
+
+                    resetSubmitButton();
+
+                }
+
+            }
+        );
+
+
+    /* =========================
+       CAPACITY
+    ========================= */
+
+    async function hasCapacity(session) {
+
+        /*
+         * If no capacity is configured,
+         * allow registration.
+         */
+
+        if (!session.capacity) {
+            return true;
+        }
+
+
+        const { count, error } =
+            await supabaseClient
+
+                .from(
+                    "training_registrations"
+                )
+
+                .select(
+                    "id",
+                    {
+                        count: "exact",
+                        head: true
+                    }
+                )
+
+                .eq(
+                    "session_id",
+                    session.id
+                )
+
+                .in(
+                    "registration_status",
+                    [
+                        "registered",
+                        "confirmed",
+                        "completed"
+                    ]
+                );
+
+
+        if (error) {
+            throw error;
+        }
+
+
+        return (
+            Number(count || 0) <
+            Number(session.capacity)
+        );
+
+    }
+
+
+    /* =========================
+       DUPLICATE CHECK
+    ========================= */
+
+    async function checkDuplicate() {
+
+        const email =
+            document
+                .getElementById("email")
+                .value
+                .trim()
+                .toLowerCase();
+
+
+        const phone =
+            document
+                .getElementById("phone")
+                .value
+                .trim();
+
+
+        const { data, error } =
+            await supabaseClient
+
+                .from(
+                    "training_registrations"
+                )
+
+                .select("id")
+
+                .eq(
+                    "session_id",
+                    selectedSession.id
+                )
+
+                .or(
+                    `email.eq.${email},phone.eq.${phone}`
+                )
+
+                .limit(1);
+
+
+        /*
+         * The anon policy currently does not allow
+         * public SELECT on registrations.
+         *
+         * If RLS blocks this check, we simply return
+         * false and let the insert policy/database
+         * handle the registration.
+         */
+
+        if (error) {
+
+            console.warn(
+                "Duplicate check unavailable:",
+                error
+            );
+
+            return false;
+
+        }
+
+
+        return (
+            Array.isArray(data) &&
+            data.length > 0
+        );
+
+    }
+
+
+    /* =========================
+       SUCCESS
+    ========================= */
+
+    function showSuccess(
+        registrationNumber
+    ) {
+
+        document.getElementById(
+            "formArea"
+        ).style.display = "none";
+
+
+        document.getElementById(
+            "successScreen"
+        ).classList.add("show");
+
+
+        document.getElementById(
+            "registrationNumber"
+        ).textContent =
+            registrationNumber;
+
+
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+
+    }
+
+
+    /* =========================
+       ALERT
+    ========================= */
+
+    function showAlert(
+        type,
+        message
+    ) {
+
+        const alert =
+            document.getElementById(
+                "alert"
+            );
+
+
+        const icon =
+            document.getElementById(
+                "alertIcon"
+            );
+
+
+        document.getElementById(
+            "alertMessage"
+        ).textContent =
+            message;
+
+
+        alert.className =
+            `alert show ${type}`;
+
+
+        if (type === "error") {
+
+            icon.className =
+                "fas fa-circle-exclamation";
+
+        }
+        else if (type === "warning") {
+
+            icon.className =
+                "fas fa-triangle-exclamation";
+
+        }
+        else {
+
+            icon.className =
+                "fas fa-circle-check";
+
+        }
+
+
+        alert.scrollIntoView({
+            behavior: "smooth",
+            block: "center"
+        });
+
+    }
+
+
+    /* =========================
+       DISABLE FORM
+    ========================= */
+
+    function disableForm() {
+
+        const form =
+            document.getElementById(
+                "registrationForm"
+            );
+
+
+        if (!form) return;
+
+
+        form
+            .querySelectorAll(
+                "input, select, textarea, button"
+            )
+            .forEach(element => {
+
+                element.disabled = true;
+
+            });
+
+    }
+
+
+    /* =========================
+       BUTTON RESET
+    ========================= */
+
+    function resetSubmitButton() {
+
+        const button =
+            document.getElementById(
+                "submitBtn"
+            );
+
+
+        button.disabled = false;
+
+
+        button.innerHTML = `
+
+            <i class="fas fa-paper-plane"></i>
+
+            Submit Training Registration
+
+        `;
+
+    }
+
+
+    /* =========================
+       REGISTRATION NUMBER
+    ========================= */
+
+    function generateRegistrationNumber() {
+
+        const now =
+            new Date();
+
+
+        const year =
+            now.getFullYear();
+
+
+        const random =
+            Math.floor(
+                100000 +
+                Math.random() * 900000
+            );
+
+
+        return `MEI-TR-${year}-${random}`;
+
+    }
+
+
+    /* =========================
+       FORMATTERS
+    ========================= */
+
+    function formatDate(value) {
+
+        if (!value) {
+            return "To be confirmed";
+        }
+
+
+        const date =
+            new Date(
+                value + "T00:00:00"
+            );
+
+
+        return date.toLocaleDateString(
+            "en-KE",
+            {
+                weekday: "short",
+                day: "numeric",
+                month: "short",
+                year: "numeric"
+            }
+        );
+
+    }
+
+
+    function formatTimeRange(
+        start,
+        end
+    ) {
+
+        if (!start) {
+            return "To be confirmed";
+        }
+
+
+        function formatTime(time) {
+
+            if (!time) return "";
+
+
+            const parts =
+                time.split(":");
+
+
+            let hour =
+                parseInt(
+                    parts[0],
+                    10
+                );
+
+
+            const minute =
+                parts[1] || "00";
+
+
+            const suffix =
+                hour >= 12
+                    ? "PM"
+                    : "AM";
+
+
+            hour =
+                hour % 12 || 12;
+
+
+            return `${hour}:${minute} ${suffix}`;
+
+        }
+
+
+        const first =
+            formatTime(start);
+
+
+        const second =
+            end
+                ? formatTime(end)
+                : "";
+
+
+        return second
+            ? `${first} – ${second}`
+            : first;
+
+    }
+
+
+    function formatPrice(
+        price,
+        currency
+    ) {
+
+        if (
+            price === null ||
+            price === undefined ||
+            Number(price) === 0
+        ) {
+
+            return "Contact MEI";
+
+        }
+
+
+        return `${currency || "KES"} ${Number(price).toLocaleString(
+            "en-KE"
+        )}`;
+
+    }
+
+
+    /* =========================
+       HELPERS
+    ========================= */
+
+    function cleanValue(value) {
+
+        if (
+            value === null ||
+            value === undefined
+        ) {
+
+            return null;
+
+        }
+
+
+        const clean =
+            String(value).trim();
+
+
+        return clean || null;
+
+    }
+
+</script>
+
+</body>
+</html>
+```
