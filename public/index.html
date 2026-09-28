@@ -555,19 +555,27 @@ document.querySelectorAll(".faq-question").forEach(button => {
 });
 
 /* CONTACT FORM */
-const contactForm = document.getElementById("contactForm");
-const formMessage = document.getElementById("formMessage");
+document.addEventListener("DOMContentLoaded", () => {
 
-function showFormMessage(text, type, color) {
-    if (!formMessage) return;
-    formMessage.textContent = text;
-    formMessage.className = "form-message " + type;
-    formMessage.style.color = color;
-}
+    const contactForm = document.getElementById("contactForm");
 
-if (contactForm) {
-    contactForm.addEventListener("submit", async function (e) {
-        e.preventDefault();
+    if (!contactForm) {
+        console.error("MEI: contactForm was not found.");
+        return;
+    }
+
+    const formMessage = document.getElementById("formMessage");
+
+    function showFormMessage(text, type, color) {
+        if (!formMessage) return;
+        formMessage.textContent = text;
+        formMessage.className = "form-message " + type;
+        formMessage.style.color = color;
+    }
+
+    contactForm.addEventListener("submit", async (event) => {
+
+        event.preventDefault();
 
         const submitButton = contactForm.querySelector('button[type="submit"]');
 
@@ -577,13 +585,17 @@ if (contactForm) {
         const service = document.getElementById("service")?.value.trim() || "";
         const message = document.getElementById("message")?.value.trim() || "";
 
+        console.log("MEI FORM DATA:", { fullName, email, phone, service, message });
+
         if (!fullName || !email || !service || !message) {
             showFormMessage("Please complete all required fields.", "error", "#dc2626");
             return;
         }
 
-        submitButton.disabled = true;
-        submitButton.textContent = "Sending...";
+        if (submitButton) {
+            submitButton.disabled = true;
+            submitButton.textContent = "Sending...";
+        }
 
         if (formMessage) {
             formMessage.textContent = "";
@@ -591,37 +603,54 @@ if (contactForm) {
         }
 
         try {
-            const { error } = await supabaseClient
+
+            const applicationData = {
+                service: service,
+                full_name: fullName,
+                email: email,
+                phone: phone || null,
+                message: message,
+                status: "new"
+            };
+
+            console.log("MEI INSERT PAYLOAD:", applicationData);
+
+            const { data, error } = await supabaseClient
                 .from("applications")
-                .insert([
-                    {
-                        service: service,
-                        full_name: fullName,
-                        email: email,
-                        phone: phone || null,
-                        message: message,
-                        status: "new"
-                    }
-                ]);
+                .insert([applicationData])
+                .select()
+                .single();
 
             if (error) {
-                console.error("Supabase application error:", error);
+                console.error("MEI SUPABASE ERROR:", error);
                 throw error;
             }
+
+            console.log("MEI APPLICATION CREATED:", data);
 
             showFormMessage("Thank you. Your enquiry has been submitted successfully. Our team will contact you shortly.", "success", "#07985a");
             contactForm.reset();
 
         } catch (error) {
-            console.error("Application submission failed:", error);
-            showFormMessage("We could not submit your enquiry at the moment. Please try again or contact us directly.", "error", "#dc2626");
+
+            console.error("MEI APPLICATION SUBMISSION FAILED:", error);
+
+            showFormMessage(
+                error?.message || "We could not submit your enquiry at the moment. Please try again.",
+                "error",
+                "#dc2626"
+            );
 
         } finally {
-            submitButton.disabled = false;
-            submitButton.textContent = "Send Enquiry";
+
+            if (submitButton) {
+                submitButton.disabled = false;
+                submitButton.textContent = "Send Enquiry";
+            }
+
         }
     });
-}
+});
 </script>
 
 </body>
