@@ -3,11 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
 <title>MEI Press Group | Admin Dashboard</title>
-
 <meta name="description" content="MEI Press Group Administration Dashboard">
-
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
 <style>
@@ -28,154 +25,49 @@
     --shadow:0 8px 30px rgba(7,26,43,.08);
     --radius:14px;
 }
-
 *{box-sizing:border-box;margin:0;padding:0;}
-
-body{
-    font-family:Inter,Arial,sans-serif;
-    background:var(--bg);
-    color:var(--text);
-    min-height:100vh;
-}
-
+body{font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;}
 button,input,select,textarea{font:inherit;}
 button{cursor:pointer;}
-
 .app{display:flex;min-height:100vh;}
 
 /* SIDEBAR */
-.sidebar{
-    width:265px;
-    background:var(--mei-navy);
-    color:#fff;
-    position:fixed;
-    left:0;top:0;bottom:0;
-    z-index:1000;
-    overflow-y:auto;
-    transition:.25s;
-}
-
-.brand{
-    height:78px;
-    display:flex;
-    align-items:center;
-    gap:12px;
-    padding:0 22px;
-    border-bottom:1px solid rgba(255,255,255,.08);
-}
-
-.brand-logo{
-    width:42px;height:42px;
-    border-radius:10px;
-    background:var(--mei-green);
-    color:var(--mei-navy);
-    display:flex;align-items:center;justify-content:center;
-    font-weight:900;font-size:17px;
-}
-
+.sidebar{width:265px;background:var(--mei-navy);color:#fff;position:fixed;left:0;top:0;bottom:0;z-index:1000;overflow-y:auto;transition:.25s;}
+.brand{height:78px;display:flex;align-items:center;gap:12px;padding:0 22px;border-bottom:1px solid rgba(255,255,255,.08);}
+.brand-logo{width:42px;height:42px;border-radius:10px;background:var(--mei-green);color:var(--mei-navy);display:flex;align-items:center;justify-content:center;font-weight:900;font-size:17px;}
 .brand-text strong{display:block;font-size:16px;}
 .brand-text span{display:block;font-size:11px;color:#9bb1c0;margin-top:3px;}
-
 .nav{padding:18px 12px 30px;}
-
-.nav-section{
-    color:#7892a4;
-    font-size:10px;
-    font-weight:800;
-    text-transform:uppercase;
-    letter-spacing:1px;
-    padding:14px 12px 7px;
-}
-
-.nav-item{
-    width:100%;
-    border:0;background:transparent;
-    color:#d8e3ea;
-    padding:12px 13px;
-    border-radius:9px;
-    display:flex;align-items:center;gap:11px;
-    margin-bottom:4px;text-align:left;
-    transition:.2s;
-}
-
+.nav-section{color:#7892a4;font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:1px;padding:14px 12px 7px;}
+.nav-item{width:100%;border:0;background:transparent;color:#d8e3ea;padding:12px 13px;border-radius:9px;display:flex;align-items:center;gap:11px;margin-bottom:4px;text-align:left;transition:.2s;}
 .nav-item:hover{background:rgba(255,255,255,.07);color:#fff;}
 .nav-item.active{background:var(--mei-green);color:var(--mei-navy);font-weight:800;}
-
 .nav-icon{width:20px;text-align:center;}
-
-.badge{
-    margin-left:auto;
-    min-width:22px;height:22px;padding:0 7px;
-    border-radius:20px;
-    background:rgba(255,255,255,.12);
-    display:flex;align-items:center;justify-content:center;
-    font-size:11px;
-}
-
+.badge{margin-left:auto;min-width:22px;height:22px;padding:0 7px;border-radius:20px;background:rgba(255,255,255,.12);display:flex;align-items:center;justify-content:center;font-size:11px;}
 .nav-item.active .badge{background:rgba(7,26,43,.15);}
-
 .sidebar-bottom{padding:14px 12px;border-top:1px solid rgba(255,255,255,.08);}
-
-.logout-btn{
-    width:100%;
-    border:1px solid rgba(255,255,255,.15);
-    background:transparent;color:#fff;
-    padding:11px;border-radius:8px;
-}
+.logout-btn{width:100%;border:1px solid rgba(255,255,255,.15);background:transparent;color:#fff;padding:11px;border-radius:8px;}
 .logout-btn:hover{background:rgba(255,255,255,.08);}
 
 /* MAIN */
 .main{margin-left:265px;width:calc(100% - 265px);min-width:0;}
-
-.topbar{
-    height:78px;
-    background:#fff;
-    border-bottom:1px solid var(--border);
-    display:flex;align-items:center;justify-content:space-between;
-    padding:0 28px;
-    position:sticky;top:0;z-index:900;
-}
-
+.topbar{height:78px;background:#fff;border-bottom:1px solid var(--border);display:flex;align-items:center;justify-content:space-between;padding:0 28px;position:sticky;top:0;z-index:900;}
 .topbar-left{display:flex;align-items:center;gap:15px;}
-
-.mobile-menu{
-    display:none;
-    border:0;background:var(--mei-navy);color:#fff;
-    width:40px;height:40px;border-radius:8px;
-}
-
+.mobile-menu{display:none;border:0;background:var(--mei-navy);color:#fff;width:40px;height:40px;border-radius:8px;}
 .page-title{font-size:22px;font-weight:800;}
 .page-subtitle{color:var(--muted);font-size:12px;margin-top:3px;}
-
 .admin-user{display:flex;align-items:center;gap:10px;}
-
-.avatar{
-    width:40px;height:40px;border-radius:50%;
-    background:var(--mei-green-light);color:var(--mei-green-dark);
-    display:flex;align-items:center;justify-content:center;
-    font-weight:800;
-}
-
+.avatar{width:40px;height:40px;border-radius:50%;background:var(--mei-green-light);color:var(--mei-green-dark);display:flex;align-items:center;justify-content:center;font-weight:800;}
 .content{padding:26px;}
 
 /* COMMON */
 .view{display:none;}
 .view.active{display:block;}
-
-.section-head{
-    display:flex;align-items:center;justify-content:space-between;
-    gap:15px;margin-bottom:20px;
-}
+.section-head{display:flex;align-items:center;justify-content:space-between;gap:15px;margin-bottom:20px;}
 .section-head h2{font-size:20px;}
 .section-head p{color:var(--muted);font-size:13px;margin-top:4px;}
-
 .actions{display:flex;flex-wrap:wrap;gap:8px;}
-
-.btn{
-    border:0;border-radius:8px;
-    padding:10px 14px;
-    font-weight:700;font-size:13px;
-}
+.btn{border:0;border-radius:8px;padding:10px 14px;font-weight:700;font-size:13px;}
 .btn-primary{background:var(--mei-green);color:var(--mei-navy);}
 .btn-primary:hover{background:#12b96e;}
 .btn-dark{background:var(--mei-navy);color:#fff;}
@@ -183,264 +75,153 @@ button{cursor:pointer;}
 .btn-danger{background:#fee2e2;color:#b42318;}
 .btn-warning{background:#fff4d6;color:#9a6700;}
 .btn-sm{padding:7px 10px;font-size:11px;}
-
-.card{
-    background:#fff;border:1px solid var(--border);
-    border-radius:var(--radius);box-shadow:var(--shadow);
-}
-
+.card{background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
 .card-body{padding:20px;}
-
-.stats-grid{
-    display:grid;grid-template-columns:repeat(4,1fr);
-    gap:16px;margin-bottom:24px;
-}
-
-.stat-card{
-    padding:20px;background:#fff;
-    border:1px solid var(--border);
-    border-radius:var(--radius);
-    box-shadow:var(--shadow);
-}
-
+.stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-bottom:24px;}
+.stat-card{padding:20px;background:#fff;border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);}
 .stat-top{display:flex;justify-content:space-between;align-items:center;}
-
 .stat-label{color:var(--muted);font-size:12px;font-weight:700;}
-
-.stat-icon{
-    width:38px;height:38px;border-radius:9px;
-    background:var(--mei-green-light);color:var(--mei-green-dark);
-    display:flex;align-items:center;justify-content:center;
-}
-
+.stat-icon{width:38px;height:38px;border-radius:9px;background:var(--mei-green-light);color:var(--mei-green-dark);display:flex;align-items:center;justify-content:center;}
 .stat-value{font-size:28px;font-weight:900;margin-top:12px;}
-
 .grid-2{display:grid;grid-template-columns:repeat(2,1fr);gap:20px;}
 .grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;}
-
 .form-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:15px;}
-
+.form-grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:15px;}
+.form-grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;}
 .form-group{margin-bottom:14px;}
 .form-group.full{grid-column:1/-1;}
-
 label{display:block;font-size:12px;font-weight:700;margin-bottom:6px;}
-
-input,select,textarea{
-    width:100%;
-    border:1px solid var(--border);
-    background:#fff;border-radius:8px;
-    padding:10px 12px;outline:none;
-    color:var(--text);
-}
-
-input:focus,select:focus,textarea:focus{
-    border-color:var(--mei-green);
-    box-shadow:0 0 0 3px rgba(24,199,122,.1);
-}
-
+label .hint{font-weight:400;color:var(--muted);font-size:10px;margin-left:4px;}
+input,select,textarea{width:100%;border:1px solid var(--border);background:#fff;border-radius:8px;padding:10px 12px;outline:none;color:var(--text);}
+input:focus,select:focus,textarea:focus{border-color:var(--mei-green);box-shadow:0 0 0 3px rgba(24,199,122,.1);}
 textarea{min-height:100px;resize:vertical;}
-
-.toolbar{
-    display:flex;flex-wrap:wrap;gap:10px;
-    padding:15px;border-bottom:1px solid var(--border);
-}
-
+.toolbar{display:flex;flex-wrap:wrap;gap:10px;padding:15px;border-bottom:1px solid var(--border);}
 .toolbar input,.toolbar select{width:auto;min-width:160px;}
-
 .table-wrap{overflow-x:auto;}
-
 table{width:100%;border-collapse:collapse;}
-
-th,td{
-    padding:12px 13px;
-    border-bottom:1px solid #edf0f2;
-    text-align:left;font-size:12px;
-    vertical-align:middle;
-}
-
-th{
-    background:#f8fafb;color:#607080;
-    font-size:11px;text-transform:uppercase;
-    letter-spacing:.4px;
-}
-
+th,td{padding:12px 13px;border-bottom:1px solid #edf0f2;text-align:left;font-size:12px;vertical-align:middle;}
+th{background:#f8fafb;color:#607080;font-size:11px;text-transform:uppercase;letter-spacing:.4px;}
 tr:hover td{background:#fbfdfc;}
-
 .empty{padding:45px 20px;text-align:center;color:var(--muted);}
-
-.status{
-    display:inline-flex;align-items:center;
-    padding:5px 9px;border-radius:20px;
-    font-size:10px;font-weight:800;
-    text-transform:capitalize;
-}
+.status{display:inline-flex;align-items:center;padding:5px 9px;border-radius:20px;font-size:10px;font-weight:800;text-transform:capitalize;}
 .status-green{background:#dcfce7;color:#166534;}
 .status-blue{background:#e0f2fe;color:#075985;}
 .status-yellow{background:#fef3c7;color:#92400e;}
 .status-red{background:#fee2e2;color:#991b1b;}
 .status-gray{background:#eef2f5;color:#475569;}
-
 .muted{color:var(--muted);}
 .small{font-size:11px;}
+.mono{font-family:ui-monospace,"SF Mono",Menlo,monospace;}
 
 /* DASHBOARD */
-.welcome{
-    background:linear-gradient(135deg,var(--mei-navy),var(--mei-navy-2));
-    color:#fff;padding:25px;border-radius:var(--radius);margin-bottom:22px;
-}
+.welcome{background:linear-gradient(135deg,var(--mei-navy),var(--mei-navy-2));color:#fff;padding:25px;border-radius:var(--radius);margin-bottom:22px;}
 .welcome h2{font-size:23px;}
 .welcome p{color:#b9cbd6;margin-top:7px;font-size:13px;}
-
 .quick-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:15px;}
-
-.quick-card{
-    padding:18px;cursor:pointer;
-    border:1px solid var(--border);
-    border-radius:12px;background:#fff;
-    transition:.2s;
-}
+.quick-card{padding:18px;cursor:pointer;border:1px solid var(--border);border-radius:12px;background:#fff;transition:.2s;}
 .quick-card:hover{transform:translateY(-2px);box-shadow:var(--shadow);}
 .quick-card strong{display:block;margin-top:9px;}
 .quick-card span{color:var(--muted);font-size:11px;}
 
 /* CALENDAR */
-.calendar-header{
-    display:flex;justify-content:space-between;align-items:center;
-    padding:15px 18px;border-bottom:1px solid var(--border);
-}
+.calendar-header{display:flex;justify-content:space-between;align-items:center;padding:15px 18px;border-bottom:1px solid var(--border);}
 .calendar-title{font-size:17px;font-weight:800;}
 .calendar-grid{display:grid;grid-template-columns:repeat(7,1fr);}
-.calendar-day-name{
-    padding:10px;background:#f8fafb;
-    font-size:10px;font-weight:800;text-align:center;color:var(--muted);
-}
-.calendar-cell{
-    min-height:115px;padding:7px;
-    border-right:1px solid #edf0f2;
-    border-top:1px solid #edf0f2;background:#fff;
-}
+.calendar-day-name{padding:10px;background:#f8fafb;font-size:10px;font-weight:800;text-align:center;color:var(--muted);}
+.calendar-cell{min-height:115px;padding:7px;border-right:1px solid #edf0f2;border-top:1px solid #edf0f2;background:#fff;}
 .calendar-cell.other{background:#fafafa;color:#b8c0c7;}
 .day-number{font-size:11px;font-weight:800;margin-bottom:5px;}
-.calendar-event{
-    background:var(--mei-green-light);
-    border-left:3px solid var(--mei-green);
-    padding:5px;border-radius:5px;
-    font-size:9px;margin-bottom:4px;
-    cursor:pointer;color:#14532d;
-}
+.calendar-event{background:var(--mei-green-light);border-left:3px solid var(--mei-green);padding:5px;border-radius:5px;font-size:9px;margin-bottom:4px;cursor:pointer;color:#14532d;}
 .calendar-event strong{display:block;}
 
 /* SERVICE CARDS */
-.service-card{
-    padding:20px;border:1px solid var(--border);
-    background:#fff;border-radius:12px;
-}
-.service-icon{
-    width:45px;height:45px;
-    display:flex;align-items:center;justify-content:center;
-    background:var(--mei-green-light);color:var(--mei-green-dark);
-    border-radius:10px;font-size:20px;margin-bottom:12px;
-}
+.service-card{padding:20px;border:1px solid var(--border);background:#fff;border-radius:12px;}
+.service-icon{width:45px;height:45px;display:flex;align-items:center;justify-content:center;background:var(--mei-green-light);color:var(--mei-green-dark);border-radius:10px;font-size:20px;margin-bottom:12px;}
 .service-card h3{font-size:15px;}
 .service-card p{color:var(--muted);font-size:12px;line-height:1.6;margin-top:7px;}
 
 /* TABS */
 .tabs{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px;}
-.tab{
-    border:1px solid var(--border);
-    background:#fff;color:var(--muted);
-    padding:9px 13px;border-radius:8px;
-    font-size:12px;font-weight:700;
-}
+.tab{border:1px solid var(--border);background:#fff;color:var(--muted);padding:9px 13px;border-radius:8px;font-size:12px;font-weight:700;}
 .tab.active{background:var(--mei-navy);color:#fff;border-color:var(--mei-navy);}
 
 /* MODAL */
-.modal{
-    position:fixed;inset:0;
-    background:rgba(0,0,0,.55);
-    display:none;align-items:center;justify-content:center;
-    z-index:3000;padding:20px;
-}
+.modal{position:fixed;inset:0;background:rgba(0,0,0,.55);display:none;align-items:center;justify-content:center;z-index:3000;padding:20px;}
 .modal.show{display:flex;}
-.modal-box{
-    background:#fff;width:min(900px,100%);
-    max-height:92vh;overflow:auto;
-    border-radius:15px;
-    box-shadow:0 30px 80px rgba(0,0,0,.25);
-}
-.modal-head{
-    padding:18px 20px;display:flex;justify-content:space-between;
-    align-items:center;border-bottom:1px solid var(--border);
-}
+.modal-box{background:#fff;width:min(900px,100%);max-height:92vh;overflow:auto;border-radius:15px;box-shadow:0 30px 80px rgba(0,0,0,.25);}
+.modal-head{padding:18px 20px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid var(--border);}
 .modal-head h3{font-size:17px;}
-.close{
-    border:0;background:#eef2f4;
-    width:32px;height:32px;border-radius:7px;
-}
+.close{border:0;background:#eef2f4;width:32px;height:32px;border-radius:7px;}
 .modal-body{padding:20px;}
-.modal-foot{
-    padding:15px 20px;border-top:1px solid var(--border);
-    display:flex;justify-content:flex-end;gap:8px;
-}
+.modal-foot{padding:15px 20px;border-top:1px solid var(--border);display:flex;justify-content:flex-end;gap:8px;}
 
 /* DOCUMENT */
-.document-layout{display:grid;grid-template-columns:350px 1fr;gap:20px;}
-.document-editor{padding:20px;}
+.document-layout{display:grid;grid-template-columns:420px 1fr;gap:20px;align-items:start;}
+.document-editor{padding:20px;max-height:calc(100vh - 140px);overflow-y:auto;position:sticky;top:100px;}
 .line-items{margin-top:15px;}
-.line-item{
-    display:grid;
-    grid-template-columns:1fr 60px 70px 90px 35px;
-    gap:7px;margin-bottom:7px;
-}
-.document-preview{
-    background:#fff;min-height:700px;
-    padding:35px;box-shadow:var(--shadow);
-    border:1px solid var(--border);
-}
-.document-header{
-    display:flex;justify-content:space-between;gap:20px;
-    border-bottom:3px solid var(--mei-green);
-    padding-bottom:20px;margin-bottom:25px;
-}
+.line-item{display:grid;grid-template-columns:1fr 55px 70px 90px 35px;gap:6px;margin-bottom:7px;align-items:center;}
+.line-item-head{display:grid;grid-template-columns:1fr 55px 70px 90px 35px;gap:6px;font-size:10px;text-transform:uppercase;color:#6b7785;font-weight:800;margin-bottom:6px;padding:0 2px;}
+.document-preview{background:#fff;min-height:700px;padding:35px;box-shadow:var(--shadow);border:1px solid var(--border);}
+.document-header{display:flex;justify-content:space-between;gap:20px;border-bottom:3px solid var(--mei-green);padding-bottom:20px;margin-bottom:25px;}
 .document-logo{font-size:23px;font-weight:900;color:var(--mei-navy);}
 .document-logo span{color:var(--mei-green-dark);}
 .document-title{font-size:28px;font-weight:900;color:var(--mei-navy);}
 .document-meta{text-align:right;font-size:11px;line-height:1.7;}
 .document-table{margin-top:25px;}
 .document-table th{background:var(--mei-navy);color:#fff;}
-.totals{width:280px;margin-left:auto;margin-top:20px;}
+.totals{width:320px;margin-left:auto;margin-top:20px;}
 .total-row{display:flex;justify-content:space-between;padding:7px 0;font-size:12px;}
-.total-row.grand{
-    border-top:2px solid var(--mei-navy);
-    margin-top:5px;padding-top:12px;
-    font-size:17px;font-weight:900;
-}
-.document-footer{
-    margin-top:40px;padding-top:15px;
-    border-top:1px solid var(--border);
-    color:var(--muted);font-size:10px;
-}
-
+.total-row.grand{border-top:2px solid var(--mei-navy);margin-top:5px;padding-top:12px;font-size:17px;font-weight:900;}
+.document-footer{margin-top:40px;padding-top:15px;border-top:1px solid var(--border);color:var(--muted);font-size:10px;}
 .proposal-section{margin-top:6px;}
 
-/* TOAST */
-.toast{
-    position:fixed;right:25px;bottom:25px;
-    z-index:5000;min-width:280px;max-width:400px;
-    background:var(--mei-navy);color:#fff;
-    padding:14px 16px;border-radius:10px;
-    box-shadow:0 15px 40px rgba(0,0,0,.2);
-    transform:translateY(120px);opacity:0;
-    transition:.25s;font-size:12px;
+/* Info banner for editor sections */
+.editor-section-head{
+    display:flex;justify-content:space-between;align-items:center;
+    margin:22px 0 10px;padding-bottom:6px;
+    border-bottom:2px solid var(--mei-green-light);
 }
+.editor-section-head h3{font-size:14px;text-transform:uppercase;letter-spacing:.06em;color:var(--mei-navy);}
+.editor-hint{background:#f0f9f4;border-left:3px solid var(--mei-green);padding:8px 12px;border-radius:6px;font-size:11px;color:#14532d;margin-bottom:12px;}
+
+/* Fee preset bar */
+.fee-preset-bar{
+    display:grid;grid-template-columns:1fr auto;gap:8px;
+    background:#f8fafb;border:1px dashed var(--border);
+    padding:10px;border-radius:8px;margin-bottom:12px;
+}
+
+/* PAX/Fees panel */
+.pax-panel{
+    background:linear-gradient(135deg,#f0f9f4,#e4f8ef);
+    border:1px solid var(--mei-green-light);
+    border-radius:10px;padding:14px;margin-top:8px;
+}
+.pax-panel .form-grid-4{margin-bottom:0;}
+.pax-panel label{color:#14532d;}
+
+/* Totals mini display */
+.totals-mini{
+    background:#fff;border:1px solid var(--border);
+    border-radius:8px;padding:12px;margin-top:14px;font-size:12px;
+}
+.totals-mini .row{display:flex;justify-content:space-between;padding:4px 0;}
+.totals-mini .row.big{border-top:2px solid var(--mei-navy);margin-top:6px;padding-top:10px;font-size:15px;font-weight:900;color:var(--mei-navy);}
+
+/* TOAST */
+.toast{position:fixed;right:25px;bottom:25px;z-index:5000;min-width:280px;max-width:400px;background:var(--mei-navy);color:#fff;padding:14px 16px;border-radius:10px;box-shadow:0 15px 40px rgba(0,0,0,.2);transform:translateY(120px);opacity:0;transition:.25s;font-size:12px;}
 .toast.show{transform:translateY(0);opacity:1;}
 .toast.success{border-left:4px solid var(--mei-green);}
 .toast.error{border-left:4px solid var(--danger);}
 
 /* RESPONSIVE */
+@media(max-width:1200px){
+    .document-layout{grid-template-columns:1fr;}
+    .document-editor{position:static;max-height:none;}
+}
 @media(max-width:1100px){
     .stats-grid,.quick-grid{grid-template-columns:repeat(2,1fr);}
-    .document-layout{grid-template-columns:1fr;}
+    .form-grid-3,.form-grid-4{grid-template-columns:repeat(2,1fr);}
 }
 @media(max-width:800px){
     .sidebar{transform:translateX(-100%);}
@@ -455,25 +236,16 @@ tr:hover td{background:#fbfdfc;}
     .admin-user .avatar{display:none;}
 }
 @media(max-width:560px){
-    .stats-grid,.quick-grid{grid-template-columns:1fr;}
+    .stats-grid,.quick-grid,.form-grid-3,.form-grid-4{grid-template-columns:1fr;}
     .page-title{font-size:18px;}
     .section-head{align-items:flex-start;flex-direction:column;}
-    .line-item{grid-template-columns:1fr 55px 60px 80px 30px;}
+    .line-item,.line-item-head{grid-template-columns:1fr 50px 55px 70px 30px;}
     .document-preview{padding:20px;}
 }
 @media print{
     body *{visibility:hidden !important;}
     #printArea,#printArea *{visibility:visible !important;}
-    #printArea{
-        position:absolute;left:0;top:0;
-        width:100%;box-shadow:none;border:0;
-    }
-    .document-preview{
-        visibility:visible !important;
-        position:absolute;left:0;top:0;width:100%;
-        box-shadow:none;border:0;padding:0;
-    }
-    .document-preview *{visibility:visible !important;}
+    #printArea{position:absolute;left:0;top:0;width:100%;box-shadow:none;border:0;}
 }
 </style>
 </head>
@@ -494,53 +266,43 @@ tr:hover td{background:#fbfdfc;}
 
     <nav class="nav">
         <div class="nav-section">Main</div>
-
         <button class="nav-item active" data-view="dashboard">
             <span class="nav-icon">▦</span> Dashboard
         </button>
-
         <button class="nav-item" data-view="applications">
             <span class="nav-icon">▤</span> Applications
             <span class="badge" id="applicationBadge">0</span>
         </button>
-
         <button class="nav-item" data-view="inquiries">
             <span class="nav-icon">✉</span> Inquiries
             <span class="badge" id="inquiryBadge">0</span>
         </button>
 
         <div class="nav-section">Operations</div>
-
         <button class="nav-item" data-view="services">
             <span class="nav-icon">◆</span> Services
         </button>
-
         <button class="nav-item" data-view="drivers">
             <span class="nav-icon">🚗</span> Driver Recruitment
             <span class="badge" id="driverAppBadge">0</span>
         </button>
-
         <button class="nav-item" data-view="training">
             <span class="nav-icon">▣</span> Training
             <span class="badge" id="trainingBadge">0</span>
         </button>
-
         <button class="nav-item" data-view="education">
             <span class="nav-icon">🎓</span> Education
         </button>
 
         <div class="nav-section">Documents</div>
-
         <button class="nav-item" data-view="invoices">
             <span class="nav-icon">▧</span> Invoice Generator
         </button>
-
         <button class="nav-item" data-view="proposals">
             <span class="nav-icon">▱</span> Proposal Generator
         </button>
 
         <div class="nav-section">System</div>
-
         <button class="nav-item" data-view="settings">
             <span class="nav-icon">⚙</span> Settings
         </button>
@@ -554,7 +316,6 @@ tr:hover td{background:#fbfdfc;}
 
 <!-- MAIN -->
 <main class="main">
-
 <header class="topbar">
     <div class="topbar-left">
         <button class="mobile-menu" id="mobileMenu">☰</button>
@@ -563,7 +324,6 @@ tr:hover td{background:#fbfdfc;}
             <div class="page-subtitle">MEI Press Group Management System</div>
         </div>
     </div>
-
     <div class="admin-user">
         <div>
             <strong id="adminName">Administrator</strong>
@@ -573,17 +333,13 @@ tr:hover td{background:#fbfdfc;}
     </div>
 </header>
 
-
 <div class="content">
 
 <!-- DASHBOARD -->
 <section class="view active" id="view-dashboard">
     <div class="welcome">
         <h2>Welcome to MEI Press Group</h2>
-        <p>
-            Manage applications, driver recruitment, training,
-            education services and business documents from one place.
-        </p>
+        <p>Manage applications, driver recruitment, training, education services and business documents from one place.</p>
     </div>
 
     <div class="stats-grid">
@@ -594,7 +350,6 @@ tr:hover td{background:#fbfdfc;}
             </div>
             <div class="stat-value" id="statApplications">0</div>
         </div>
-
         <div class="stat-card">
             <div class="stat-top">
                 <span class="stat-label">Driver Applications</span>
@@ -602,7 +357,6 @@ tr:hover td{background:#fbfdfc;}
             </div>
             <div class="stat-value" id="statDrivers">0</div>
         </div>
-
         <div class="stat-card">
             <div class="stat-top">
                 <span class="stat-label">Training Sessions</span>
@@ -610,7 +364,6 @@ tr:hover td{background:#fbfdfc;}
             </div>
             <div class="stat-value" id="statTraining">0</div>
         </div>
-
         <div class="stat-card">
             <div class="stat-top">
                 <span class="stat-label">Education Prices</span>
@@ -621,34 +374,24 @@ tr:hover td{background:#fbfdfc;}
     </div>
 
     <div class="section-head">
-        <div>
-            <h2>Quick Actions</h2>
-            <p>Frequently used administration tools.</p>
-        </div>
+        <div><h2>Quick Actions</h2><p>Frequently used administration tools.</p></div>
     </div>
 
     <div class="quick-grid">
         <div class="quick-card" data-go="drivers">
-            <div>🚗</div>
-            <strong>Driver Recruitment</strong>
+            <div>🚗</div><strong>Driver Recruitment</strong>
             <span>Review applicants and employer requests.</span>
         </div>
-
         <div class="quick-card" data-go="training">
-            <div>📅</div>
-            <strong>Training Calendar</strong>
+            <div>📅</div><strong>Training Calendar</strong>
             <span>Manage upcoming training sessions.</span>
         </div>
-
         <div class="quick-card" data-go="education">
-            <div>🎓</div>
-            <strong>Education Prices</strong>
+            <div>🎓</div><strong>Education Prices</strong>
             <span>Manage international education services.</span>
         </div>
-
         <div class="quick-card" data-go="invoices">
-            <div>🧾</div>
-            <strong>Create Invoice</strong>
+            <div>🧾</div><strong>Create Invoice</strong>
             <span>Generate a professional invoice.</span>
         </div>
     </div>
@@ -658,13 +401,9 @@ tr:hover td{background:#fbfdfc;}
 <!-- APPLICATIONS -->
 <section class="view" id="view-applications">
     <div class="section-head">
-        <div>
-            <h2>Applications</h2>
-            <p>General applications submitted through MEI Group websites.</p>
-        </div>
+        <div><h2>Applications</h2><p>General applications submitted through MEI Group websites.</p></div>
         <button class="btn btn-dark" onclick="loadApplications()">Refresh</button>
     </div>
-
     <div class="card">
         <div class="toolbar">
             <input type="search" id="applicationSearch" placeholder="Search name, email, phone...">
@@ -684,18 +423,12 @@ tr:hover td{background:#fbfdfc;}
                 <option value="closed">Closed</option>
             </select>
         </div>
-
         <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Name</th>
-                        <th>Service</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <th>Date</th><th>Name</th><th>Service</th>
+                        <th>Phone</th><th>Email</th><th>Status</th><th>Action</th>
                     </tr>
                 </thead>
                 <tbody id="applicationsTable"></tbody>
@@ -708,27 +441,18 @@ tr:hover td{background:#fbfdfc;}
 <!-- INQUIRIES -->
 <section class="view" id="view-inquiries">
     <div class="section-head">
-        <div>
-            <h2>Inquiries</h2>
-            <p>Review incoming contact and service inquiries.</p>
-        </div>
+        <div><h2>Inquiries</h2><p>Review incoming contact and service inquiries.</p></div>
     </div>
-
     <div class="card">
         <div class="toolbar">
             <input type="search" id="inquirySearch" placeholder="Search inquiries...">
         </div>
-
         <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th>Date</th>
-                        <th>Name</th>
-                        <th>Contact</th>
-                        <th>Service</th>
-                        <th>Message</th>
-                        <th>Status</th>
+                        <th>Date</th><th>Name</th><th>Contact</th>
+                        <th>Service</th><th>Message</th><th>Status</th>
                     </tr>
                 </thead>
                 <tbody id="inquiriesTable"></tbody>
@@ -741,48 +465,28 @@ tr:hover td{background:#fbfdfc;}
 <!-- SERVICES -->
 <section class="view" id="view-services">
     <div class="section-head">
-        <div>
-            <h2>MEI Group Services</h2>
-            <p>Core services offered by MEI Press Group.</p>
-        </div>
+        <div><h2>MEI Group Services</h2><p>Core services offered by MEI Press Group.</p></div>
     </div>
-
     <div class="grid-2">
         <div class="service-card">
             <div class="service-icon">🎓</div>
             <h3>International Education</h3>
-            <p>
-                International university application support,
-                education consultation, visa guidance and student
-                placement services.
-            </p>
+            <p>International university application support, education consultation, visa guidance and student placement services.</p>
         </div>
-
         <div class="service-card">
             <div class="service-icon">🛣</div>
             <h3>Road Safety Training</h3>
-            <p>
-                Driver safety, defensive driving, fleet safety,
-                road-risk management and related training.
-            </p>
+            <p>Driver safety, defensive driving, fleet safety, road-risk management and related training.</p>
         </div>
-
         <div class="service-card">
             <div class="service-icon">🦺</div>
             <h3>Occupational Safety & Health</h3>
-            <p>
-                First aid, fire safety, occupational safety and
-                health training and workplace compliance support.
-            </p>
+            <p>First aid, fire safety, occupational safety and health training and workplace compliance support.</p>
         </div>
-
         <div class="service-card">
             <div class="service-icon">🚗</div>
             <h3>Driver Recruitment & Placement</h3>
-            <p>
-                Driver sourcing, verification, recruitment,
-                matching and local/international placement.
-            </p>
+            <p>Driver sourcing, verification, recruitment, matching and local/international placement.</p>
         </div>
     </div>
 </section>
@@ -791,30 +495,15 @@ tr:hover td{background:#fbfdfc;}
 <!-- DRIVER RECRUITMENT -->
 <section class="view" id="view-drivers">
     <div class="section-head">
-        <div>
-            <h2>Driver Recruitment</h2>
-            <p>Manage job seekers and employer recruitment requests.</p>
-        </div>
+        <div><h2>Driver Recruitment</h2><p>Manage job seekers and employer recruitment requests.</p></div>
         <button class="btn btn-dark" onclick="loadDrivers()">Refresh</button>
     </div>
 
     <div class="stats-grid">
-        <div class="stat-card">
-            <span class="stat-label">Total</span>
-            <div class="stat-value" id="driverTotal">0</div>
-        </div>
-        <div class="stat-card">
-            <span class="stat-label">Job Seekers</span>
-            <div class="stat-value" id="driverSeekers">0</div>
-        </div>
-        <div class="stat-card">
-            <span class="stat-label">Employers</span>
-            <div class="stat-value" id="driverEmployers">0</div>
-        </div>
-        <div class="stat-card">
-            <span class="stat-label">New / Pending</span>
-            <div class="stat-value" id="driverPending">0</div>
-        </div>
+        <div class="stat-card"><span class="stat-label">Total</span><div class="stat-value" id="driverTotal">0</div></div>
+        <div class="stat-card"><span class="stat-label">Job Seekers</span><div class="stat-value" id="driverSeekers">0</div></div>
+        <div class="stat-card"><span class="stat-label">Employers</span><div class="stat-value" id="driverEmployers">0</div></div>
+        <div class="stat-card"><span class="stat-label">New / Pending</span><div class="stat-value" id="driverPending">0</div></div>
     </div>
 
     <div class="card">
@@ -850,21 +539,13 @@ tr:hover td{background:#fbfdfc;}
                 <option>D3</option><option>F</option>
             </select>
         </div>
-
         <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th>Application #</th>
-                        <th>Type</th>
-                        <th>Applicant / Company</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Licence</th>
-                        <th>Location</th>
-                        <th>Status</th>
-                        <th>Date</th>
-                        <th>Actions</th>
+                        <th>Application #</th><th>Type</th><th>Applicant / Company</th>
+                        <th>Phone</th><th>Email</th><th>Licence</th>
+                        <th>Location</th><th>Status</th><th>Date</th><th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="driversTable"></tbody>
@@ -877,10 +558,7 @@ tr:hover td{background:#fbfdfc;}
 <!-- TRAINING -->
 <section class="view" id="view-training">
     <div class="section-head">
-        <div>
-            <h2>Training Management</h2>
-            <p>Training services, calendar sessions and registrations.</p>
-        </div>
+        <div><h2>Training Management</h2><p>Training services, calendar sessions and registrations.</p></div>
         <div class="actions">
             <button class="btn btn-primary" onclick="openTrainingModal()">+ Add Training</button>
             <button class="btn btn-dark" onclick="loadTraining()">Refresh</button>
@@ -910,21 +588,13 @@ tr:hover td{background:#fbfdfc;}
                     <option value="postponed">Postponed</option>
                 </select>
             </div>
-
             <div class="table-wrap">
                 <table>
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Service</th>
-                            <th>Session</th>
-                            <th>Time</th>
-                            <th>Venue</th>
-                            <th>Trainer</th>
-                            <th>Capacity</th>
-                            <th>Price</th>
-                            <th>Status</th>
-                            <th>Actions</th>
+                            <th>Date</th><th>Service</th><th>Session</th>
+                            <th>Time</th><th>Venue</th><th>Trainer</th>
+                            <th>Capacity</th><th>Price</th><th>Status</th><th>Actions</th>
                         </tr>
                     </thead>
                     <tbody id="trainingTable"></tbody>
@@ -957,13 +627,8 @@ tr:hover td{background:#fbfdfc;}
                 <table>
                     <thead>
                         <tr>
-                            <th>Date</th>
-                            <th>Session</th>
-                            <th>Name</th>
-                            <th>Phone</th>
-                            <th>Email</th>
-                            <th>Organization</th>
-                            <th>Status</th>
+                            <th>Date</th><th>Session</th><th>Name</th>
+                            <th>Phone</th><th>Email</th><th>Organization</th><th>Status</th>
                         </tr>
                     </thead>
                     <tbody id="registrationsTable"></tbody>
@@ -979,10 +644,7 @@ tr:hover td{background:#fbfdfc;}
     <div class="section-head">
         <div>
             <h2>Education Price Management</h2>
-            <p>
-                Manage International Education service prices,
-                packages and consultation fees.
-            </p>
+            <p>Manage International Education service prices, packages and consultation fees.</p>
         </div>
         <div class="actions">
             <button class="btn btn-primary" onclick="openEducationModal()">+ Add Price</button>
@@ -1008,21 +670,13 @@ tr:hover td{background:#fbfdfc;}
                 <option value="false">Inactive</option>
             </select>
         </div>
-
         <div class="table-wrap">
             <table>
                 <thead>
                     <tr>
-                        <th>Service</th>
-                        <th>Category</th>
-                        <th>Item</th>
-                        <th>Country</th>
-                        <th>Institution</th>
-                        <th>Level</th>
-                        <th>Price</th>
-                        <th>Currency</th>
-                        <th>Active</th>
-                        <th>Actions</th>
+                        <th>Service</th><th>Category</th><th>Item</th>
+                        <th>Country</th><th>Institution</th><th>Level</th>
+                        <th>Price</th><th>Currency</th><th>Active</th><th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="educationTable"></tbody>
@@ -1035,10 +689,7 @@ tr:hover td{background:#fbfdfc;}
 <!-- INVOICES -->
 <section class="view" id="view-invoices">
     <div class="section-head">
-        <div>
-            <h2>Invoice Generator</h2>
-            <p>Create and print professional MEI invoices.</p>
-        </div>
+        <div><h2>Invoice Generator</h2><p>Create and print professional MEI invoices.</p></div>
         <div class="actions">
             <button class="btn btn-secondary" onclick="resetInvoice()">New Invoice</button>
             <button class="btn btn-primary" onclick="printDocument()">Print Invoice</button>
@@ -1051,60 +702,27 @@ tr:hover td{background:#fbfdfc;}
                 <label>Invoice Number</label>
                 <input id="invoiceNumber">
             </div>
-
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Invoice Date</label>
-                    <input type="date" id="invoiceDate">
-                </div>
-                <div class="form-group">
-                    <label>Due Date</label>
-                    <input type="date" id="invoiceDueDate">
-                </div>
+                <div class="form-group"><label>Invoice Date</label><input type="date" id="invoiceDate"></div>
+                <div class="form-group"><label>Due Date</label><input type="date" id="invoiceDueDate"></div>
             </div>
-
-            <div class="form-group">
-                <label>Customer / Client Name</label>
-                <input id="invoiceCustomer">
-            </div>
-
-            <div class="form-group">
-                <label>Company / Organization</label>
-                <input id="invoiceCompany">
-            </div>
-
+            <div class="form-group"><label>Customer / Client Name</label><input id="invoiceCustomer"></div>
+            <div class="form-group"><label>Company / Organization</label><input id="invoiceCompany"></div>
             <div class="form-grid">
-                <div class="form-group">
-                    <label>Phone</label>
-                    <input id="invoicePhone">
-                </div>
-                <div class="form-group">
-                    <label>Email</label>
-                    <input type="email" id="invoiceEmail">
-                </div>
+                <div class="form-group"><label>Phone</label><input id="invoicePhone"></div>
+                <div class="form-group"><label>Email</label><input type="email" id="invoiceEmail"></div>
             </div>
-
-            <div class="form-group">
-                <label>Address</label>
-                <textarea id="invoiceAddress" style="min-height:65px;"></textarea>
-            </div>
-
+            <div class="form-group"><label>Address</label><textarea id="invoiceAddress" style="min-height:65px;"></textarea></div>
             <div class="form-grid">
                 <div class="form-group">
                     <label>Currency</label>
                     <select id="invoiceCurrency">
-                        <option>KES</option>
-                        <option>USD</option>
-                        <option>EUR</option>
-                        <option>GBP</option>
+                        <option>KES</option><option>USD</option>
+                        <option>EUR</option><option>GBP</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>VAT Rate (%)</label>
-                    <input type="number" id="invoiceVat" value="0" min="0">
-                </div>
+                <div class="form-group"><label>VAT Rate (%)</label><input type="number" id="invoiceVat" value="0" min="0"></div>
             </div>
-
             <div class="line-items">
                 <div style="display:flex;justify-content:space-between;margin-bottom:10px;">
                     <strong>Items</strong>
@@ -1112,7 +730,6 @@ tr:hover td{background:#fbfdfc;}
                 </div>
                 <div id="invoiceItems"></div>
             </div>
-
             <div class="form-group" style="margin-top:15px;">
                 <label>Notes / Payment Terms</label>
                 <textarea id="invoiceNotes"></textarea>
@@ -1135,7 +752,6 @@ tr:hover td{background:#fbfdfc;}
                     </div>
                 </div>
             </div>
-
             <div>
                 <strong>Bill To</strong>
                 <div style="margin-top:8px;font-size:12px;line-height:1.7;">
@@ -1146,7 +762,6 @@ tr:hover td{background:#fbfdfc;}
                     <span id="previewAddress"></span>
                 </div>
             </div>
-
             <table class="document-table">
                 <thead>
                     <tr>
@@ -1158,28 +773,15 @@ tr:hover td{background:#fbfdfc;}
                 </thead>
                 <tbody id="invoicePreviewItems"></tbody>
             </table>
-
             <div class="totals">
-                <div class="total-row">
-                    <span>Subtotal</span>
-                    <strong id="invoiceSubtotal">KES 0.00</strong>
-                </div>
-                <div class="total-row">
-                    <span>VAT</span>
-                    <strong id="invoiceVatAmount">KES 0.00</strong>
-                </div>
-                <div class="total-row grand">
-                    <span>Total</span>
-                    <strong id="invoiceTotal">KES 0.00</strong>
-                </div>
+                <div class="total-row"><span>Subtotal</span><strong id="invoiceSubtotal">KES 0.00</strong></div>
+                <div class="total-row"><span>VAT</span><strong id="invoiceVatAmount">KES 0.00</strong></div>
+                <div class="total-row grand"><span>Total</span><strong id="invoiceTotal">KES 0.00</strong></div>
             </div>
-
             <div class="document-footer">
                 <strong>Notes:</strong>
                 <div id="previewInvoiceNotes" style="margin-top:6px;"></div>
-                <div style="margin-top:20px;">
-                    Thank you for doing business with MEI Press Group.
-                </div>
+                <div style="margin-top:20px;">Thank you for doing business with MEI Press Group.</div>
             </div>
         </div>
     </div>
@@ -1217,15 +819,9 @@ tr:hover td{background:#fbfdfc;}
             <table>
                 <thead>
                     <tr>
-                        <th>Proposal #</th>
-                        <th>Client</th>
-                        <th>Title</th>
-                        <th>Services</th>
-                        <th>Date</th>
-                        <th>Valid Until</th>
-                        <th>Total</th>
-                        <th>Status</th>
-                        <th>Actions</th>
+                        <th>Proposal #</th><th>Client</th><th>Title</th>
+                        <th>Services</th><th>Date</th><th>Valid Until</th>
+                        <th>Total</th><th>Status</th><th>Actions</th>
                     </tr>
                 </thead>
                 <tbody id="proposalsTable"></tbody>
@@ -1250,11 +846,11 @@ tr:hover td{background:#fbfdfc;}
 
         <div class="document-layout">
 
-            <!-- EDITOR -->
+            <!-- ===================== EDITOR ===================== -->
             <div class="card document-editor">
 
-                <h3 style="margin-bottom:12px;">Proposal Details</h3>
-
+                <!-- ---- 1. Proposal Details ---- -->
+                <div class="editor-section-head"><h3>1 · Proposal Details</h3></div>
                 <div class="form-grid">
                     <div class="form-group">
                         <label>Proposal Number</label>
@@ -1270,64 +866,124 @@ tr:hover td{background:#fbfdfc;}
                             <option value="expired">Expired</option>
                         </select>
                     </div>
-                    <div class="form-group">
-                        <label>Proposal Date</label>
-                        <input type="date" id="proposalDate">
-                    </div>
-                    <div class="form-group">
-                        <label>Valid Until</label>
-                        <input type="date" id="proposalValidUntil">
-                    </div>
-                    <div class="form-group full">
-                        <label>Proposal Title</label>
-                        <input id="proposalTitle" value="MEI Group Service Proposal">
-                    </div>
-                    <div class="form-group full">
-                        <label>Prepared By</label>
-                        <input id="proposalPreparedBy" placeholder="Administrator name">
-                    </div>
+                    <div class="form-group"><label>Proposal Date</label><input type="date" id="proposalDate"></div>
+                    <div class="form-group"><label>Valid Until</label><input type="date" id="proposalValidUntil"></div>
+                    <div class="form-group full"><label>Proposal Title</label><input id="proposalTitle" value="MEI Group Service Proposal"></div>
+                    <div class="form-group full"><label>Prepared By</label><input id="proposalPreparedBy" placeholder="Administrator name"></div>
                 </div>
 
-                <h3 style="margin:18px 0 10px;">Selected Services</h3>
+                <!-- ---- 2. Services ---- -->
+                <div class="editor-section-head"><h3>2 · Services &amp; Programmes</h3></div>
                 <div id="proposalServicesSummary" class="muted small"></div>
-                <button class="btn btn-secondary btn-sm" style="margin-top:8px;"
-                        onclick="openServicePicker()">Change Services &amp; Programmes</button>
+                <button class="btn btn-secondary btn-sm" style="margin-top:8px;" onclick="openServicePicker()">Change Services &amp; Programmes</button>
 
-                <h3 style="margin:18px 0 10px;">Client</h3>
+                <!-- ---- 3. Client ---- -->
+                <div class="editor-section-head"><h3>3 · Client</h3></div>
                 <div class="form-group">
-                    <label>Search Existing Client</label>
+                    <label>Search Existing Client <span class="hint">(pulls from Applications)</span></label>
                     <input id="proposalClientSearch" placeholder="Type to search applications..."
                            oninput="searchProposalClients(this.value)">
                     <div id="proposalClientResults" class="small muted" style="margin-top:6px;"></div>
                 </div>
                 <div class="form-grid">
-                    <div class="form-group full">
-                        <label>Client Name *</label>
-                        <input id="proposalClient">
-                    </div>
-                    <div class="form-group">
-                        <label>Company / Organization</label>
-                        <input id="proposalCompany">
-                    </div>
-                    <div class="form-group">
-                        <label>Contact Person</label>
-                        <input id="proposalContact">
-                    </div>
-                    <div class="form-group">
-                        <label>Phone</label>
-                        <input id="proposalPhone">
-                    </div>
-                    <div class="form-group">
-                        <label>Email</label>
-                        <input id="proposalEmail" type="email">
-                    </div>
-                    <div class="form-group full">
-                        <label>Physical Address</label>
-                        <input id="proposalAddress">
-                    </div>
+                    <div class="form-group full"><label>Client Name *</label><input id="proposalClient"></div>
+                    <div class="form-group"><label>Company / Organization</label><input id="proposalCompany"></div>
+                    <div class="form-group"><label>Contact Person</label><input id="proposalContact"></div>
+                    <div class="form-group"><label>Phone</label><input id="proposalPhone"></div>
+                    <div class="form-group"><label>Email</label><input id="proposalEmail" type="email"></div>
+                    <div class="form-group full"><label>Physical Address</label><input id="proposalAddress"></div>
                 </div>
 
-                <h3 style="margin:18px 0 10px;">Content</h3>
+                <!-- ---- 4. PAX & FEES (NEW, DETAILED) ---- -->
+                <div class="editor-section-head">
+                    <h3>4 · Participants (PAX) &amp; Fees</h3>
+                    <span class="small muted">Drives the pricing table below</span>
+                </div>
+                <div class="editor-hint">
+                    Set the number of participants and the fee per participant once, then click
+                    <strong>“Apply Global PAX &amp; Fee”</strong> to push them into every line item.
+                    You can still fine-tune each item individually afterwards.
+                </div>
+                <div class="pax-panel">
+                    <div class="form-grid-4">
+                        <div class="form-group">
+                            <label>Participants (PAX)</label>
+                            <input type="number" id="proposalPax" value="1" min="1" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label>PAX Unit Label</label>
+                            <select id="proposalPaxUnit">
+                                <option>Persons</option>
+                                <option>Drivers</option>
+                                <option>Students</option>
+                                <option>Employees</option>
+                                <option>Companies</option>
+                                <option>Groups</option>
+                                <option>Lots</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Fee per PAX</label>
+                            <input type="number" id="proposalFeePerPax" value="0" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Fee Basis</label>
+                            <select id="proposalFeeBasis">
+                                <option>Per Participant</option>
+                                <option>Per Session</option>
+                                <option>Per Day</option>
+                                <option>Per Group</option>
+                                <option>Per Deliverable</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Number of Sessions / Days</label>
+                            <input type="number" id="proposalSessions" value="1" min="1" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Discount Type</label>
+                            <select id="proposalDiscountType">
+                                <option value="flat">Flat amount</option>
+                                <option value="percent">Percent (%)</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label>Discount Value</label>
+                            <input type="number" id="proposalDiscount" value="0" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>VAT Rate (%)</label>
+                            <input type="number" id="proposalVat" value="0" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Withholding Tax (%)</label>
+                            <input type="number" id="proposalWht" value="0" min="0" step="0.01">
+                        </div>
+                        <div class="form-group">
+                            <label>Payment Terms (days)</label>
+                            <input type="number" id="proposalPaymentDays" value="30" min="0" step="1">
+                        </div>
+                        <div class="form-group">
+                            <label>Currency</label>
+                            <select id="proposalCurrency">
+                                <option>KES</option><option>USD</option>
+                                <option>EUR</option><option>GBP</option>
+                            </select>
+                        </div>
+                        <div class="form-group" style="display:flex;align-items:flex-end;">
+                            <button class="btn btn-primary" style="width:100%;"
+                                    onclick="applyGlobalPaxAndFee()">
+                                Apply Global PAX &amp; Fee
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- mini live totals -->
+                    <div class="totals-mini" id="proposalTotalsMini"></div>
+                </div>
+
+                <!-- ---- 5. Content ---- -->
+                <div class="editor-section-head"><h3>5 · Content</h3></div>
                 <div class="form-group">
                     <label>Executive Summary</label>
                     <textarea id="proposalSummary"></textarea>
@@ -1357,41 +1013,34 @@ tr:hover td{background:#fbfdfc;}
                     <textarea id="proposalTerms"></textarea>
                 </div>
 
-                <h3 style="margin:18px 0 10px;">Pricing</h3>
-                <div class="line-item" style="font-size:10px;text-transform:uppercase;color:#6b7785;font-weight:800;">
+                <!-- ---- 6. Pricing table ---- -->
+                <div class="editor-section-head"><h3>6 · Pricing Items (Fee Breakdown)</h3></div>
+
+                <div class="fee-preset-bar">
+                    <select id="proposalFeePreset" onchange="applyFeePreset(this.value)">
+                        <option value="">— Load a fee preset —</option>
+                        <optgroup label="Education Prices" id="feePresetEducation"></optgroup>
+                        <optgroup label="Training Sessions" id="feePresetTraining"></optgroup>
+                    </select>
+                    <button class="btn btn-secondary btn-sm" onclick="addProposalItem()">+ Add Item</button>
+                </div>
+
+                <div class="line-item-head">
                     <span>Description</span>
-                    <span>Qty</span>
+                    <span>PAX</span>
                     <span>Unit</span>
-                    <span>Unit Price</span>
+                    <span>Fee</span>
                     <span></span>
                 </div>
                 <div id="proposalItems"></div>
-                <button class="btn btn-secondary btn-sm" style="margin-top:8px;"
-                        onclick="addProposalItem()">+ Add Item</button>
 
-                <div class="form-grid" style="margin-top:15px;">
-                    <div class="form-group">
-                        <label>Currency</label>
-                        <select id="proposalCurrency">
-                            <option>KES</option>
-                            <option>USD</option>
-                            <option>EUR</option>
-                            <option>GBP</option>
-                        </select>
-                    </div>
-                    <div class="form-group">
-                        <label>Discount</label>
-                        <input type="number" id="proposalDiscount" value="0" min="0" step="0.01">
-                    </div>
-                    <div class="form-group">
-                        <label>VAT Rate (%)</label>
-                        <input type="number" id="proposalVat" value="0" min="0" step="0.01">
-                    </div>
+                <div class="small muted" style="margin-top:8px;">
+                    Tip: each row’s <strong>PAX</strong> and <strong>Fee</strong> can be edited individually.
+                    Click <em>Apply Global PAX &amp; Fee</em> above to overwrite all rows with the panel values.
                 </div>
-
             </div>
 
-            <!-- PREVIEW -->
+            <!-- ===================== PREVIEW ===================== -->
             <div class="document-preview" id="proposalPreview"></div>
 
         </div>
@@ -1403,12 +1052,8 @@ tr:hover td{background:#fbfdfc;}
 <!-- SETTINGS -->
 <section class="view" id="view-settings">
     <div class="section-head">
-        <div>
-            <h2>Settings</h2>
-            <p>MEI Group administration settings and system information.</p>
-        </div>
+        <div><h2>Settings</h2><p>MEI Group administration settings and system information.</p></div>
     </div>
-
     <div class="grid-2">
         <div class="card">
             <div class="card-body">
@@ -1422,18 +1067,13 @@ tr:hover td{background:#fbfdfc;}
                 </div>
             </div>
         </div>
-
         <div class="card">
             <div class="card-body">
                 <h3>Supabase Connection</h3>
                 <div style="margin-top:15px;">
                     <div class="status status-green">Configured</div>
-                    <p class="small muted" style="margin-top:10px;">
-                        Project: qkchnrrxrewmlvvxuuqe
-                    </p>
-                    <p class="small muted" style="margin-top:5px;">
-                        URL: qkchnrrxrewmlvvxuuqe.supabase.co
-                    </p>
+                    <p class="small muted" style="margin-top:10px;">Project: qkchnrrxrewmlvvxuuqe</p>
+                    <p class="small muted" style="margin-top:5px;">URL: qkchnrrxrewmlvvxuuqe.supabase.co</p>
                 </div>
             </div>
         </div>
@@ -1452,7 +1092,6 @@ tr:hover td{background:#fbfdfc;}
             <h3 id="trainingModalTitle">Add Training Session</h3>
             <button class="close" onclick="closeModal('trainingModal')">×</button>
         </div>
-
         <div class="modal-body">
             <input type="hidden" id="trainingId">
             <div class="form-grid">
@@ -1466,61 +1105,23 @@ tr:hover td{background:#fbfdfc;}
                         <option>General Training</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Course ID *</label>
-                    <input type="number" id="trainingCourseId" min="1">
-                </div>
-                <div class="form-group full">
-                    <label>Session Title *</label>
-                    <input id="trainingSessionTitle">
-                </div>
-                <div class="form-group">
-                    <label>Session Date *</label>
-                    <input type="date" id="trainingDate">
-                </div>
-                <div class="form-group">
-                    <label>Registration Deadline</label>
-                    <input type="date" id="trainingDeadline">
-                </div>
-                <div class="form-group">
-                    <label>Start Time *</label>
-                    <input type="time" id="trainingStartTime">
-                </div>
-                <div class="form-group">
-                    <label>End Time *</label>
-                    <input type="time" id="trainingEndTime">
-                </div>
-                <div class="form-group">
-                    <label>Venue</label>
-                    <input id="trainingVenue">
-                </div>
-                <div class="form-group">
-                    <label>Location</label>
-                    <input id="trainingLocation">
-                </div>
-                <div class="form-group">
-                    <label>Trainer Name</label>
-                    <input id="trainingTrainer">
-                </div>
-                <div class="form-group">
-                    <label>Trainer Contact</label>
-                    <input id="trainingTrainerContact">
-                </div>
-                <div class="form-group">
-                    <label>Capacity</label>
-                    <input type="number" id="trainingCapacity" value="20" min="1">
-                </div>
-                <div class="form-group">
-                    <label>Price</label>
-                    <input type="number" id="trainingPrice" value="0" min="0" step="0.01">
-                </div>
+                <div class="form-group"><label>Course ID *</label><input type="number" id="trainingCourseId" min="1"></div>
+                <div class="form-group full"><label>Session Title *</label><input id="trainingSessionTitle"></div>
+                <div class="form-group"><label>Session Date *</label><input type="date" id="trainingDate"></div>
+                <div class="form-group"><label>Registration Deadline</label><input type="date" id="trainingDeadline"></div>
+                <div class="form-group"><label>Start Time *</label><input type="time" id="trainingStartTime"></div>
+                <div class="form-group"><label>End Time *</label><input type="time" id="trainingEndTime"></div>
+                <div class="form-group"><label>Venue</label><input id="trainingVenue"></div>
+                <div class="form-group"><label>Location</label><input id="trainingLocation"></div>
+                <div class="form-group"><label>Trainer Name</label><input id="trainingTrainer"></div>
+                <div class="form-group"><label>Trainer Contact</label><input id="trainingTrainerContact"></div>
+                <div class="form-group"><label>Capacity</label><input type="number" id="trainingCapacity" value="20" min="1"></div>
+                <div class="form-group"><label>Price</label><input type="number" id="trainingPrice" value="0" min="0" step="0.01"></div>
                 <div class="form-group">
                     <label>Currency</label>
                     <select id="trainingCurrency">
-                        <option>KES</option>
-                        <option>USD</option>
-                        <option>EUR</option>
-                        <option>GBP</option>
+                        <option>KES</option><option>USD</option>
+                        <option>EUR</option><option>GBP</option>
                     </select>
                 </div>
                 <div class="form-group">
@@ -1533,14 +1134,8 @@ tr:hover td{background:#fbfdfc;}
                         <option value="postponed">Postponed</option>
                     </select>
                 </div>
-                <div class="form-group full">
-                    <label>Description</label>
-                    <textarea id="trainingDescription"></textarea>
-                </div>
-                <div class="form-group full">
-                    <label>Notes</label>
-                    <textarea id="trainingNotes"></textarea>
-                </div>
+                <div class="form-group full"><label>Description</label><textarea id="trainingDescription"></textarea></div>
+                <div class="form-group full"><label>Notes</label><textarea id="trainingNotes"></textarea></div>
                 <div class="form-group">
                     <label>Published</label>
                     <select id="trainingPublished">
@@ -1550,7 +1145,6 @@ tr:hover td{background:#fbfdfc;}
                 </div>
             </div>
         </div>
-
         <div class="modal-foot">
             <button class="btn btn-secondary" onclick="closeModal('trainingModal')">Cancel</button>
             <button class="btn btn-primary" onclick="saveTraining()">Save Training</button>
@@ -1566,68 +1160,36 @@ tr:hover td{background:#fbfdfc;}
             <h3 id="educationModalTitle">Add Education Price</h3>
             <button class="close" onclick="closeModal('educationModal')">×</button>
         </div>
-
         <div class="modal-body">
             <input type="hidden" id="educationId">
             <div class="form-grid">
                 <div class="form-group">
                     <label>Service *</label>
-                    <select id="educationService">
-                        <option>International Education</option>
-                    </select>
+                    <select id="educationService"><option>International Education</option></select>
                 </div>
                 <div class="form-group">
                     <label>Category *</label>
                     <select id="educationCategory">
-                        <option>Application</option>
-                        <option>Consultation</option>
-                        <option>Visa</option>
-                        <option>Tuition</option>
-                        <option>Accommodation</option>
-                        <option>Other</option>
+                        <option>Application</option><option>Consultation</option>
+                        <option>Visa</option><option>Tuition</option>
+                        <option>Accommodation</option><option>Other</option>
                     </select>
                 </div>
-                <div class="form-group full">
-                    <label>Item Name *</label>
-                    <input id="educationItemName">
-                </div>
-                <div class="form-group full">
-                    <label>Description</label>
-                    <textarea id="educationDescription"></textarea>
-                </div>
-                <div class="form-group">
-                    <label>Destination Country</label>
-                    <input id="educationCountry">
-                </div>
-                <div class="form-group">
-                    <label>Institution</label>
-                    <input id="educationInstitution">
-                </div>
-                <div class="form-group">
-                    <label>Program Level</label>
-                    <input id="educationLevel" placeholder="Bachelor, Masters, PhD...">
-                </div>
-                <div class="form-group">
-                    <label>Duration</label>
-                    <input id="educationDuration" placeholder="e.g. 2 weeks">
-                </div>
-                <div class="form-group">
-                    <label>Price *</label>
-                    <input type="number" id="educationPrice" value="0" min="0" step="0.01">
-                </div>
+                <div class="form-group full"><label>Item Name *</label><input id="educationItemName"></div>
+                <div class="form-group full"><label>Description</label><textarea id="educationDescription"></textarea></div>
+                <div class="form-group"><label>Destination Country</label><input id="educationCountry"></div>
+                <div class="form-group"><label>Institution</label><input id="educationInstitution"></div>
+                <div class="form-group"><label>Program Level</label><input id="educationLevel" placeholder="Bachelor, Masters, PhD..."></div>
+                <div class="form-group"><label>Duration</label><input id="educationDuration" placeholder="e.g. 2 weeks"></div>
+                <div class="form-group"><label>Price *</label><input type="number" id="educationPrice" value="0" min="0" step="0.01"></div>
                 <div class="form-group">
                     <label>Currency</label>
                     <select id="educationCurrency">
-                        <option>KES</option>
-                        <option>USD</option>
-                        <option>EUR</option>
-                        <option>GBP</option>
+                        <option>KES</option><option>USD</option>
+                        <option>EUR</option><option>GBP</option>
                     </select>
                 </div>
-                <div class="form-group">
-                    <label>Display Order</label>
-                    <input type="number" id="educationOrder" value="0" min="0">
-                </div>
+                <div class="form-group"><label>Display Order</label><input type="number" id="educationOrder" value="0" min="0"></div>
                 <div class="form-group">
                     <label>Active</label>
                     <select id="educationActive">
@@ -1635,13 +1197,9 @@ tr:hover td{background:#fbfdfc;}
                         <option value="false">No</option>
                     </select>
                 </div>
-                <div class="form-group full">
-                    <label>Notes</label>
-                    <textarea id="educationNotes"></textarea>
-                </div>
+                <div class="form-group full"><label>Notes</label><textarea id="educationNotes"></textarea></div>
             </div>
         </div>
-
         <div class="modal-foot">
             <button class="btn btn-secondary" onclick="closeModal('educationModal')">Cancel</button>
             <button class="btn btn-primary" onclick="saveEducationPrice()">Save Price</button>
@@ -1674,14 +1232,11 @@ tr:hover td{background:#fbfdfc;}
             <button class="close" onclick="closeModal('servicePickerModal')">×</button>
         </div>
         <div class="modal-body">
-
             <div class="actions" style="margin-bottom:15px;">
                 <button class="btn btn-secondary btn-sm" onclick="toggleAllServices(true)">Select All Services</button>
                 <button class="btn btn-secondary btn-sm" onclick="toggleAllServices(false)">Clear All</button>
             </div>
-
             <div id="servicePickerGrid" class="grid-2"></div>
-
         </div>
         <div class="modal-foot">
             <button class="btn btn-secondary" onclick="closeModal('servicePickerModal')">Cancel</button>
@@ -1738,32 +1293,23 @@ function escapeHtml(value){
         .replace(/"/g,"&quot;")
         .replace(/'/g,"&#039;");
 }
-
 function formatDate(value){
     if(!value) return "";
     const d = new Date(value);
     if(Number.isNaN(d.getTime())) return value;
     return d.toLocaleDateString("en-GB",{day:"2-digit",month:"short",year:"numeric"});
 }
-
-function todayISO(){
-    return new Date().toISOString().slice(0,10);
-}
-
+function todayISO(){ return new Date().toISOString().slice(0,10); }
 function money(value,currency="KES"){
     const n = Number(value || 0);
-    return `${currency} ${n.toLocaleString("en-KE",{
-        minimumFractionDigits:2,maximumFractionDigits:2
-    })}`;
+    return `${currency} ${n.toLocaleString("en-KE",{minimumFractionDigits:2,maximumFractionDigits:2})}`;
 }
-
 function showToast(message,type="success"){
     const toast = document.getElementById("toast");
     toast.textContent = message;
     toast.className = `toast show ${type}`;
     setTimeout(()=>{ toast.className = "toast"; },3500);
 }
-
 function closeModal(id){ document.getElementById(id).classList.remove("show"); }
 function openModal(id){ document.getElementById(id).classList.add("show"); }
 
@@ -1775,11 +1321,8 @@ function statusClass(status){
     if(["rejected","cancelled","withdrawn","expired"].includes(s)) return "status-red";
     return "status-gray";
 }
-
 function statusBadge(status){
-    return `<span class="status ${statusClass(status)}">
-        ${escapeHtml(String(status || "unknown").replaceAll("_"," "))}
-    </span>`;
+    return `<span class="status ${statusClass(status)}">${escapeHtml(String(status || "unknown").replaceAll("_"," "))}</span>`;
 }
 
 
@@ -1787,16 +1330,10 @@ function statusBadge(status){
    NAVIGATION
 ========================================================= */
 const pageTitles = {
-    dashboard:"Dashboard",
-    applications:"Applications",
-    inquiries:"Inquiries",
-    services:"Services",
-    drivers:"Driver Recruitment",
-    training:"Training",
-    education:"Education",
-    invoices:"Invoice Generator",
-    proposals:"Proposal Generator",
-    settings:"Settings"
+    dashboard:"Dashboard", applications:"Applications", inquiries:"Inquiries",
+    services:"Services", drivers:"Driver Recruitment", training:"Training",
+    education:"Education", invoices:"Invoice Generator",
+    proposals:"Proposal Generator", settings:"Settings"
 };
 
 function switchView(view){
@@ -1824,11 +1361,9 @@ function switchView(view){
 document.querySelectorAll(".nav-item").forEach(btn=>{
     btn.addEventListener("click",()=>switchView(btn.dataset.view));
 });
-
 document.querySelectorAll(".quick-card").forEach(card=>{
     card.addEventListener("click",()=>switchView(card.dataset.go));
 });
-
 document.getElementById("mobileMenu").addEventListener("click",()=>{
     document.getElementById("sidebar").classList.toggle("open");
 });
@@ -1845,7 +1380,6 @@ async function loadDashboard(){
             supabaseClient.from("training_sessions").select("id"),
             supabaseClient.from("education_prices").select("id")
         ]);
-
         const appData = appResult.data || [];
         const driverData = driverResult.data || [];
         const trainingData = trainingResult.data || [];
@@ -1857,56 +1391,36 @@ async function loadDashboard(){
         document.getElementById("statEducation").textContent = educationData.length;
 
         document.getElementById("applicationBadge").textContent =
-            appData.filter(x => !x.status ||
-                ["new","pending"].includes(String(x.status).toLowerCase())).length;
-
+            appData.filter(x => !x.status || ["new","pending"].includes(String(x.status).toLowerCase())).length;
         document.getElementById("driverAppBadge").textContent =
-            driverData.filter(x => !x.status ||
-                ["new","reviewing"].includes(String(x.status).toLowerCase())).length;
-
+            driverData.filter(x => !x.status || ["new","reviewing"].includes(String(x.status).toLowerCase())).length;
         document.getElementById("trainingBadge").textContent = trainingData.length;
-    }catch(error){
-        console.error(error);
-    }
+    }catch(error){ console.error(error); }
 }
 
 
 /* =========================================================
    APPLICATIONS
 ========================================================= */
-function applicationName(row){
-    return row.full_name || row.name || row.fullname || row.contact_name || "Unnamed";
-}
-function applicationPhone(row){
-    return row.phone || row.telephone || row.mobile || "";
-}
+function applicationName(row){ return row.full_name || row.name || row.fullname || row.contact_name || "Unnamed"; }
+function applicationPhone(row){ return row.phone || row.telephone || row.mobile || ""; }
 function applicationEmail(row){ return row.email || ""; }
 function applicationService(row){ return row.service || row.service_type || ""; }
-function applicationMessage(row){
-    return row.message || row.details || row.description || "";
-}
+function applicationMessage(row){ return row.message || row.details || row.description || ""; }
 
 async function loadApplications(){
     const table = document.getElementById("applicationsTable");
     table.innerHTML = `<tr><td colspan="7" class="empty">Loading applications...</td></tr>`;
-
-    const {data,error} = await supabaseClient
-        .from("applications").select("*").order("created_at",{ascending:false});
-
+    const {data,error} = await supabaseClient.from("applications").select("*").order("created_at",{ascending:false});
     if(error){
-        table.innerHTML = `<tr><td colspan="7" class="empty">
-            Could not load applications. ${escapeHtml(error.message)}
-        </td></tr>`;
+        table.innerHTML = `<tr><td colspan="7" class="empty">Could not load applications. ${escapeHtml(error.message)}</td></tr>`;
         return;
     }
-
     applications = data || [];
     renderApplications();
     renderInquiries();
-
     document.getElementById("applicationBadge").textContent =
-        applications.filter(x => !x.status ||
-            ["new","pending"].includes(String(x.status).toLowerCase())).length;
+        applications.filter(x => !x.status || ["new","pending"].includes(String(x.status).toLowerCase())).length;
 }
 
 function renderApplications(){
@@ -1914,19 +1428,14 @@ function renderApplications(){
     const search = document.getElementById("applicationSearch").value.toLowerCase();
     const service = document.getElementById("applicationServiceFilter").value;
     const status = document.getElementById("applicationStatusFilter").value;
-
     const filtered = applications.filter(row=>{
         const text = `${applicationName(row)} ${applicationPhone(row)} ${applicationEmail(row)} ${applicationService(row)} ${applicationMessage(row)}`.toLowerCase();
-        return (!search || text.includes(search)) &&
-               (!service || applicationService(row) === service) &&
-               (!status || String(row.status || "") === status);
+        return (!search || text.includes(search)) && (!service || applicationService(row) === service) && (!status || String(row.status || "") === status);
     });
-
     if(!filtered.length){
         table.innerHTML = `<tr><td colspan="7" class="empty">No applications found.</td></tr>`;
         return;
     }
-
     table.innerHTML = filtered.map(row=>`
         <tr>
             <td>${formatDate(row.created_at)}</td>
@@ -1935,10 +1444,7 @@ function renderApplications(){
             <td>${escapeHtml(applicationPhone(row))}</td>
             <td>${escapeHtml(applicationEmail(row))}</td>
             <td>${statusBadge(row.status || "new")}</td>
-            <td>
-                <button class="btn btn-secondary btn-sm"
-                        onclick="viewApplication('${row.id}')">View</button>
-            </td>
+            <td><button class="btn btn-secondary btn-sm" onclick="viewApplication('${row.id}')">View</button></td>
         </tr>
     `).join("");
 }
@@ -1946,24 +1452,19 @@ function renderApplications(){
 function renderInquiries(){
     const table = document.getElementById("inquiriesTable");
     const search = document.getElementById("inquirySearch").value.toLowerCase();
-
     const filtered = applications.filter(row=>{
         const text = `${applicationName(row)} ${applicationPhone(row)} ${applicationEmail(row)} ${applicationService(row)} ${applicationMessage(row)}`.toLowerCase();
         return !search || text.includes(search);
     });
-
     if(!filtered.length){
         table.innerHTML = `<tr><td colspan="6" class="empty">No inquiries found.</td></tr>`;
         return;
     }
-
     table.innerHTML = filtered.map(row=>`
         <tr>
             <td>${formatDate(row.created_at)}</td>
             <td><strong>${escapeHtml(applicationName(row))}</strong></td>
-            <td>${escapeHtml(applicationPhone(row))}<br>
-                <span class="small muted">${escapeHtml(applicationEmail(row))}</span>
-            </td>
+            <td>${escapeHtml(applicationPhone(row))}<br><span class="small muted">${escapeHtml(applicationEmail(row))}</span></td>
             <td>${escapeHtml(applicationService(row))}</td>
             <td>${escapeHtml(applicationMessage(row)).substring(0,120)}</td>
             <td>${statusBadge(row.status || "new")}</td>
@@ -1974,14 +1475,7 @@ function renderInquiries(){
 function viewApplication(id){
     const row = applications.find(x => String(x.id) === String(id));
     if(!row) return;
-    alert(
-        `Application\n\n` +
-        `Name: ${applicationName(row)}\n` +
-        `Phone: ${applicationPhone(row)}\n` +
-        `Email: ${applicationEmail(row)}\n` +
-        `Service: ${applicationService(row)}\n\n` +
-        `Message:\n${applicationMessage(row)}`
-    );
+    alert(`Application\n\nName: ${applicationName(row)}\nPhone: ${applicationPhone(row)}\nEmail: ${applicationEmail(row)}\nService: ${applicationService(row)}\n\nMessage:\n${applicationMessage(row)}`);
 }
 
 document.getElementById("applicationSearch").addEventListener("input", renderApplications);
@@ -1996,17 +1490,11 @@ document.getElementById("inquirySearch").addEventListener("input", renderInquiri
 async function loadDrivers(){
     const table = document.getElementById("driversTable");
     table.innerHTML = `<tr><td colspan="10" class="empty">Loading driver applications...</td></tr>`;
-
-    const {data,error} = await supabaseClient
-        .from("driver_applications").select("*").order("created_at",{ascending:false});
-
+    const {data,error} = await supabaseClient.from("driver_applications").select("*").order("created_at",{ascending:false});
     if(error){
-        table.innerHTML = `<tr><td colspan="10" class="empty">
-            Could not load driver applications.<br>${escapeHtml(error.message)}
-        </td></tr>`;
+        table.innerHTML = `<tr><td colspan="10" class="empty">Could not load driver applications.<br>${escapeHtml(error.message)}</td></tr>`;
         return;
     }
-
     drivers = data || [];
     renderDrivers();
     updateDriverStats();
@@ -2014,29 +1502,18 @@ async function loadDrivers(){
 
 function updateDriverStats(){
     document.getElementById("driverTotal").textContent = drivers.length;
-    document.getElementById("driverSeekers").textContent =
-        drivers.filter(x => x.applicant_type === "job_seeker").length;
-    document.getElementById("driverEmployers").textContent =
-        drivers.filter(x => x.applicant_type === "employer").length;
-
-    const pending = drivers.filter(x => !x.status ||
-        ["new","reviewing"].includes(x.status)).length;
-
+    document.getElementById("driverSeekers").textContent = drivers.filter(x => x.applicant_type === "job_seeker").length;
+    document.getElementById("driverEmployers").textContent = drivers.filter(x => x.applicant_type === "employer").length;
+    const pending = drivers.filter(x => !x.status || ["new","reviewing"].includes(x.status)).length;
     document.getElementById("driverPending").textContent = pending;
     document.getElementById("driverAppBadge").textContent = pending;
 }
-
 function driverDisplayName(row){
-    if(row.applicant_type === "employer")
-        return row.company_name || row.full_name || "Employer";
+    if(row.applicant_type === "employer") return row.company_name || row.full_name || "Employer";
     return row.full_name || "Job Seeker";
 }
-function driverLocation(row){
-    return row.current_location || row.company_location || row.employment_location || "";
-}
-function driverLicense(row){
-    return row.license_class || row.required_license_class || "";
-}
+function driverLocation(row){ return row.current_location || row.company_location || row.employment_location || ""; }
+function driverLicense(row){ return row.license_class || row.required_license_class || ""; }
 
 function renderDrivers(){
     const table = document.getElementById("driversTable");
@@ -2044,20 +1521,14 @@ function renderDrivers(){
     const type = document.getElementById("driverTypeFilter").value;
     const status = document.getElementById("driverStatusFilter").value;
     const license = document.getElementById("driverLicenseFilter").value;
-
     const filtered = drivers.filter(row=>{
         const text = `${row.application_number || ""} ${row.full_name || ""} ${row.company_name || ""} ${row.email || ""} ${row.phone || ""} ${row.current_location || ""} ${row.company_location || ""}`.toLowerCase();
-        return (!search || text.includes(search)) &&
-               (!type || row.applicant_type === type) &&
-               (!status || row.status === status) &&
-               (!license || driverLicense(row) === license);
+        return (!search || text.includes(search)) && (!type || row.applicant_type === type) && (!status || row.status === status) && (!license || driverLicense(row) === license);
     });
-
     if(!filtered.length){
         table.innerHTML = `<tr><td colspan="10" class="empty">No driver applications found.</td></tr>`;
         return;
     }
-
     table.innerHTML = filtered.map(row=>`
         <tr>
             <td><strong>${escapeHtml(row.application_number || "-")}</strong></td>
@@ -2069,8 +1540,7 @@ function renderDrivers(){
             <td>${escapeHtml(driverLocation(row))}</td>
             <td>${statusBadge(row.status || "new")}</td>
             <td>${formatDate(row.created_at)}</td>
-            <td><button class="btn btn-secondary btn-sm"
-                        onclick="viewDriver('${row.id}')">View</button></td>
+            <td><button class="btn btn-secondary btn-sm" onclick="viewDriver('${row.id}')">View</button></td>
         </tr>
     `).join("");
 }
@@ -2078,48 +1548,32 @@ function renderDrivers(){
 function viewDriver(id){
     const row = drivers.find(x => String(x.id) === String(id));
     if(!row) return;
-
     currentDriverId = id;
-
     document.getElementById("driverModalBody").innerHTML = `
         <div class="grid-2">
-            <div><strong>Application Number</strong>
-                <p class="muted small">${escapeHtml(row.application_number || "-")}</p></div>
-            <div><strong>Applicant Type</strong>
-                <p class="muted small">${escapeHtml(row.applicant_type || "")}</p></div>
-            <div><strong>Name / Company</strong>
-                <p class="muted small">${escapeHtml(driverDisplayName(row))}</p></div>
-            <div><strong>Phone</strong>
-                <p class="muted small">${escapeHtml(row.phone || "")}</p></div>
-            <div><strong>Email</strong>
-                <p class="muted small">${escapeHtml(row.email || "")}</p></div>
-            <div><strong>Licence</strong>
-                <p class="muted small">${escapeHtml(driverLicense(row))}</p></div>
-            <div><strong>Location</strong>
-                <p class="muted small">${escapeHtml(driverLocation(row))}</p></div>
-            <div><strong>Experience</strong>
-                <p class="muted small">${escapeHtml(row.years_experience || row.minimum_experience_years || "")}</p></div>
+            <div><strong>Application Number</strong><p class="muted small">${escapeHtml(row.application_number || "-")}</p></div>
+            <div><strong>Applicant Type</strong><p class="muted small">${escapeHtml(row.applicant_type || "")}</p></div>
+            <div><strong>Name / Company</strong><p class="muted small">${escapeHtml(driverDisplayName(row))}</p></div>
+            <div><strong>Phone</strong><p class="muted small">${escapeHtml(row.phone || "")}</p></div>
+            <div><strong>Email</strong><p class="muted small">${escapeHtml(row.email || "")}</p></div>
+            <div><strong>Licence</strong><p class="muted small">${escapeHtml(driverLicense(row))}</p></div>
+            <div><strong>Location</strong><p class="muted small">${escapeHtml(driverLocation(row))}</p></div>
+            <div><strong>Experience</strong><p class="muted small">${escapeHtml(row.years_experience || row.minimum_experience_years || "")}</p></div>
         </div>
-
         <hr style="margin:20px 0;border:0;border-top:1px solid var(--border);">
-
         <div class="form-group">
             <label>Status</label>
             <select id="driverModalStatus">
                 ${["new","reviewing","shortlisted","interview","assessment","documents_pending","verified","matched","placed","on_hold","rejected","withdrawn","closed"].map(s=>`
-                    <option value="${s}" ${row.status === s ? "selected" : ""}>
-                        ${s.replaceAll("_"," ")}
-                    </option>
+                    <option value="${s}" ${row.status === s ? "selected" : ""}>${s.replaceAll("_"," ")}</option>
                 `).join("")}
             </select>
         </div>
-
         <div class="form-group">
             <label>Admin Notes</label>
             <textarea id="driverModalNotes">${escapeHtml(row.admin_notes || "")}</textarea>
         </div>
     `;
-
     openModal("driverModal");
 }
 
@@ -2128,12 +1582,8 @@ document.getElementById("deleteDriverBtn").addEventListener("click", deleteCurre
 async function deleteCurrentDriver(){
     if(!currentDriverId) return;
     if(!confirm("Delete this driver application?")) return;
-
-    const {error} = await supabaseClient
-        .from("driver_applications").delete().eq("id",currentDriverId);
-
+    const {error} = await supabaseClient.from("driver_applications").delete().eq("id",currentDriverId);
     if(error){ showToast(error.message,"error"); return; }
-
     closeModal("driverModal");
     showToast("Driver application deleted.");
     loadDrivers();
@@ -2141,33 +1591,22 @@ async function deleteCurrentDriver(){
 
 async function saveDriverChanges(){
     if(!currentDriverId) return;
-
     const status = document.getElementById("driverModalStatus").value;
     const admin_notes = document.getElementById("driverModalNotes").value;
-
-    const {error} = await supabaseClient
-        .from("driver_applications")
+    const {error} = await supabaseClient.from("driver_applications")
         .update({ status, admin_notes, reviewed_at:new Date().toISOString() })
         .eq("id",currentDriverId);
-
     if(error){ showToast(error.message,"error"); return; }
-
     showToast("Driver application updated.");
     closeModal("driverModal");
     loadDrivers();
 }
 
 document.getElementById("driverModal").addEventListener("change", event=>{
-    if(event.target.id === "driverModalStatus"){
-        saveDriverChanges();
-    }
+    if(event.target.id === "driverModalStatus") saveDriverChanges();
 });
-
 ["driverSearch","driverTypeFilter","driverStatusFilter","driverLicenseFilter"].forEach(id=>{
-    document.getElementById(id).addEventListener(
-        id === "driverSearch" ? "input" : "change",
-        renderDrivers
-    );
+    document.getElementById(id).addEventListener(id === "driverSearch" ? "input" : "change", renderDrivers);
 });
 
 
@@ -2177,19 +1616,12 @@ document.getElementById("driverModal").addEventListener("change", event=>{
 async function loadTraining(){
     const table = document.getElementById("trainingTable");
     table.innerHTML = `<tr><td colspan="10" class="empty">Loading training sessions...</td></tr>`;
-
-    const {data,error} = await supabaseClient
-        .from("training_sessions").select("*")
-        .order("session_date",{ascending:true})
-        .order("start_time",{ascending:true});
-
+    const {data,error} = await supabaseClient.from("training_sessions").select("*")
+        .order("session_date",{ascending:true}).order("start_time",{ascending:true});
     if(error){
-        table.innerHTML = `<tr><td colspan="10" class="empty">
-            Training sessions could not be loaded.<br>${escapeHtml(error.message)}
-        </td></tr>`;
+        table.innerHTML = `<tr><td colspan="10" class="empty">Training sessions could not be loaded.<br>${escapeHtml(error.message)}</td></tr>`;
         return;
     }
-
     trainingSessions = data || [];
     renderTraining();
     renderCalendar();
@@ -2200,25 +1632,18 @@ function renderTraining(){
     const table = document.getElementById("trainingTable");
     const search = document.getElementById("trainingSearch").value.toLowerCase();
     const status = document.getElementById("trainingStatusFilter").value;
-
     let filtered = trainingSessions.filter(row=>{
         const serviceMatch = activeTrainingService === "all" ||
             activeTrainingService === "calendar" ||
             activeTrainingService === "registrations" ||
             row.service === activeTrainingService;
-
         const text = `${row.session_title || ""} ${row.service || ""} ${row.venue || ""} ${row.location || ""} ${row.trainer_name || ""}`.toLowerCase();
-
-        return serviceMatch &&
-               (!search || text.includes(search)) &&
-               (!status || row.status === status);
+        return serviceMatch && (!search || text.includes(search)) && (!status || row.status === status);
     });
-
     if(!filtered.length){
         table.innerHTML = `<tr><td colspan="10" class="empty">No training sessions found.</td></tr>`;
         return;
     }
-
     table.innerHTML = filtered.map(row=>`
         <tr>
             <td>${formatDate(row.session_date)}</td>
@@ -2231,10 +1656,8 @@ function renderTraining(){
             <td>${money(row.price, row.currency || "KES")}</td>
             <td>${statusBadge(row.status)}</td>
             <td>
-                <button class="btn btn-secondary btn-sm"
-                        onclick="editTraining('${row.id}')">Edit</button>
-                <button class="btn btn-danger btn-sm"
-                        onclick="deleteTraining('${row.id}')">Delete</button>
+                <button class="btn btn-secondary btn-sm" onclick="editTraining('${row.id}')">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteTraining('${row.id}')">Delete</button>
             </td>
         </tr>
     `).join("");
@@ -2245,15 +1668,12 @@ document.querySelectorAll("[data-training-tab]").forEach(tab=>{
         document.querySelectorAll("[data-training-tab]").forEach(t=>t.classList.remove("active"));
         tab.classList.add("active");
         activeTrainingService = tab.dataset.trainingTab;
-
         const listPanel = document.getElementById("trainingSessionsPanel");
         const calendarPanel = document.getElementById("trainingCalendarPanel");
         const registrationPanel = document.getElementById("trainingRegistrationsPanel");
-
         listPanel.style.display = (activeTrainingService === "calendar" || activeTrainingService === "registrations") ? "none" : "block";
         calendarPanel.style.display = activeTrainingService === "calendar" ? "block" : "none";
         registrationPanel.style.display = activeTrainingService === "registrations" ? "block" : "none";
-
         if(activeTrainingService === "calendar") renderCalendar();
         else if(activeTrainingService === "registrations") loadRegistrations();
         else renderTraining();
@@ -2280,14 +1700,12 @@ function openTrainingModal(){
     document.getElementById("trainingDescription").value = "";
     document.getElementById("trainingNotes").value = "";
     document.getElementById("trainingPublished").value = "true";
-
     openModal("trainingModal");
 }
 
 function editTraining(id){
     const row = trainingSessions.find(x => String(x.id) === String(id));
     if(!row) return;
-
     document.getElementById("trainingModalTitle").textContent = "Edit Training Session";
     document.getElementById("trainingId").value = row.id;
     document.getElementById("trainingCourseId").value = row.course_id || "";
@@ -2308,7 +1726,6 @@ function editTraining(id){
     document.getElementById("trainingDescription").value = row.description || "";
     document.getElementById("trainingNotes").value = row.notes || "";
     document.getElementById("trainingPublished").value = String(row.published !== false);
-
     openModal("trainingModal");
 }
 
@@ -2319,12 +1736,10 @@ async function saveTraining(){
     const sessionDate = document.getElementById("trainingDate").value;
     const startTime = document.getElementById("trainingStartTime").value;
     const endTime = document.getElementById("trainingEndTime").value;
-
     if(!courseId || !sessionTitle || !sessionDate || !startTime || !endTime){
         showToast("Please complete all required training fields.","error");
         return;
     }
-
     const payload = {
         course_id:courseId,
         service: document.getElementById("trainingService").value,
@@ -2345,16 +1760,10 @@ async function saveTraining(){
         notes: document.getElementById("trainingNotes").value.trim() || null,
         published: document.getElementById("trainingPublished").value === "true"
     };
-
     let result;
-    if(id){
-        result = await supabaseClient.from("training_sessions").update(payload).eq("id",id);
-    }else{
-        result = await supabaseClient.from("training_sessions").insert(payload);
-    }
-
+    if(id){ result = await supabaseClient.from("training_sessions").update(payload).eq("id",id); }
+    else { result = await supabaseClient.from("training_sessions").insert(payload); }
     if(result.error){ showToast(result.error.message,"error"); return; }
-
     showToast(id ? "Training session updated." : "Training session created.");
     closeModal("trainingModal");
     loadTraining();
@@ -2362,10 +1771,8 @@ async function saveTraining(){
 
 async function deleteTraining(id){
     if(!confirm("Delete this training session?")) return;
-
     const {error} = await supabaseClient.from("training_sessions").delete().eq("id",id);
     if(error){ showToast(error.message,"error"); return; }
-
     showToast("Training session deleted.");
     loadTraining();
 }
@@ -2378,28 +1785,19 @@ function renderCalendar(){
     const grid = document.getElementById("calendarGrid");
     const year = calendarDate.getFullYear();
     const month = calendarDate.getMonth();
-
-    document.getElementById("calendarTitle").textContent =
-        calendarDate.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
-
+    document.getElementById("calendarTitle").textContent = calendarDate.toLocaleDateString("en-GB",{month:"long",year:"numeric"});
     const firstDay = new Date(year,month,1).getDay();
     const daysInMonth = new Date(year,month+1,0).getDate();
     const daysInPreviousMonth = new Date(year,month,0).getDate();
-
     let html = "";
-    ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(name=>{
-        html += `<div class="calendar-day-name">${name}</div>`;
-    });
-
+    ["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].forEach(name=>{ html += `<div class="calendar-day-name">${name}</div>`; });
     for(let i=0;i<firstDay;i++){
         const day = daysInPreviousMonth - firstDay + i + 1;
         html += `<div class="calendar-cell other"><div class="day-number">${day}</div></div>`;
     }
-
     for(let day=1;day<=daysInMonth;day++){
         const dateString = `${year}-${String(month+1).padStart(2,"0")}-${String(day).padStart(2,"0")}`;
         const events = trainingSessions.filter(row => row.session_date === dateString);
-
         html += `
             <div class="calendar-cell">
                 <div class="day-number">${day}</div>
@@ -2409,32 +1807,19 @@ function renderCalendar(){
                         <span>${escapeHtml(event.start_time || "")}</span>
                     </div>
                 `).join("")}
-            </div>
-        `;
+            </div>`;
     }
-
     const totalCells = firstDay + daysInMonth;
     const remaining = (7 - (totalCells % 7)) % 7;
-
     for(let i=1;i<=remaining;i++){
         html += `<div class="calendar-cell other"><div class="day-number">${i}</div></div>`;
     }
-
     grid.innerHTML = html;
 }
 
-document.getElementById("calendarPrev").addEventListener("click",()=>{
-    calendarDate.setMonth(calendarDate.getMonth() - 1);
-    renderCalendar();
-});
-document.getElementById("calendarNext").addEventListener("click",()=>{
-    calendarDate.setMonth(calendarDate.getMonth() + 1);
-    renderCalendar();
-});
-document.getElementById("calendarToday").addEventListener("click",()=>{
-    calendarDate = new Date();
-    renderCalendar();
-});
+document.getElementById("calendarPrev").addEventListener("click",()=>{ calendarDate.setMonth(calendarDate.getMonth() - 1); renderCalendar(); });
+document.getElementById("calendarNext").addEventListener("click",()=>{ calendarDate.setMonth(calendarDate.getMonth() + 1); renderCalendar(); });
+document.getElementById("calendarToday").addEventListener("click",()=>{ calendarDate = new Date(); renderCalendar(); });
 
 
 /* =========================================================
@@ -2443,17 +1828,11 @@ document.getElementById("calendarToday").addEventListener("click",()=>{
 async function loadRegistrations(){
     const table = document.getElementById("registrationsTable");
     table.innerHTML = `<tr><td colspan="7" class="empty">Loading registrations...</td></tr>`;
-
-    const {data,error} = await supabaseClient
-        .from("training_registrations").select("*").order("created_at",{ascending:false});
-
+    const {data,error} = await supabaseClient.from("training_registrations").select("*").order("created_at",{ascending:false});
     if(error){
-        table.innerHTML = `<tr><td colspan="7" class="empty">
-            Could not load registrations.<br>${escapeHtml(error.message)}
-        </td></tr>`;
+        table.innerHTML = `<tr><td colspan="7" class="empty">Could not load registrations.<br>${escapeHtml(error.message)}</td></tr>`;
         return;
     }
-
     registrations = data || [];
     renderRegistrations();
 }
@@ -2461,17 +1840,14 @@ async function loadRegistrations(){
 function renderRegistrations(){
     const table = document.getElementById("registrationsTable");
     const search = document.getElementById("registrationSearch").value.toLowerCase();
-
     const filtered = registrations.filter(row=>{
         const text = `${row.full_name || ""} ${row.email || ""} ${row.phone || ""} ${row.organization || ""} ${row.status || ""}`.toLowerCase();
         return !search || text.includes(search);
     });
-
     if(!filtered.length){
         table.innerHTML = `<tr><td colspan="7" class="empty">No registrations found.</td></tr>`;
         return;
     }
-
     table.innerHTML = filtered.map(row=>{
         const session = trainingSessions.find(x => String(x.id) === String(row.session_id));
         return `
@@ -2483,8 +1859,7 @@ function renderRegistrations(){
                 <td>${escapeHtml(row.email || "")}</td>
                 <td>${escapeHtml(row.organization || "")}</td>
                 <td>${statusBadge(row.status || "new")}</td>
-            </tr>
-        `;
+            </tr>`;
     }).join("");
 }
 
@@ -2497,22 +1872,16 @@ document.getElementById("registrationSearch").addEventListener("input", renderRe
 async function loadEducationPrices(){
     const table = document.getElementById("educationTable");
     table.innerHTML = `<tr><td colspan="10" class="empty">Loading education prices...</td></tr>`;
-
-    const {data,error} = await supabaseClient
-        .from("education_prices").select("*")
-        .order("display_order",{ascending:true})
-        .order("created_at",{ascending:false});
-
+    const {data,error} = await supabaseClient.from("education_prices").select("*")
+        .order("display_order",{ascending:true}).order("created_at",{ascending:false});
     if(error){
-        table.innerHTML = `<tr><td colspan="10" class="empty">
-            Could not load education prices.<br>${escapeHtml(error.message)}
-        </td></tr>`;
+        table.innerHTML = `<tr><td colspan="10" class="empty">Could not load education prices.<br>${escapeHtml(error.message)}</td></tr>`;
         return;
     }
-
     educationPrices = data || [];
     renderEducationPrices();
     document.getElementById("statEducation").textContent = educationPrices.length;
+    populateFeePresets();
 }
 
 function renderEducationPrices(){
@@ -2520,19 +1889,14 @@ function renderEducationPrices(){
     const search = document.getElementById("educationSearch").value.toLowerCase();
     const category = document.getElementById("educationCategoryFilter").value;
     const active = document.getElementById("educationActiveFilter").value;
-
     const filtered = educationPrices.filter(row=>{
         const text = `${row.service || ""} ${row.category || ""} ${row.item_name || ""} ${row.destination_country || ""} ${row.institution || ""} ${row.program_level || ""}`.toLowerCase();
-        return (!search || text.includes(search)) &&
-               (!category || row.category === category) &&
-               (!active || String(row.active) === active);
+        return (!search || text.includes(search)) && (!category || row.category === category) && (!active || String(row.active) === active);
     });
-
     if(!filtered.length){
         table.innerHTML = `<tr><td colspan="10" class="empty">No education prices found.</td></tr>`;
         return;
     }
-
     table.innerHTML = filtered.map(row=>`
         <tr>
             <td>${escapeHtml(row.service)}</td>
@@ -2543,14 +1907,10 @@ function renderEducationPrices(){
             <td>${escapeHtml(row.program_level || "")}</td>
             <td>${money(row.price, row.currency)}</td>
             <td>${escapeHtml(row.currency)}</td>
-            <td>${row.active
-                ? `<span class="status status-green">Active</span>`
-                : `<span class="status status-gray">Inactive</span>`}</td>
+            <td>${row.active ? `<span class="status status-green">Active</span>` : `<span class="status status-gray">Inactive</span>`}</td>
             <td>
-                <button class="btn btn-secondary btn-sm"
-                        onclick="editEducationPrice('${row.id}')">Edit</button>
-                <button class="btn btn-danger btn-sm"
-                        onclick="deleteEducationPrice('${row.id}')">Delete</button>
+                <button class="btn btn-secondary btn-sm" onclick="editEducationPrice('${row.id}')">Edit</button>
+                <button class="btn btn-danger btn-sm" onclick="deleteEducationPrice('${row.id}')">Delete</button>
             </td>
         </tr>
     `).join("");
@@ -2572,14 +1932,12 @@ function openEducationModal(){
     document.getElementById("educationOrder").value = 0;
     document.getElementById("educationActive").value = "true";
     document.getElementById("educationNotes").value = "";
-
     openModal("educationModal");
 }
 
 function editEducationPrice(id){
     const row = educationPrices.find(x => String(x.id) === String(id));
     if(!row) return;
-
     document.getElementById("educationModalTitle").textContent = "Edit Education Price";
     document.getElementById("educationId").value = row.id;
     document.getElementById("educationService").value = row.service || "International Education";
@@ -2595,16 +1953,13 @@ function editEducationPrice(id){
     document.getElementById("educationOrder").value = row.display_order || 0;
     document.getElementById("educationActive").value = String(row.active !== false);
     document.getElementById("educationNotes").value = row.notes || "";
-
     openModal("educationModal");
 }
 
 async function saveEducationPrice(){
     const id = document.getElementById("educationId").value;
     const itemName = document.getElementById("educationItemName").value.trim();
-
     if(!itemName){ showToast("Item name is required.","error"); return; }
-
     const payload = {
         service: document.getElementById("educationService").value,
         category: document.getElementById("educationCategory").value,
@@ -2620,16 +1975,10 @@ async function saveEducationPrice(){
         display_order:Number(document.getElementById("educationOrder").value || 0),
         notes: document.getElementById("educationNotes").value.trim() || null
     };
-
     let result;
-    if(id){
-        result = await supabaseClient.from("education_prices").update(payload).eq("id",id);
-    }else{
-        result = await supabaseClient.from("education_prices").insert(payload);
-    }
-
+    if(id){ result = await supabaseClient.from("education_prices").update(payload).eq("id",id); }
+    else { result = await supabaseClient.from("education_prices").insert(payload); }
     if(result.error){ showToast(result.error.message,"error"); return; }
-
     showToast(id ? "Education price updated." : "Education price created.");
     closeModal("educationModal");
     loadEducationPrices();
@@ -2644,10 +1993,7 @@ async function deleteEducationPrice(id){
 }
 
 ["educationSearch","educationCategoryFilter","educationActiveFilter"].forEach(id=>{
-    document.getElementById(id).addEventListener(
-        id === "educationSearch" ? "input" : "change",
-        renderEducationPrices
-    );
+    document.getElementById(id).addEventListener(id === "educationSearch" ? "input" : "change", renderEducationPrices);
 });
 
 
@@ -2661,7 +2007,6 @@ function generateInvoiceNumber(){
 
 function resetInvoice(){
     invoiceItems = [{description:"",qty:1,price:0}];
-
     document.getElementById("invoiceNumber").value = generateInvoiceNumber();
     document.getElementById("invoiceDate").value = todayISO();
     document.getElementById("invoiceDueDate").value = todayISO();
@@ -2673,22 +2018,16 @@ function resetInvoice(){
     document.getElementById("invoiceCurrency").value = "KES";
     document.getElementById("invoiceVat").value = 0;
     document.getElementById("invoiceNotes").value = "Payment is due according to the agreed terms.";
-
     renderInvoiceItems();
     renderInvoice();
 }
 
-function addInvoiceItem(){
-    invoiceItems.push({description:"",qty:1,price:0});
-    renderInvoiceItems();
-}
-
+function addInvoiceItem(){ invoiceItems.push({description:"",qty:1,price:0}); renderInvoiceItems(); }
 function removeInvoiceItem(index){
     invoiceItems.splice(index,1);
     if(!invoiceItems.length) invoiceItems.push({description:"",qty:1,price:0});
     renderInvoiceItems();
 }
-
 function updateInvoiceItem(index,field,value){
     invoiceItems[index][field] = field === "description" ? value : Number(value || 0);
     renderInvoice();
@@ -2704,22 +2043,17 @@ function renderInvoiceItems(){
                    oninput="updateInvoiceItem(${index},'qty',this.value)">
             <input type="number" min="0" step="0.01" value="${item.price}"
                    oninput="updateInvoiceItem(${index},'price',this.value)">
-            <button class="btn btn-danger btn-sm"
-                    onclick="removeInvoiceItem(${index})">×</button>
+            <button class="btn btn-danger btn-sm" onclick="removeInvoiceItem(${index})">×</button>
         </div>
     `).join("");
 }
 
 function renderInvoice(){
     const currency = document.getElementById("invoiceCurrency").value;
-
-    const subtotal = invoiceItems.reduce((sum,item)=>
-        sum + Number(item.qty || 0) * Number(item.price || 0),0);
-
+    const subtotal = invoiceItems.reduce((sum,item)=> sum + Number(item.qty || 0) * Number(item.price || 0),0);
     const vatRate = Number(document.getElementById("invoiceVat").value || 0);
     const vat = subtotal * vatRate / 100;
     const total = subtotal + vat;
-
     document.getElementById("previewInvoiceNumber").textContent = document.getElementById("invoiceNumber").value;
     document.getElementById("previewInvoiceDate").textContent = formatDate(document.getElementById("invoiceDate").value);
     document.getElementById("previewInvoiceDue").textContent = formatDate(document.getElementById("invoiceDueDate").value);
@@ -2728,7 +2062,6 @@ function renderInvoice(){
     document.getElementById("previewPhone").textContent = document.getElementById("invoicePhone").value;
     document.getElementById("previewEmail").textContent = document.getElementById("invoiceEmail").value;
     document.getElementById("previewAddress").textContent = document.getElementById("invoiceAddress").value;
-
     document.getElementById("invoicePreviewItems").innerHTML = invoiceItems.map(item=>`
         <tr>
             <td>${escapeHtml(item.description)}</td>
@@ -2737,7 +2070,6 @@ function renderInvoice(){
             <td>${money(item.qty * item.price, currency)}</td>
         </tr>
     `).join("");
-
     document.getElementById("invoiceSubtotal").textContent = money(subtotal, currency);
     document.getElementById("invoiceVatAmount").textContent = money(vat, currency);
     document.getElementById("invoiceTotal").textContent = money(total, currency);
@@ -2752,67 +2084,62 @@ function renderInvoice(){
 
 
 /* =========================================================
-   PROPOSAL GENERATOR  (v2 — Service-driven, DB-backed)
+   PROPOSAL GENERATOR  (Detailed Edition with PAX & Fees)
 ========================================================= */
 
 /* -------- Service & Programme Catalogue -------- */
 const SERVICE_CATALOGUE = {
     ED: {
-        key:"ED",
-        name:"International Education",
+        key:"ED", name:"International Education",
         description:"Guidance and support for global study opportunities.",
         programmes:[
             { key:"education_consultation", name:"Education Consultation",
-              scope:"One-on-one consultation to assess academic background, career goals and study preferences; recommendation of suitable destinations, institutions and programmes." },
+              scope:"One-on-one consultation to assess academic background, career goals and study preferences." },
             { key:"study_destination", name:"Study Destination Guidance",
-              scope:"Country and city guidance covering cost of living, visa pathways, work rights, safety and cultural considerations." },
+              scope:"Country and city guidance covering cost of living, visa pathways, work rights and safety." },
             { key:"university_application", name:"University / Application Support",
-              scope:"End-to-end application assistance: document preparation, personal statements, submission, follow-up and offer negotiation." },
+              scope:"End-to-end application assistance: documents, personal statements, submission and follow-up." },
             { key:"study_planning", name:"International Study Planning",
-              scope:"Long-term roadmap covering timelines, funding, examinations, accommodation and pre-departure preparation." },
-            { key:"other", name:"Other",
-              scope:"" }
+              scope:"Long-term roadmap covering timelines, funding, examinations and pre-departure preparation." },
+            { key:"other", name:"Other", scope:"" }
         ]
     },
     RS: {
-        key:"RS",
-        name:"Road Safety Training",
+        key:"RS", name:"Road Safety Training",
         description:"Professional safety education for schools, transport companies and institutions — built around real driving conditions, not just theory.",
         programmes:[
             { key:"safe_to_school", name:"Safe to & from School",
-              scope:"School-route risk awareness, pedestrian and crossing safety, pupil transport conduct and journey planning." },
+              scope:"School-route risk awareness, pedestrian and crossing safety, pupil transport conduct." },
             { key:"defensive_driving", name:"Defensive Driving",
-              scope:"Hazard anticipation, defensive driving techniques, following distance, overtaking discipline and accident avoidance." },
+              scope:"Hazard anticipation, defensive driving techniques, following distance and accident avoidance." },
             { key:"driver_profiling", name:"Driver Profiling",
-              scope:"Behavioural assessment, risk scoring and driving history review to build a measurable driver profile." },
+              scope:"Behavioural assessment, risk scoring and driving history review." },
             { key:"fleet_safety", name:"Fleet Safety Assessments",
-              scope:"On-site fleet audit covering vehicle condition, driver records, routes and compliance with safety policy." }
+              scope:"On-site fleet audit covering vehicle condition, driver records and route compliance." }
         ]
     },
     OS: {
-        key:"OS",
-        name:"Occupational Safety & Health",
+        key:"OS", name:"Occupational Safety & Health",
         description:"Comprehensive workplace safety training that protects employees, ensures compliance, and builds a strong safety culture.",
         programmes:[
             { key:"first_aid", name:"First Aid",
-              scope:"Emergency response, CPR, bleeding control, burns, fractures and casualty handling — with practical drills." },
+              scope:"Emergency response, CPR, bleeding control, burns, fractures and casualty handling." },
             { key:"fire_safety", name:"Fire & Safety",
-              scope:"Fire prevention, extinguisher use, evacuation planning and emergency response procedures." },
+              scope:"Fire prevention, extinguisher use, evacuation planning and emergency response." },
             { key:"osh", name:"OSH",
-              scope:"General occupational safety and health: hazard identification, risk assessment, PPE, incident reporting and workplace compliance." }
+              scope:"Hazard identification, risk assessment, PPE, incident reporting and workplace compliance." }
         ]
     },
     DR: {
-        key:"DR",
-        name:"Driver Recruitment",
+        key:"DR", name:"Driver Recruitment",
         description:"Connecting qualified drivers with employers seeking reliable, experienced and appropriately licensed driving professionals.",
         programmes:[
             { key:"driver_placement", name:"Driver Placement",
-              scope:"Sourcing, vetting and matching qualified drivers to employer requirements, with placement follow-up." },
+              scope:"Sourcing, vetting and matching qualified drivers to employer requirements." },
             { key:"employer_recruitment", name:"Employer Recruitment",
-              scope:"Managed recruitment drive on behalf of the employer: advertising, shortlisting, interviews and onboarding." },
+              scope:"Managed recruitment drive: advertising, shortlisting, interviews and onboarding." },
             { key:"international_opportunities", name:"International Opportunities",
-              scope:"Cross-border placement support including documentation, licensing checks, travel and compliance advisory." }
+              scope:"Cross-border placement support including documentation, licensing checks and travel." }
         ]
     }
 };
@@ -2832,16 +2159,14 @@ function nextProposalNumber(){
     return `${prefix}${String(max + 1).padStart(4,"0")}`;
 }
 
-/* -------- Load list -------- */
+/* -------- Load proposals -------- */
 async function loadProposals(){
     const table = document.getElementById("proposalsTable");
     if(!table) return;
     table.innerHTML = `<tr><td colspan="9" class="empty">Loading proposals...</td></tr>`;
 
     const { data, error } = await supabaseClient
-        .from("proposals")
-        .select("*")
-        .order("created_at", { ascending:false });
+        .from("proposals").select("*").order("created_at", { ascending:false });
 
     if(error){
         console.warn("proposals table not available:", error.message);
@@ -2851,7 +2176,6 @@ async function loadProposals(){
         </td></tr>`;
         return;
     }
-
     proposals = data || [];
     renderProposalsList();
 }
@@ -2859,30 +2183,26 @@ async function loadProposals(){
 function renderProposalsList(){
     const table = document.getElementById("proposalsTable");
     if(!table) return;
-
     const search = (document.getElementById("proposalSearch")?.value || "").toLowerCase();
     const status = document.getElementById("proposalStatusFilter")?.value || "";
-
     const filtered = proposals.filter(p=>{
         const text = `${p.proposal_number||""} ${p.client_name||""} ${p.company||""} ${p.title||""}`.toLowerCase();
         return (!search || text.includes(search)) && (!status || p.status === status);
     });
-
     if(!filtered.length){
         table.innerHTML = `<tr><td colspan="9" class="empty">No proposals found.</td></tr>`;
         return;
     }
-
     table.innerHTML = filtered.map(p=>{
         const svc = Array.isArray(p.services)
-            ? p.services.map(s=>SERVICE_CATALOGUE[s.key]?.key||s.key||s).join(", ")
-            : "";
+            ? p.services.map(s=>SERVICE_CATALOGUE[s.key]?.key||s.key||s).join(", ") : "";
+        const pax = p.pax ? ` · ${p.pax} ${p.pax_unit||"pax"}` : "";
         return `
             <tr>
                 <td><strong>${escapeHtml(p.proposal_number||"")}</strong></td>
                 <td>${escapeHtml(p.client_name||"")}<br><span class="small muted">${escapeHtml(p.company||"")}</span></td>
                 <td>${escapeHtml(p.title||"")}</td>
-                <td class="small">${escapeHtml(svc)}</td>
+                <td class="small">${escapeHtml(svc)}${escapeHtml(pax)}</td>
                 <td>${formatDate(p.proposal_date)}</td>
                 <td>${formatDate(p.valid_until)}</td>
                 <td>${money(p.total, p.currency||"KES")}</td>
@@ -2891,8 +2211,7 @@ function renderProposalsList(){
                     <button class="btn btn-secondary btn-sm" onclick="openProposal('${p.id}')">Open</button>
                     <button class="btn btn-danger btn-sm" onclick="deleteProposal('${p.id}')">×</button>
                 </td>
-            </tr>
-        `;
+            </tr>`;
     }).join("");
 }
 
@@ -2900,7 +2219,7 @@ function renderProposalsList(){
 function openNewProposalModal(){
     currentProposalId = null;
     proposalServices = [];
-    proposalItems = [{ description:"", qty:1, unit:"Lot", price:0 }];
+    proposalItems = [{ description:"", pax:1, unit:"Persons", fee:0 }];
 
     document.getElementById("proposalListPanel").style.display = "none";
     document.getElementById("proposalEditorPanel").style.display = "block";
@@ -2917,18 +2236,26 @@ function openNewProposalModal(){
 
     document.getElementById("proposalTitle").value = "MEI Group Service Proposal";
     document.getElementById("proposalPreparedBy").value = "";
-
     ["proposalClient","proposalCompany","proposalContact","proposalPhone",
      "proposalEmail","proposalAddress","proposalSummary","proposalRequirements",
      "proposalObjectives","proposalScope","proposalDeliverables","proposalTimeline",
      "proposalTerms","proposalClientSearch"].forEach(id=>{
-        const el = document.getElementById(id);
-        if(el) el.value = "";
+        const el = document.getElementById(id); if(el) el.value = "";
     });
     document.getElementById("proposalClientResults").innerHTML = "";
-    document.getElementById("proposalCurrency").value = "KES";
+
+    // Reset PAX & fee panel
+    document.getElementById("proposalPax").value = 1;
+    document.getElementById("proposalPaxUnit").value = "Persons";
+    document.getElementById("proposalFeePerPax").value = 0;
+    document.getElementById("proposalFeeBasis").value = "Per Participant";
+    document.getElementById("proposalSessions").value = 1;
+    document.getElementById("proposalDiscountType").value = "flat";
     document.getElementById("proposalDiscount").value = 0;
     document.getElementById("proposalVat").value = 0;
+    document.getElementById("proposalWht").value = 0;
+    document.getElementById("proposalPaymentDays").value = 30;
+    document.getElementById("proposalCurrency").value = "KES";
 
     renderProposalServicesSummary();
     renderProposalItems();
@@ -2943,8 +2270,13 @@ function openProposal(id){
     currentProposalId = id;
     proposalServices = Array.isArray(p.services) ? p.services : [];
     proposalItems = Array.isArray(p.items) && p.items.length
-        ? p.items
-        : [{ description:"", qty:1, unit:"Lot", price:0 }];
+        ? p.items.map(it=>({
+            description: it.description || "",
+            pax: Number(it.pax ?? it.qty ?? 1),
+            unit: it.unit || "Persons",
+            fee: Number(it.fee ?? it.price ?? 0)
+        }))
+        : [{ description:"", pax:1, unit:"Persons", fee:0 }];
 
     document.getElementById("proposalListPanel").style.display = "none";
     document.getElementById("proposalEditorPanel").style.display = "block";
@@ -2971,9 +2303,18 @@ function openProposal(id){
     set("proposalDeliverables", p.deliverables || "");
     set("proposalTimeline", p.timeline || "");
     set("proposalTerms", p.terms_conditions || "");
-    set("proposalCurrency", p.currency || "KES");
+
+    set("proposalPax", p.pax || 1);
+    set("proposalPaxUnit", p.pax_unit || "Persons");
+    set("proposalFeePerPax", p.fee_per_pax || 0);
+    set("proposalFeeBasis", p.fee_basis || "Per Participant");
+    set("proposalSessions", p.sessions || 1);
+    set("proposalDiscountType", p.discount_type || "flat");
     set("proposalDiscount", p.discount || 0);
     set("proposalVat", p.vat_rate || 0);
+    set("proposalWht", p.wht_rate || 0);
+    set("proposalPaymentDays", p.payment_days || 30);
+    set("proposalCurrency", p.currency || "KES");
 
     renderProposalServicesSummary();
     renderProposalItems();
@@ -2988,17 +2329,14 @@ function closeProposalEditor(){
 
 /* -------- Service picker -------- */
 let pickerDraft = null;
-
 function openServicePicker(){
     pickerDraft = JSON.parse(JSON.stringify(proposalServices));
     renderServicePicker();
     openModal("servicePickerModal");
 }
-
 function renderServicePicker(){
     const grid = document.getElementById("servicePickerGrid");
     if(!grid) return;
-
     grid.innerHTML = Object.values(SERVICE_CATALOGUE).map(svc=>{
         const selected = pickerDraft.find(s=>s.key===svc.key);
         const isOn = !!selected;
@@ -3011,7 +2349,6 @@ function renderServicePicker(){
                     ${escapeHtml(pg.name)}
                 </label>`;
         }).join("");
-
         return `
         <div class="service-card" style="border:2px solid ${isOn?'var(--mei-green)':'var(--border)'};">
             <label style="display:flex;align-items:center;gap:10px;cursor:pointer;">
@@ -3021,48 +2358,33 @@ function renderServicePicker(){
             </label>
             <p style="margin-top:8px;">${escapeHtml(svc.description)}</p>
             <div style="margin-top:10px;border-top:1px dashed var(--border);padding-top:8px;">
-                <div class="small" style="font-weight:800;text-transform:uppercase;color:#6b7785;margin-bottom:4px;">
-                    Programmes
-                </div>
+                <div class="small" style="font-weight:800;text-transform:uppercase;color:#6b7785;margin-bottom:4px;">Programmes</div>
                 ${programmes}
             </div>
         </div>`;
     }).join("");
 }
-
 function toggleService(key, on){
     if(on){
-        if(!pickerDraft.find(s=>s.key===key)){
-            pickerDraft.push({ key, programmes:[] });
-        }
+        if(!pickerDraft.find(s=>s.key===key)) pickerDraft.push({ key, programmes:[] });
     }else{
         pickerDraft = pickerDraft.filter(s=>s.key!==key);
     }
     renderServicePicker();
 }
-
 function toggleProgramme(svcKey, pgKey, on){
-    const svc = pickerDraft.find(s=>s.key===svcKey);
-    if(!svc) return;
-    if(on){
-        if(!svc.programmes.includes(pgKey)) svc.programmes.push(pgKey);
-    }else{
-        svc.programmes = svc.programmes.filter(k=>k!==pgKey);
-    }
+    const svc = pickerDraft.find(s=>s.key===svcKey); if(!svc) return;
+    if(on){ if(!svc.programmes.includes(pgKey)) svc.programmes.push(pgKey); }
+    else { svc.programmes = svc.programmes.filter(k=>k!==pgKey); }
 }
-
 function toggleAllServices(on){
     if(on){
         pickerDraft = Object.values(SERVICE_CATALOGUE).map(s=>({
-            key:s.key,
-            programmes:s.programmes.map(p=>p.key)
+            key:s.key, programmes:s.programmes.map(p=>p.key)
         }));
-    }else{
-        pickerDraft = [];
-    }
+    }else{ pickerDraft = []; }
     renderServicePicker();
 }
-
 function applyServiceSelection(){
     proposalServices = JSON.parse(JSON.stringify(pickerDraft));
     renderProposalServicesSummary();
@@ -3070,22 +2392,12 @@ function applyServiceSelection(){
     renderProposal();
     closeModal("servicePickerModal");
 }
-
 function renderProposalServicesSummary(){
-    const el = document.getElementById("proposalServicesSummary");
-    if(!el) return;
-
-    if(!proposalServices.length){
-        el.innerHTML = `<em>No services selected yet.</em>`;
-        return;
-    }
-
+    const el = document.getElementById("proposalServicesSummary"); if(!el) return;
+    if(!proposalServices.length){ el.innerHTML = `<em>No services selected yet.</em>`; return; }
     el.innerHTML = proposalServices.map(s=>{
-        const cat = SERVICE_CATALOGUE[s.key];
-        if(!cat) return "";
-        const names = (s.programmes||[])
-            .map(k=>cat.programmes.find(p=>p.key===k)?.name)
-            .filter(Boolean);
+        const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return "";
+        const names = (s.programmes||[]).map(k=>cat.programmes.find(p=>p.key===k)?.name).filter(Boolean);
         return `<div style="margin-bottom:6px;">
             <strong>${escapeHtml(cat.name)}</strong><br>
             <span class="small muted">${names.length?escapeHtml(names.join(", ")):"No programmes selected"}</span>
@@ -3093,7 +2405,7 @@ function renderProposalServicesSummary(){
     }).join("");
 }
 
-/* -------- Auto-fill starting content from services -------- */
+/* -------- Auto-fill content from services -------- */
 function autofillFromServices(){
     const summary = document.getElementById("proposalSummary");
     const scope = document.getElementById("proposalScope");
@@ -3104,12 +2416,10 @@ function autofillFromServices(){
         summary.value =
 `MEI Group is pleased to submit this proposal to deliver the selected services. Our approach combines practical, industry-aligned training and hands-on support with measurable outcomes tailored to your organisation.`;
     }
-
     if(scope && !scope.value.trim()){
         const blocks = [];
         proposalServices.forEach(s=>{
-            const cat = SERVICE_CATALOGUE[s.key];
-            if(!cat) return;
+            const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
             blocks.push(`${cat.name.toUpperCase()}`);
             (s.programmes||[]).forEach(pk=>{
                 const pg = cat.programmes.find(p=>p.key===pk);
@@ -3119,27 +2429,21 @@ function autofillFromServices(){
         });
         scope.value = blocks.join("\n").trim();
     }
-
     if(deliverables && !deliverables.value.trim()){
         const list = [];
         proposalServices.forEach(s=>{
-            const cat = SERVICE_CATALOGUE[s.key];
-            if(!cat) return;
+            const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
             (s.programmes||[]).forEach(pk=>{
                 const pg = cat.programmes.find(p=>p.key===pk);
                 if(pg) list.push(`• ${pg.name}`);
             });
         });
-        deliverables.value = list.length
-            ? `MEI Group will deliver:\n${list.join("\n")}`
-            : "";
+        deliverables.value = list.length ? `MEI Group will deliver:\n${list.join("\n")}` : "";
     }
-
     if(requirements && !requirements.value.trim()){
         const reqs = [];
         proposalServices.forEach(s=>{
-            const cat = SERVICE_CATALOGUE[s.key];
-            if(!cat) return;
+            const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
             (s.programmes||[]).forEach(pk=>{
                 const pg = cat.programmes.find(p=>p.key===pk);
                 if(pg) reqs.push(`• ${pg.name}`);
@@ -3147,7 +2451,6 @@ function autofillFromServices(){
         });
         requirements.value = reqs.join("\n");
     }
-
     const titleEl = document.getElementById("proposalTitle");
     if(titleEl && proposalServices.length > 1){
         const names = proposalServices.map(s=>SERVICE_CATALOGUE[s.key]?.name).filter(Boolean);
@@ -3157,49 +2460,30 @@ function autofillFromServices(){
 
 /* -------- Client search -------- */
 async function searchProposalClients(term){
-    const box = document.getElementById("proposalClientResults");
-    if(!box) return;
+    const box = document.getElementById("proposalClientResults"); if(!box) return;
     const q = (term||"").trim().toLowerCase();
-
-    if(!q){
-        box.innerHTML = "";
-        return;
-    }
-
+    if(!q){ box.innerHTML = ""; return; }
     if(!proposalClientCache.length){
-        const { data } = await supabaseClient
-            .from("applications")
-            .select("*")
-            .limit(200);
+        const { data } = await supabaseClient.from("applications").select("*").limit(200);
         proposalClientCache = data || [];
     }
-
     const matches = proposalClientCache.filter(r=>{
         const t = `${applicationName(r)} ${applicationPhone(r)} ${applicationEmail(r)}`.toLowerCase();
         return t.includes(q);
     }).slice(0,6);
-
-    if(!matches.length){
-        box.innerHTML = `<em>No matching clients.</em>`;
-        return;
-    }
-
+    if(!matches.length){ box.innerHTML = `<em>No matching clients.</em>`; return; }
     box.innerHTML = matches.map(r=>{
         const payload = JSON.stringify({
-            name: applicationName(r),
-            phone: applicationPhone(r),
-            email: applicationEmail(r)
+            name: applicationName(r), phone: applicationPhone(r), email: applicationEmail(r)
         }).replace(/"/g, "&quot;");
         return `
             <div style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;margin-top:4px;cursor:pointer;background:#fff;"
                  onclick='pickProposalClient(${payload})'>
                 <strong>${escapeHtml(applicationName(r))}</strong>
                 <span class="muted small"> — ${escapeHtml(applicationPhone(r))}</span>
-            </div>
-        `;
+            </div>`;
     }).join("");
 }
-
 function pickProposalClient(obj){
     document.getElementById("proposalClient").value = obj.name || "";
     document.getElementById("proposalPhone").value = obj.phone || "";
@@ -3209,48 +2493,107 @@ function pickProposalClient(obj){
     renderProposal();
 }
 
-/* -------- Line items -------- */
+/* -------- Line items (PAX + Fee) -------- */
 function addProposalItem(){
-    proposalItems.push({ description:"", qty:1, unit:"Lot", price:0 });
+    proposalItems.push({ description:"", pax:1, unit:"Persons", fee:0 });
     renderProposalItems();
     renderProposal();
 }
-
 function removeProposalItem(i){
     proposalItems.splice(i,1);
-    if(!proposalItems.length) proposalItems.push({ description:"", qty:1, unit:"Lot", price:0 });
+    if(!proposalItems.length) proposalItems.push({ description:"", pax:1, unit:"Persons", fee:0 });
     renderProposalItems();
     renderProposal();
 }
-
 function updateProposalItem(i, field, value){
-    proposalItems[i][field] = (field==="description"||field==="unit") ? value : Number(value||0);
+    if(field==="description" || field==="unit") proposalItems[i][field] = value;
+    else proposalItems[i][field] = Number(value||0);
     renderProposal();
 }
 
 function renderProposalItems(){
-    const c = document.getElementById("proposalItems");
-    if(!c) return;
+    const c = document.getElementById("proposalItems"); if(!c) return;
     c.innerHTML = proposalItems.map((it,i)=>`
         <div class="line-item">
             <input placeholder="Description" value="${escapeHtml(it.description)}"
                    oninput="updateProposalItem(${i},'description',this.value)">
-            <input type="number" min="0" value="${it.qty}"
-                   oninput="updateProposalItem(${i},'qty',this.value)">
+            <input type="number" min="0" value="${it.pax}"
+                   oninput="updateProposalItem(${i},'pax',this.value)">
             <input placeholder="Unit" value="${escapeHtml(it.unit||"")}"
                    oninput="updateProposalItem(${i},'unit',this.value)">
-            <input type="number" min="0" step="0.01" value="${it.price}"
-                   oninput="updateProposalItem(${i},'price',this.value)">
+            <input type="number" min="0" step="0.01" value="${it.fee}"
+                   oninput="updateProposalItem(${i},'fee',this.value)">
             <button class="btn btn-danger btn-sm" onclick="removeProposalItem(${i})">×</button>
         </div>
     `).join("");
+}
+
+/* Apply global PAX + Fee to every line item */
+function applyGlobalPaxAndFee(){
+    const pax = Number(document.getElementById("proposalPax").value || 0);
+    const unit = document.getElementById("proposalPaxUnit").value;
+    const fee = Number(document.getElementById("proposalFeePerPax").value || 0);
+    const sessions = Number(document.getElementById("proposalSessions").value || 1);
+
+    proposalItems = proposalItems.map(it=>({
+        ...it,
+        pax: pax,
+        unit: unit,
+        fee: fee,
+        // store session multiplier for this item (kept on the row for totals)
+        sessions: sessions
+    }));
+    renderProposalItems();
+    renderProposal();
+    showToast(`Applied ${pax} ${unit} × ${fee.toFixed(2)} to all items.`);
+}
+
+/* -------- Fee presets from DB -------- */
+function populateFeePresets(){
+    const eduGroup = document.getElementById("feePresetEducation");
+    const trnGroup = document.getElementById("feePresetTraining");
+    if(!eduGroup || !trnGroup) return;
+
+    eduGroup.innerHTML = (educationPrices||[]).map(p=>`
+        <option value="edu:${p.id}">${escapeHtml(p.item_name)} — ${money(p.price, p.currency)}</option>
+    `).join("") || `<option disabled>No education prices</option>`;
+
+    trnGroup.innerHTML = (trainingSessions||[]).map(s=>`
+        <option value="trn:${s.id}">${escapeHtml(s.session_title)} — ${money(s.price, s.currency||"KES")}</option>
+    `).join("") || `<option disabled>No training sessions</option>`;
+}
+
+function applyFeePreset(val){
+    if(!val) return;
+    const [type, id] = val.split(":");
+    let src = null;
+    if(type === "edu") src = educationPrices.find(x=>String(x.id)===String(id));
+    if(type === "trn") src = trainingSessions.find(x=>String(x.id)===String(id));
+    if(!src) return;
+
+    const desc = src.item_name || src.session_title || "Service";
+    const fee  = Number(src.price || 0);
+    const curr = src.currency || "KES";
+    if(curr !== document.getElementById("proposalCurrency").value){
+        // keep currency consistent for the doc
+        document.getElementById("proposalCurrency").value = curr;
+    }
+
+    proposalItems.push({
+        description: desc,
+        pax: Number(document.getElementById("proposalPax").value || 1),
+        unit: document.getElementById("proposalPaxUnit").value || "Persons",
+        fee: fee
+    });
+    renderProposalItems();
+    renderProposal();
+    document.getElementById("proposalFeePreset").value = "";
 }
 
 /* -------- Number → words -------- */
 const ONES = ["","One","Two","Three","Four","Five","Six","Seven","Eight","Nine","Ten",
 "Eleven","Twelve","Thirteen","Fourteen","Fifteen","Sixteen","Seventeen","Eighteen","Nineteen"];
 const TENS = ["","","Twenty","Thirty","Forty","Fifty","Sixty","Seventy","Eighty","Ninety"];
-
 function chunkToWords(n){
     let s = "";
     if(n >= 100){
@@ -3261,12 +2604,9 @@ function chunkToWords(n){
     if(n >= 20){
         s += TENS[Math.floor(n/10)];
         if(n%10) s += "-" + ONES[n%10];
-    }else if(n > 0){
-        s += ONES[n];
-    }
+    }else if(n > 0){ s += ONES[n]; }
     return s;
 }
-
 function numberToWords(num){
     num = Math.round(Number(num)||0);
     if(num === 0) return "Zero";
@@ -3286,7 +2626,6 @@ function numberToWords(num){
     if(num > 0) parts.push(chunkToWords(num));
     return parts.join(" ");
 }
-
 function amountInWords(amount, currency){
     const words = numberToWords(amount);
     const name = currency === "KES" ? "Kenya Shillings" :
@@ -3298,32 +2637,57 @@ function amountInWords(amount, currency){
 
 /* -------- Compute totals -------- */
 function computeProposalTotals(){
-    const subtotal = proposalItems.reduce((s,it)=> s + Number(it.qty||0)*Number(it.price||0), 0);
-    const discount = Number(document.getElementById("proposalDiscount")?.value || 0);
-    const vatRate  = Number(document.getElementById("proposalVat")?.value || 0);
-    const taxable  = Math.max(0, subtotal - discount);
-    const vat      = taxable * vatRate / 100;
-    const total    = taxable + vat;
-    return { subtotal, discount, vatRate, vat, total };
+    // Each item: pax × fee × sessions (defaults 1)
+    const subtotal = proposalItems.reduce((s,it)=>{
+        const pax = Number(it.pax||0);
+        const fee = Number(it.fee||0);
+        const sess = Number(it.sessions||1);
+        return s + pax * fee * sess;
+    },0);
+
+    const discountType = document.getElementById("proposalDiscountType")?.value || "flat";
+    let discount = Number(document.getElementById("proposalDiscount")?.value || 0);
+    if(discountType === "percent") discount = subtotal * (discount / 100);
+    discount = Math.min(discount, subtotal);
+
+    const net = subtotal - discount;
+    const vatRate = Number(document.getElementById("proposalVat")?.value || 0);
+    const vat = net * vatRate / 100;
+    const whtRate = Number(document.getElementById("proposalWht")?.value || 0);
+    const wht = net * whtRate / 100;
+    const total = net + vat - wht;
+
+    return { subtotal, discount, discountType, net, vatRate, vat, whtRate, wht, total };
+}
+
+/* -------- Render totals mini-panel in the editor -------- */
+function renderProposalTotalsMini(){
+    const el = document.getElementById("proposalTotalsMini"); if(!el) return;
+    const t = computeProposalTotals();
+    const cur = document.getElementById("proposalCurrency")?.value || "KES";
+    el.innerHTML = `
+        <div class="row"><span>Subtotal</span><strong>${money(t.subtotal, cur)}</strong></div>
+        <div class="row"><span>Discount ${t.discountType==="percent"?"(%)":""}</span><strong>− ${money(t.discount, cur)}</strong></div>
+        <div class="row"><span>Net</span><strong>${money(t.net, cur)}</strong></div>
+        <div class="row"><span>VAT (${t.vatRate}%)</span><strong>${money(t.vat, cur)}</strong></div>
+        <div class="row"><span>Withholding Tax (${t.whtRate}%)</span><strong>− ${money(t.wht, cur)}</strong></div>
+        <div class="row big"><span>TOTAL</span><strong>${money(t.total, cur)}</strong></div>
+        <div class="small muted" style="margin-top:6px;">${escapeHtml(amountInWords(t.total, cur))}</div>
+    `;
 }
 
 /* -------- Render preview -------- */
 function renderProposal(){
-    const preview = document.getElementById("proposalPreview");
-    if(!preview) return;
+    const preview = document.getElementById("proposalPreview"); if(!preview) return;
 
     const currency = document.getElementById("proposalCurrency")?.value || "KES";
-    const { subtotal, discount, vatRate, vat, total } = computeProposalTotals();
+    const { subtotal, discount, discountType, net, vatRate, vat, whtRate, wht, total } = computeProposalTotals();
 
     const v = id => (document.getElementById(id)?.value || "").trim();
 
     const services = proposalServices.map(s=>{
-        const cat = SERVICE_CATALOGUE[s.key];
-        if(!cat) return null;
-        return {
-            cat,
-            programmes:(s.programmes||[]).map(pk=>cat.programmes.find(p=>p.key===pk)).filter(Boolean)
-        };
+        const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return null;
+        return { cat, programmes:(s.programmes||[]).map(pk=>cat.programmes.find(p=>p.key===pk)).filter(Boolean) };
     }).filter(Boolean);
 
     const section = (title, body) =>
@@ -3333,15 +2697,36 @@ function renderProposal(){
                 </div>` : "";
 
     const itemsRows = proposalItems.map(it=>{
-        const amt = Number(it.qty||0)*Number(it.price||0);
+        const pax = Number(it.pax||0);
+        const fee = Number(it.fee||0);
+        const sess = Number(it.sessions||1);
+        const amt = pax * fee * sess;
         return `<tr>
             <td>${escapeHtml(it.description||"")}</td>
-            <td>${it.qty}</td>
-            <td>${escapeHtml(it.unit||"")}</td>
-            <td>${money(it.price, currency)}</td>
+            <td>${pax} ${escapeHtml(it.unit||"")}</td>
+            <td>${fee ? money(fee, currency) : "—"}</td>
+            <td>${sess !== 1 ? sess : ""}</td>
             <td>${money(amt, currency)}</td>
         </tr>`;
     }).join("") || `<tr><td colspan="5" class="empty">No items yet.</td></tr>`;
+
+    // Participants summary block
+    const pax = Number(v("proposalPax") || 0);
+    const paxUnit = v("proposalPaxUnit");
+    const feePerPax = Number(v("proposalFeePerPax") || 0);
+    const feeBasis = v("proposalFeeBasis");
+    const sessions = Number(v("proposalSessions") || 1);
+
+    const paxBlock = (pax || feePerPax) ? `
+        <div class="proposal-section" style="margin-top:22px;background:#f0f9f4;border-left:4px solid var(--mei-green);padding:12px 14px;border-radius:6px;">
+            <h3 style="font-size:13px;margin-bottom:8px;color:#14532d;">PARTICIPANTS &amp; FEES SUMMARY</h3>
+            <div style="font-size:12px;line-height:1.8;">
+                <strong>Participants (PAX):</strong> ${pax} ${escapeHtml(paxUnit)}<br>
+                <strong>Fee Basis:</strong> ${escapeHtml(feeBasis)}<br>
+                <strong>Fee per PAX:</strong> ${money(feePerPax, currency)}<br>
+                <strong>Sessions / Days:</strong> ${sessions}
+            </div>
+        </div>` : "";
 
     preview.innerHTML = `
         <div class="document-header">
@@ -3378,6 +2763,8 @@ function renderProposal(){
             ${v("proposalAddress")?escapeHtml(v("proposalAddress")):""}
         </div>
 
+        ${paxBlock}
+
         ${section("1. Executive Summary", v("proposalSummary"))}
         ${section("2. Client Requirements", v("proposalRequirements"))}
         ${section("3. Objectives", v("proposalObjectives"))}
@@ -3386,15 +2773,15 @@ function renderProposal(){
         ${section("6. Implementation Timeline", v("proposalTimeline"))}
 
         <div class="proposal-section" style="margin-top:22px;">
-            <h3 style="font-size:14px;margin-bottom:8px;">7. Investment</h3>
+            <h3 style="font-size:14px;margin-bottom:8px;">7. Investment (Fee Breakdown)</h3>
             <table class="document-table">
                 <thead>
                     <tr>
                         <th>Description</th>
-                        <th style="width:60px;">Qty</th>
-                        <th style="width:80px;">Unit</th>
-                        <th style="width:110px;">Unit Price</th>
-                        <th style="width:120px;">Amount</th>
+                        <th style="width:100px;">PAX</th>
+                        <th style="width:110px;">Fee</th>
+                        <th style="width:60px;">Sess.</th>
+                        <th style="width:130px;">Amount</th>
                     </tr>
                 </thead>
                 <tbody>${itemsRows}</tbody>
@@ -3402,14 +2789,19 @@ function renderProposal(){
 
             <div class="totals">
                 <div class="total-row"><span>Subtotal</span><strong>${money(subtotal,currency)}</strong></div>
-                <div class="total-row"><span>Discount</span><strong>${money(discount,currency)}</strong></div>
+                <div class="total-row"><span>Discount ${discountType==="percent"?"(%)":""}</span><strong>− ${money(discount,currency)}</strong></div>
+                <div class="total-row"><span>Net</span><strong>${money(net,currency)}</strong></div>
                 <div class="total-row"><span>VAT (${vatRate}%)</span><strong>${money(vat,currency)}</strong></div>
+                ${whtRate ? `<div class="total-row"><span>Withholding Tax (${whtRate}%)</span><strong>− ${money(wht,currency)}</strong></div>`:""}
                 <div class="total-row grand"><span>TOTAL</span><strong>${money(total,currency)}</strong></div>
             </div>
 
             <div class="small" style="margin-top:12px;">
                 <strong>Amount in words:</strong> ${escapeHtml(amountInWords(total, currency))}
             </div>
+            ${v("proposalPaymentDays")?`<div class="small" style="margin-top:6px;">
+                <strong>Payment Terms:</strong> Net ${escapeHtml(v("proposalPaymentDays"))} days
+            </div>`:""}
         </div>
 
         ${section("8. Terms & Conditions", v("proposalTerms"))}
@@ -3436,18 +2828,17 @@ function renderProposal(){
             MEI Group — Professional Business Solutions
         </div>
     `;
+
+    renderProposalTotalsMini();
 }
 
 /* -------- Save / delete -------- */
 async function saveProposalDraft(){
     const v = id => (document.getElementById(id)?.value || "").trim();
     const client = v("proposalClient");
-    if(!client){
-        showToast("Client name is required.", "error");
-        return;
-    }
+    if(!client){ showToast("Client name is required.", "error"); return; }
 
-    const { subtotal, discount, vatRate, vat, total } = computeProposalTotals();
+    const t = computeProposalTotals();
 
     const payload = {
         proposal_number: v("proposalNumber"),
@@ -3472,8 +2863,20 @@ async function saveProposalDraft(){
         services:        proposalServices,
         items:           proposalItems,
         currency:        v("proposalCurrency") || "KES",
-        discount, vat_rate: vatRate, vat,
-        subtotal, total,
+        pax:             Number(v("proposalPax") || 0),
+        pax_unit:        v("proposalPaxUnit"),
+        fee_per_pax:     Number(v("proposalFeePerPax") || 0),
+        fee_basis:       v("proposalFeeBasis"),
+        sessions:        Number(v("proposalSessions") || 1),
+        discount_type:   v("proposalDiscountType") || "flat",
+        discount:        t.discount,
+        vat_rate:        t.vatRate,
+        vat:             t.vat,
+        wht_rate:        t.whtRate,
+        wht:             t.wht,
+        payment_days:    Number(v("proposalPaymentDays") || 30),
+        subtotal:        t.subtotal,
+        total:           t.total,
         updated_at: new Date().toISOString()
     };
 
@@ -3484,11 +2887,7 @@ async function saveProposalDraft(){
         payload.created_at = new Date().toISOString();
         result = await supabaseClient.from("proposals").insert(payload).select().single();
     }
-
-    if(result.error){
-        showToast(result.error.message, "error");
-        return;
-    }
+    if(result.error){ showToast(result.error.message, "error"); return; }
 
     if(!currentProposalId && result.data?.id){
         currentProposalId = result.data.id;
@@ -3514,21 +2913,21 @@ async function deleteProposal(id){
     "proposalContact","proposalPhone","proposalEmail","proposalAddress",
     "proposalSummary","proposalRequirements","proposalObjectives",
     "proposalScope","proposalDeliverables","proposalTimeline","proposalTerms",
-    "proposalCurrency","proposalDiscount","proposalVat"
+    "proposalCurrency","proposalDiscount","proposalVat","proposalWht",
+    "proposalPax","proposalPaxUnit","proposalFeePerPax","proposalFeeBasis",
+    "proposalSessions","proposalDiscountType","proposalPaymentDays"
 ].forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
+    const el = document.getElementById(id); if(!el) return;
     el.addEventListener("input", renderProposal);
     el.addEventListener("change", renderProposal);
 });
 
 ["proposalSearch","proposalStatusFilter"].forEach(id=>{
-    const el = document.getElementById(id);
-    if(!el) return;
+    const el = document.getElementById(id); if(!el) return;
     el.addEventListener(id==="proposalSearch"?"input":"change", renderProposalsList);
 });
 
-/* -------- Shim so any legacy reference to resetProposal() still works -------- */
+/* Legacy shim */
 function resetProposal(){ openNewProposalModal(); }
 
 
@@ -3536,19 +2935,12 @@ function resetProposal(){ openNewProposalModal(); }
    PRINT
 ========================================================= */
 function printDocument(){
-    // Choose the active document preview
     const activeView = document.querySelector(".view.active");
     let target = null;
-
-    if(activeView && activeView.id === "view-proposals"){
-        target = document.getElementById("proposalPreview");
-    }else if(activeView && activeView.id === "view-invoices"){
-        target = document.getElementById("invoicePreview");
-    }
-
+    if(activeView && activeView.id === "view-proposals") target = document.getElementById("proposalPreview");
+    else if(activeView && activeView.id === "view-invoices") target = document.getElementById("invoicePreview");
     if(!target){ window.print(); return; }
 
-    // Wrap target temporarily in a print-only area
     const printArea = document.createElement("div");
     printArea.id = "printArea";
     printArea.innerHTML = target.innerHTML;
@@ -3577,6 +2969,7 @@ async function initialize(){
     await loadDrivers();
     await loadTraining();
     await loadEducationPrices();
+    populateFeePresets();
     await loadProposals();
 }
 
