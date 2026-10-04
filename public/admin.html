@@ -208,6 +208,31 @@ tr:hover td{background:#fbfdfc;}
 .totals-mini .row{display:flex;justify-content:space-between;padding:4px 0;}
 .totals-mini .row.big{border-top:2px solid var(--mei-navy);margin-top:6px;padding-top:10px;font-size:15px;font-weight:900;color:var(--mei-navy);}
 
+
+/* PROFESSIONAL PROPOSAL DOCUMENT */
+.pp{font-size:12px;line-height:1.65;color:#1b2733}
+.pp-top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;padding-bottom:16px;border-bottom:3px solid var(--mei-green)}
+.pp-cover{background:var(--mei-navy);color:#fff;padding:24px 28px;border-radius:6px;margin:20px 0;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pp-cover small{color:#9bd9bb;letter-spacing:.14em;text-transform:uppercase;font-size:10px;font-weight:700}
+.pp-cover h1{font-size:23px;margin:6px 0 4px;line-height:1.25}
+.pp-cover div{color:#b9cbd6;font-size:11px}
+.pp-ref{width:100%;border:1px solid var(--border);margin-bottom:4px}
+.pp-ref td{border:1px solid var(--border);padding:9px 12px;vertical-align:top;width:50%;font-size:12px}
+.pp-ref .k{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);font-weight:800;margin-bottom:3px}
+.pp-sec{margin-top:24px}
+.pp-sec h3{font-size:13px;color:var(--mei-navy);text-transform:uppercase;letter-spacing:.05em;border-left:4px solid var(--mei-green);padding-left:10px;margin-bottom:10px;break-after:avoid}
+.pp-sec p{margin-bottom:8px}.pp-sec ul{margin:0 0 8px 20px}.pp-sec li{margin-bottom:3px}
+.pp-sub{font-weight:800;color:var(--mei-navy)}
+.pp .document-table th{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pp .num{text-align:right;white-space:nowrap}
+.pp-words{margin-top:10px;font-size:11px;font-style:italic;color:#445}
+.pp-sign{display:grid;grid-template-columns:1fr 1fr;gap:30px;margin-top:14px}
+.pp-sign div{border-top:1px solid #333;padding-top:6px;font-size:11px;line-height:1.9;margin-top:34px}
+.pp-foot{margin-top:30px;padding-top:10px;border-top:1px solid var(--border);display:flex;justify-content:space-between;color:var(--muted);font-size:10px}
+.pp-tagline{color:var(--mei-green-dark);font-weight:800;letter-spacing:.06em;font-size:11px;margin-top:10px}
+.check-row{display:flex;align-items:center;gap:8px;font-weight:600}.check-row input{width:auto}
+@media print{@page{size:A4;margin:14mm}.pp-sec,.totals,.pp-sign{break-inside:avoid}.pp-appendix{break-before:page}}
+
 /* TOAST */
 .toast{position:fixed;right:25px;bottom:25px;z-index:5000;min-width:280px;max-width:400px;background:var(--mei-navy);color:#fff;padding:14px 16px;border-radius:10px;box-shadow:0 15px 40px rgba(0,0,0,.2);transform:translateY(120px);opacity:0;transition:.25s;font-size:12px;}
 .toast.show{transform:translateY(0);opacity:1;}
@@ -243,6 +268,8 @@ tr:hover td{background:#fbfdfc;}
     .document-preview{padding:20px;}
 }
 @media print{
+    @page{size:A4;margin:14mm}
+    #printArea,#printArea *{-webkit-print-color-adjust:exact;print-color-adjust:exact;}
     body *{visibility:hidden !important;}
     #printArea,#printArea *{visibility:visible !important;}
     #printArea{position:absolute;left:0;top:0;width:100%;box-shadow:none;border:0;}
@@ -984,6 +1011,7 @@ tr:hover td{background:#fbfdfc;}
 
                 <!-- ---- 5. Content ---- -->
                 <div class="editor-section-head"><h3>5 · Content</h3></div>
+                <div class="form-group"><label class="check-row"><input type="checkbox" id="proposalIncludeProfile" checked> Append "About MEI Group" company profile page</label></div>
                 <div class="form-group">
                     <label>Executive Summary</label>
                     <textarea id="proposalSummary"></textarea>
@@ -2164,31 +2192,18 @@ const COMPANY_PROFILE = {
     positioning: `MEI Group positions itself as a practical solutions partner for education, safety, skills development and workforce opportunities. Our philosophy is simple: Build skills. Promote safety. Create opportunities. Through this approach, MEI Group seeks to contribute to better-prepared individuals, safer workplaces and roads, stronger organizations and improved access to education and employment opportunities.`
 };
 
-/* -------- Helper: insert company profile block into proposal content -------- */
-function insertCompanyProfileSection() {
-    const summary = document.getElementById("proposalSummary");
-    const scope = document.getElementById("proposalScope");
-    const objectives = document.getElementById("proposalObjectives");
-    const terms = document.getElementById("proposalTerms");
-    if (!summary || !scope) return;
-
-    // Append profile to summary if not already present
-    if (!summary.value.includes("MEI Group is a Kenyan-based organization")) {
-        summary.value = COMPANY_PROFILE.about + "\n\n" + (summary.value || "");
-    }
-    if (!scope.value.includes("BUILD SKILLS")) {
-        scope.value = "BUILD SKILLS. PROMOTE SAFETY. CREATE OPPORTUNITIES.\n\n" + (scope.value || "");
-    }
-    if (objectives && !objectives.value.includes("Vision")) {
-        objectives.value = "Vision: " + COMPANY_PROFILE.vision + "\n\nMission: " + COMPANY_PROFILE.mission + "\n\n" + (objectives.value || "");
-    }
-    if (terms && !terms.value.includes("Our Approach")) {
-        terms.value = "Our Approach: " + COMPANY_PROFILE.approach + "\n\n" + (terms.value || "");
-    }
-    // Force render
-    renderProposal();
-    showToast("Company profile inserted into proposal content.");
+/* -------- Document helpers -------- */
+function ppFmt(t){
+    let h = "", ul = false;
+    String(t || "").split(/\r?\n/).forEach(l=>{
+        const s = l.trim(), isB = /^[•\-\*]\s+/.test(s);
+        if(isB){ if(!ul){ h += "<ul>"; ul = true; } h += `<li>${escapeHtml(s.replace(/^[•\-\*]\s+/,""))}</li>`; }
+        else { if(ul){ h += "</ul>"; ul = false; } if(s) h += `<p>${escapeHtml(s)}</p>`; }
+    });
+    return h + (ul ? "</ul>" : "");
 }
+const DEFAULT_TIMELINE = "• Week 1 — Proposal acceptance, confirmation of scope and logistics\n• Week 2 — Mobilisation and preparation of materials / participants\n• Weeks 3–4 — Delivery of the agreed programmes\n• Week 5 — Evaluation, reporting and close-out";
+const DEFAULT_TERMS = "• Fees are as stated in the Investment section and exclude any cost not expressly listed.\n• Payment is due within the number of days stated in the Investment section from the date of invoice.\n• This proposal is valid until the date shown on the cover page.\n• Dates and venues are confirmed in writing once the proposal is accepted.\n• Cancellation or postponement requires written notice of at least 7 days.\n• Both parties will treat all shared information as confidential.";
 
 /* -------- Numbering -------- */
 function nextProposalNumber(){
@@ -2205,6 +2220,17 @@ function nextProposalNumber(){
     return `${prefix}${String(max + 1).padStart(4,"0")}`;
 }
 
+async function refreshProposalNumber(){
+    if(currentProposalId) return;
+    const prefix = `MEI-PROP-${new Date().getFullYear()}-`;
+    const { data, error } = await supabaseClient.from("proposals").select("proposal_number")
+        .like("proposal_number", prefix + "%").order("proposal_number", { ascending:false }).limit(1);
+    if(error || !data) return;
+    const last = data.length ? parseInt(String(data[0].proposal_number).slice(prefix.length), 10) : 0;
+    document.getElementById("proposalNumber").value = prefix + String((Number.isNaN(last) ? 0 : last) + 1).padStart(4, "0");
+    renderProposal();
+}
+
 /* -------- Load proposals -------- */
 async function loadProposals(){
     const table = document.getElementById("proposalsTable");
@@ -2215,7 +2241,12 @@ async function loadProposals(){
         .from("proposals").select("*").order("created_at", { ascending:false });
 
     if(error){
-        console.warn("proposals table not available:", error.message);
+        console.warn("proposals load failed:", error);
+        proposals = [];
+        table.innerHTML = `<tr><td colspan="9" class="empty">Could not load proposals.<br>${escapeHtml(error.message)}<br>
+            <span class="small">If the table is missing, run proposals_setup.sql in the Supabase SQL editor.</span></td></tr>`;
+        showToast("Proposals could not be loaded: " + error.message, "error");
+        return;
         proposals = [];
         table.innerHTML = `<tr><td colspan="9" class="empty">
             No proposals yet. Click <strong>+ New Proposal</strong> to create one.
@@ -2273,6 +2304,7 @@ function openNewProposalModal(){
     document.getElementById("proposalEditorSubheading").textContent = "Select services and programmes, then complete the details.";
 
     document.getElementById("proposalNumber").value = nextProposalNumber();
+    refreshProposalNumber();
     document.getElementById("proposalStatus").value = "draft";
     document.getElementById("proposalDate").value = todayISO();
 
@@ -2320,7 +2352,7 @@ function openProposal(id){
             description: it.description || "",
             pax: Number(it.pax ?? it.qty ?? 1),
             unit: it.unit || "Persons",
-            fee: Number(it.fee ?? it.price ?? 0)
+            fee: Number(it.fee ?? it.price ?? 0), sessions: Number(it.sessions ?? 1)
         }))
         : [{ description:"", pax:1, unit:"Persons", fee:0 }];
 
@@ -2451,108 +2483,72 @@ function renderProposalServicesSummary(){
     }).join("");
 }
 
-/* -------- Auto-fill content from services (enhanced with company profile) -------- */
+/* -------- Auto-fill content from services -------- */
 function autofillFromServices(){
-    const summary = document.getElementById("proposalSummary");
-    const scope = document.getElementById("proposalScope");
-    const deliverables = document.getElementById("proposalDeliverables");
-    const requirements = document.getElementById("proposalRequirements");
-    const objectives = document.getElementById("proposalObjectives");
+    const el = id => document.getElementById(id);
+    const sel = [];
+    proposalServices.forEach(s=>{
+        const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
+        sel.push({ cat, pgs:(s.programmes||[]).map(k=>cat.programmes.find(p=>p.key===k)).filter(Boolean) });
+    });
+    if(!sel.length) return;
+    const names = sel.map(x=>x.cat.name);
+    const allPgs = sel.flatMap(x=>x.pgs);
+    window._auto = window._auto || {};
+    const fillIfEmpty = (id,val)=>{ const e = el(id); if(e && (!e.value.trim() || e.value === window._auto[id])){ e.value = val; window._auto[id] = val; } };
 
-    // Executive Summary — use company profile "about" if empty, otherwise append
-    if(summary){
-        if(!summary.value.trim()){
-            summary.value = COMPANY_PROFILE.about;
-        } else if (!summary.value.includes("MEI Group is a Kenyan-based organization")) {
-            summary.value = COMPANY_PROFILE.about + "\n\n" + summary.value;
-        }
-    }
+    fillIfEmpty("proposalSummary",
+      `MEI Group is pleased to submit this proposal for the delivery of ${names.join(", ").replace(/, ([^,]*)$/," and $1")}. ` +
+      `The proposal sets out the services we recommend, how they will be delivered, the timeline and the investment required.\n\n` +
+      `MEI Group combines practical training, safety expertise and workforce solutions under one organisation, so you deal with a single accountable partner from start to finish.`);
+    fillIfEmpty("proposalRequirements", allPgs.map(p=>`• ${p.name}`).join("\n"));
+    fillIfEmpty("proposalObjectives", allPgs.map(p=>`• To deliver ${p.name.toLowerCase()} to an agreed professional standard`).join("\n"));
+    fillIfEmpty("proposalScope", sel.map(x=>
+        `${x.cat.name}\n` + x.pgs.map(p=>`• ${p.name} — ${p.scope || "Scope to be confirmed with the client."}`).join("\n")).join("\n\n"));
+    fillIfEmpty("proposalDeliverables", allPgs.map(p=>`• ${p.name}`).join("\n"));
+    fillIfEmpty("proposalTimeline", DEFAULT_TIMELINE);
+    fillIfEmpty("proposalTerms", DEFAULT_TERMS);
 
-    // Scope — build from selected services with company positioning
-    if(scope && !scope.value.trim()){
-        const blocks = [];
-        blocks.push("BUILD SKILLS. PROMOTE SAFETY. CREATE OPPORTUNITIES.\n");
-        blocks.push(COMPANY_PROFILE.positioning + "\n");
-        proposalServices.forEach(s=>{
-            const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
-            blocks.push(`${cat.name.toUpperCase()}`);
-            (s.programmes||[]).forEach(pk=>{
-                const pg = cat.programmes.find(p=>p.key===pk);
-                if(pg) blocks.push(`• ${pg.name} — ${pg.scope || "To be defined."}`);
-            });
-            blocks.push("");
-        });
-        scope.value = blocks.join("\n").trim();
-    }
+    const tt = el("proposalTitle"); if(!tt.value.trim() || /Proposal$/.test(tt.value)) tt.value = `${names.join(" & ")} Proposal`;
+    
 
-    // Deliverables — list of programmes
-    if(deliverables && !deliverables.value.trim()){
-        const list = [];
-        proposalServices.forEach(s=>{
-            const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
-            (s.programmes||[]).forEach(pk=>{
-                const pg = cat.programmes.find(p=>p.key===pk);
-                if(pg) list.push(`• ${pg.name}`);
-            });
-        });
-        deliverables.value = list.length ? `MEI Group will deliver:\n${list.join("\n")}` : "";
-    }
-
-    // Client Requirements — list of programme names
-    if(requirements && !requirements.value.trim()){
-        const reqs = [];
-        proposalServices.forEach(s=>{
-            const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
-            (s.programmes||[]).forEach(pk=>{
-                const pg = cat.programmes.find(p=>p.key===pk);
-                if(pg) reqs.push(`• ${pg.name}`);
-            });
-        });
-        requirements.value = reqs.join("\n");
-    }
-
-    // Objectives — insert vision and mission
-    if(objectives && !objectives.value.trim()){
-        objectives.value = `Vision: ${COMPANY_PROFILE.vision}\n\nMission: ${COMPANY_PROFILE.mission}`;
-    }
-
-    const titleEl = document.getElementById("proposalTitle");
-    if(titleEl && proposalServices.length > 1){
-        const names = proposalServices.map(s=>SERVICE_CATALOGUE[s.key]?.name).filter(Boolean);
-        if(names.length) titleEl.value = `${names.join(" & ")} Programme`;
+    // one fee row per programme when the table is still empty
+    if(proposalItems.every(it => !Number(it.fee))){
+        const pax = Number(el("proposalPax").value || 1), unit = el("proposalPaxUnit").value;
+        proposalItems = allPgs.map(p=>({ description:p.name, pax, unit, fee:0, sessions:1 }));
+        renderProposalItems();
     }
 }
 
 /* -------- Client search -------- */
+let proposalClientCacheAt = 0, proposalClientMatches = [];
+function applicationCompany(r){ return r.company || r.company_name || r.organization || r.organisation || ""; }
 async function searchProposalClients(term){
     const box = document.getElementById("proposalClientResults"); if(!box) return;
-    const q = (term||"").trim().toLowerCase();
+    const q = (term || "").trim().toLowerCase();
     if(!q){ box.innerHTML = ""; return; }
-    if(!proposalClientCache.length){
-        const { data } = await supabaseClient.from("applications").select("*").limit(200);
-        proposalClientCache = data || [];
+    if(!proposalClientCache.length || Date.now() - proposalClientCacheAt > 60000){
+        const { data, error } = await supabaseClient.from("applications").select("*")
+            .order("created_at", { ascending:false }).limit(2000);
+        if(error){ box.innerHTML = `<em>Could not search clients: ${escapeHtml(error.message)}</em>`; return; }
+        proposalClientCache = data || []; proposalClientCacheAt = Date.now();
     }
-    const matches = proposalClientCache.filter(r=>{
-        const t = `${applicationName(r)} ${applicationPhone(r)} ${applicationEmail(r)}`.toLowerCase();
-        return t.includes(q);
-    }).slice(0,6);
-    if(!matches.length){ box.innerHTML = `<em>No matching clients.</em>`; return; }
-    box.innerHTML = matches.map(r=>{
-        const payload = JSON.stringify({
-            name: applicationName(r), phone: applicationPhone(r), email: applicationEmail(r)
-        }).replace(/"/g, "&quot;");
-        return `
-            <div style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;margin-top:4px;cursor:pointer;background:#fff;"
-                 onclick='pickProposalClient(${payload})'>
-                <strong>${escapeHtml(applicationName(r))}</strong>
-                <span class="muted small"> — ${escapeHtml(applicationPhone(r))}</span>
-            </div>`;
-    }).join("");
+    proposalClientMatches = proposalClientCache.filter(r =>
+        `${applicationName(r)} ${applicationPhone(r)} ${applicationEmail(r)} ${applicationCompany(r)}`.toLowerCase().includes(q)).slice(0, 8);
+    if(!proposalClientMatches.length){ box.innerHTML = `<em>No matching clients.</em>`; return; }
+    box.innerHTML = proposalClientMatches.map((r, i) => `
+        <div style="padding:6px 8px;border:1px solid var(--border);border-radius:6px;margin-top:4px;cursor:pointer;background:#fff;"
+             onclick="pickProposalClient(${i})">
+            <strong>${escapeHtml(applicationName(r))}</strong>
+            <span class="muted small"> — ${escapeHtml(applicationPhone(r) || applicationEmail(r))}</span>
+        </div>`).join("");
 }
-function pickProposalClient(obj){
-    document.getElementById("proposalClient").value = obj.name || "";
-    document.getElementById("proposalPhone").value = obj.phone || "";
-    document.getElementById("proposalEmail").value = obj.email || "";
+function pickProposalClient(i){
+    const r = proposalClientMatches[i]; if(!r) return;
+    document.getElementById("proposalClient").value = applicationName(r);
+    document.getElementById("proposalCompany").value = applicationCompany(r);
+    document.getElementById("proposalPhone").value = applicationPhone(r);
+    document.getElementById("proposalEmail").value = applicationEmail(r);
     document.getElementById("proposalClientSearch").value = "";
     document.getElementById("proposalClientResults").innerHTML = "";
     renderProposal();
@@ -2690,12 +2686,13 @@ function numberToWords(num){
     return parts.join(" ");
 }
 function amountInWords(amount, currency){
-    const words = numberToWords(amount);
-    const name = currency === "KES" ? "Kenya Shillings" :
-                 currency === "USD" ? "US Dollars" :
-                 currency === "EUR" ? "Euros" :
-                 currency === "GBP" ? "Pounds Sterling" : currency;
-    return `${words} ${name} Only`.replace(/\s+/g," ");
+    const x = Math.abs(Number(amount) || 0);
+    let whole = Math.floor(x), cents = Math.round((x - whole) * 100);
+    if(cents === 100){ whole += 1; cents = 0; }
+    const name = {KES:"Kenya Shillings",USD:"US Dollars",EUR:"Euros",GBP:"Pounds Sterling"}[currency] || currency;
+    const minor = {KES:"Cents",USD:"Cents",EUR:"Cents",GBP:"Pence"}[currency] || "Cents";
+    const tail = cents ? ` and ${numberToWords(cents)} ${minor}` : "";
+    return `${numberToWords(whole)} ${name}${tail} Only`.replace(/\s+/g, " ");
 }
 
 /* -------- Compute totals -------- */
@@ -2738,194 +2735,95 @@ function renderProposalTotalsMini(){
     `;
 }
 
-/* -------- Render preview (enhanced with company profile) -------- */
+/* -------- Render preview (professional layout) -------- */
 function renderProposal(){
     const preview = document.getElementById("proposalPreview"); if(!preview) return;
-
-    const currency = document.getElementById("proposalCurrency")?.value || "KES";
-    const { subtotal, discount, discountType, net, vatRate, vat, whtRate, wht, total } = computeProposalTotals();
-
     const v = id => (document.getElementById(id)?.value || "").trim();
+    const cur = v("proposalCurrency") || "KES";
+    const t = computeProposalTotals();
+    let n = 0;
+    const sec = (title, html) => html ? `<div class="pp-sec"><h3>${++n}. ${escapeHtml(title)}</h3>${html}</div>` : "";
+    const txt = (title, id) => sec(title, ppFmt(v(id)));
 
-    const services = proposalServices.map(s=>{
+    const sel = proposalServices.map(s=>{
         const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return null;
-        return { cat, programmes:(s.programmes||[]).map(pk=>cat.programmes.find(p=>p.key===pk)).filter(Boolean) };
+        return { cat, pgs:(s.programmes||[]).map(k=>cat.programmes.find(p=>p.key===k)).filter(Boolean) };
     }).filter(Boolean);
 
-    const section = (title, body) =>
-        body ? `<div class="proposal-section" style="margin-top:22px;">
-                    <h3 style="font-size:14px;margin-bottom:8px;">${escapeHtml(title)}</h3>
-                    <div style="font-size:12px;line-height:1.7;white-space:pre-line;">${escapeHtml(body)}</div>
-                </div>` : "";
+    const servicesHtml = sel.length ? `<table class="document-table"><thead><tr><th style="width:30%">Service</th><th>Programmes</th></tr></thead><tbody>${
+        sel.map(x=>`<tr><td><strong>${escapeHtml(x.cat.name)}</strong></td><td>${
+            x.pgs.length ? x.pgs.map(p=>escapeHtml(p.name)).join("<br>") : "—"}</td></tr>`).join("")}</tbody></table>` : "";
 
-    const itemsRows = proposalItems.map(it=>{
-        const pax = Number(it.pax||0);
-        const fee = Number(it.fee||0);
-        const sess = Number(it.sessions||1);
-        const amt = pax * fee * sess;
-        return `<tr>
-            <td>${escapeHtml(it.description||"")}</td>
-            <td>${pax} ${escapeHtml(it.unit||"")}</td>
-            <td>${fee ? money(fee, currency) : "—"}</td>
-            <td>${sess !== 1 ? sess : ""}</td>
-            <td>${money(amt, currency)}</td>
-        </tr>`;
-    }).join("") || `<tr><td colspan="5" class="empty">No items yet.</td></tr>`;
+    const rows = proposalItems.filter(it=>it.description || Number(it.fee)).map((it,i)=>{
+        const pax = Number(it.pax||0), fee = Number(it.fee||0), s = Number(it.sessions||1);
+        return `<tr><td>${i+1}</td><td>${escapeHtml(it.description||"")}</td><td class="num">${pax} ${escapeHtml(it.unit||"")}</td>
+            <td class="num">${s}</td><td class="num">${fee ? money(fee,cur) : "—"}</td><td class="num">${money(pax*fee*s,cur)}</td></tr>`;
+    }).join("") || `<tr><td colspan="6" class="empty">No fee items added.</td></tr>`;
 
-    const pax = Number(v("proposalPax") || 0);
-    const paxUnit = v("proposalPaxUnit");
-    const feePerPax = Number(v("proposalFeePerPax") || 0);
-    const feeBasis = v("proposalFeeBasis");
-    const sessions = Number(v("proposalSessions") || 1);
+    const investment = `
+        <table class="document-table"><thead><tr><th style="width:28px">#</th><th>Description</th><th class="num">Participants</th>
+            <th class="num">Sessions</th><th class="num">Rate</th><th class="num">Amount</th></tr></thead><tbody>${rows}</tbody></table>
+        <div class="totals">
+            <div class="total-row"><span>Subtotal</span><strong>${money(t.subtotal,cur)}</strong></div>
+            ${t.discount ? `<div class="total-row"><span>Discount${t.discountType==="percent" ? " ("+Number(v("proposalDiscount"))+"%)" : ""}</span><strong>− ${money(t.discount,cur)}</strong></div>
+            <div class="total-row"><span>Net</span><strong>${money(t.net,cur)}</strong></div>` : ""}
+            ${t.vatRate ? `<div class="total-row"><span>VAT (${t.vatRate}%)</span><strong>${money(t.vat,cur)}</strong></div>` : ""}
+            ${t.whtRate ? `<div class="total-row"><span>Withholding Tax (${t.whtRate}%)</span><strong>− ${money(t.wht,cur)}</strong></div>` : ""}
+            <div class="total-row grand"><span>Total Investment</span><strong>${money(t.total,cur)}</strong></div>
+        </div>
+        <div class="pp-words"><strong>Amount in words:</strong> ${escapeHtml(amountInWords(t.total,cur))}</div>
+        <p style="margin-top:8px;"><strong>Payment terms:</strong> Net ${escapeHtml(v("proposalPaymentDays")||"30")} days from invoice date.
+        ${t.vatRate ? "" : "Amounts exclude VAT unless stated."}</p>`;
 
-    const paxBlock = (pax || feePerPax) ? `
-        <div class="proposal-section" style="margin-top:22px;background:#f0f9f4;border-left:4px solid var(--mei-green);padding:12px 14px;border-radius:6px;">
-            <h3 style="font-size:13px;margin-bottom:8px;color:#14532d;">PARTICIPANTS &amp; FEES SUMMARY</h3>
-            <div style="font-size:12px;line-height:1.8;">
-                <strong>Participants (PAX):</strong> ${pax} ${escapeHtml(paxUnit)}<br>
-                <strong>Fee Basis:</strong> ${escapeHtml(feeBasis)}<br>
-                <strong>Fee per PAX:</strong> ${money(feePerPax, currency)}<br>
-                <strong>Sessions / Days:</strong> ${sessions}
-            </div>
+    const profile = document.getElementById("proposalIncludeProfile")?.checked ? `
+        <div class="pp-appendix pp-sec"><h3>About MEI Group</h3>
+            <p>${escapeHtml(COMPANY_PROFILE.about)}</p>
+            <p><span class="pp-sub">Vision.</span> ${escapeHtml(COMPANY_PROFILE.vision)}</p>
+            <p><span class="pp-sub">Mission.</span> ${escapeHtml(COMPANY_PROFILE.mission)}</p>
+            <p><span class="pp-sub">Our approach.</span> ${escapeHtml(COMPANY_PROFILE.approach)}</p>
+            <p><span class="pp-sub">Why MEI Group.</span> ${escapeHtml(COMPANY_PROFILE.valueProposition)}</p>
+            <div class="pp-tagline">BUILD SKILLS. PROMOTE SAFETY. CREATE OPPORTUNITIES.</div>
         </div>` : "";
 
-    // Company profile block for preview
-    const companyProfileBlock = `
-        <div class="proposal-section" style="margin-top:22px;border-top:2px solid var(--mei-green-light);padding-top:16px;">
-            <h3 style="font-size:13px;margin-bottom:10px;color:var(--mei-navy);">ABOUT MEI GROUP</h3>
-            <div style="font-size:11px;line-height:1.7;color:#333;">
-                ${escapeHtml(COMPANY_PROFILE.about)}
-            </div>
-            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;font-size:11px;line-height:1.7;">
-                <div>
-                    <strong style="color:var(--mei-navy);">Vision</strong><br>
-                    ${escapeHtml(COMPANY_PROFILE.vision)}
-                </div>
-                <div>
-                    <strong style="color:var(--mei-navy);">Mission</strong><br>
-                    ${escapeHtml(COMPANY_PROFILE.mission)}
-                </div>
-            </div>
-            <div style="margin-top:14px;font-size:11px;line-height:1.7;">
-                <strong style="color:var(--mei-navy);">Our Approach</strong><br>
-                ${escapeHtml(COMPANY_PROFILE.approach)}
-            </div>
-            <div style="margin-top:14px;font-size:11px;line-height:1.7;">
-                <strong style="color:var(--mei-navy);">Value Proposition</strong><br>
-                ${escapeHtml(COMPANY_PROFILE.valueProposition)}
-            </div>
-            <div style="margin-top:14px;font-size:11px;line-height:1.7;">
-                <strong style="color:var(--mei-navy);">Strategic Direction</strong><br>
-                ${escapeHtml(COMPANY_PROFILE.strategicDirection)}
-            </div>
-            <div style="margin-top:14px;font-size:11px;line-height:1.7;padding-top:10px;border-top:1px dashed var(--border);">
-                <strong style="color:var(--mei-green-dark);">BUILD SKILLS. PROMOTE SAFETY. CREATE OPPORTUNITIES.</strong>
-            </div>
-        </div>`;
+    const cell = (k, body) => `<td><span class="k">${k}</span>${body}</td>`;
+    const clientLines = [v("proposalCompany"), v("proposalContact") && "Attn: "+v("proposalContact"), v("proposalPhone"), v("proposalEmail"), v("proposalAddress")]
+        .filter(Boolean).map(escapeHtml).join("<br>");
 
-    preview.innerHTML = `
-        <div class="document-header">
-            <div>
-                <div class="document-logo">MEI <span>PRESS GROUP</span></div>
-                <div class="small muted">Professional Business Solutions</div>
-                <div class="small muted" style="margin-top:8px;">Kenya</div>
-            </div>
-            <div>
-                <div class="document-title">PROPOSAL</div>
-                <div class="document-meta">
-                    <div><strong>No:</strong> ${escapeHtml(v("proposalNumber"))}</div>
-                    <div><strong>Date:</strong> ${formatDate(v("proposalDate"))}</div>
-                    <div><strong>Valid Until:</strong> ${formatDate(v("proposalValidUntil"))}</div>
-                    ${v("proposalPreparedBy") ? `<div><strong>Prepared By:</strong> ${escapeHtml(v("proposalPreparedBy"))}</div>`:""}
-                </div>
-            </div>
+    preview.innerHTML = `<div class="pp">
+        <div class="pp-top">
+            <div><div class="document-logo">MEI <span>PRESS GROUP</span></div>
+                 <div class="small muted">Build Skills. Promote Safety. Create Opportunities.</div>
+                 <div class="small muted" style="margin-top:6px;">Kenya</div></div>
+            <div style="text-align:right;"><div class="document-title" style="font-size:24px;">PROPOSAL</div>
+                 <div class="small muted">Ref: ${escapeHtml(v("proposalNumber"))}</div></div>
         </div>
 
-        <h2 style="margin:10px 0 6px;color:var(--mei-navy);">${escapeHtml(v("proposalTitle")||"MEI Group Service Proposal")}</h2>
+        <div class="pp-cover"><small>Proposal for</small>
+            <h1>${escapeHtml(v("proposalTitle") || "MEI Group Service Proposal")}</h1>
+            <div>${sel.length ? sel.map(x=>escapeHtml(x.cat.name)).join("  •  ") : ""}</div></div>
 
-        ${services.length?`
-            <div class="small muted" style="margin-bottom:16px;">
-                ${services.map(s=>escapeHtml(s.cat.name)).join(" &nbsp;•&nbsp; ")}
-            </div>`:""}
+        <table class="pp-ref">
+            <tr>${cell("Prepared for", `<strong>${escapeHtml(v("proposalClient")||"—")}</strong><br>${clientLines}`)}
+                ${cell("Prepared by", `<strong>${escapeHtml(v("proposalPreparedBy")||"MEI Group")}</strong><br>MEI Press Group, Kenya`)}</tr>
+            <tr>${cell("Proposal date", escapeHtml(formatDate(v("proposalDate"))))}
+                ${cell("Valid until", escapeHtml(formatDate(v("proposalValidUntil"))))}</tr>
+        </table>
 
-        <div style="font-size:12px;line-height:1.7;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid var(--border);">
-            <strong>PREPARED FOR</strong><br>
-            <strong>${escapeHtml(v("proposalClient")||"—")}</strong><br>
-            ${v("proposalCompany")?escapeHtml(v("proposalCompany"))+"<br>":""}
-            ${v("proposalContact")?escapeHtml(v("proposalContact"))+"<br>":""}
-            ${v("proposalPhone")?escapeHtml(v("proposalPhone"))+"<br>":""}
-            ${v("proposalEmail")?escapeHtml(v("proposalEmail"))+"<br>":""}
-            ${v("proposalAddress")?escapeHtml(v("proposalAddress")):""}
-        </div>
-
-        ${paxBlock}
-
-        ${section("1. Executive Summary", v("proposalSummary"))}
-        ${section("2. Client Requirements", v("proposalRequirements"))}
-        ${section("3. Objectives", v("proposalObjectives"))}
-        ${section("4. Scope of Work", v("proposalScope"))}
-        ${section("5. Deliverables", v("proposalDeliverables"))}
-        ${section("6. Implementation Timeline", v("proposalTimeline"))}
-
-        <div class="proposal-section" style="margin-top:22px;">
-            <h3 style="font-size:14px;margin-bottom:8px;">7. Investment (Fee Breakdown)</h3>
-            <table class="document-table">
-                <thead>
-                    <tr>
-                        <th>Description</th>
-                        <th style="width:100px;">PAX</th>
-                        <th style="width:110px;">Fee</th>
-                        <th style="width:60px;">Sess.</th>
-                        <th style="width:130px;">Amount</th>
-                    </tr>
-                </thead>
-                <tbody>${itemsRows}</tbody>
-            </table>
-
-            <div class="totals">
-                <div class="total-row"><span>Subtotal</span><strong>${money(subtotal,currency)}</strong></div>
-                <div class="total-row"><span>Discount ${discountType==="percent"?"(%)":""}</span><strong>− ${money(discount,currency)}</strong></div>
-                <div class="total-row"><span>Net</span><strong>${money(net,currency)}</strong></div>
-                <div class="total-row"><span>VAT (${vatRate}%)</span><strong>${money(vat,currency)}</strong></div>
-                ${whtRate ? `<div class="total-row"><span>Withholding Tax (${whtRate}%)</span><strong>− ${money(wht,currency)}</strong></div>`:""}
-                <div class="total-row grand"><span>TOTAL</span><strong>${money(total,currency)}</strong></div>
-            </div>
-
-            <div class="small" style="margin-top:12px;">
-                <strong>Amount in words:</strong> ${escapeHtml(amountInWords(total, currency))}
-            </div>
-            ${v("proposalPaymentDays")?`<div class="small" style="margin-top:6px;">
-                <strong>Payment Terms:</strong> Net ${escapeHtml(v("proposalPaymentDays"))} days
-            </div>`:""}
-        </div>
-
-        ${section("8. Terms & Conditions", v("proposalTerms"))}
-
-        ${companyProfileBlock}
-
-        <div class="proposal-section" style="margin-top:25px;">
-            <h3 style="font-size:14px;margin-bottom:12px;">9. Acceptance</h3>
-            <div class="grid-2" style="font-size:12px;line-height:2;">
-                <div>
-                    <strong>For the Client</strong><br>
-                    Name: _______________________<br>
-                    Signature: ___________________<br>
-                    Date: ________________________
-                </div>
-                <div>
-                    <strong>For MEI Group</strong><br>
-                    Name: _______________________<br>
-                    Signature: ___________________<br>
-                    Date: ________________________
-                </div>
-            </div>
-        </div>
-
-        <div class="document-footer">
-            MEI Group — Professional Business Solutions
-        </div>
-    `;
-
+        ${txt("Executive Summary","proposalSummary")}
+        ${txt("Client Requirements","proposalRequirements")}
+        ${txt("Objectives","proposalObjectives")}
+        ${sec("Proposed Services", servicesHtml)}
+        ${txt("Scope of Work","proposalScope")}
+        ${txt("Deliverables","proposalDeliverables")}
+        ${txt("Implementation Timeline","proposalTimeline")}
+        ${sec("Investment", investment)}
+        ${txt("Terms & Conditions","proposalTerms")}
+        ${sec("Acceptance", `<p>By signing below, the client accepts this proposal and the terms stated in it.</p>
+            <div class="pp-sign"><div><strong>For the Client</strong><br>Name:<br>Title:<br>Date:</div>
+            <div><strong>For MEI Group</strong><br>Name:<br>Title:<br>Date:</div></div>`)}
+        ${profile}
+        <div class="pp-foot"><span>MEI Press Group — Professional Business Solutions</span><span>${escapeHtml(v("proposalNumber"))}</span></div>
+    </div>`;
     renderProposalTotalsMini();
 }
 
@@ -2982,9 +2880,18 @@ async function saveProposalDraft(){
         result = await supabaseClient.from("proposals").update(payload).eq("id", currentProposalId);
     }else{
         payload.created_at = new Date().toISOString();
-        result = await supabaseClient.from("proposals").insert(payload).select().single();
+        for(let attempt = 0; attempt < 3; attempt++){
+            result = await supabaseClient.from("proposals").insert(payload).select().single();
+            if(!result.error || result.error.code !== "23505") break;
+            await refreshProposalNumber();
+            payload.proposal_number = document.getElementById("proposalNumber").value;
+        }
     }
-    if(result.error){ showToast(result.error.message, "error"); return; }
+    if(result.error){
+        const m = result.error.message || "";
+        showToast(/column|schema cache/i.test(m) ? "Database is missing a proposals column. Run proposals_setup.sql. (" + m + ")" : m, "error");
+        return;
+    }
 
     if(!currentProposalId && result.data?.id){
         currentProposalId = result.data.id;
@@ -3012,7 +2919,7 @@ async function deleteProposal(id){
     "proposalScope","proposalDeliverables","proposalTimeline","proposalTerms",
     "proposalCurrency","proposalDiscount","proposalVat","proposalWht",
     "proposalPax","proposalPaxUnit","proposalFeePerPax","proposalFeeBasis",
-    "proposalSessions","proposalDiscountType","proposalPaymentDays"
+    "proposalSessions","proposalDiscountType","proposalPaymentDays","proposalIncludeProfile"
 ].forEach(id=>{
     const el = document.getElementById(id); if(!el) return;
     el.addEventListener("input", renderProposal);
@@ -3028,7 +2935,7 @@ async function deleteProposal(id){
 function resetProposal(){ openNewProposalModal(); }
 
 /* Make insertCompanyProfileSection globally available */
-window.insertCompanyProfileSection = insertCompanyProfileSection;
+
 
 
 /* =========================================================
