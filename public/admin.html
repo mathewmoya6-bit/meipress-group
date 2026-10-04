@@ -329,6 +329,10 @@ tr:hover td{background:#fbfdfc;}
             <span class="nav-icon">▱</span> Proposal Generator
         </button>
 
+        <button class="nav-item" data-view="reports">
+            <span class="nav-icon">📊</span> Reports
+        </button>
+
         <div class="nav-section">System</div>
         <button class="nav-item" data-view="settings">
             <span class="nav-icon">⚙</span> Settings
@@ -719,6 +723,7 @@ tr:hover td{background:#fbfdfc;}
         <div><h2>Invoice Generator</h2><p>Create and print professional MEI invoices.</p></div>
         <div class="actions">
             <button class="btn btn-secondary" onclick="resetInvoice()">New Invoice</button>
+            <button class="btn btn-dark" onclick="saveInvoice()">Save Invoice</button>
             <button class="btn btn-primary" onclick="printDocument()">Print Invoice</button>
         </div>
     </div>
@@ -1080,6 +1085,32 @@ tr:hover td{background:#fbfdfc;}
 </section>
 
 
+<!-- REPORTS -->
+<section class="view" id="view-reports">
+    <div class="section-head">
+        <div><h2>Reports</h2><p>Proposals, invoices and revenue by month and in total. Revenue counts invoices marked Paid.</p></div>
+        <div class="actions">
+            <select id="reportCurrency" style="width:auto;"></select>
+            <select id="reportYear" style="width:auto;"></select>
+            <button class="btn btn-dark" onclick="loadReports()">Refresh</button>
+        </div>
+    </div>
+    <div id="reportsError" class="small" style="color:#b42318;margin-bottom:12px;"></div>
+    <div class="section-head"><div><h2 style="font-size:16px;">This month</h2></div></div>
+    <div class="stats-grid" id="reportMonthCards"></div>
+    <div class="section-head"><div><h2 style="font-size:16px;">All time</h2></div></div>
+    <div class="stats-grid" id="reportTotalCards"></div>
+    <div class="section-head"><div><h2 style="font-size:16px;">Monthly breakdown</h2></div></div>
+    <div class="card" style="margin-bottom:24px;"><div class="table-wrap"><table>
+        <thead><tr><th>Month</th><th>Proposals</th><th>Proposal value</th><th>Accepted value</th><th>Invoices</th><th>Invoiced</th><th>Revenue (paid)</th><th>Outstanding</th></tr></thead>
+        <tbody id="reportMonthly"></tbody></table></div></div>
+    <div class="section-head"><div><h2 style="font-size:16px;">Saved invoices</h2><p>Change the status to Paid when payment is received.</p></div></div>
+    <div class="card"><div class="table-wrap"><table>
+        <thead><tr><th>Date</th><th>Invoice #</th><th>Customer</th><th>Total</th><th>Status</th><th>Actions</th></tr></thead>
+        <tbody id="reportInvoices"></tbody></table></div></div>
+</section>
+
+
 <!-- SETTINGS -->
 <section class="view" id="view-settings">
     <div class="section-head">
@@ -1365,7 +1396,7 @@ const pageTitles = {
     dashboard:"Dashboard", applications:"Applications", inquiries:"Inquiries",
     services:"Services", drivers:"Driver Recruitment", training:"Training",
     education:"Education", invoices:"Invoice Generator",
-    proposals:"Proposal Generator", settings:"Settings"
+    proposals:"Proposal Generator", reports:"Reports", settings:"Settings"
 };
 
 function switchView(view){
@@ -1388,6 +1419,7 @@ function switchView(view){
     if(view === "education")     loadEducationPrices();
     if(view === "invoices")      renderInvoice();
     if(view === "proposals")     loadProposals();
+    if(view === "reports")       loadReports();
 }
 
 document.querySelectorAll(".nav-item").forEach(btn=>{
@@ -2953,6 +2985,114 @@ function resetProposal(){ openNewProposalModal(); }
 /* Make insertCompanyProfileSection globally available */
 
 
+
+
+/* =========================================================
+   INVOICE SAVING + REPORTS
+========================================================= */
+let reportProposals = [], reportInvoices = [];
+
+async function saveInvoice(){
+    const val = id => document.getElementById(id).value.trim();
+    if(!val("invoiceCustomer")){ showToast("Customer name is required.","error"); return; }
+    const subtotal = invoiceItems.reduce((a,it)=>a + Number(it.qty||0) * Number(it.price||0), 0);
+    const vatRate = Number(val("invoiceVat") || 0), vat = subtotal * vatRate / 100;
+    const payload = {
+        invoice_number: val("invoiceNumber"), invoice_date: val("invoiceDate") || null, due_date: val("invoiceDueDate") || null,
+        customer_name: val("invoiceCustomer"), company: val("invoiceCompany"), phone: val("invoicePhone"),
+        email: val("invoiceEmail"), address: val("invoiceAddress"), currency: val("invoiceCurrency"),
+        items: invoiceItems, vat_rate: vatRate, subtotal, vat, total: subtotal + vat, notes: val("invoiceNotes")
+    };
+    const { error } = await supabaseClient.from("invoices").upsert(payload, { onConflict:"invoice_number" });
+    if(error){
+        showToast(/relation|does not exist|schema cache/i.test(error.message) ? "Run invoices_setup.sql in Supabase first. (" + error.message + ")" : error.message, "error");
+        return;
+    }
+    showToast("Invoice saved. It now counts in Reports.");
+}
+
+async function loadReports(){
+    const [p, i] = await Promise.all([
+        supabaseClient.from("proposals").select("id,proposal_number,client_name,status,currency,total,proposal_date,created_at"),
+        supabaseClient.from("invoices").select("*").order("created_at",{ascending:false})
+    ]);
+    const errs = [];
+    if(p.error) errs.push("Proposals: " + p.error.message);
+    if(i.error) errs.push("Invoices: " + i.error.message + " (run invoices_setup.sql)");
+    document.getElementById("reportsError").textContent = errs.join("  |  ");
+    reportProposals = p.data || [];
+    reportInvoices = i.data || [];
+    ["reportCurrency","reportYear"].forEach(id=>{
+        const el = document.getElementById(id);
+        if(!el.dataset.bound){ el.addEventListener("change", renderReports); el.dataset.bound = "1"; }
+    });
+    renderReports(true);
+}
+
+function renderReports(rebuild){
+    const cs = document.getElementById("reportCurrency"), ys = document.getElementById("reportYear");
+    const month = s => String(s || "").slice(0,7);
+    if(rebuild === true){
+        const curs = [...new Set([...reportProposals, ...reportInvoices].map(x=>x.currency || "KES").concat("KES"))];
+        const years = [...new Set([...reportProposals.map(x=>month(x.proposal_date || x.created_at).slice(0,4)),
+            ...reportInvoices.map(x=>month(x.invoice_date || x.created_at).slice(0,4)), todayISO().slice(0,4)].filter(Boolean))].sort().reverse();
+        const keepC = cs.value || "KES", keepY = ys.value || todayISO().slice(0,4);
+        cs.innerHTML = curs.map(c=>`<option ${c===keepC?"selected":""}>${c}</option>`).join("");
+        ys.innerHTML = years.map(y=>`<option ${y===keepY?"selected":""}>${y}</option>`).join("");
+    }
+    const cur = cs.value || "KES", year = ys.value || todayISO().slice(0,4);
+    const P = reportProposals.filter(x=>(x.currency || "KES") === cur);
+    const I = reportInvoices.filter(x=>(x.currency || "KES") === cur && x.status !== "cancelled");
+    const sum = a => a.reduce((t,x)=>t + Number(x.total || 0), 0);
+    const pm = x => month(x.proposal_date || x.created_at);
+    const im = x => month(x.invoice_date || x.created_at);
+    const rm = x => month(x.paid_at || x.invoice_date || x.created_at);
+    const calc = match => {
+        const pr = P.filter(x=>match(pm(x))), inv = I.filter(x=>match(im(x))), paid = I.filter(x=>x.status === "paid" && match(rm(x)));
+        return { pn:pr.length, pv:sum(pr), pa:sum(pr.filter(x=>x.status === "accepted")),
+                 inn:inv.length, iv:sum(inv), rev:sum(paid), out:sum(inv.filter(x=>x.status !== "paid")) };
+    };
+    const card = (label, value, sub) => `<div class="stat-card"><span class="stat-label">${label}</span>
+        <div class="stat-value" style="font-size:22px;">${value}</div><div class="small muted">${sub || ""}</div></div>`;
+    const cards = r => card("Proposals", r.pn, money(r.pv,cur) + " total value") +
+        card("Invoices", r.inn, money(r.iv,cur) + " invoiced") +
+        card("Revenue (paid)", money(r.rev,cur), "Accepted proposals: " + money(r.pa,cur)) +
+        card("Outstanding", money(r.out,cur), "Invoiced, not yet paid");
+    const nowKey = todayISO().slice(0,7);
+    document.getElementById("reportMonthCards").innerHTML = cards(calc(m=>m === nowKey));
+    document.getElementById("reportTotalCards").innerHTML = cards(calc(()=>true));
+
+    const names = ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"];
+    const line = (label, r, bold) => `<tr style="${bold ? "font-weight:800;background:#f8fafb;" : ""}"><td>${label}</td><td>${r.pn}</td><td>${money(r.pv,cur)}</td>
+        <td>${money(r.pa,cur)}</td><td>${r.inn}</td><td>${money(r.iv,cur)}</td><td>${money(r.rev,cur)}</td><td>${money(r.out,cur)}</td></tr>`;
+    document.getElementById("reportMonthly").innerHTML =
+        names.map((n,idx)=>{ const key = `${year}-${String(idx+1).padStart(2,"0")}`; return line(`${n} ${year}`, calc(m=>m === key), false); }).join("") +
+        line(`Total ${year}`, calc(m=>m.startsWith(year)), true);
+
+    document.getElementById("reportInvoices").innerHTML = reportInvoices.length ? reportInvoices.map(x=>`
+        <tr><td>${formatDate(x.invoice_date || x.created_at)}</td><td><strong>${escapeHtml(x.invoice_number)}</strong></td>
+        <td>${escapeHtml(x.customer_name || "")}<br><span class="small muted">${escapeHtml(x.company || "")}</span></td>
+        <td>${money(x.total, x.currency || "KES")}</td>
+        <td><select style="width:auto;padding:6px 8px;" onchange="setInvoiceStatus('${x.id}', this.value)">
+            ${["unpaid","paid","cancelled"].map(st=>`<option value="${st}" ${x.status === st ? "selected" : ""}>${st}</option>`).join("")}</select></td>
+        <td><button class="btn btn-danger btn-sm" onclick="deleteInvoice('${x.id}')">Delete</button></td></tr>`).join("")
+        : `<tr><td colspan="6" class="empty">No saved invoices yet. Use Save Invoice in the Invoice Generator.</td></tr>`;
+}
+
+async function setInvoiceStatus(id, status){
+    const { error } = await supabaseClient.from("invoices")
+        .update({ status, paid_at: status === "paid" ? todayISO() : null }).eq("id", id);
+    if(error){ showToast(error.message,"error"); return; }
+    showToast("Invoice marked " + status + ".");
+    loadReports();
+}
+async function deleteInvoice(id){
+    if(!confirm("Delete this saved invoice?")) return;
+    const { error } = await supabaseClient.from("invoices").delete().eq("id", id);
+    if(error){ showToast(error.message,"error"); return; }
+    showToast("Invoice deleted.");
+    loadReports();
+}
 
 /* =========================================================
    PRINT
