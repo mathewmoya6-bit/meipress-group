@@ -2520,7 +2520,7 @@ function autofillFromServices(){
         const pax = Number(el("proposalPax").value || 1), unit = el("proposalPaxUnit").value;
         proposalItems = allPgs.map(p=>{
             const sp = servicePrices.find(x=>x.programme_key === p.key);
-            return { description:p.name, pax, unit: sp?.unit || unit, fee:Number(sp?.price || 0), sessions:1 };
+            return { description:p.name + (sp?.duration ? ` (${sp.duration})` : ""), pax, unit: sp?.unit || unit, fee:Number(sp?.price || 0), sessions:1 };
         });
         window._autoItems = true;
         renderProposalItems();
