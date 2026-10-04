@@ -2085,9 +2085,10 @@ function renderInvoice(){
 
 /* =========================================================
    PROPOSAL GENERATOR  (Detailed Edition with PAX & Fees)
+   + INTEGRATED COMPANY PROFILE
 ========================================================= */
 
-/* -------- Service & Programme Catalogue -------- */
+/* -------- Service & Programme Catalogue (enhanced with company profile text) -------- */
 const SERVICE_CATALOGUE = {
     ED: {
         key:"ED", name:"International Education",
@@ -2143,6 +2144,51 @@ const SERVICE_CATALOGUE = {
         ]
     }
 };
+
+/* -------- COMPANY PROFILE DATA (from the provided profile) -------- */
+const COMPANY_PROFILE = {
+    about: `MEI Group is a Kenyan-based organization providing integrated services in international education, road safety training, occupational safety and health, and driver recruitment and placement. The organization is committed to helping individuals and institutions make better-informed decisions, develop practical capabilities and access opportunities that contribute to personal, professional and organizational growth. MEI Group operates at the intersection of education, skills development, safety and workforce solutions, enabling it to serve a diverse range of clients and stakeholders.`,
+
+    vision: `To become a trusted gateway to global education, professional skills, safer mobility and meaningful employment opportunities.`,
+
+    mission: `To empower individuals and organizations through accessible education, practical training, safety solutions and workforce opportunities that create sustainable personal and professional value.`,
+
+    approach: `MEI Group's approach is based on five principles: Practicality — We focus on knowledge and skills that can be applied in real-world situations. Professionalism — We maintain a professional approach in our engagements with clients, learners, employers and institutional partners. Safety — Safety is central to our training and mobility-related services. Opportunity — We seek to connect people with education, skills and employment opportunities that can improve their prospects. Partnership — We believe sustainable results are achieved through collaboration with institutions, employers, educators, communities and other stakeholders.`,
+
+    valueProposition: `MEI Group offers a multi-sector, integrated service model that combines education, training, safety and workforce solutions under one organization. Our value lies in our ability to: provide practical and relevant training; connect individuals to education and employment opportunities; support organizations in strengthening safety awareness; promote responsible road use and professional driving; develop partnerships that expand opportunities; and deliver solutions that are responsive to the needs of our clients and communities.`,
+
+    targetClients: `MEI Group serves a broad range of clients and stakeholders, including: Students and prospective international students, Parents and families, Schools and educational institutions, Corporates and private organizations, Transport companies and fleet operators, Drivers and other professionals, Employers seeking qualified drivers, Public and private institutions, Workplace safety teams, Training and education partners, Community organizations.`,
+
+    strategicDirection: `MEI Group is committed to expanding its partnerships, strengthening its training programmes, increasing access to international education opportunities and developing professional workforce solutions that respond to changing market needs. We seek to work with government institutions, private-sector organizations, schools, universities, employers, transport operators, development partners, training institutions and other stakeholders to deliver programmes that create measurable value.`,
+
+    positioning: `MEI Group positions itself as a practical solutions partner for education, safety, skills development and workforce opportunities. Our philosophy is simple: Build skills. Promote safety. Create opportunities. Through this approach, MEI Group seeks to contribute to better-prepared individuals, safer workplaces and roads, stronger organizations and improved access to education and employment opportunities.`
+};
+
+/* -------- Helper: insert company profile block into proposal content -------- */
+function insertCompanyProfileSection() {
+    const summary = document.getElementById("proposalSummary");
+    const scope = document.getElementById("proposalScope");
+    const objectives = document.getElementById("proposalObjectives");
+    const terms = document.getElementById("proposalTerms");
+    if (!summary || !scope) return;
+
+    // Append profile to summary if not already present
+    if (!summary.value.includes("MEI Group is a Kenyan-based organization")) {
+        summary.value = COMPANY_PROFILE.about + "\n\n" + (summary.value || "");
+    }
+    if (!scope.value.includes("BUILD SKILLS")) {
+        scope.value = "BUILD SKILLS. PROMOTE SAFETY. CREATE OPPORTUNITIES.\n\n" + (scope.value || "");
+    }
+    if (objectives && !objectives.value.includes("Vision")) {
+        objectives.value = "Vision: " + COMPANY_PROFILE.vision + "\n\nMission: " + COMPANY_PROFILE.mission + "\n\n" + (objectives.value || "");
+    }
+    if (terms && !terms.value.includes("Our Approach")) {
+        terms.value = "Our Approach: " + COMPANY_PROFILE.approach + "\n\n" + (terms.value || "");
+    }
+    // Force render
+    renderProposal();
+    showToast("Company profile inserted into proposal content.");
+}
 
 /* -------- Numbering -------- */
 function nextProposalNumber(){
@@ -2405,19 +2451,28 @@ function renderProposalServicesSummary(){
     }).join("");
 }
 
-/* -------- Auto-fill content from services -------- */
+/* -------- Auto-fill content from services (enhanced with company profile) -------- */
 function autofillFromServices(){
     const summary = document.getElementById("proposalSummary");
     const scope = document.getElementById("proposalScope");
     const deliverables = document.getElementById("proposalDeliverables");
     const requirements = document.getElementById("proposalRequirements");
+    const objectives = document.getElementById("proposalObjectives");
 
-    if(summary && !summary.value.trim()){
-        summary.value =
-`MEI Group is pleased to submit this proposal to deliver the selected services. Our approach combines practical, industry-aligned training and hands-on support with measurable outcomes tailored to your organisation.`;
+    // Executive Summary — use company profile "about" if empty, otherwise append
+    if(summary){
+        if(!summary.value.trim()){
+            summary.value = COMPANY_PROFILE.about;
+        } else if (!summary.value.includes("MEI Group is a Kenyan-based organization")) {
+            summary.value = COMPANY_PROFILE.about + "\n\n" + summary.value;
+        }
     }
+
+    // Scope — build from selected services with company positioning
     if(scope && !scope.value.trim()){
         const blocks = [];
+        blocks.push("BUILD SKILLS. PROMOTE SAFETY. CREATE OPPORTUNITIES.\n");
+        blocks.push(COMPANY_PROFILE.positioning + "\n");
         proposalServices.forEach(s=>{
             const cat = SERVICE_CATALOGUE[s.key]; if(!cat) return;
             blocks.push(`${cat.name.toUpperCase()}`);
@@ -2429,6 +2484,8 @@ function autofillFromServices(){
         });
         scope.value = blocks.join("\n").trim();
     }
+
+    // Deliverables — list of programmes
     if(deliverables && !deliverables.value.trim()){
         const list = [];
         proposalServices.forEach(s=>{
@@ -2440,6 +2497,8 @@ function autofillFromServices(){
         });
         deliverables.value = list.length ? `MEI Group will deliver:\n${list.join("\n")}` : "";
     }
+
+    // Client Requirements — list of programme names
     if(requirements && !requirements.value.trim()){
         const reqs = [];
         proposalServices.forEach(s=>{
@@ -2451,6 +2510,12 @@ function autofillFromServices(){
         });
         requirements.value = reqs.join("\n");
     }
+
+    // Objectives — insert vision and mission
+    if(objectives && !objectives.value.trim()){
+        objectives.value = `Vision: ${COMPANY_PROFILE.vision}\n\nMission: ${COMPANY_PROFILE.mission}`;
+    }
+
     const titleEl = document.getElementById("proposalTitle");
     if(titleEl && proposalServices.length > 1){
         const names = proposalServices.map(s=>SERVICE_CATALOGUE[s.key]?.name).filter(Boolean);
@@ -2540,7 +2605,6 @@ function applyGlobalPaxAndFee(){
         pax: pax,
         unit: unit,
         fee: fee,
-        // store session multiplier for this item (kept on the row for totals)
         sessions: sessions
     }));
     renderProposalItems();
@@ -2575,7 +2639,6 @@ function applyFeePreset(val){
     const fee  = Number(src.price || 0);
     const curr = src.currency || "KES";
     if(curr !== document.getElementById("proposalCurrency").value){
-        // keep currency consistent for the doc
         document.getElementById("proposalCurrency").value = curr;
     }
 
@@ -2637,7 +2700,6 @@ function amountInWords(amount, currency){
 
 /* -------- Compute totals -------- */
 function computeProposalTotals(){
-    // Each item: pax × fee × sessions (defaults 1)
     const subtotal = proposalItems.reduce((s,it)=>{
         const pax = Number(it.pax||0);
         const fee = Number(it.fee||0);
@@ -2676,7 +2738,7 @@ function renderProposalTotalsMini(){
     `;
 }
 
-/* -------- Render preview -------- */
+/* -------- Render preview (enhanced with company profile) -------- */
 function renderProposal(){
     const preview = document.getElementById("proposalPreview"); if(!preview) return;
 
@@ -2710,7 +2772,6 @@ function renderProposal(){
         </tr>`;
     }).join("") || `<tr><td colspan="5" class="empty">No items yet.</td></tr>`;
 
-    // Participants summary block
     const pax = Number(v("proposalPax") || 0);
     const paxUnit = v("proposalPaxUnit");
     const feePerPax = Number(v("proposalFeePerPax") || 0);
@@ -2727,6 +2788,40 @@ function renderProposal(){
                 <strong>Sessions / Days:</strong> ${sessions}
             </div>
         </div>` : "";
+
+    // Company profile block for preview
+    const companyProfileBlock = `
+        <div class="proposal-section" style="margin-top:22px;border-top:2px solid var(--mei-green-light);padding-top:16px;">
+            <h3 style="font-size:13px;margin-bottom:10px;color:var(--mei-navy);">ABOUT MEI GROUP</h3>
+            <div style="font-size:11px;line-height:1.7;color:#333;">
+                ${escapeHtml(COMPANY_PROFILE.about)}
+            </div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:14px;font-size:11px;line-height:1.7;">
+                <div>
+                    <strong style="color:var(--mei-navy);">Vision</strong><br>
+                    ${escapeHtml(COMPANY_PROFILE.vision)}
+                </div>
+                <div>
+                    <strong style="color:var(--mei-navy);">Mission</strong><br>
+                    ${escapeHtml(COMPANY_PROFILE.mission)}
+                </div>
+            </div>
+            <div style="margin-top:14px;font-size:11px;line-height:1.7;">
+                <strong style="color:var(--mei-navy);">Our Approach</strong><br>
+                ${escapeHtml(COMPANY_PROFILE.approach)}
+            </div>
+            <div style="margin-top:14px;font-size:11px;line-height:1.7;">
+                <strong style="color:var(--mei-navy);">Value Proposition</strong><br>
+                ${escapeHtml(COMPANY_PROFILE.valueProposition)}
+            </div>
+            <div style="margin-top:14px;font-size:11px;line-height:1.7;">
+                <strong style="color:var(--mei-navy);">Strategic Direction</strong><br>
+                ${escapeHtml(COMPANY_PROFILE.strategicDirection)}
+            </div>
+            <div style="margin-top:14px;font-size:11px;line-height:1.7;padding-top:10px;border-top:1px dashed var(--border);">
+                <strong style="color:var(--mei-green-dark);">BUILD SKILLS. PROMOTE SAFETY. CREATE OPPORTUNITIES.</strong>
+            </div>
+        </div>`;
 
     preview.innerHTML = `
         <div class="document-header">
@@ -2805,6 +2900,8 @@ function renderProposal(){
         </div>
 
         ${section("8. Terms & Conditions", v("proposalTerms"))}
+
+        ${companyProfileBlock}
 
         <div class="proposal-section" style="margin-top:25px;">
             <h3 style="font-size:14px;margin-bottom:12px;">9. Acceptance</h3>
@@ -2929,6 +3026,9 @@ async function deleteProposal(id){
 
 /* Legacy shim */
 function resetProposal(){ openNewProposalModal(); }
+
+/* Make insertCompanyProfileSection globally available */
+window.insertCompanyProfileSection = insertCompanyProfileSection;
 
 
 /* =========================================================
