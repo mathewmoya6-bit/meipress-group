@@ -943,6 +943,7 @@ tr:hover td{background:#fbfdfc;}
                                 <option>Persons</option>
                                 <option>Drivers</option>
                                 <option>Students</option>
+                                <option>Pupils</option>
                                 <option>Employees</option>
                                 <option>Companies</option>
                                 <option>Groups</option>
@@ -1047,6 +1048,7 @@ tr:hover td{background:#fbfdfc;}
                 <div class="fee-preset-bar">
                     <select id="proposalFeePreset" onchange="applyFeePreset(this.value)">
                         <option value="">— Load a fee preset —</option>
+                        <optgroup label="Service Prices" id="feePresetServices"></optgroup>
                         <optgroup label="Education Prices" id="feePresetEducation"></optgroup>
                         <optgroup label="Training Sessions" id="feePresetTraining"></optgroup>
                     </select>
@@ -1307,6 +1309,7 @@ let currentProposalId = null;
 let proposalServices = [];
 let proposalItems = [];
 let proposalClientCache = [];
+let servicePrices = [];
 
 
 /* =========================================================
@@ -2513,9 +2516,13 @@ function autofillFromServices(){
     
 
     // one fee row per programme when the table is still empty
-    if(proposalItems.every(it => !Number(it.fee))){
+    if(window._autoItems || proposalItems.every(it => !Number(it.fee))){
         const pax = Number(el("proposalPax").value || 1), unit = el("proposalPaxUnit").value;
-        proposalItems = allPgs.map(p=>({ description:p.name, pax, unit, fee:0, sessions:1 }));
+        proposalItems = allPgs.map(p=>{
+            const sp = servicePrices.find(x=>x.programme_key === p.key);
+            return { description:p.name, pax, unit: sp?.unit || unit, fee:Number(sp?.price || 0), sessions:1 };
+        });
+        window._autoItems = true;
         renderProposalItems();
     }
 }
@@ -2567,6 +2574,7 @@ function removeProposalItem(i){
     renderProposal();
 }
 function updateProposalItem(i, field, value){
+    window._autoItems = false;
     if(field==="description" || field==="unit") proposalItems[i][field] = value;
     else proposalItems[i][field] = Number(value||0);
     renderProposal();
@@ -2609,15 +2617,25 @@ function applyGlobalPaxAndFee(){
 }
 
 /* -------- Fee presets from DB -------- */
+async function loadServicePrices(){
+    const { data, error } = await supabaseClient.from("service_prices").select("*")
+        .eq("active", true).order("display_order", { ascending:true });
+    servicePrices = error ? [] : (data || []);
+    if(error) console.warn("service_prices not available:", error.message);
+    populateFeePresets();
+}
+
 function populateFeePresets(){
+    const svc = document.getElementById("feePresetServices");
     const eduGroup = document.getElementById("feePresetEducation");
     const trnGroup = document.getElementById("feePresetTraining");
-    if(!eduGroup || !trnGroup) return;
-
+    if(!svc || !eduGroup || !trnGroup) return;
+    svc.innerHTML = servicePrices.map(p=>`
+        <option value="svc:${p.id}">${escapeHtml(p.item_name)} — ${money(p.price, p.currency||"KES")}</option>
+    `).join("") || `<option disabled>Run service_prices.sql to add prices</option>`;
     eduGroup.innerHTML = (educationPrices||[]).map(p=>`
         <option value="edu:${p.id}">${escapeHtml(p.item_name)} — ${money(p.price, p.currency)}</option>
     `).join("") || `<option disabled>No education prices</option>`;
-
     trnGroup.innerHTML = (trainingSessions||[]).map(s=>`
         <option value="trn:${s.id}">${escapeHtml(s.session_title)} — ${money(s.price, s.currency||"KES")}</option>
     `).join("") || `<option disabled>No training sessions</option>`;
@@ -2626,24 +2644,21 @@ function populateFeePresets(){
 function applyFeePreset(val){
     if(!val) return;
     const [type, id] = val.split(":");
-    let src = null;
-    if(type === "edu") src = educationPrices.find(x=>String(x.id)===String(id));
-    if(type === "trn") src = trainingSessions.find(x=>String(x.id)===String(id));
+    const src = type === "svc" ? servicePrices.find(x=>String(x.id)===String(id))
+              : type === "edu" ? educationPrices.find(x=>String(x.id)===String(id))
+              : type === "trn" ? trainingSessions.find(x=>String(x.id)===String(id)) : null;
     if(!src) return;
-
-    const desc = src.item_name || src.session_title || "Service";
-    const fee  = Number(src.price || 0);
+    window._autoItems = false;
     const curr = src.currency || "KES";
-    if(curr !== document.getElementById("proposalCurrency").value){
-        document.getElementById("proposalCurrency").value = curr;
-    }
-
-    proposalItems.push({
-        description: desc,
+    document.getElementById("proposalCurrency").value = curr;
+    const item = {
+        description: src.item_name || src.session_title || "Service",
         pax: Number(document.getElementById("proposalPax").value || 1),
-        unit: document.getElementById("proposalPaxUnit").value || "Persons",
-        fee: fee
-    });
+        unit: src.unit || document.getElementById("proposalPaxUnit").value || "Persons",
+        fee: Number(src.price || 0), sessions: 1
+    };
+    if(proposalItems.length === 1 && !proposalItems[0].description && !Number(proposalItems[0].fee)) proposalItems = [item];
+    else proposalItems.push(item);
     renderProposalItems();
     renderProposal();
     document.getElementById("proposalFeePreset").value = "";
@@ -2976,7 +2991,7 @@ async function initialize(){
     await loadDrivers();
     await loadTraining();
     await loadEducationPrices();
-    populateFeePresets();
+    await loadServicePrices();
     await loadProposals();
 }
 
